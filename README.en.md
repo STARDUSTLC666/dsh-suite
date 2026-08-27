@@ -4,7 +4,7 @@
 
 > **The STARDUSTLC plugin suite**: 18 DSH plugins, one command.
 
-Bundles four product lines — office flow, media studio, DevOps, and dream-based memory — into your DeepSeek Harness at once. Every row in the combined patch keeps the component's own defaults.
+Bundles five product lines — office flow (with dream-based memory), media studio, DevOps, messaging and presets — into your DeepSeek Harness at once. Every row in the combined patch keeps the component's own defaults.
 
 ## Compatibility
 

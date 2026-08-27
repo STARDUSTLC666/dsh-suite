@@ -6,7 +6,7 @@
 
 ![license](https://img.shields.io/npm/l/dsh-suite) ![stars](https://img.shields.io/github/stars/STARDUSTLC666/dsh-suite?style=social)
 
-把办公流、媒体工坊、DevOps、记忆（做梦）四条产品线一次装进你的 DeepSeek Harness。本仓库提供组合补丁（18 行默认配置，与组件自带 `cordis.patch.yml` 一致）；组件本身经上方一条命令直装。
+把办公流（含做梦记忆）、媒体工坊、DevOps、通知与预设五条产品线一次装进你的 DeepSeek Harness。本仓库提供组合补丁（18 行默认配置，与组件自带 `cordis.patch.yml` 一致）；组件本身经上方一条命令直装。
 
 ## 兼容性
 
@@ -32,7 +32,7 @@ dsh plugin --profile web remove dsh-suite
 
 | 产品线 | 组件 | 能力 |
 | :-- | :-- | :-- |
-| 📨 办公流 | dsh-email | IMAP/SMTP 收发/搜索/附件，八大服务商预设，发信审批门 |
+| 📨 办公流 | dsh-email | IMAP/SMTP 收发/搜索/附件（since/until 日期过滤），八大服务商预设，发信审批门 |
 | | dsh-calendar | CalDAV 日程查建改删搜（Google/iCloud/Nextcloud） |
 | | dsh-rss | RSS/Atom 订阅 + 跨订阅搜索 + 增量抓取 |
 | | dsh-cite | Crossref 文献检索 + 四种引文格式 + BibTeX |
@@ -42,7 +42,7 @@ dsh plugin --profile web remove dsh-suite
 | | dsh-ppt | 一句话生成 HTML 放映 + PPTX 导出 |
 | | dsh-hyperframes | HyperFrames by HeyGen 视频五件套技能 |
 | | dsh-remotion | Remotion React 编程式视频技能 |
-| 🔧 DevOps | dsh-docker | 容器五工具 + exec 审批门（@stardustlc/dsh-docker） |
+| 🔧 DevOps | dsh-docker | 容器七工具（含 health 自检）+ exec 审批门（@stardustlc/dsh-docker） |
 | | dsh-sql | SQLite/MySQL/PostgreSQL + 只读保护 + 审批门 + 统计/CSV |
 | | dsh-flakefinder | flaky 测试识别 + 隔离清单 |
 | | dsh-code-security | 40+ 规则代码安全审查 + SARIF |
