@@ -26,10 +26,26 @@ Restart the web service afterwards. Prefer a single component? Install its own r
 
 ## What's inside (18)
 
-Office: dsh-email, dsh-calendar, dsh-rss, dsh-cite, dsh-dream.
-Media: dsh-ffmpeg, dsh-voice, dsh-ppt, dsh-hyperframes, dsh-remotion.
-DevOps: @stardustlc/dsh-docker, dsh-sql, dsh-flakefinder, dsh-code-security, dsh-codex-port.
-Messaging & presets: dsh-dingtalk, dsh-slack, dsh-minimal-ptc.
+| Line | Component | Capability |
+| :-- | :-- | :-- |
+| Office | dsh-email | IMAP/SMTP list/read/search/send/folders/attachments with since/until filters, eight provider presets, send-approval gate |
+| | dsh-calendar | CalDAV list/create/update/delete/search (Google/iCloud/Nextcloud/custom) |
+| | dsh-rss | RSS/Atom subscriptions + cross-feed search + incremental fetch |
+| | dsh-cite | Crossref lookup + four citation styles + BibTeX |
+| | dsh-dream | Session replay → reflection → dream journal → AGENTS.md bridge (privacy masking) |
+| Media | dsh-ffmpeg | probe/cut/concat/encode/subtitle/batch frames/GIF |
+| | dsh-voice | edge-tts synthesis + ASR transcription + voice preview |
+| | dsh-ppt | One prompt to HTML slideshow + PPTX export |
+| | dsh-hyperframes | HyperFrames by HeyGen five-skill bundle |
+| | dsh-remotion | Remotion programmatic-video skill |
+| DevOps | @stardustlc/dsh-docker | Seven container tools (incl. health) + exec approval gate |
+| | dsh-sql | SQLite/MySQL/PostgreSQL + read-only guard + approval gate + stats/CSV |
+| | dsh-flakefinder | Flaky-test detection + quarantine manifest |
+| | dsh-code-security | 40+ rule deterministic security review + SARIF |
+| | dsh-codex-port | Batch-port official Codex plugins into DSH skills |
+| Messaging | dsh-dingtalk | DingTalk group robot (HMAC signing) |
+| | dsh-slack | Two-way Slack over Socket Mode |
+| Presets | dsh-minimal-ptc | Minimal-PTC agent preset |
 
 Every component ships a `*_health` self-check tool — run them after install.
 
