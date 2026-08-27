@@ -1,0 +1,65 @@
+{
+  "name": "dsh-suite",
+  "version": "0.1.0",
+  "description": "STARDUSTLC 插件全家桶：一条命令装入 18 个 DSH 插件（办公流/媒体工坊/DevOps/做梦），各组件默认配置与自带补丁一致，按需覆盖。",
+  "type": "module",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "files": [
+    "cordis.patch.yml",
+    "README.md",
+    "README.en.md"
+  ],
+  "scripts": {
+    "test": "node --test \"test/*.test.mjs\""
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "plugin",
+    "dsh-plugin",
+    "bundle",
+    "suite",
+    "toolkit"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "dependencies": {
+    "dsh-calendar": "github:STARDUSTLC666/dsh-calendar",
+    "dsh-cite": "github:STARDUSTLC666/dsh-cite",
+    "dsh-code-security": "github:STARDUSTLC666/dsh-code-security",
+    "dsh-codex-port": "github:STARDUSTLC666/dsh-codex-port",
+    "dsh-dingtalk": "github:STARDUSTLC666/dsh-dingtalk",
+    "@stardustlc/dsh-docker": "github:STARDUSTLC666/dsh-docker",
+    "dsh-dream": "github:STARDUSTLC666/dsh-dream",
+    "dsh-email": "github:STARDUSTLC666/dsh-email",
+    "dsh-ffmpeg": "github:STARDUSTLC666/dsh-ffmpeg",
+    "dsh-flakefinder": "github:STARDUSTLC666/dsh-flakefinder",
+    "dsh-hyperframes": "github:STARDUSTLC666/dsh-hyperframes",
+    "dsh-minimal-ptc": "github:STARDUSTLC666/dsh-minimal-ptc",
+    "dsh-ppt": "github:STARDUSTLC666/dsh-ppt",
+    "dsh-remotion": "github:STARDUSTLC666/dsh-remotion",
+    "dsh-rss": "github:STARDUSTLC666/dsh-rss",
+    "dsh-slack": "github:STARDUSTLC666/dsh-slack",
+    "dsh-sql": "github:STARDUSTLC666/dsh-sql",
+    "dsh-voice": "github:STARDUSTLC666/dsh-voice"
+  },
+  "devDependencies": {
+    "js-yaml": "^4.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/STARDUSTLC666/dsh-suite.git"
+  },
+  "bugs": {
+    "url": "https://github.com/STARDUSTLC666/dsh-suite/issues"
+  },
+  "homepage": "https://github.com/STARDUSTLC666/dsh-suite#readme",
+  "author": "stardustlc",
+  "packageManager": "pnpm@11.7.0"
+}
