@@ -25,12 +25,16 @@ test('组合补丁恰好包含 18 个组件且 id 唯一', () => {
   }
 })
 
-test('组合补丁的 name 与 package.json 依赖一一对应', () => {
+test('组合补丁的 name 与 18 个组件包名一一对应', () => {
   const doc = yamlLoad(readFileSync(join(root, 'cordis.patch.yml'), 'utf8'))
-  const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'))
-  const depNames = Object.keys(pkg.dependencies)
+  const known = [
+    'dsh-calendar', 'dsh-cite', 'dsh-code-security', 'dsh-codex-port', 'dsh-dingtalk',
+    '@stardustlc/dsh-docker', 'dsh-dream', 'dsh-email', 'dsh-ffmpeg', 'dsh-flakefinder',
+    'dsh-hyperframes', 'dsh-minimal-ptc', 'dsh-ppt', 'dsh-remotion', 'dsh-rss',
+    'dsh-slack', 'dsh-sql', 'dsh-voice',
+  ]
   const patchNames = doc[0].insert.map((e) => e.name)
-  assert.deepEqual([...patchNames].sort(), [...depNames].sort())
+  assert.deepEqual([...patchNames].sort(), [...known].sort())
 })
 
 test('package.json 元数据：许可证/关键词/入口', () => {

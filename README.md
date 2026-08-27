@@ -6,7 +6,7 @@
 
 ![license](https://img.shields.io/npm/l/dsh-suite) ![stars](https://img.shields.io/github/stars/STARDUSTLC666/dsh-suite?style=social)
 
-把办公流、媒体工坊、DevOps、记忆（做梦）四条产品线一次装进你的 DeepSeek Harness。组合补丁中每行的默认配置与组件自带 `cordis.patch.yml` 完全一致，装完即可按需覆盖。
+把办公流、媒体工坊、DevOps、记忆（做梦）四条产品线一次装进你的 DeepSeek Harness。本仓库提供组合补丁（18 行默认配置，与组件自带 `cordis.patch.yml` 一致）；组件本身经上方一条命令直装。
 
 ## 兼容性
 
@@ -14,11 +14,13 @@
 
 ## 安装
 
+一条命令（套件 + 18 个组件一起装，pnpm 不允许 git 子依赖，所以组件必须作为直接依赖）：
+
 ```bash
-dsh plugin --profile web add github:STARDUSTLC666/dsh-suite
+dsh plugin --profile web add github:STARDUSTLC666/dsh-suite github:STARDUSTLC666/dsh-calendar github:STARDUSTLC666/dsh-cite github:STARDUSTLC666/dsh-code-security github:STARDUSTLC666/dsh-codex-port github:STARDUSTLC666/dsh-dingtalk github:STARDUSTLC666/dsh-docker github:STARDUSTLC666/dsh-dream github:STARDUSTLC666/dsh-email github:STARDUSTLC666/dsh-ffmpeg github:STARDUSTLC666/dsh-flakefinder github:STARDUSTLC666/dsh-hyperframes github:STARDUSTLC666/dsh-minimal-ptc github:STARDUSTLC666/dsh-ppt github:STARDUSTLC666/dsh-remotion github:STARDUSTLC666/dsh-rss github:STARDUSTLC666/dsh-slack github:STARDUSTLC666/dsh-sql github:STARDUSTLC666/dsh-voice
 ```
 
-安装后重启 Web 服务。想单独装某个组件时，直接装对应仓库即可（如 `github:STARDUSTLC666/dsh-rss`）。
+安装后重启 Web 服务。只想装个别组件？直接装对应仓库即可（如 `github:STARDUSTLC666/dsh-rss`），不需要本套件。
 
 ## 卸载
 

@@ -12,12 +12,17 @@ Verified on `@deepseek-ai/dsh@0.1.1-rc.2` (2026-08-27): all 18 components booted
 
 ## Install / Uninstall
 
+One command (suite + all 18 components; pnpm forbids git subdependencies, so components must be direct deps):
+
 ```bash
-dsh plugin --profile web add github:STARDUSTLC666/dsh-suite
+dsh plugin --profile web add github:STARDUSTLC666/dsh-suite github:STARDUSTLC666/dsh-calendar github:STARDUSTLC666/dsh-cite github:STARDUSTLC666/dsh-code-security github:STARDUSTLC666/dsh-codex-port github:STARDUSTLC666/dsh-dingtalk github:STARDUSTLC666/dsh-docker github:STARDUSTLC666/dsh-dream github:STARDUSTLC666/dsh-email github:STARDUSTLC666/dsh-ffmpeg github:STARDUSTLC666/dsh-flakefinder github:STARDUSTLC666/dsh-hyperframes github:STARDUSTLC666/dsh-minimal-ptc github:STARDUSTLC666/dsh-ppt github:STARDUSTLC666/dsh-remotion github:STARDUSTLC666/dsh-rss github:STARDUSTLC666/dsh-slack github:STARDUSTLC666/dsh-sql github:STARDUSTLC666/dsh-voice
+```
+
+```bash
 dsh plugin --profile web remove dsh-suite
 ```
 
-Restart the web service afterwards. Prefer a single component? Install its own repo directly.
+Restart the web service afterwards. Prefer a single component? Install its own repo directly without this suite.
 
 ## What's inside (18)
 
