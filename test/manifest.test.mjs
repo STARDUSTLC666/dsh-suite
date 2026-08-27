@@ -49,3 +49,30 @@ test('README 双语文档齐备', () => {
   assert.ok(existsSync(join(root, 'README.md')))
   assert.ok(existsSync(join(root, 'README.en.md')))
 })
+
+test('组合补丁条目字段受约束（防注释/字段混入）', () => {
+  const doc = yamlLoad(readFileSync(join(root, 'cordis.patch.yml'), 'utf8'))
+  const allowed = new Set(['id', 'name', 'config', 'disabled'])
+  for (const entry of doc[0].insert) {
+    for (const key of Object.keys(entry)) {
+      assert.ok(allowed.has(key), `补丁条目出现未知字段：${key}`)
+    }
+    if (entry.config !== undefined) {
+      assert.ok(typeof entry.config === 'object' && !Array.isArray(entry.config) && entry.config !== null, `${entry.id} 的 config 必须是对象`)
+    }
+  }
+})
+
+test('README 一键安装命令与 18 个组件仓库完全一致', () => {
+  const readme = readFileSync(join(root, 'README.md'), 'utf8')
+  const match = readme.match(/dsh plugin --profile web add ([^\n]+)/)
+  assert.ok(match, 'README 应包含一键安装命令')
+  const targets = match[1].trim().split(/\s+/)
+  const expected = [
+    'dsh-suite', 'dsh-calendar', 'dsh-cite', 'dsh-code-security', 'dsh-codex-port',
+    'dsh-dingtalk', 'dsh-docker', 'dsh-dream', 'dsh-email', 'dsh-ffmpeg',
+    'dsh-flakefinder', 'dsh-hyperframes', 'dsh-minimal-ptc', 'dsh-ppt', 'dsh-remotion',
+    'dsh-rss', 'dsh-slack', 'dsh-sql', 'dsh-voice',
+  ].map((repo) => `github:STARDUSTLC666/${repo}`)
+  assert.deepEqual(targets, expected, '安装命令的目标列表与组件清单不一致')
+})
