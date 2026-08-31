@@ -14,6 +14,12 @@
 
 ## 安装
 
+套件本体可走 npm（预构建，免 build 授权）：
+
+```bash
+dsh plugin --profile web add @stardustlc/dsh-suite
+```
+
 一条命令（套件 + 18 个组件一起装，pnpm 不允许 git 子依赖，所以组件必须作为直接依赖）：
 
 ```bash
@@ -25,7 +31,7 @@ dsh plugin --profile web add github:STARDUSTLC666/dsh-suite github:STARDUSTLC666
 ## 卸载
 
 ```bash
-dsh plugin --profile web remove dsh-suite
+dsh plugin --profile web remove @stardustlc/dsh-suite
 ```
 
 ## 桶内 18 件

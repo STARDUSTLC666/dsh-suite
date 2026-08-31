@@ -39,7 +39,7 @@ test('组合补丁的 name 与 18 个组件包名一一对应', () => {
 
 test('package.json 元数据：许可证/关键词/入口', () => {
   const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'))
-  assert.equal(pkg.name, 'dsh-suite')
+  assert.equal(pkg.name, '@stardustlc/dsh-suite')
   assert.equal(pkg.license, 'MIT')
   assert.ok(pkg.keywords.includes('dsh-plugin'))
   assert.equal(pkg.dsh.bundle.patch, './cordis.patch.yml')

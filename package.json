@@ -1,5 +1,5 @@
 {
-  "name": "dsh-suite",
+  "name": "@stardustlc/dsh-suite",
   "version": "0.1.0",
   "description": "STARDUSTLC 插件全家桶·组合补丁：与 18 个组件插件配套，一条命令统一注入默认配置（办公流/媒体工坊/DevOps/通知/预设）。组件经一行 add 命令直装（pnpm 不允许 git 子依赖）。",
   "type": "module",
@@ -26,6 +26,9 @@
     "toolkit"
   ],
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "engines": {
     "node": ">=22.13"
   },

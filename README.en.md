@@ -12,6 +12,12 @@ Verified on `@deepseek-ai/dsh@0.1.2-alpha.2` (2026-08-31): all 18 components boo
 
 ## Install / Uninstall
 
+The suite itself is on npm (prebuilt, no build approval needed):
+
+```bash
+dsh plugin --profile web add @stardustlc/dsh-suite
+```
+
 One command (suite + all 18 components; pnpm forbids git subdependencies, so components must be direct deps):
 
 ```bash
@@ -19,7 +25,7 @@ dsh plugin --profile web add github:STARDUSTLC666/dsh-suite github:STARDUSTLC666
 ```
 
 ```bash
-dsh plugin --profile web remove dsh-suite
+dsh plugin --profile web remove @stardustlc/dsh-suite
 ```
 
 Restart the web service afterwards. Prefer a single component? Install its own repo directly without this suite.
