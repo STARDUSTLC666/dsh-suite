@@ -1,5 +1,7 @@
 [简体中文](README.md)
 
+![npm](https://img.shields.io/npm/v/@stardustlc/dsh-suite) ![downloads](https://img.shields.io/npm/dm/@stardustlc/dsh-suite) ![license](https://img.shields.io/github/license/STARDUSTLC666/dsh-suite) ![stars](https://img.shields.io/github/stars/STARDUSTLC666/dsh-suite?style=social)
+
 # dsh-suite
 
 > **The STARDUSTLC plugin suite**: 18 DSH plugins, one command.

@@ -4,7 +4,7 @@
 
 > **STARDUSTLC 插件全家桶**：一条命令，装入 18 个 DSH 插件。
 
-![npm](https://img.shields.io/npm/v/@stardustlc/dsh-suite) ![downloads](https://img.shields.io/npm/dm/@stardustlc/dsh-suite) &(https://img.shields.io/github/license/STARDUSTLC666/dsh-suite) ![stars](https://img.shields.io/github/stars/STARDUSTLC666/dsh-suite?style=social)
+![npm](https://img.shields.io/npm/v/@stardustlc/dsh-suite) ![downloads](https://img.shields.io/npm/dm/@stardustlc/dsh-suite) ![license](https://img.shields.io/github/license/STARDUSTLC666/dsh-suite) ![stars](https://img.shields.io/github/stars/STARDUSTLC666/dsh-suite?style=social)
 
 把办公流（含做梦记忆）、媒体工坊、DevOps、通知与预设五条产品线一次装进你的 DeepSeek Harness。本仓库提供组合补丁（18 行默认配置，与组件自带 `cordis.patch.yml` 一致）；组件本身经上方一条命令直装。
 
