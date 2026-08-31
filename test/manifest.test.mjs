@@ -65,7 +65,7 @@ test('组合补丁条目字段受约束（防注释/字段混入）', () => {
 
 test('README 一键安装命令与 18 个组件仓库完全一致', () => {
   const readme = readFileSync(join(root, 'README.md'), 'utf8')
-  const match = readme.match(/dsh plugin --profile web add ([^\n]+)/)
+  const match = readme.match(/dsh plugin --profile web add (github:[^\n]+)/)
   assert.ok(match, 'README 应包含一键安装命令')
   const targets = match[1].trim().split(/\s+/)
   const expected = [
