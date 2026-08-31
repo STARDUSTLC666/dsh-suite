@@ -29,7 +29,7 @@ test('组合补丁的 name 与 18 个组件包名一一对应', () => {
   const doc = yamlLoad(readFileSync(join(root, 'cordis.patch.yml'), 'utf8'))
   const known = [
     'dsh-calendar', 'dsh-cite', 'dsh-code-security', 'dsh-codex-port', 'dsh-dingtalk',
-    '@stardustlc/dsh-docker', 'dsh-dream', 'dsh-email', 'dsh-ffmpeg', 'dsh-flakefinder',
+    '@stardustlc/dsh-docker', '@stardustlc/dsh-dream', 'dsh-email', 'dsh-ffmpeg', 'dsh-flakefinder',
     'dsh-hyperframes', 'dsh-minimal-ptc', 'dsh-ppt', 'dsh-remotion', 'dsh-rss',
     'dsh-slack', 'dsh-sql', 'dsh-voice',
   ]

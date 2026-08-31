@@ -26,7 +26,7 @@
       config:
         timeoutMs: 60000
     - id: dream
-      name: 'dsh-dream'
+      name: '@stardustlc/dsh-dream'
       config:
         maxSessions: 10
         maxCharsPerSession: 6000
