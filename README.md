@@ -43,9 +43,9 @@ dsh plugin --profile web remove @stardustlc/dsh-suite
 | | dsh-rss | RSS/Atom 订阅 + 跨订阅搜索 + 增量抓取 |
 | | dsh-cite | Crossref 文献检索 + 四种引文格式 + BibTeX |
 | | dsh-dream | 会话回放 → 反思 → 梦境日记 → 桥接 AGENTS.md（含隐私脱敏） |
-| 🎬 媒体工坊 | dsh-ffmpeg | 探测/剪辑/拼接/转码/字幕/批量抽帧/GIF |
+| 🎬 媒体工坊 | dsh-ffmpeg | 探测/剪辑/拼接/转码/字幕/抽帧/GIF/调整（变速·音量·静音·旋转）十工具 |
 | | dsh-voice | edge-tts 合成 + ASR 转写 + 音色试听 |
-| | dsh-ppt | 一句话生成 HTML 放映 + PPTX 导出 |
+| | dsh-ppt | 一句话生成 HTML 放映 + PPTX 导出：7 页型（金句/表格）+ 演讲者备注 |
 | | dsh-hyperframes | HyperFrames by HeyGen 官方视频技能（20 个上游技能） |
 | | dsh-remotion | Remotion React 编程式视频技能 |
 | 🔧 DevOps | dsh-docker | 容器七工具（含 health 自检）+ exec 审批门（@stardustlc/dsh-docker） |

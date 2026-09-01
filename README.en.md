@@ -41,9 +41,9 @@ Restart the web service afterwards. Prefer a single component? Install its own r
 | | dsh-rss | RSS/Atom subscriptions + cross-feed search + incremental fetch |
 | | dsh-cite | Crossref lookup + four citation styles + BibTeX |
 | | dsh-dream | Session replay → reflection → dream journal → AGENTS.md bridge (privacy masking) |
-| Media | dsh-ffmpeg | probe/cut/concat/encode/subtitle/batch frames/GIF |
+| Media | dsh-ffmpeg | probe/cut/concat/encode/subtitle/frames/GIF/adjust (speed/volume/mute/rotate), ten tools |
 | | dsh-voice | edge-tts synthesis + ASR transcription + voice preview |
-| | dsh-ppt | One prompt to HTML slideshow + PPTX export |
+| | dsh-ppt | One prompt to HTML slideshow + PPTX export: 7 layouts (quote/table) + speaker notes |
 | | dsh-hyperframes | HyperFrames by HeyGen five-skill bundle |
 | | dsh-remotion | Remotion programmatic-video skill |
 | DevOps | @stardustlc/dsh-docker | Seven container tools (incl. health) + exec approval gate |
