@@ -38,7 +38,7 @@ dsh plugin --profile web remove @stardustlc/dsh-suite
 
 | 产品线 | 组件 | 能力 |
 | :-- | :-- | :-- |
-| 📨 办公流 | dsh-email | IMAP/SMTP 收发/搜索/附件（since/until 日期过滤），八大服务商预设，发信审批门 |
+| 📨 办公流 | dsh-email | IMAP/SMTP 十工具：收发/搜索/附件/增量新邮件监视/标记整理/回复转发，八大服务商预设，发信审批门 |
 | | dsh-calendar | CalDAV 日程查建改删搜（Google/iCloud/Nextcloud） |
 | | dsh-rss | RSS/Atom 订阅 + 跨订阅搜索 + 增量抓取 |
 | | dsh-cite | Crossref 文献检索 + 四种引文格式 + BibTeX |
@@ -46,7 +46,7 @@ dsh plugin --profile web remove @stardustlc/dsh-suite
 | 🎬 媒体工坊 | dsh-ffmpeg | 探测/剪辑/拼接/转码/字幕/批量抽帧/GIF |
 | | dsh-voice | edge-tts 合成 + ASR 转写 + 音色试听 |
 | | dsh-ppt | 一句话生成 HTML 放映 + PPTX 导出 |
-| | dsh-hyperframes | HyperFrames by HeyGen 视频五件套技能 |
+| | dsh-hyperframes | HyperFrames by HeyGen 官方视频技能（20 个上游技能） |
 | | dsh-remotion | Remotion React 编程式视频技能 |
 | 🔧 DevOps | dsh-docker | 容器七工具（含 health 自检）+ exec 审批门（@stardustlc/dsh-docker） |
 | | dsh-sql | SQLite/MySQL/PostgreSQL + 只读保护 + 审批门 + 统计/CSV |
