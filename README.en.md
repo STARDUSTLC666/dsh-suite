@@ -10,7 +10,7 @@ Bundles five product lines — office flow (with dream-based memory), media stud
 
 ## Compatibility
 
-Verified on `@deepseek-ai/dsh@0.1.2-alpha.2` (2026-08-31): all 18 components booted together, token auth OK, zero errors (including dsh-minimal-ptc 0.4.2 adapted to the PTC rename).
+Verified against the official `@deepseek-ai/dsh@0.1.2-alpha.5` release (2026-09-03): all 18 components booted together, token auth OK, zero errors.
 
 ## Install / Uninstall
 
