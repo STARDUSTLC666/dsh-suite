@@ -10,7 +10,7 @@
 
 ## 兼容性
 
-已在 `@deepseek-ai/dsh@0.1.3-alpha.1`（2026-09-05）验证：18 个组件同载，96 个工具、34 个技能；工具参数与输出符合官方 JSON Schema 子集，TypeScript / Python PTC SDK 均可生成。隔离 Web 启动与 token 鉴权也已通过。下方脚本可对本地源码重复验收。
+已在官方 `@deepseek-ai/dsh@0.1.3-alpha.2`（2026-09-08）验证：18 个组件同载，96 个工具、34 个技能；工具参数与输出符合官方 JSON Schema 子集，TypeScript / Python PTC SDK 均可生成。隔离 Web 启动、token 鉴权（303/401/200）与进程退出也已通过。下方脚本可对本地源码重复验收。
 
 ## 安装
 

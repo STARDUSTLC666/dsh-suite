@@ -10,7 +10,7 @@ Bundles five product lines — office flow (with dream-based memory), media stud
 
 ## Compatibility
 
-Verified against `@deepseek-ai/dsh@0.1.3-alpha.1` (2026-09-05): 18 components, 96 tools and 34 skills. All tool schemas pass the official JSON Schema subset, both TypeScript and Python PTC SDKs render, and isolated Web startup and token authentication pass. The scripts below reproduce these checks against local source.
+Verified against the official `@deepseek-ai/dsh@0.1.3-alpha.2` (2026-09-08): 18 components, 96 tools and 34 skills. All tool schemas pass the official JSON Schema subset, both TypeScript and Python PTC SDKs render, and isolated Web startup, token authentication (303/401/200) and process shutdown pass. The scripts below reproduce these checks against local source.
 
 ## Install / Uninstall
 
