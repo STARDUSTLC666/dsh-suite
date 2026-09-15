@@ -10,23 +10,33 @@
 
 ## 兼容性
 
-已在官方 `@deepseek-ai/dsh@0.1.3-alpha.2`（2026-09-08）验证：18 个组件同载，96 个工具、34 个技能；工具参数与输出符合官方 JSON Schema 子集，TypeScript / Python PTC SDK 均可生成。隔离 Web 启动、token 鉴权（303/401/200）与进程退出也已通过。下方脚本可对本地源码重复验收。
+已在官方 `@deepseek-ai/dsh@0.1.5-rc.1`、Node `24.16.0` 上验证（2026-09-11）：18 个组件与额外安装的 Modlens 同载，宿主共注册 97 个工具、34 个技能。全部组件工具 schema 与两种 PTC SDK 生成检查通过；极简 PTC 已在真实 agent 中挂载，模型入口为 `run_code`。隔离 Web 启动、token 鉴权（303/401/200）与进程退出通过。Node 要求为 22.19 及以上的 22.x，或 24 及以上。下方脚本可重复验收；离线检查不代表外部服务业务已实测。
 
 ## 安装
 
-套件本体可走 npm（预构建，免 build 授权）：
+安装套件会自动拉取已验证版本的 18 个组件；profile 只启用套件这一层，组件由套件统一加载：
 
 ```bash
 dsh plugin --profile web add @stardustlc/dsh-suite
 ```
 
-一条命令（套件 + 18 个组件一起装，pnpm 不允许 git 子依赖，所以组件必须作为直接依赖）：
+也可以从 GitHub 安装套件源码，组件仍从 npm 安装：
 
 ```bash
-dsh plugin --profile web add github:STARDUSTLC666/dsh-suite github:STARDUSTLC666/dsh-calendar github:STARDUSTLC666/dsh-cite github:STARDUSTLC666/dsh-code-security github:STARDUSTLC666/dsh-codex-port github:STARDUSTLC666/dsh-dingtalk github:STARDUSTLC666/dsh-docker github:STARDUSTLC666/dsh-dream github:STARDUSTLC666/dsh-email github:STARDUSTLC666/dsh-ffmpeg github:STARDUSTLC666/dsh-flakefinder github:STARDUSTLC666/dsh-hyperframes github:STARDUSTLC666/dsh-minimal-ptc github:STARDUSTLC666/dsh-ppt github:STARDUSTLC666/dsh-remotion github:STARDUSTLC666/dsh-rss github:STARDUSTLC666/dsh-slack github:STARDUSTLC666/dsh-sql github:STARDUSTLC666/dsh-voice
+dsh plugin --profile web add github:STARDUSTLC666/dsh-suite
 ```
 
 安装后重启 Web 服务。只想装个别组件？直接装对应仓库即可（如 `github:STARDUSTLC666/dsh-rss`），不需要本套件。
+
+### 从旧版全家桶迁移
+
+如果之前按旧命令把套件和全部组件一起直装，先执行上方命令升级套件到 0.1.3 或以上，再移除组件的直接安装记录。组件仍保留为套件依赖；这样可避免 `duplicate loader entry id` 启动错误：
+
+```bash
+dsh plugin --profile web remove @stardustlc/dsh-docker @stardustlc/dsh-dream dsh-calendar dsh-cite dsh-code-security dsh-codex-port dsh-dingtalk dsh-email dsh-ffmpeg dsh-flakefinder dsh-hyperframes dsh-minimal-ptc dsh-ppt dsh-remotion dsh-rss dsh-slack dsh-sql dsh-voice
+```
+
+保留自己 profile 的 `cordis.patch.yml` 配置覆盖，随后重启 Web 服务。
 
 ## 卸载
 
@@ -75,7 +85,7 @@ dsh plugin --profile web remove @stardustlc/dsh-suite
 ## 排错
 
 - 启动失败：逐个运行组件的 `*_health` 定位；或临时在 profile 补丁里 `disabled: true` 关掉可疑组件；
-- 依赖拉取慢：组件走 GitHub 源，网络不佳时配置代理后重试。
+- 依赖拉取慢：优先使用上方 npm 安装命令；网络不佳时配置代理后重试。
 
 ## 开发
 
@@ -90,11 +100,14 @@ pnpm test   # 套件清单、文档和离线执行环境的测试
 node scripts/verify-local.mjs --harness-root C:/path/to/deepseek-harness --report ../.harness-validation/offline-report.json
 node scripts/verify-local.mjs --harness-root C:/path/to/deepseek-harness --contracts-only --json
 node scripts/smoke-harness.mjs --harness-root C:/path/to/deepseek-harness --contract-report ../.harness-validation/offline-report.json --report ../.harness-validation/smoke-report.json
+node scripts/smoke-harness.mjs --harness-root C:/path/to/deepseek-harness --install-tarballs ../.harness-validation/tarballs.json --contract-report ../.harness-validation/offline-report.json --report ../.harness-validation/install-report.json
 ```
 
 `--workspace-root` 可指定组件父目录；`--report` 保存 JSON，`--json` 让标准输出只包含 JSON。任何构建、测试或契约失败均返回非零退出码。`--contracts-only` 跳过重建与单元测试，检查当前 `lib/` 产物。
 
-契约检查使用指定 Harness 的真实 `ToolRuntime` 和 `SkillRegistry`：逐个校验服务注入声明、全部工具参数与输出 schema、技能注册和重名冲突，生成两种 PTC SDK，再通过宿主执行链运行 16 个 health 与 `ppt_themes` 输出样例。minimal-ptc 会物化到隔离目录，并校验预设引用的 Harness 模块可解析。这里只覆盖这些只读样例的返回值；发信、合成、渲染等业务流程由组件测试中的模拟依赖验证。
+发布前使用 `--install-tarballs` 验证真实安装：报告格式为 `{ "ok": true, "packages": [{ "name", "version", "tarball", "integrity" }] }`，须包含套件和 18 个组件，`integrity` 为 `sha512-...`。验证器只在临时 profile 中将指定版本映射到本地 tarball，经官方 CLI 安装套件，要求组件为传递依赖且不重复启用 profile 层，再检查实际启动、完整目录和 PTC 挂载。开发依赖可能访问 npm；这个安装模式不属于离线测试。
+
+契约检查使用指定 Harness 的真实 `ToolRuntime` 和 `SkillRegistry`：逐个校验服务注入声明、全部工具参数与输出 schema、技能注册和重名冲突，生成两种 PTC SDK，再通过宿主执行链运行 16 个 health 与 `ppt_themes` 输出样例。minimal-ptc 会物化到隔离目录，并校验预设引用的 Harness 模块可解析；启动验收还会创建真实 agent 挂载预设，确认模型入口为 `run_code` 且保留插件工具与 Shell。这里只覆盖这些只读样例的返回值；发信、合成、渲染等业务流程由组件测试中的模拟依赖验证。
 
 HyperFrames 与 Remotion 另有真实注册表回归：卸载一个已注册技能，确认 health 报告异常，再恢复相同注册并确认 health 恢复正常。启动验收也会执行这两个 health，要求全部随包技能实际生效。
 

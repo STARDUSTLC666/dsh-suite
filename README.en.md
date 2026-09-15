@@ -10,20 +10,20 @@ Bundles five product lines — office flow (with dream-based memory), media stud
 
 ## Compatibility
 
-Verified against the official `@deepseek-ai/dsh@0.1.3-alpha.2` (2026-09-08): 18 components, 96 tools and 34 skills. All tool schemas pass the official JSON Schema subset, both TypeScript and Python PTC SDKs render, and isolated Web startup, token authentication (303/401/200) and process shutdown pass. The scripts below reproduce these checks against local source.
+Verified against official `@deepseek-ai/dsh@0.1.5-rc.1` and Node `24.16.0` on 2026-09-11: 18 components plus separately installed Modlens register 97 host tools and 34 skills. All component tool schemas and both PTC SDK generators pass; Minimal PTC mounts in a real agent and exposes `run_code` to the model. Isolated Web startup, token authentication (303/401/200) and process shutdown pass. Requires Node 22.19 or later within 22.x, or 24 or later. The scripts below reproduce these checks; offline tests do not establish live external-service readiness.
 
 ## Install / Uninstall
 
-The suite itself is on npm (prebuilt, no build approval needed):
+Installing the suite automatically installs the verified versions of all 18 components. The profile activates one suite layer, which loads the components:
 
 ```bash
 dsh plugin --profile web add @stardustlc/dsh-suite
 ```
 
-One command (suite + all 18 components; pnpm forbids git subdependencies, so components must be direct deps):
+Alternatively, install the suite source from GitHub; its components still come from npm:
 
 ```bash
-dsh plugin --profile web add github:STARDUSTLC666/dsh-suite github:STARDUSTLC666/dsh-calendar github:STARDUSTLC666/dsh-cite github:STARDUSTLC666/dsh-code-security github:STARDUSTLC666/dsh-codex-port github:STARDUSTLC666/dsh-dingtalk github:STARDUSTLC666/dsh-docker github:STARDUSTLC666/dsh-dream github:STARDUSTLC666/dsh-email github:STARDUSTLC666/dsh-ffmpeg github:STARDUSTLC666/dsh-flakefinder github:STARDUSTLC666/dsh-hyperframes github:STARDUSTLC666/dsh-minimal-ptc github:STARDUSTLC666/dsh-ppt github:STARDUSTLC666/dsh-remotion github:STARDUSTLC666/dsh-rss github:STARDUSTLC666/dsh-slack github:STARDUSTLC666/dsh-sql github:STARDUSTLC666/dsh-voice
+dsh plugin --profile web add github:STARDUSTLC666/dsh-suite
 ```
 
 ```bash
@@ -31,6 +31,16 @@ dsh plugin --profile web remove @stardustlc/dsh-suite
 ```
 
 Restart the web service afterwards. Prefer a single component? Install its own repo directly without this suite.
+
+### Migrate an older suite installation
+
+If the suite and all components were previously installed as direct dependencies, first upgrade the suite to 0.1.3 or later with the command above, then remove the components' direct-install records. They remain installed as suite dependencies, avoiding the `duplicate loader entry id` startup failure:
+
+```bash
+dsh plugin --profile web remove @stardustlc/dsh-docker @stardustlc/dsh-dream dsh-calendar dsh-cite dsh-code-security dsh-codex-port dsh-dingtalk dsh-email dsh-ffmpeg dsh-flakefinder dsh-hyperframes dsh-minimal-ptc dsh-ppt dsh-remotion dsh-rss dsh-slack dsh-sql dsh-voice
+```
+
+Keep your profile's `cordis.patch.yml` configuration overrides, then restart Web.
 
 ## What's inside (18)
 
@@ -74,11 +84,14 @@ Place the 18 component checkouts beside `dsh-suite`, with development dependenci
 node scripts/verify-local.mjs --harness-root C:/path/to/deepseek-harness --report ../.harness-validation/offline-report.json
 node scripts/verify-local.mjs --harness-root C:/path/to/deepseek-harness --contracts-only --json
 node scripts/smoke-harness.mjs --harness-root C:/path/to/deepseek-harness --contract-report ../.harness-validation/offline-report.json --report ../.harness-validation/smoke-report.json
+node scripts/smoke-harness.mjs --harness-root C:/path/to/deepseek-harness --install-tarballs ../.harness-validation/tarballs.json --contract-report ../.harness-validation/offline-report.json --report ../.harness-validation/install-report.json
 ```
 
 `--workspace-root` selects the parent of the component repositories. `--report` saves JSON, `--json` prints only JSON, and failures return a nonzero exit status. `--contracts-only` validates existing `lib/` artifacts without rebuilding or running unit tests.
 
-Contracts use the selected Harness's real `ToolRuntime` and `SkillRegistry`: required service declarations, all parameter/output schemas, skill registrations and collisions, both PTC SDKs, and the execution/rendering of 16 health fixtures plus `ppt_themes`. The preset is materialized in an isolated home and its Harness module references are resolved. Only these read-only output samples are executed; other business workflows rely on the component unit tests and mocked dependencies.
+Use `--install-tarballs` before release to test installation. The report must contain `{ "ok": true, "packages": [{ "name", "version", "tarball", "integrity" }] }` for the suite and all 18 components, with `sha512-...` integrity values. Only the temporary profile redirects those versions to local tarballs. The official CLI installs the suite; verification requires transitive component dependencies, no duplicate profile layers, successful startup, the complete registry and PTC mounting. Dependency installation can contact npm; this mode is not an offline test.
+
+Contracts use the selected Harness's real `ToolRuntime` and `SkillRegistry`: required service declarations, all parameter/output schemas, skill registrations and collisions, both PTC SDKs, and the execution/rendering of 16 health fixtures plus `ppt_themes`. The preset is materialized in an isolated home and its Harness module references are resolved. Startup verification also mounts it in a real agent, requiring `run_code` as the model entry point and retention of plugin tools and the shell. Only these read-only output samples are executed; other business workflows rely on the component unit tests and mocked dependencies.
 
 HyperFrames and Remotion also undergo a real registry regression: remove one registered skill and require unhealthy status, then restore the matching registration and require healthy status. The startup smoke check executes both health tools and requires all bundled skills to be active.
 

@@ -1,0 +1,7 @@
+minimumReleaseAgeExclude:
+  - dsh-cite@0.3.3
+  - dsh-remotion@0.3.2
+  - dsh-rss@0.3.2
+  - dsh-slack@0.3.1
+  - dsh-sql@0.4.3
+  - dsh-voice@0.3.3

@@ -63,16 +63,17 @@ test('组合补丁条目字段受约束（防注释/字段混入）', () => {
   }
 })
 
-test('README 一键安装命令与 18 个组件仓库完全一致', () => {
-  const readme = readFileSync(join(root, 'README.md'), 'utf8')
-  const match = readme.match(/dsh plugin --profile web add (github:[^\n]+)/)
-  assert.ok(match, 'README 应包含一键安装命令')
-  const targets = match[1].trim().split(/\s+/)
-  const expected = [
-    'dsh-suite', 'dsh-calendar', 'dsh-cite', 'dsh-code-security', 'dsh-codex-port',
-    'dsh-dingtalk', 'dsh-docker', 'dsh-dream', 'dsh-email', 'dsh-ffmpeg',
-    'dsh-flakefinder', 'dsh-hyperframes', 'dsh-minimal-ptc', 'dsh-ppt', 'dsh-remotion',
-    'dsh-rss', 'dsh-slack', 'dsh-sql', 'dsh-voice',
-  ].map((repo) => `github:STARDUSTLC666/${repo}`)
-  assert.deepEqual(targets, expected, '安装命令的目标列表与组件清单不一致')
+test('套件声明全部 18 个 npm 组件依赖，避免用户重复启用组件层', () => {
+  const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'))
+  const entries = yamlLoad(readFileSync(join(root, 'cordis.patch.yml'), 'utf8'))[0].insert
+  assert.deepEqual(Object.keys(pkg.dependencies).sort(), entries.map(entry => entry.name).sort())
+  for (const version of Object.values(pkg.dependencies)) assert.match(version, /^\d+\.\d+\.\d+$/, '组件应锁定已验证的 npm 版本')
+})
+
+test('双语安装命令只启用套件，避免 duplicate loader entry id', () => {
+  for (const file of ['README.md', 'README.en.md']) {
+    const readme = readFileSync(join(root, file), 'utf8')
+    const commands = [...readme.matchAll(/^dsh plugin --profile web add ([^\n]+)/gm)].map(match => match[1].trim())
+    assert.deepEqual(commands, ['@stardustlc/dsh-suite', 'github:STARDUSTLC666/dsh-suite'])
+  }
 })
