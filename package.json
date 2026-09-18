@@ -1,7 +1,7 @@
 {
   "name": "@stardustlc/dsh-suite",
   "version": "0.1.3",
-  "description": "DeepSeek Harness 插件全家桶：18 个组件覆盖邮件、日历、媒体创作、开发运维、消息通知与极简 PTC；通过 npm 一条命令安装，提供组合配置与整套兼容性验证脚本。",
+  "description": "DSH 插件全家桶：18 个组件覆盖邮件、日历、媒体创作、开发运维、消息通知与极简 PTC，一条命令安装。",
   "type": "module",
   "dsh": {
     "bundle": {
