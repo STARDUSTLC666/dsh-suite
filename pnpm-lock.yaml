@@ -15,8 +15,8 @@ importers:
         specifier: 0.3.3
         version: 0.3.3
       dsh-calendar:
-        specifier: 0.5.3
-        version: 0.5.3
+        specifier: 0.5.4
+        version: 0.5.4
       dsh-cite:
         specifier: 0.3.3
         version: 0.3.3
@@ -30,11 +30,11 @@ importers:
         specifier: 0.2.1
         version: 0.2.1
       dsh-email:
-        specifier: 0.10.7
-        version: 0.10.7
+        specifier: 0.13.0
+        version: 0.13.0
       dsh-ffmpeg:
-        specifier: 0.4.2
-        version: 0.4.2
+        specifier: 0.4.3
+        version: 0.4.3
       dsh-flakefinder:
         specifier: 0.3.3
         version: 0.3.3
@@ -42,11 +42,11 @@ importers:
         specifier: 0.3.2
         version: 0.3.2
       dsh-minimal-ptc:
-        specifier: 0.4.5
-        version: 0.4.5
+        specifier: 0.4.7
+        version: 0.4.7
       dsh-ppt:
-        specifier: 0.4.2
-        version: 0.4.2
+        specifier: 0.4.3
+        version: 0.4.3
       dsh-remotion:
         specifier: 0.3.2
         version: 0.3.2
@@ -60,8 +60,8 @@ importers:
         specifier: 0.4.3
         version: 0.4.3(@types/node@26.5.1)
       dsh-voice:
-        specifier: 0.3.3
-        version: 0.3.3
+        specifier: 0.3.4
+        version: 0.3.4
     devDependencies:
       js-yaml:
         specifier: ^4.1.0
@@ -168,8 +168,8 @@ packages:
   domutils@3.2.2:
     resolution: {integrity: sha512-6kZKyUajlDuqlHKVX1w7gyslj9MPIXzIFiz/rGu35uC1wMi+kMhQwGhl4lt9unC9Vb9INnY9Z3/ZA3+FhASLaw==}
 
-  dsh-calendar@0.5.3:
-    resolution: {integrity: sha512-Djbp/V/M43o4JQHIaEF725BiHm0trvKOK5p+11VSeolshQseI1X26s9fZiyPM6EFsroBZVMG1GG2ABP9dOpwwA==}
+  dsh-calendar@0.5.4:
+    resolution: {integrity: sha512-Fbq4kk1EPbUEFQovP094ejEPCAXzQLkDph3VwJ0um1zl3JgmsBdDllethMjMuYMv+IrihuuSK4BGxUsFOZYdqw==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   dsh-cite@0.3.3:
@@ -188,12 +188,12 @@ packages:
     resolution: {integrity: sha512-mcfSrrHpHRXCHd4HMqiKE2F8or4zGDN37Spk+30033O+MzsER+hQjxsExbAv0ARo+3IuCZBEbRyym2gV4qepfg==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-email@0.10.7:
-    resolution: {integrity: sha512-teoPCsyM641bg895pB4ArtMe0d7S1GKfD0RtVZAiU2jU8Wjk2czFRUU8CG5sMuh8dIOaKRFtO8/GnR20iqZ5Xw==}
+  dsh-email@0.13.0:
+    resolution: {integrity: sha512-3Dcf0OJY8UJK4l41Dfwb1d7p8VnDbck0I/yZ7bV9f3fj8R1o985xXKlx0dHSMkbW3LGpP3hr021Yc5Ht+/dw9Q==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-ffmpeg@0.4.2:
-    resolution: {integrity: sha512-sA4HhXPcebuCo1j6OH9ShhSTyFTVxDOKGgiMdapzBfwDglQk/7aaKuV71dXV5CewpHKOnN3JqPJ5PAQHNI/S+A==}
+  dsh-ffmpeg@0.4.3:
+    resolution: {integrity: sha512-G/1zEp0L0dYtIFkY40bol2azaxgE/qHQGrCACWoVS2EcHjcj0fIaVYccu9tqPzfuRO+bllhKhb4MgckfcYcKKA==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   dsh-flakefinder@0.3.3:
@@ -204,12 +204,12 @@ packages:
     resolution: {integrity: sha512-pAmWrhPyFiGl9w29eVp3AP/yQ6NgAh6UOEvkMXm6kGevPl/k7jSeRIYrY8k9VPcg98iGDjIfrYPvy9q56V5j+w==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-minimal-ptc@0.4.5:
-    resolution: {integrity: sha512-8TiQ6eZVG8AMP/GyUizpBn+w59m0puKf8BuQbAQStPbmZhfg0vGb7q26CS8uB8jRY+1Pn8WKZ3vlrftwVToKjA==}
+  dsh-minimal-ptc@0.4.7:
+    resolution: {integrity: sha512-QqCye0WiuaNx5M4WNBjpkremNTc71nIFWI6/jf3N9THrNZtzFznow1auSGd4iWZkUUihmBBH5UWGZ20vEhIKfg==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-ppt@0.4.2:
-    resolution: {integrity: sha512-nak7LBceMva4Y0MHMb3CsCbkP097tDClf53/qqTHyjqTYF+2aJK7qFqu+heJ52ByVrsGQO+jttc2rOPQ/gnPhw==}
+  dsh-ppt@0.4.3:
+    resolution: {integrity: sha512-DP8BM3b522TVH0yHhxvk5fy77dJVZi77OsS49ay8iblk0VY6zRwzAqQXAEIAnlXgUxuh8hd+fC40hxN1ltRvRg==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   dsh-remotion@0.3.2:
@@ -228,8 +228,8 @@ packages:
     resolution: {integrity: sha512-kWZ2kVDQJkRnX9rElGEjViXbG+ABQTIvdb8ThnEkTgP7X1j17ZiiRPa+hRGtVzmCj7QyEn5sbYzSqQwiD//cTw==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-voice@0.3.3:
-    resolution: {integrity: sha512-S/NK4dJqMYUk9YgToI/03+2DlsdQxJphanJB29FOpMb8KRsc8+rS+GzhLCHD5ypGuMhdPCYVL+plgBl6ZPs2Og==}
+  dsh-voice@0.3.4:
+    resolution: {integrity: sha512-uMBdFWTK3MU5ZKlUpuBj0twbN28uuhHBeb/KjuNB4vakKb+Jd+S8FWocPfBaB2pEDVaIljb8B/91H31fllv+nw==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   encoding-japanese@2.3.0:
@@ -649,7 +649,7 @@ snapshots:
       domelementtype: 2.3.0
       domhandler: 5.0.3
 
-  dsh-calendar@0.5.3:
+  dsh-calendar@0.5.4:
     dependencies:
       ical.js: 2.2.1
       tsdav: 2.3.3
@@ -667,7 +667,7 @@ snapshots:
 
   dsh-dingtalk@0.2.1: {}
 
-  dsh-email@0.10.7:
+  dsh-email@0.13.0:
     dependencies:
       imapflow: 1.7.8
       mailparser: 3.9.26
@@ -675,7 +675,7 @@ snapshots:
       schemastery: 3.18.0
       yaml: 2.9.1
 
-  dsh-ffmpeg@0.4.2: {}
+  dsh-ffmpeg@0.4.3: {}
 
   dsh-flakefinder@0.3.3: {}
 
@@ -683,9 +683,9 @@ snapshots:
     dependencies:
       yaml: 2.9.1
 
-  dsh-minimal-ptc@0.4.5: {}
+  dsh-minimal-ptc@0.4.7: {}
 
-  dsh-ppt@0.4.2: {}
+  dsh-ppt@0.4.3: {}
 
   dsh-remotion@0.3.2:
     dependencies:
@@ -713,7 +713,7 @@ snapshots:
       - '@types/node'
       - pg-native
 
-  dsh-voice@0.3.3:
+  dsh-voice@0.3.4:
     dependencies:
       https-proxy-agent: 9.1.0
       undici: 8.10.2

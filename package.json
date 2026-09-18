@@ -1,6 +1,6 @@
 {
   "name": "@stardustlc/dsh-suite",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "DSH 插件全家桶：18 个组件覆盖邮件、日历、媒体创作、开发运维、消息通知与极简 PTC，一条命令安装。",
   "type": "module",
   "dsh": {
@@ -37,22 +37,22 @@
   "dependencies": {
     "@stardustlc/dsh-docker": "0.3.3",
     "@stardustlc/dsh-dream": "0.3.3",
-    "dsh-calendar": "0.5.3",
+    "dsh-calendar": "0.5.4",
     "dsh-cite": "0.3.3",
     "dsh-code-security": "0.3.3",
     "dsh-codex-port": "0.2.2",
     "dsh-dingtalk": "0.2.1",
-    "dsh-email": "0.10.7",
-    "dsh-ffmpeg": "0.4.2",
+    "dsh-email": "0.13.0",
+    "dsh-ffmpeg": "0.4.3",
     "dsh-flakefinder": "0.3.3",
     "dsh-hyperframes": "0.3.2",
-    "dsh-minimal-ptc": "0.4.5",
-    "dsh-ppt": "0.4.2",
+    "dsh-minimal-ptc": "0.4.7",
+    "dsh-ppt": "0.4.3",
     "dsh-remotion": "0.3.2",
     "dsh-rss": "0.3.2",
     "dsh-slack": "0.3.1",
     "dsh-sql": "0.4.3",
-    "dsh-voice": "0.3.3"
+    "dsh-voice": "0.3.4"
   },
   "devDependencies": {
     "js-yaml": "^4.1.0"

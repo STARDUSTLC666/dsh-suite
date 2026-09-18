@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.4（2026-09-19）
+
+- 依赖对齐 npm latest（2026-09-19 用 `npm view <pkg> version --registry https://registry.npmjs.org/` 逐个核对 18 个组件）：dsh-email 0.10.7 → 0.13.0、dsh-voice 0.3.3 → 0.3.4、dsh-ppt 0.4.2 → 0.4.3、dsh-ffmpeg 0.4.2 → 0.4.3、dsh-calendar 0.5.3 → 0.5.4、dsh-minimal-ptc 0.4.5 → 0.4.7；其余 12 个组件线上即已是最新，版本未变。
+- 同步 pnpm-lock.yaml 与 `minimumReleaseAgeExclude` 放行名单（含今天新发布的 5 个版本与 dsh-minimal-ptc 0.4.7）。
+- 组合补丁 `cordis.patch.yml` 的配置内容未变，本版仅依赖与锁文件更新。
+
 ## 0.1.3（2026-09-11）
 
 - 适配并验证官方 Harness 0.1.5-rc.1：整套同载、工具/技能契约与 Web 鉴权检查通过。
