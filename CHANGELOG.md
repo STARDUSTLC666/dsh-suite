@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.6（2026-09-19）
+
+- 跟随 dsh-calendar 0.6.0：设置页新增**月 / 周 / 议程**日历面板（点日程开详情、可直接增删改、保存前冲突检测），以及**面板内连接配置**（Google / iCloud / Nextcloud / 自建，先「测试连接」再保存，密钥不回填前端）；另新增 `scripts/google-oauth.mjs`，一条命令换 Google refresh token。
+- 依赖 pin 与 `minimumReleaseAgeExclude` 放行名单同步为 dsh-calendar@0.6.0；其余 17 个组件线上仍是最新，版本未变。
+- 双语文档表格补上面板与面板内配置说明；组合补丁 `cordis.patch.yml` 配置未变，本版仅依赖、锁文件与文档更新。
+
 ## 0.1.5（2026-09-19）
 
 - 跟随 dsh-email 0.13.1：该版本内置一份社区公共客户端注册（贡献者 [gurio-wine](https://github.com/gurio-wine) 注册并授权项目内置使用），Outlook / Exchange Online 的 OAuth2 登录开箱即用，不再要求每个用户自己注册 Azure 应用；用户仍可在设置页卡片里填自己的 `clientId` 覆盖，卡片会显示当前生效的应用 ID。
