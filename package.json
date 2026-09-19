@@ -1,6 +1,6 @@
 {
   "name": "@stardustlc/dsh-suite",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "DSH 插件全家桶：18 个组件覆盖邮件、日历、媒体创作、开发运维、消息通知与极简 PTC，一条命令安装。",
   "type": "module",
   "dsh": {
@@ -42,7 +42,7 @@
     "dsh-code-security": "0.3.3",
     "dsh-codex-port": "0.2.2",
     "dsh-dingtalk": "0.2.1",
-    "dsh-email": "0.13.0",
+    "dsh-email": "0.13.1",
     "dsh-ffmpeg": "0.4.3",
     "dsh-flakefinder": "0.3.3",
     "dsh-hyperframes": "0.3.2",

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.5（2026-09-19）
+
+- 跟随 dsh-email 0.13.1：该版本内置一份社区公共客户端注册（贡献者 [gurio-wine](https://github.com/gurio-wine) 注册并授权项目内置使用），Outlook / Exchange Online 的 OAuth2 登录开箱即用，不再要求每个用户自己注册 Azure 应用；用户仍可在设置页卡片里填自己的 `clientId` 覆盖，卡片会显示当前生效的应用 ID。
+- 依赖 pin 与 `minimumReleaseAgeExclude` 放行名单同步为 dsh-email@0.13.1；其余 17 个组件线上仍是最新，版本未变。
+- 双语文档表格补上「OAuth2 开箱即用」；组合补丁 `cordis.patch.yml` 配置未变，本版仅依赖、锁文件与文档更新。
+
 ## 0.1.4（2026-09-19）
 
 - 依赖对齐 npm latest（2026-09-19 用 `npm view <pkg> version --registry https://registry.npmjs.org/` 逐个核对 18 个组件）：dsh-email 0.10.7 → 0.13.0、dsh-voice 0.3.3 → 0.3.4、dsh-ppt 0.4.2 → 0.4.3、dsh-ffmpeg 0.4.2 → 0.4.3、dsh-calendar 0.5.3 → 0.5.4、dsh-minimal-ptc 0.4.5 → 0.4.7；其余 12 个组件线上即已是最新，版本未变。

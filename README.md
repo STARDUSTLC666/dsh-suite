@@ -48,7 +48,7 @@ dsh plugin --profile web remove @stardustlc/dsh-suite
 
 | 产品线 | 组件 | 能力 |
 | :-- | :-- | :-- |
-| 📨 办公流 | dsh-email | IMAP/SMTP 十工具：收发/搜索/附件/增量新邮件监视/标记整理/回复转发，八大服务商预设 + 自定义预设，Outlook OAuth2 设备码登录，卡片式多账号设置页（中英双语），发信审批门 |
+| 📨 办公流 | dsh-email | IMAP/SMTP 十工具：收发/搜索/附件/增量新邮件监视/标记整理/回复转发，八大服务商预设 + 自定义预设，Outlook OAuth2 设备码登录（内置公共客户端，开箱即用），卡片式多账号设置页（中英双语），发信审批门 |
 | | dsh-calendar | CalDAV 日程查建改删搜（Google/iCloud/Nextcloud） |
 | | dsh-rss | RSS/Atom 订阅 + 跨订阅搜索 + 增量抓取 |
 | | dsh-cite | Crossref 文献检索 + 四种引文格式 + BibTeX |

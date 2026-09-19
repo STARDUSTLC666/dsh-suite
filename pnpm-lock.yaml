@@ -30,8 +30,8 @@ importers:
         specifier: 0.2.1
         version: 0.2.1
       dsh-email:
-        specifier: 0.13.0
-        version: 0.13.0
+        specifier: 0.13.1
+        version: 0.13.1
       dsh-ffmpeg:
         specifier: 0.4.3
         version: 0.4.3
@@ -188,8 +188,8 @@ packages:
     resolution: {integrity: sha512-mcfSrrHpHRXCHd4HMqiKE2F8or4zGDN37Spk+30033O+MzsER+hQjxsExbAv0ARo+3IuCZBEbRyym2gV4qepfg==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-email@0.13.0:
-    resolution: {integrity: sha512-3Dcf0OJY8UJK4l41Dfwb1d7p8VnDbck0I/yZ7bV9f3fj8R1o985xXKlx0dHSMkbW3LGpP3hr021Yc5Ht+/dw9Q==}
+  dsh-email@0.13.1:
+    resolution: {integrity: sha512-+agK+ZlivI4C96f908HhAqpalugoMHNgfH1gwRjKC7vOAdXhT0XYAzcR/ug5+WiwxZo0FDHXk9A/1mFUyWWSaQ==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   dsh-ffmpeg@0.4.3:
@@ -667,7 +667,7 @@ snapshots:
 
   dsh-dingtalk@0.2.1: {}
 
-  dsh-email@0.13.0:
+  dsh-email@0.13.1:
     dependencies:
       imapflow: 1.7.8
       mailparser: 3.9.26

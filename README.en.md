@@ -46,7 +46,7 @@ Keep your profile's `cordis.patch.yml` configuration overrides, then restart Web
 
 | Line | Component | Capability |
 | :-- | :-- | :-- |
-| Office | dsh-email | Ten IMAP/SMTP tools: list/read/search/send, attachments, incremental new-mail watch, flag & folder moves, reply/reply-all/forward; eight provider presets plus custom ones, Outlook OAuth2 device-code login, card-based multi-account settings page (bilingual), send-approval gate |
+| Office | dsh-email | Ten IMAP/SMTP tools: list/read/search/send, attachments, incremental new-mail watch, flag & folder moves, reply/reply-all/forward; eight provider presets plus custom ones, Outlook OAuth2 device-code login (bundled public client — works out of the box), card-based multi-account settings page (bilingual), send-approval gate |
 | | dsh-calendar | CalDAV list/create/update/delete/search (Google/iCloud/Nextcloud/custom) |
 | | dsh-rss | RSS/Atom subscriptions + cross-feed search + incremental fetch |
 | | dsh-cite | Crossref lookup + four citation styles + BibTeX |

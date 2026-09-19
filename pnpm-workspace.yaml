@@ -1,7 +1,7 @@
 minimumReleaseAgeExclude:
   - dsh-calendar@0.5.4
   - dsh-cite@0.3.3
-  - dsh-email@0.13.0
+  - dsh-email@0.13.1
   - dsh-ffmpeg@0.4.3
   - dsh-minimal-ptc@0.4.7
   - dsh-ppt@0.4.3
