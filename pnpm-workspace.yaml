@@ -1,3 +1,4 @@
+verifyDepsBeforeRun: false
 minimumReleaseAgeExclude:
   - dsh-calendar@0.5.4
   - dsh-cite@0.3.3
