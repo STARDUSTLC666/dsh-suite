@@ -1,6 +1,6 @@
 {
   "name": "@stardustlc/dsh-suite",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "DSH 插件全家桶：18 个组件覆盖邮件、日历、媒体创作、开发运维、消息通知与极简 PTC，一条命令安装。",
   "type": "module",
   "dsh": {
@@ -37,7 +37,7 @@
   "dependencies": {
     "@stardustlc/dsh-docker": "0.3.3",
     "@stardustlc/dsh-dream": "0.3.3",
-    "dsh-calendar": "0.7.0",
+    "dsh-calendar": "0.8.0",
     "dsh-cite": "0.3.3",
     "dsh-code-security": "0.3.3",
     "dsh-codex-port": "0.2.2",
