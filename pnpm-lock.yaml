@@ -15,8 +15,8 @@ importers:
         specifier: 0.3.3
         version: 0.3.3
       dsh-calendar:
-        specifier: 0.6.0
-        version: 0.6.0
+        specifier: 0.7.0
+        version: 0.7.0
       dsh-cite:
         specifier: 0.3.3
         version: 0.3.3
@@ -168,8 +168,8 @@ packages:
   domutils@3.2.2:
     resolution: {integrity: sha512-6kZKyUajlDuqlHKVX1w7gyslj9MPIXzIFiz/rGu35uC1wMi+kMhQwGhl4lt9unC9Vb9INnY9Z3/ZA3+FhASLaw==}
 
-  dsh-calendar@0.6.0:
-    resolution: {integrity: sha512-cTN0VGMyMHAT9/2/kWYO+dpaeBA6mOy1P+yLLsALXClN2Z5e/82Aed3BujEAO6pSlGx/eqgtKt0pmG3XRuoC6w==}
+  dsh-calendar@0.7.0:
+    resolution: {integrity: sha512-MzcgMznehofTfJATNBO9g1cvLIJyhvYnyEeUzM0IYYm4wYOfxnxXMHgOLr88majDmBG4tLNViSI3SB0Q0C4FSA==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   dsh-cite@0.3.3:
@@ -649,7 +649,7 @@ snapshots:
       domelementtype: 2.3.0
       domhandler: 5.0.3
 
-  dsh-calendar@0.6.0:
+  dsh-calendar@0.7.0:
     dependencies:
       ical.js: 2.2.1
       schemastery: 3.18.0

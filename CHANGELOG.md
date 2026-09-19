@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.7（2026-09-19）
+
+- 跟随 dsh-calendar 0.7.0：面板**记住上次用的视图**（月/周/议程）、周视图**默认落在 07:00**（不裁剪事件，仍可上滚）、**窄容器适配**（设置页那种窄面板里芯片显示标题而非只剩「10:00 …」）；另修月视图格子 `button` → `div role=button`（按钮不能嵌套按钮）。
+- 依赖 pin 与 `minimumReleaseAgeExclude` 放行名单同步为 dsh-calendar@0.7.0；其余 17 个组件线上仍是最新，版本未变。
+- 组合补丁 `cordis.patch.yml` 配置未变，本版仅依赖、锁文件与文档更新。
+
 ## 0.1.6（2026-09-19）
 
 - 跟随 dsh-calendar 0.6.0：设置页新增**月 / 周 / 议程**日历面板（点日程开详情、可直接增删改、保存前冲突检测），以及**面板内连接配置**（Google / iCloud / Nextcloud / 自建，先「测试连接」再保存，密钥不回填前端）；另新增 `scripts/google-oauth.mjs`，一条命令换 Google refresh token。

@@ -47,7 +47,7 @@ Keep your profile's `cordis.patch.yml` configuration overrides, then restart Web
 | Line | Component | Capability |
 | :-- | :-- | :-- |
 | Office | dsh-email | Ten IMAP/SMTP tools: list/read/search/send, attachments, incremental new-mail watch, flag & folder moves, reply/reply-all/forward; eight provider presets plus custom ones, Outlook OAuth2 device-code login (bundled public client — works out of the box), card-based multi-account settings page (bilingual), send-approval gate |
-| | dsh-calendar | CalDAV list/create/update/delete/search (Google/iCloud/Nextcloud/custom); ships a month/week/agenda panel in Settings where the connection is entered, tested and saved |
+| | dsh-calendar | CalDAV list/create/update/delete/search (Google/iCloud/Nextcloud/custom); ships a month/week/agenda panel in Settings (remembers your view, week view starts at 07:00) where the connection is entered, tested and saved |
 | | dsh-rss | RSS/Atom subscriptions + cross-feed search + incremental fetch |
 | | dsh-cite | Crossref lookup + four citation styles + BibTeX |
 | | dsh-dream | Session replay → reflection → dream journal → AGENTS.md bridge (privacy masking) |

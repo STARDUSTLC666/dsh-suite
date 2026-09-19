@@ -1,6 +1,6 @@
 verifyDepsBeforeRun: false
 minimumReleaseAgeExclude:
-  - dsh-calendar@0.6.0
+  - dsh-calendar@0.7.0
   - dsh-cite@0.3.3
   - dsh-email@0.13.1
   - dsh-ffmpeg@0.4.3
