@@ -15,6 +15,9 @@ try {
   const require = createRequire(toolsPackage)
   const toolsApi = await importFile(join(harnessRoot, 'packages/core/tools/lib/index.js'))
   const { Context } = await importFile(require.resolve('@deepseek-ai/cordis'))
+  const cliRequireForHarness = createRequire(join(harnessRoot, 'apps/cli/package.json'))
+  let hasModernPtcRuntime = false
+  try { cliRequireForHarness.resolve('@deepseek-ai/dsh-workflow-ptc'); hasModernPtcRuntime = true } catch { hasModernPtcRuntime = false }
   const { default: SystemPrompt } = await importFile(require.resolve('@deepseek-ai/dsh-system-prompt'))
   const { default: Skills } = await importFile(join(harnessRoot, 'packages/skill/skill/lib/index.js'))
   host = new Context()
@@ -43,6 +46,14 @@ try {
       }
     },
   }
+  // 与真实宿主一致的 appReady：插件（dsh-minimal-ptc）在 onReady 回调里物化预设，
+  // 契约校验需要它同步跑一次，否则 mock context 里是 undefined。
+  const appReady = {
+    onReady(listener) {
+      const dispose = listener()
+      return typeof dispose === 'function' ? dispose : () => {}
+    },
+  }
   const schemas = []
   const skillNames = new Set()
   for (const plugin of JSON.parse(readFileSync(input, 'utf8'))) {
@@ -63,7 +74,9 @@ try {
       }
       const context = {
         logger: { warn: (message) => item.warnings.push(String(message)), info() {} },
-        settings, subprocess,
+        settings, subprocess, appReady,
+        // 与真实宿主 0.1.6 对齐：ptcRuntime 存在时插件会物化 modern 预设（否则引用已下线的 workflow-worker-thread）。
+        ptcRuntime: hasModernPtcRuntime ? {} : undefined,
         tools: {
           register(...args) {
             try {
@@ -116,7 +129,7 @@ try {
       const optionalServices = module.inject?.optional ?? []
       const checkedContext = new Proxy(context, {
         get(target, key, receiver) {
-          if (['tools', 'skills', 'settings', 'subprocess'].includes(key)) {
+          if (['tools', 'skills', 'settings', 'subprocess', 'appReady'].includes(key)) {
             usedServices.add(key)
             assert.ok(requiredServices.includes(key) || optionalServices.includes(key), 'Missing inject declaration for ' + key)
           }
