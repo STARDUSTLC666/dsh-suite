@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.10（2026-09-20）
+
+- 跟随 dsh-calendar 0.8.2：修**主题色误用**（宿主遮罩 token `--dsw-alias-bg-mask-3` 在 DSH 0.1.6-alpha.2 里实测是 48% 黑，之前被当淡色 hover/底纹用，导致周视图「今天」列、月视图格子 hover、骨架屏、详情 tag 发深灰）与 **Esc 关错层**（打开详情/表单时按 Esc 会连整个日历浮层面板一起关；现在只关最上面一层，并处理宿主 Modal 让行、输入法组合、多面板层序）。
+- 依赖 pin 与 `minimumReleaseAgeExclude` 放行名单同步为 dsh-calendar@0.8.2；其余 17 个组件线上仍是最新，版本未变。
+- 组合补丁 `cordis.patch.yml` 配置未变，本版仅依赖、锁文件与文档更新。
+
 ## 0.1.9（2026-09-20）
 
 - 跟随 dsh-calendar 0.8.1：新增**真 DOM 行为测试层**（jsdom + 真 React，7 条），并修它抓到的三个问题 —— ①同一批次内拖动不提交（提交前的落点判断读了过期的 React state）；②`requestAnimationFrame` 显式走 `window.*`；③四处 React key 警告。功能上无行为变化（拖拽改期仍是 0.8.0 的能力）。
