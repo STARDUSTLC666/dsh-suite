@@ -42,7 +42,7 @@ test('package.json 元数据：许可证/关键词/入口', () => {
   assert.equal(pkg.name, '@stardustlc/dsh-suite')
   assert.equal(pkg.license, 'MIT')
   assert.ok(pkg.keywords.includes('dsh-plugin'))
-  assert.equal(pkg.dsh.bundle.patch, './cordis.patch.yml')
+  assert.deepEqual(pkg.dsh.bundle.patch, ['./cordis.patch.yml', './ptc-minimal.patch.yml'])
 })
 
 test('README 双语文档齐备', () => {

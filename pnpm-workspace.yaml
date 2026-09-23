@@ -1,13 +1,13 @@
 verifyDepsBeforeRun: false
 minimumReleaseAgeExclude:
-  - dsh-calendar@0.8.2
+  - dsh-calendar@0.8.4
   - dsh-cite@0.3.3
-  - dsh-email@0.13.1
+  - dsh-email@0.14.0
   - dsh-ffmpeg@0.4.3
-  - dsh-minimal-ptc@0.4.7
-  - dsh-ppt@0.4.3
+  - dsh-minimal-ptc@0.5.0
+  - dsh-ppt@0.4.4
   - dsh-remotion@0.3.2
-  - dsh-rss@0.3.2
+  - dsh-rss@0.4.0
   - dsh-slack@0.3.1
   - dsh-sql@0.4.3
   - dsh-voice@0.3.4

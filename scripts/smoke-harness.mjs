@@ -87,7 +87,7 @@ export function apply(ctx, config) {
     void (async () => {
       const tools = ctx.tools.schemas().map(tool => tool.name).sort()
       const skills = (await ctx.skills.list()).map(skill => skill.name).sort()
-      const preset = existsSync(join(process.env.DSH_HOME, '.agent-presets/ptc-minimal/agent.cordis.yml'))
+      const preset = (await ctx.agentPresets.list()).some(preset => preset.id === 'ptc-minimal' && !preset.broken)
       const handle = await ctx.agents.create({
         sessionId: 'suite-smoke-ptc-' + Date.now(),
         setup: agentCtx => ctx.agentPresets.mount(agentCtx, 'ptc-minimal').then(() => undefined),
@@ -219,7 +219,7 @@ try {
     'email_', 'ffmpeg_', 'flaky_', 'hyperframes_', 'ppt_', 'remotion_', 'rss_', 'slack_', 'sql_', 'voice_']
   const missing = prefixes.filter(prefix => !registry.tools.some(name => name.startsWith(prefix)))
   assert.deepEqual(missing, [], `Missing plugin tool prefixes; registered: ${registry.tools.join(', ')}`)
-  assert.equal(registry.preset, true, 'Minimal PTC preset was not materialized')
+  assert.equal(registry.preset, true, 'Minimal PTC preset was not registered')
   assert.equal(registry.presetRuntime.mounted, true, 'Minimal PTC preset did not mount in a real agent')
   assert.deepEqual(registry.presetRuntime.modelTools, ['run_code'], 'Minimal PTC must expose the program tool to the model')
   assert.deepEqual(registry.tools.filter(name => !registry.presetRuntime.registeredTools.includes(name)), [], 'The preset lost installed plugin tools')

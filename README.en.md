@@ -10,7 +10,7 @@ Bundles five product lines — office flow (with dream-based memory), media stud
 
 ## Compatibility
 
-Verified against official `@deepseek-ai/dsh@0.1.5-rc.1` and Node `24.16.0` on 2026-09-11: 18 components plus separately installed Modlens register 97 host tools and 34 skills. All component tool schemas and both PTC SDK generators pass; Minimal PTC mounts in a real agent and exposes `run_code` to the model. Isolated Web startup, token authentication (303/401/200) and process shutdown pass. Requires Node 22.19 or later within 22.x, or 24 or later. The scripts below reproduce these checks; offline tests do not establish live external-service readiness.
+Version 0.2.0 requires Harness 0.1.7 or later; the current tested baseline is official-source **0.1.7-alpha.2**, with a local `Symbol.for` tool-scheduler fix. All 18 plugins register 96 tools and 34 skills; the Minimal PTC preset mounts in a real agent and appears in the mode picker. Settings migration, restart persistence, offline contracts and Web authentication are checked. Live external-service workflows need separate verification. Use suite 0.1.10 on Harness 0.1.5/0.1.6.
 
 ## Install / Uninstall
 
@@ -91,7 +91,7 @@ node scripts/smoke-harness.mjs --harness-root C:/path/to/deepseek-harness --inst
 
 Use `--install-tarballs` before release to test installation. The report must contain `{ "ok": true, "packages": [{ "name", "version", "tarball", "integrity" }] }` for the suite and all 18 components, with `sha512-...` integrity values. Only the temporary profile redirects those versions to local tarballs. The official CLI installs the suite; verification requires transitive component dependencies, no duplicate profile layers, successful startup, the complete registry and PTC mounting. Dependency installation can contact npm; this mode is not an offline test.
 
-Contracts use the selected Harness's real `ToolRuntime` and `SkillRegistry`: required service declarations, all parameter/output schemas, skill registrations and collisions, both PTC SDKs, and the execution/rendering of 16 health fixtures plus `ppt_themes`. The preset is materialized in an isolated home and its Harness module references are resolved. Startup verification also mounts it in a real agent, requiring `run_code` as the model entry point and retention of plugin tools and the shell. Only these read-only output samples are executed; other business workflows rely on the component unit tests and mocked dependencies.
+Contracts use the selected Harness's real `ToolRuntime` and `SkillRegistry`: required service declarations, all parameter/output schemas, skill registrations and collisions, both PTC SDKs, and the execution/rendering of 16 health fixtures plus `ppt_themes`. Legacy-host checks cover the retired directory format. On 0.1.7, startup verification checks declarative preset registration and module resolution. Startup verification also mounts it in a real agent, requiring `run_code` as the model entry point and retention of plugin tools and the shell. Only these read-only output samples are executed; other business workflows rely on the component unit tests and mocked dependencies.
 
 HyperFrames and Remotion also undergo a real registry regression: remove one registered skill and require unhealthy status, then restore the matching registration and require healthy status. The startup smoke check executes both health tools and requires all bundled skills to be active.
 

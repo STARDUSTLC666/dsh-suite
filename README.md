@@ -10,7 +10,7 @@
 
 ## 兼容性
 
-已在官方 `@deepseek-ai/dsh@0.1.5-rc.1`、Node `24.16.0` 上验证（2026-09-11）：18 个组件与额外安装的 Modlens 同载，宿主共注册 97 个工具、34 个技能。全部组件工具 schema 与两种 PTC SDK 生成检查通过；极简 PTC 已在真实 agent 中挂载，模型入口为 `run_code`。隔离 Web 启动、token 鉴权（303/401/200）与进程退出通过。Node 要求为 22.19 及以上的 22.x，或 24 及以上。下方脚本可重复验收；离线检查不代表外部服务业务已实测。
+0.2.0 需要 Harness 0.1.7 及以上，当前实测基线为官方源码构建的 **0.1.7-alpha.2**（含本地工具调度器 `Symbol.for` 修复）。18 个组件共同注册 96 个工具、34 个技能；极简 PTC 可在模式列表选择，并已在真实 Agent 挂载。配置迁移、重启持久化、离线契约和 Web 鉴权已验证。外部服务业务需单独验证；Harness 0.1.5/0.1.6 请使用套件 0.1.10。
 
 ## 安装
 
@@ -107,7 +107,7 @@ node scripts/smoke-harness.mjs --harness-root C:/path/to/deepseek-harness --inst
 
 发布前使用 `--install-tarballs` 验证真实安装：报告格式为 `{ "ok": true, "packages": [{ "name", "version", "tarball", "integrity" }] }`，须包含套件和 18 个组件，`integrity` 为 `sha512-...`。验证器只在临时 profile 中将指定版本映射到本地 tarball，经官方 CLI 安装套件，要求组件为传递依赖且不重复启用 profile 层，再检查实际启动、完整目录和 PTC 挂载。开发依赖可能访问 npm；这个安装模式不属于离线测试。
 
-契约检查使用指定 Harness 的真实 `ToolRuntime` 和 `SkillRegistry`：逐个校验服务注入声明、全部工具参数与输出 schema、技能注册和重名冲突，生成两种 PTC SDK，再通过宿主执行链运行 16 个 health 与 `ppt_themes` 输出样例。minimal-ptc 会物化到隔离目录，并校验预设引用的 Harness 模块可解析；启动验收还会创建真实 agent 挂载预设，确认模型入口为 `run_code` 且保留插件工具与 Shell。这里只覆盖这些只读样例的返回值；发信、合成、渲染等业务流程由组件测试中的模拟依赖验证。
+契约检查使用指定 Harness 的真实 `ToolRuntime` 和 `SkillRegistry`：逐个校验服务注入声明、全部工具参数与输出 schema、技能注册和重名冲突，生成两种 PTC SDK，再通过宿主执行链运行 16 个 health 与 `ppt_themes` 输出样例。旧宿主兼容测试会校验旧目录预设；0.1.7 启动验收检查声明式预设注册与模块解析，启动验收还会创建真实 agent 挂载预设，确认模型入口为 `run_code` 且保留插件工具与 Shell。这里只覆盖这些只读样例的返回值；发信、合成、渲染等业务流程由组件测试中的模拟依赖验证。
 
 HyperFrames 与 Remotion 另有真实注册表回归：卸载一个已注册技能，确认 health 报告异常，再恢复相同注册并确认 health 恢复正常。启动验收也会执行这两个 health，要求全部随包技能实际生效。
 
