@@ -125,13 +125,18 @@ try {
         get(name) { return this[name] },
       }
       const usedServices = new Set()
-      const requiredServices = Array.isArray(module.inject) ? module.inject : module.inject?.required ?? []
-      const optionalServices = module.inject?.optional ?? []
+      // Cordis object form maps service names to intercept configuration;
+      // it does not have separate required/optional service lists.
+      const requiredServices = Array.isArray(module.inject) ? module.inject : Object.keys(module.inject ?? {})
+      const injectionErrors = []
       const checkedContext = new Proxy(context, {
         get(target, key, receiver) {
           if (['tools', 'skills', 'settings', 'subprocess', 'appReady'].includes(key)) {
             usedServices.add(key)
-            assert.ok(requiredServices.includes(key) || optionalServices.includes(key), 'Missing inject declaration for ' + key)
+            if (!requiredServices.includes(key)) {
+              injectionErrors.push('Missing inject declaration for ' + key)
+              assert.fail(injectionErrors.at(-1))
+            }
           }
           return Reflect.get(target, key, receiver)
         },
@@ -139,6 +144,7 @@ try {
       await module.apply(checkedContext, plugin.config)
       item.requiredServices = [...requiredServices]
       item.usedServices = [...usedServices]
+      assert.deepEqual(injectionErrors, [], 'Service injection errors were swallowed by apply')
       assert.deepEqual(registrationErrors, [], 'Some registrations were swallowed by apply')
       if (Array.isArray(module.SKILL_NAMES)) assert.equal(item.skills.length, module.SKILL_NAMES.length, 'Not all bundled skills registered')
       if (plugin.name === 'dsh-minimal-ptc') {
@@ -165,6 +171,16 @@ try {
           item.fixtures.push({ name: definition.name, schemaValid: true, ...(typeof result.value.ok === 'boolean' ? { fixtureOk: result.value.ok } : {}) })
           report.outputChecks += 1
           if (definition.name.endsWith('_health')) report.healthChecks += 1
+        }
+        if (plugin.name === 'dsh-code-security') {
+          const target = join(process.cwd(), 'contract-review.js')
+          writeFileSync(target, 'export const fixture = true\n')
+          const result = await host.tools.execute({ callId: 'contract-secure-scan', name: 'secure_scan', arguments: { target }, signal: AbortSignal.timeout(10000) })
+          assert.equal(result.isError, false, JSON.stringify(result.content))
+          assert.equal(result.value.filesScanned, 1)
+          assert.equal(result.value.baseline, null)
+          item.fixtures.push({ name: 'secure_scan', schemaValid: true })
+          report.outputChecks += 1
         }
         if (Array.isArray(module.SKILL_NAMES) && definitions.some(definition => definition.name.endsWith('_health'))) {
           const registration = skillRegistrations[0]
