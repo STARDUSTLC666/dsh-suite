@@ -10,7 +10,7 @@ Bundles five product lines — office flow (with dream-based memory), media stud
 
 ## Compatibility
 
-Version 0.2.0 requires Harness 0.1.7 or later; the current tested baseline is official-source **0.1.7-alpha.2**, with a local `Symbol.for` tool-scheduler fix. All 18 plugins register 96 tools and 34 skills; the Minimal PTC preset mounts in a real agent and appears in the mode picker. Settings migration, restart persistence, offline contracts and Web authentication are checked. Live external-service workflows need separate verification. Use suite 0.1.10 on Harness 0.1.5/0.1.6.
+Version 0.2.1 requires Harness 0.1.7 or later; the current validation baseline is official-source **0.1.7-rc.2**, with a local `Symbol.for` tool-scheduler fix. All 18 plugins register 96 tools and 34 skills; 1182 automated checks pass and one is skipped. This release updates Calendar, Email, RSS, Cite, Code Security, Codex Port, Minimal PTC and PPT. See the [interactive validation record](docs/validation-2026-09-27.md) for completed flows and remaining work. External-service workflows need valid accounts and runtime dependencies. Use suite 0.1.10 on Harness 0.1.5/0.1.6.
 
 ## Install / Uninstall
 

@@ -15,23 +15,23 @@ importers:
         specifier: 0.3.3
         version: 0.3.3
       dsh-calendar:
-        specifier: 0.8.4
-        version: 0.8.4
+        specifier: 0.9.0
+        version: 0.9.0
       dsh-cite:
-        specifier: 0.3.3
-        version: 0.3.3
+        specifier: 0.3.4
+        version: 0.3.4
       dsh-code-security:
-        specifier: 0.3.3
-        version: 0.3.3
+        specifier: 0.3.4
+        version: 0.3.4
       dsh-codex-port:
-        specifier: 0.2.2
-        version: 0.2.2
+        specifier: 0.2.3
+        version: 0.2.3
       dsh-dingtalk:
         specifier: 0.2.1
         version: 0.2.1
       dsh-email:
-        specifier: 0.14.0
-        version: 0.14.0
+        specifier: 0.14.1
+        version: 0.14.1
       dsh-ffmpeg:
         specifier: 0.4.3
         version: 0.4.3
@@ -42,17 +42,17 @@ importers:
         specifier: 0.3.2
         version: 0.3.2
       dsh-minimal-ptc:
+        specifier: 0.5.1
+        version: 0.5.1
+      dsh-ppt:
         specifier: 0.5.0
         version: 0.5.0
-      dsh-ppt:
-        specifier: 0.4.4
-        version: 0.4.4
       dsh-remotion:
         specifier: 0.3.2
         version: 0.3.2
       dsh-rss:
-        specifier: 0.4.0
-        version: 0.4.0
+        specifier: 0.4.1
+        version: 0.4.1
       dsh-slack:
         specifier: 0.3.1
         version: 0.3.1(undici@8.10.2)
@@ -174,28 +174,28 @@ packages:
   domutils@3.2.2:
     resolution: {integrity: sha512-6kZKyUajlDuqlHKVX1w7gyslj9MPIXzIFiz/rGu35uC1wMi+kMhQwGhl4lt9unC9Vb9INnY9Z3/ZA3+FhASLaw==}
 
-  dsh-calendar@0.8.4:
-    resolution: {integrity: sha512-8sbQlsTNY5OqfNh1A2acEFn6WR1vVTAjkz9FbB64YLslpvj61MyFtP4pwrrpTlh+4q6ln5ncKP9xDjJHQQkPPQ==}
+  dsh-calendar@0.9.0:
+    resolution: {integrity: sha512-G33yvayeHqKDzeQf8lfUmOWjYZqYSybHyeg6IQIjBYTRtUgkDc2cOEdv4dZ8L6OIw2A+gZLMjCixa051AFWvkA==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-cite@0.3.3:
-    resolution: {integrity: sha512-Ao+a50+vkR87+xKhLnlvaRhtQuL1uiTJiwC3Esy/fKEyWSR5rTHaVlx72y4H6gAeptUVTy0T4OuraXCJFjWFnw==}
+  dsh-cite@0.3.4:
+    resolution: {integrity: sha512-tSzLjUxUHdivXBj3P0pFQ5cTjnbYo6r9mf/+yrRcmoc+2+Cjx2FNJB+/CqEIkmqobdggqsfSYEyT+K2YweqsiQ==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-code-security@0.3.3:
-    resolution: {integrity: sha512-odVZDXyghkCufVPX8WXaCh41NusAIKUX9AIY7/bxS4dxuFuwVHvyieb2JubVWbaxvCu75p0hYuYH3uAb7vjUCg==}
+  dsh-code-security@0.3.4:
+    resolution: {integrity: sha512-uJX9iKLq713t9lihk2kUyKh1drGgdZ8QEpjaXvxjt+kJlX/LRFk9XQdYyK2iwhnVBqS/5K8wWOD3jRbnbFbq8w==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-codex-port@0.2.2:
-    resolution: {integrity: sha512-6xS1ZLjg2AAB0WvgUQCHKVJDRqICDVzEQcYf4eT3mgt27s5bVs7tcfr7gx5W8lrcumBet1B4SrZ1yttn4PU1ZQ==}
+  dsh-codex-port@0.2.3:
+    resolution: {integrity: sha512-4NW9zA802CV0NeJNWHSlxR/Bi/gRVPBDdPQhX4oELTr80SUxXaZ3vLP9qsk6BZSE+WVljA2hywyWkWmN6DXUrg==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   dsh-dingtalk@0.2.1:
     resolution: {integrity: sha512-mcfSrrHpHRXCHd4HMqiKE2F8or4zGDN37Spk+30033O+MzsER+hQjxsExbAv0ARo+3IuCZBEbRyym2gV4qepfg==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-email@0.14.0:
-    resolution: {integrity: sha512-6EJx96wiF4y4YS8duGj1ZMjnvgpc6PWIeCmWm4Osx0CH2KoujUUK6ENFTTN3PZjbOZPA0IbR+Kc8Iqpr9McaTQ==}
+  dsh-email@0.14.1:
+    resolution: {integrity: sha512-8ATH4avWILUpoFU6ERplsWxVo0NWSDZqFt9k4snAqL0EWwNpOXHFch4Yygf0fY5Pvwq65eDfxzAwYRsU096Ukg==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   dsh-ffmpeg@0.4.3:
@@ -210,20 +210,20 @@ packages:
     resolution: {integrity: sha512-pAmWrhPyFiGl9w29eVp3AP/yQ6NgAh6UOEvkMXm6kGevPl/k7jSeRIYrY8k9VPcg98iGDjIfrYPvy9q56V5j+w==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-minimal-ptc@0.5.0:
-    resolution: {integrity: sha512-z9vDB0UCfNbmdFor3lysltzdkGA9NRcb6Bp/dMRDiiq2GK9Chy7eoZtN7mcF+LSOol6rtgmTGo6ZBzUOcLaMFg==}
+  dsh-minimal-ptc@0.5.1:
+    resolution: {integrity: sha512-9GPq/XTInPnFkPdDvKzdS/pA+Lq3DQW6UWXDC1F+KlVBcRP1YckPVaTPSaLoqzskzAL8tTTzhWK3yr6qKYr2PQ==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-ppt@0.4.4:
-    resolution: {integrity: sha512-DCtbsGlUvVm3nXs5iQWplY+7BgspgwyECTOu8QDmIMstsC+pIzWnR4hPU/0J9aNqqMO7is6RxPzYD6LPWTqyAw==}
+  dsh-ppt@0.5.0:
+    resolution: {integrity: sha512-N3JisM5+4KKjstEBcNbanQ95RoZvzF/clmsWDoNoBUUv5D6msBZmh10wfefxBaSVibEEbnl5Mww+FpoPqy0qog==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   dsh-remotion@0.3.2:
     resolution: {integrity: sha512-MWn5B0ux+npeCLjNNxCr2vGQss4J7OOwFdFkqyVSKk+L2lJgBFnQYEMcaBAkEKpA6JHsmaNeVpxriNvC31ipnw==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-rss@0.4.0:
-    resolution: {integrity: sha512-2b8STAkjwf9kZIaF2Aua4Wqn5crIQNjJgHDNVxHmcntlwJ59bM8COuE1OHQgM5JOiBENEiqR2HbJqW/a8JrpcA==}
+  dsh-rss@0.4.1:
+    resolution: {integrity: sha512-8DZk1x1EX7yu8xTNCSRmdagbRKsKFwBInNvWGswl8WreoSrWY5omTTw+7Q11otxVzEk+wpI4AdmYYenLjkNpow==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   dsh-slack@0.3.1:
@@ -662,26 +662,28 @@ snapshots:
       domelementtype: 2.3.0
       domhandler: 5.0.3
 
-  dsh-calendar@0.8.4:
+  dsh-calendar@0.9.0:
     dependencies:
+      '@deepseek-ai/schemastery': 3.18.3
       ical.js: 2.2.1
       schemastery: 3.18.0
       tsdav: 2.3.3
       undici: 8.10.2
+      yaml: 2.9.1
     transitivePeerDependencies:
       - supports-color
 
-  dsh-cite@0.3.3: {}
+  dsh-cite@0.3.4: {}
 
-  dsh-code-security@0.3.3: {}
+  dsh-code-security@0.3.4: {}
 
-  dsh-codex-port@0.2.2:
+  dsh-codex-port@0.2.3:
     dependencies:
       yaml: 2.9.1
 
   dsh-dingtalk@0.2.1: {}
 
-  dsh-email@0.14.0:
+  dsh-email@0.14.1:
     dependencies:
       '@deepseek-ai/schemastery': 3.18.3
       imapflow: 1.7.8
@@ -698,15 +700,15 @@ snapshots:
     dependencies:
       yaml: 2.9.1
 
-  dsh-minimal-ptc@0.5.0: {}
+  dsh-minimal-ptc@0.5.1: {}
 
-  dsh-ppt@0.4.4: {}
+  dsh-ppt@0.5.0: {}
 
   dsh-remotion@0.3.2:
     dependencies:
       yaml: 2.9.1
 
-  dsh-rss@0.4.0:
+  dsh-rss@0.4.1:
     dependencies:
       '@deepseek-ai/schemastery': 3.18.3
       fast-xml-parser: 5.11.1
