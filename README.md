@@ -11,7 +11,7 @@
 重新验证整套兼容性（对着任意构建好的 Harness 检出跑一遍，产出 JSON 报告）：
 
 ```bash
-dsh plugin --profile web add @stardustlc/dsh-suite   # 安装
+
 node scripts/verify-compat.mjs --harness-root <harness 检出>   # 或在套件源码里执行
 ```
 

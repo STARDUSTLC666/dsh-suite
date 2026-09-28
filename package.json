@@ -1,6 +1,6 @@
 {
   "name": "@stardustlc/dsh-suite",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "DSH 插件全家桶：18 个组件覆盖邮件、日历、媒体创作、开发运维、消息通知与极简 PTC，一条命令安装。",
   "type": "module",
   "dsh": {
@@ -41,24 +41,24 @@
     "node": "^22.19.0 || >=24.0.0"
   },
   "dependencies": {
-    "@stardustlc/dsh-docker": "0.3.3",
-    "@stardustlc/dsh-dream": "0.3.4",
-    "dsh-calendar": "0.9.0",
-    "dsh-cite": "0.3.4",
-    "dsh-code-security": "0.3.4",
-    "dsh-codex-port": "0.2.3",
-    "dsh-dingtalk": "0.2.1",
-    "dsh-email": "0.14.1",
-    "dsh-ffmpeg": "0.4.3",
-    "dsh-flakefinder": "0.3.3",
-    "dsh-hyperframes": "0.3.2",
-    "dsh-minimal-ptc": "0.5.1",
-    "dsh-ppt": "0.5.0",
-    "dsh-remotion": "0.3.2",
-    "dsh-rss": "0.4.1",
-    "dsh-slack": "0.3.1",
-    "dsh-sql": "0.4.3",
-    "dsh-voice": "0.3.4"
+    "@stardustlc/dsh-docker": "0.3.4",
+    "@stardustlc/dsh-dream": "0.3.5",
+    "dsh-calendar": "0.9.1",
+    "dsh-cite": "0.3.5",
+    "dsh-code-security": "0.3.6",
+    "dsh-codex-port": "0.2.4",
+    "dsh-dingtalk": "0.2.2",
+    "dsh-email": "0.14.3",
+    "dsh-ffmpeg": "0.4.4",
+    "dsh-flakefinder": "0.3.4",
+    "dsh-hyperframes": "0.4.1",
+    "dsh-minimal-ptc": "0.5.2",
+    "dsh-ppt": "0.5.1",
+    "dsh-remotion": "0.3.4",
+    "dsh-rss": "0.4.2",
+    "dsh-slack": "0.3.2",
+    "dsh-sql": "0.4.4",
+    "dsh-voice": "0.3.5"
   },
   "devDependencies": {
     "js-yaml": "^4.1.0"

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.3（2026-09-28）
+
+- 兼容验证更新到 Harness 0.2.0-rc.1：18 个组件在同一宿主共同加载，注册 96 个工具、35 个技能，契约检查通过（`tools` / `skills` / 健康检查 / 输出检查 / 注册丢失检查）。
+- 新增 `scripts/verify-compat.mjs`（`pnpm run verify:compat --harness-root <检出>`）：对着任意构建好的 Harness 检出重跑整套离线验证并产出 JSON 报告。
+- 依赖 pin 同步到本次发布的组件版本（含 `dsh-code-security` 0.3.6、`dsh-email` 0.14.3、`dsh-hyperframes` 0.4.1、`dsh-remotion` 0.3.4 等 18 个组件）。
+- 修正 README 安装命令块被行内注释污染的问题（测试守护）。
+
 ## 0.2.2（2026-09-28）
 
 - 跟随 @stardustlc/dsh-dream 0.3.4：修复 [#2](https://github.com/STARDUSTLC666/dsh-dream/issues/2)（`dream_digest` 摘要此前丢弃全部梦原料，模型只看到标题与轮数；现在实际输出用户原话、助手回应与工具足迹）、支持 Harness v4 会话文件并过滤推理块与自动注入上下文、跳过空会话、标题/目录/工具名一并脱敏。
