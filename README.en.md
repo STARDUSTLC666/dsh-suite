@@ -8,9 +8,15 @@
 
 Bundles five product lines — office flow (with dream-based memory), media studio, DevOps, messaging and presets — into your DeepSeek Harness at once. Every row in the combined patch keeps the component's own defaults.
 
-## Compatibility
+Re-verify the whole suite against any built Harness checkout (writes a JSON report):
 
-Version 0.2.1 requires Harness 0.1.7 or later; the current validation baseline is official-source **0.1.7-rc.2**, with a local `Symbol.for` tool-scheduler fix. All 18 plugins register 96 tools and 34 skills; 1182 automated checks pass and one is skipped. This release updates Calendar, Email, RSS, Cite, Code Security, Codex Port, Minimal PTC and PPT. See the [interactive validation record](docs/validation-2026-09-27.md) for completed flows and remaining work. External-service workflows need valid accounts and runtime dependencies. Use suite 0.1.10 on Harness 0.1.5/0.1.6.
+```bash
+node scripts/verify-compat.mjs --harness-root <harness checkout>
+```
+
+## 兼容性
+
+Validation host: Harness `0.2.0-rc.1` built from official sources (commit `407e65c8`) with Node `24.16.0` on 2026-09-28. This repository is the bundle (it ships no tests of its own); all 18 suite components mount together in one host and pass the contract checks: 96 tools and 35 skills registered, with tool schemas and health-check contracts passing. No live ports or external services were exercised in this round.
 
 ## Install / Uninstall
 

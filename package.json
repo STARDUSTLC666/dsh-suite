@@ -21,7 +21,8 @@
   "scripts": {
     "test": "node --test \"test/*.test.mjs\"",
     "verify": "node scripts/verify-local.mjs",
-    "verify:contracts": "node scripts/verify-local.mjs --contracts-only"
+    "verify:contracts": "node scripts/verify-local.mjs --contracts-only",
+    "verify:compat": "node scripts/verify-compat.mjs"
   },
   "keywords": [
     "dsh",
