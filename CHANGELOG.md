@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.2（2026-09-28）
+
+- 跟随 @stardustlc/dsh-dream 0.3.4：修复 [#2](https://github.com/STARDUSTLC666/dsh-dream/issues/2)（`dream_digest` 摘要此前丢弃全部梦原料，模型只看到标题与轮数；现在实际输出用户原话、助手回应与工具足迹）、支持 Harness v4 会话文件并过滤推理块与自动注入上下文、跳过空会话、标题/目录/工具名一并脱敏。
+- 合同测试增强：在真实宿主里以当前 `SESSION_FORMAT_VERSION` 写入一条会话，断言 `dream_digest` 经宿主工具调度可读、可渲染出人类内容；`secure_scan` 补充模型可见输出与规范结果的一致性断言。
+- 依赖 pin 与 `minimumReleaseAgeExclude` 放行名单同步为 @stardustlc/dsh-dream@0.3.4；其余 17 个组件线上仍是最新，版本未变。
+
 ## 0.1.10（2026-09-20）
 
 - 跟随 dsh-calendar 0.8.2：修**主题色误用**（宿主遮罩 token `--dsw-alias-bg-mask-3` 在 DSH 0.1.6-alpha.2 里实测是 48% 黑，之前被当淡色 hover/底纹用，导致周视图「今天」列、月视图格子 hover、骨架屏、详情 tag 发深灰）与 **Esc 关错层**（打开详情/表单时按 Esc 会连整个日历浮层面板一起关；现在只关最上面一层，并处理宿主 Modal 让行、输入法组合、多面板层序）。

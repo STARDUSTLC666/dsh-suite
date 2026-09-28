@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { createRequire } from 'node:module'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
@@ -179,7 +179,33 @@ try {
           assert.equal(result.isError, false, JSON.stringify(result.content))
           assert.equal(result.value.filesScanned, 1)
           assert.equal(result.value.baseline, null)
+          assert.match(result.content.map(block => block.text ?? '').join('\n'), /安全审查：通过\n文件 1 个/,
+            'The model-visible scan must agree with its canonical result')
           item.fixtures.push({ name: 'secure_scan', schemaValid: true })
+          report.outputChecks += 1
+        }
+        if (plugin.name === '@stardustlc/dsh-dream') {
+          const { SESSION_FORMAT_VERSION } = await importFile(join(harnessRoot, 'packages/core/session/lib/index.js'))
+          const config = module.resolveConfig(plugin.config)
+          const directory = join(config.sessionsRoot, 'contract-workspace', 'contract-session')
+          mkdirSync(directory, { recursive: true })
+          const event = (type, seq, data) => ({ type, seq, time: 1000 + seq, data })
+          writeFileSync(join(directory, `session.v${SESSION_FORMAT_VERSION}.jsonl`), [
+            { type: 'session', version: SESSION_FORMAT_VERSION, id: 'contract-session', createdAt: 1000, isSeeded: false },
+            event('turn/start', 0, { turn: 1 }),
+            { ...event('user/message', 1, { id: 'u', role: 'user', source: { kind: 'user' }, content: [{ type: 'text', text: 'contract human request' }] }), surfaceOp: 'append' },
+            { ...event('assistant/message', 2, { turn: 1, step: 1, message: { id: 'a', role: 'assistant', source: { kind: 'model' }, content: [
+              { type: 'reasoning', text: 'contract private reasoning' }, { type: 'text', text: 'contract final answer' },
+            ] }, stream: [] }), surfaceOp: 'append' },
+          ].map(row => JSON.stringify(row)).join('\n') + '\n')
+          const result = await host.tools.execute({ callId: 'contract-dream-digest', name: 'dream_digest', arguments: { mode: 'full' }, signal: AbortSignal.timeout(10000) })
+          assert.equal(result.isError, false, JSON.stringify(result.content))
+          assert.equal(result.value.count, 1, 'The current Harness session generation must be readable')
+          const rendered = result.content.map(block => block.text ?? '').join('\n')
+          assert.match(rendered, /contract human request/)
+          assert.match(rendered, /contract final answer/)
+          assert.doesNotMatch(rendered, /contract private reasoning/)
+          item.fixtures.push({ name: 'dream_digest', schemaValid: true, sessionVersion: SESSION_FORMAT_VERSION })
           report.outputChecks += 1
         }
         if (Array.isArray(module.SKILL_NAMES) && definitions.some(definition => definition.name.endsWith('_health'))) {

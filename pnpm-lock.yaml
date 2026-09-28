@@ -12,8 +12,8 @@ importers:
         specifier: 0.3.3
         version: 0.3.3
       '@stardustlc/dsh-dream':
-        specifier: 0.3.3
-        version: 0.3.3
+        specifier: 0.3.4
+        version: 0.3.4
       dsh-calendar:
         specifier: 0.9.0
         version: 0.9.0
@@ -111,8 +111,8 @@ packages:
     resolution: {integrity: sha512-AuMuHRNrQaxu+3B2gNQPsgXnaLOt3CymxCdqpMRWfSh4zze4BxrPDeh/sz713QC6H53CFG3FGEcrbFFLNvBtJQ==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  '@stardustlc/dsh-dream@0.3.3':
-    resolution: {integrity: sha512-w+XcKk/vrlzDvOuzWYjB0jMfe70/Bh64+5sN0aAhQL5nfxueq07VPdxvqB2pHnkyw02hUcfEde0nVxSW3Qk5ng==}
+  '@stardustlc/dsh-dream@0.3.4':
+    resolution: {integrity: sha512-NlvTQWSovfY+hbHFWzPeDgpaA3ro50vsQxOxyUDC51jkbiqzUNFt9Hbg0sw0vOsrXdWq7fVqThEK8dIsED1ZMg==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   '@types/node@26.5.1':
@@ -610,7 +610,7 @@ snapshots:
 
   '@stardustlc/dsh-docker@0.3.3': {}
 
-  '@stardustlc/dsh-dream@0.3.3': {}
+  '@stardustlc/dsh-dream@0.3.4': {}
 
   '@types/node@26.5.1':
     dependencies:
