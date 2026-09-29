@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.7（2026-09-29）
+
+- 依赖 pin 跟随 `@stardustlc/dsh-dream` **0.5.1**：修复日记 BOM 读空与心境键原型污染；检索纪律（候选/无证据默认不注入、版本判定需包名上下文、预算按排名整条装入）；证据纪律 R2′（read→可用、claimed→候选）；存储可诊断（`orphanEvents`/`unsupportedVersions`/checkpoint）与锁心跳。
+- 已知限制：知识库很大时读/写仍随历史线性增长，本版不承诺大库性能（见该组件 CHANGELOG 0.5.1）。
+- 其余 17 个组件版本未变；`minimumReleaseAgeExclude` 与 pin 逐条对齐。
 ## 0.2.6（2026-09-29）
 
 - 依赖 pin 跟随 `@stardustlc/dsh-dream` **0.5.0**（M1：有来源的经验——新增 `dream_learn` / `dream_context` / `dream_review`，新数据目录 `<journalDir>/knowledge/`，只读经验面板）。
