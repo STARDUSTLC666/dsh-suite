@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.6（2026-09-29）
+
+- 依赖 pin 跟随 `@stardustlc/dsh-dream` **0.5.0**（M1：有来源的经验——新增 `dream_learn` / `dream_context` / `dream_review`，新数据目录 `<journalDir>/knowledge/`，只读经验面板）。
+- 工具契约计数随之从 96 → **99**（18 个组件同载复验通过）；旧日记与既有六工具行为不变、无迁移。
+- 其余 17 个组件版本未变；`minimumReleaseAgeExclude` 与 pin 保持逐条对齐。
 ## 0.2.5（2026-09-29）
 
 - 依赖 pin 跟随 `@stardustlc/dsh-dream` **0.4.1**：修复 Desktop 启动失败（前端模块注册 ID 与 scoped 包名不一致导致 `duplicate factory registration`）。0.4.0 的日记面板功能不受影响，本版只是让 Desktop 能正常激活该入口。
