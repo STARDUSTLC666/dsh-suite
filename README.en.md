@@ -16,7 +16,7 @@ node scripts/verify-compat.mjs --harness-root <harness checkout>
 
 ## 兼容性
 
-Validation host: Harness `0.2.0-rc.1` built from official sources (commit `407e65c8`) with Node `24.16.0` on 2026-09-28. This repository is the bundle (it ships no tests of its own); all 18 suite components mount together in one host and pass the contract checks: 96 tools and 35 skills registered, with tool schemas and health-check contracts passing. No live ports or external services were exercised in this round.
+Validation host: Harness `0.2.0-rc.1` built from official sources (commit `407e65c8`) with Node `24.16.0` on 2026-09-28, re-verified 2026-09-29. This repository is the bundle (it ships no tests of its own); all 18 suite components mount together in one host and pass the contract checks: 96 tools and 35 skills registered, with tool schemas and health-check contracts passing. No live ports or external services were exercised in this round.
 
 ## Install / Uninstall
 
