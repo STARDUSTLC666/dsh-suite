@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.5（2026-09-29）
+
+- 依赖 pin 跟随 `@stardustlc/dsh-dream` **0.4.1**：修复 Desktop 启动失败（前端模块注册 ID 与 scoped 包名不一致导致 `duplicate factory registration`）。0.4.0 的日记面板功能不受影响，本版只是让 Desktop 能正常激活该入口。
+- 其余 17 个组件版本未变；`minimumReleaseAgeExclude` 与 pin 保持逐条对齐。
 ## 0.2.4（2026-09-29）
 
 - 依赖 pin 跟随今天发布的三个组件：`@stardustlc/dsh-dream` **0.4.0**（新增只读「梦境日记」可视化面板）、`dsh-calendar` **0.9.2**（OAuth 刷新失败按错误码给可操作指引且不回显响应正文）、`dsh-email` **0.14.4**（SMTP 每次发送独占连接，取消真正生效）。
