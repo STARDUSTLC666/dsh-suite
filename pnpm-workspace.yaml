@@ -1,16 +1,20 @@
 verifyDepsBeforeRun: false
 minimumReleaseAgeExclude:
-  - dsh-calendar@0.9.0
-  - dsh-cite@0.3.4
-  - dsh-code-security@0.3.4
-  - dsh-codex-port@0.2.3
-  - dsh-email@0.14.1
-  - dsh-ffmpeg@0.4.3
-  - dsh-minimal-ptc@0.5.1
-  - dsh-ppt@0.5.0
-  - dsh-remotion@0.3.2
-  - dsh-rss@0.4.1
-  - dsh-slack@0.3.1
-  - dsh-sql@0.4.3
-  - dsh-voice@0.3.4
-  - '@stardustlc/dsh-dream@0.3.4'
+  - '@stardustlc/dsh-docker@0.3.4'
+  - '@stardustlc/dsh-dream@0.4.0'
+  - dsh-calendar@0.9.2
+  - dsh-cite@0.3.5
+  - dsh-code-security@0.3.6
+  - dsh-codex-port@0.2.4
+  - dsh-dingtalk@0.2.2
+  - dsh-email@0.14.4
+  - dsh-ffmpeg@0.4.4
+  - dsh-flakefinder@0.3.4
+  - dsh-hyperframes@0.4.1
+  - dsh-minimal-ptc@0.5.2
+  - dsh-ppt@0.5.1
+  - dsh-remotion@0.3.4
+  - dsh-rss@0.4.2
+  - dsh-slack@0.3.2
+  - dsh-sql@0.4.4
+  - dsh-voice@0.3.5
