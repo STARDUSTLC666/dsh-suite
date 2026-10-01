@@ -17,7 +17,7 @@ node scripts/verify-compat.mjs --harness-root <harness 检出>   # 或在套件�
 
 ## 兼容性
 
-验证宿主：官方发布标签源码构建的 Harness `0.2.0-rc.2`（commit `639ed01539`）+ Windows / Node `24.16.0`。18 个组件共同加载，注册 99 个工具、35 个技能，工具 schema 与健康检查契约通过。套件另有 11 项清单、锁文件与离线环境测试。0.2.8 锁定 Dream 0.6.0、Email 0.14.5、HyperFrames 0.4.2 和 Slack 0.3.3；验证范围、反馈处理及真实服务限制见 [验收记录](docs/validation-2026-10-01.md)。
+验证宿主：官方发布标签源码构建的 Harness `0.2.0-rc.2`（commit `639ed01539`）+ Windows / Node `24.16.0`。18 个组件共同加载，注册 99 个工具、35 个技能，工具 schema 与健康检查契约通过。套件另有 11 项清单、锁文件与离线环境测试。0.2.9 升级 Calendar 0.9.3 和 RSS 0.4.3，修复连接表单及订阅 URL 比较问题；其余组件保持已验证版本。验证范围与桌面、真实服务限制见 [本轮验收记录](docs/validation-2026-10-01-calendar-rss.md)，此前的 Dream、Email 和 Slack 修复见 [0.2.8 记录](docs/validation-2026-10-01.md)。
 
 ## 安装
 

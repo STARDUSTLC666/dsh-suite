@@ -16,7 +16,7 @@ node scripts/verify-compat.mjs --harness-root <harness checkout>
 
 ## Compatibility
 
-Validation host: Harness `0.2.0-rc.2` built from its official release tag (commit `639ed01539`), Windows and Node `24.16.0`. All 18 components mount together with 99 tools and 35 skills; tool schemas and health contracts pass. The suite also has 11 manifest, lockfile and offline-environment tests. Version 0.2.8 pins Dream 0.6.0, Email 0.14.5, HyperFrames 0.4.2 and Slack 0.3.3. See the [validation record](docs/validation-2026-10-01.md) for feedback dispositions, verification scope and live-service limits.
+Validation host: Harness `0.2.0-rc.2` built from its official release tag (commit `639ed01539`), Windows and Node `24.16.0`. All 18 components mount together with 99 tools and 35 skills; tool schemas and health contracts pass. The suite also has 11 manifest, lockfile and offline-environment tests. Version 0.2.9 upgrades Calendar to 0.9.3 and RSS to 0.4.3, fixing connection form behavior and subscription URL comparison. Other verified component pins remain in place. See the [current validation record](docs/validation-2026-10-01-calendar-rss.md) for desktop and live-service limits, and the [0.2.8 record](docs/validation-2026-10-01.md) for the previous Dream, Email and Slack fixes.
 
 ## Install / Uninstall
 
