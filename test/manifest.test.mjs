@@ -70,6 +70,18 @@ test('套件声明全部 18 个 npm 组件依赖，避免用户重复启用组�
   for (const version of Object.values(pkg.dependencies)) assert.match(version, /^\d+\.\d+\.\d+$/, '组件应锁定已验证的 npm 版本')
 })
 
+test('冻结锁文件与全部组件版本一致，源码安装不会退回旧版', () => {
+  const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'))
+  const lock = yamlLoad(readFileSync(join(root, 'pnpm-lock.yaml'), 'utf8'))
+  const dependencies = lock.importers['.'].dependencies
+  assert.deepEqual(Object.keys(dependencies).sort(), Object.keys(pkg.dependencies).sort())
+  for (const [name, version] of Object.entries(pkg.dependencies)) {
+    assert.equal(dependencies[name].specifier, version, `${name} 的锁文件声明已过期`)
+    assert.equal(dependencies[name].version.split('(')[0], version, `${name} 的实际解析版本已过期`)
+    assert.match(lock.packages[`${name}@${version}`]?.resolution?.integrity ?? '', /^sha512-/, `${name} 缺少 npm 包完整性记录`)
+  }
+})
+
 test('双语安装命令只启用套件，避免 duplicate loader entry id', () => {
   for (const file of ['README.md', 'README.en.md']) {
     const readme = readFileSync(join(root, file), 'utf8')

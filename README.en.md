@@ -14,9 +14,9 @@ Re-verify the whole suite against any built Harness checkout (writes a JSON repo
 node scripts/verify-compat.mjs --harness-root <harness checkout>
 ```
 
-## 兼容性
+## Compatibility
 
-Validation host: Harness `0.2.0-rc.1` built from official sources (commit `407e65c8`) with Node `24.16.0` on 2026-09-28, re-verified 2026-09-29. This repository is the bundle (it ships no tests of its own); all 18 suite components mount together in one host and pass the contract checks: 99 tools and 35 skills registered, with tool schemas and health-check contracts passing. No live ports or external services were exercised in this round.
+Validation host: Harness `0.2.0-rc.2` built from its official release tag (commit `639ed01539`), Windows and Node `24.16.0`. All 18 components mount together with 99 tools and 35 skills; tool schemas and health contracts pass. The suite also has 11 manifest, lockfile and offline-environment tests. Version 0.2.8 pins Dream 0.6.0, Email 0.14.5, HyperFrames 0.4.2 and Slack 0.3.3. See the [validation record](docs/validation-2026-10-01.md) for feedback dispositions, verification scope and live-service limits.
 
 ## Install / Uninstall
 
@@ -56,11 +56,11 @@ Keep your profile's `cordis.patch.yml` configuration overrides, then restart Web
 | | dsh-calendar | CalDAV list/create/update/delete/search (Google/iCloud/Nextcloud/custom); ships a month/week/agenda panel in Settings (remembers your view, week view starts at 07:00, **drag to reschedule**) where the connection is entered, tested and saved |
 | | dsh-rss | RSS/Atom subscriptions + cross-feed search + incremental fetch |
 | | dsh-cite | Crossref lookup + four citation styles + BibTeX |
-| | dsh-dream | Session replay → reflection → dream journal → AGENTS.md bridge (privacy masking) |
+| | dsh-dream | Session replay → source verification → lesson review → project-rule preview, apply and rollback (privacy masking) |
 | Media | dsh-ffmpeg | probe/cut/concat/encode/subtitle/frames/GIF/adjust (speed/volume/mute/rotate), ten tools |
 | | dsh-voice | edge-tts synthesis + ASR transcription + voice preview |
 | | dsh-ppt | One prompt to HTML slideshow + PPTX export: 7 layouts (quote/table) + speaker notes |
-| | dsh-hyperframes | HyperFrames by HeyGen bundle of 20 skills |
+| | dsh-hyperframes | HyperFrames by HeyGen bundle of 21 skills |
 | | dsh-remotion | Remotion programmatic-video skill |
 | DevOps | @stardustlc/dsh-docker | Seven container tools (incl. health) + exec approval gate |
 | | dsh-sql | SQLite/MySQL/PostgreSQL + read-only guard + approval gate + stats/CSV |
@@ -91,6 +91,7 @@ node scripts/verify-local.mjs --harness-root C:/path/to/deepseek-harness --repor
 node scripts/verify-local.mjs --harness-root C:/path/to/deepseek-harness --contracts-only --json
 node scripts/smoke-harness.mjs --harness-root C:/path/to/deepseek-harness --contract-report ../.harness-validation/offline-report.json --report ../.harness-validation/smoke-report.json
 node scripts/smoke-harness.mjs --harness-root C:/path/to/deepseek-harness --install-tarballs ../.harness-validation/tarballs.json --contract-report ../.harness-validation/offline-report.json --report ../.harness-validation/install-report.json
+node scripts/smoke-harness.mjs --harness-root C:/path/to/deepseek-harness --install-tarballs ../.harness-validation/tarballs.json --registry-components --registry-suite --contract-report ../.harness-validation/offline-report.json --report ../.harness-validation/registry-report.json
 ```
 
 `--workspace-root` selects the parent of the component repositories. `--report` saves JSON, `--json` prints only JSON, and failures return a nonzero exit status. `--contracts-only` validates existing `lib/` artifacts without rebuilding or running unit tests.

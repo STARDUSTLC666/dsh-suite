@@ -17,7 +17,7 @@ node scripts/verify-compat.mjs --harness-root <harness 检出>   # 或在套件�
 
 ## 兼容性
 
-验证宿主：官方源码构建的 Harness `0.2.0-rc.1`（commit `407e65c8`）+ Node `24.16.0`（2026-09-29 复核）。本仓库是组合包（不含独立测试），套件内 18 个组件在同一宿主中共同加载并通过契约检查：共注册 99 个工具、35 个技能，工具 schema 与健康检查契约全部通过。本轮未启用真实端口与外部服务。
+验证宿主：官方发布标签源码构建的 Harness `0.2.0-rc.2`（commit `639ed01539`）+ Windows / Node `24.16.0`。18 个组件共同加载，注册 99 个工具、35 个技能，工具 schema 与健康检查契约通过。套件另有 11 项清单、锁文件与离线环境测试。0.2.8 锁定 Dream 0.6.0、Email 0.14.5、HyperFrames 0.4.2 和 Slack 0.3.3；验证范围、反馈处理及真实服务限制见 [验收记录](docs/validation-2026-10-01.md)。
 
 ## 安装
 
@@ -59,11 +59,11 @@ dsh plugin --profile web remove @stardustlc/dsh-suite
 | | dsh-calendar | CalDAV 日程查建改删搜（Google/iCloud/Nextcloud/自建）；设置页里带月/周/议程面板（记住上次视图、周视图从 07:00 起、**拖动即可改期**），连接配置在面板内填写并先测后存 |
 | | dsh-rss | RSS/Atom 订阅 + 跨订阅搜索 + 增量抓取 |
 | | dsh-cite | Crossref 文献检索 + 四种引文格式 + BibTeX |
-| | dsh-dream | 会话回放 → 反思 → 梦境日记 → 桥接 AGENTS.md（含隐私脱敏） |
+| | dsh-dream | 会话回放 → 来源核验 → 经验审阅 → 项目规则预览、写入与回滚（含隐私脱敏） |
 | 🎬 媒体工坊 | dsh-ffmpeg | 探测/剪辑/拼接/转码/字幕/抽帧/GIF/调整（变速·音量·静音·旋转）十工具 |
 | | dsh-voice | edge-tts 合成 + ASR 转写 + 音色试听 |
 | | dsh-ppt | 一句话生成 HTML 放映 + PPTX 导出：7 页型（金句/表格）+ 演讲者备注 |
-| | dsh-hyperframes | HyperFrames by HeyGen 官方视频技能（20 个上游技能） |
+| | dsh-hyperframes | HyperFrames by HeyGen 官方视频技能（21 个上游技能） |
 | | dsh-remotion | Remotion React 编程式视频技能 |
 | 🔧 DevOps | dsh-docker | 容器七工具（含 health 自检）+ exec 审批门（@stardustlc/dsh-docker） |
 | | dsh-sql | SQLite/MySQL/PostgreSQL + 只读保护 + 审批门 + 统计/CSV |
@@ -108,6 +108,7 @@ node scripts/verify-local.mjs --harness-root C:/path/to/deepseek-harness --repor
 node scripts/verify-local.mjs --harness-root C:/path/to/deepseek-harness --contracts-only --json
 node scripts/smoke-harness.mjs --harness-root C:/path/to/deepseek-harness --contract-report ../.harness-validation/offline-report.json --report ../.harness-validation/smoke-report.json
 node scripts/smoke-harness.mjs --harness-root C:/path/to/deepseek-harness --install-tarballs ../.harness-validation/tarballs.json --contract-report ../.harness-validation/offline-report.json --report ../.harness-validation/install-report.json
+node scripts/smoke-harness.mjs --harness-root C:/path/to/deepseek-harness --install-tarballs ../.harness-validation/tarballs.json --registry-components --registry-suite --contract-report ../.harness-validation/offline-report.json --report ../.harness-validation/registry-report.json
 ```
 
 `--workspace-root` 可指定组件父目录；`--report` 保存 JSON，`--json` 让标准输出只包含 JSON。任何构建、测试或契约失败均返回非零退出码。`--contracts-only` 跳过重建与单元测试，检查当前 `lib/` 产物。

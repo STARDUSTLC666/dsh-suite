@@ -18,6 +18,7 @@ const { values } = parseArgs({ options: {
   'contract-report': { type: 'string' },
   'install-tarballs': { type: 'string' },
   'registry-components': { type: 'boolean', default: false },
+  'registry-suite': { type: 'boolean', default: false },
   report: { type: 'string' },
 } })
 assert.ok(values['harness-root'], 'Pass --harness-root pointing to a built deepseek-harness checkout')
@@ -37,6 +38,7 @@ const artifactReport = values['install-tarballs']
   ? JSON.parse(readFileSync(resolve(values['install-tarballs']), 'utf8')) : undefined
 if (artifactReport) assert.equal(artifactReport.ok, true, 'Use a successful package audit report')
 if (values['registry-components']) assert.ok(artifactReport, '--registry-components requires --install-tarballs')
+if (values['registry-suite']) assert.ok(values['registry-components'], '--registry-suite requires --registry-components')
 
 // Preserve executable discovery while keeping service credentials out of the fixture process.
 const allowed = /^(?:path|pathext|systemroot|windir|comspec|temp|tmp|appdata|localappdata|userprofile|home|homedrive|homepath|programfiles(?:\(x86\))?|programdata|os|processor_architecture)$/i
@@ -144,7 +146,8 @@ if (!artifactReport) {
   Object.assign(env, { npm_config_userconfig: join(home, '.npmrc'), npm_config_registry: 'https://registry.npmjs.org/' })
   console.log('Installing the suite through the official CLI with ' + (values['registry-components'] ? 'published components...' : 'audited component tarballs...'))
   try {
-    const installed = await promisify(execFile)(process.execPath, [cli, 'plugin', '--profile', 'web', 'add', suite.tarball, ...extraDirectories, probeDir], {
+    const requestedSuite = values['registry-suite'] ? `${suite.name}@${suite.version}` : suite.tarball
+    const installed = await promisify(execFile)(process.execPath, [cli, 'plugin', '--profile', 'web', 'add', requestedSuite, ...extraDirectories, probeDir], {
       cwd: home, env, windowsHide: true, encoding: 'utf8', timeout: 300_000, maxBuffer: 8 * 1024 * 1024,
     })
     writeFileSync(join(home, 'install.log'), installed.stdout + installed.stderr)
@@ -171,7 +174,7 @@ if (!artifactReport) {
   const lock = load(readFileSync(join(profile, 'pnpm-lock.yaml'), 'utf8'))
   const integrities = {}
   for (const pkg of packages) {
-    const fromRegistry = values['registry-components'] && pkg !== suite
+    const fromRegistry = (values['registry-components'] && pkg !== suite) || (values['registry-suite'] && pkg === suite)
     const matches = Object.entries(lock.packages).filter(([key]) => fromRegistry
       ? key === `${pkg.name}@${pkg.version}`
       : key.startsWith(`${pkg.name}@file:`))
@@ -185,7 +188,7 @@ if (!artifactReport) {
     integrities[pkg.name] = resolution.integrity
   }
   installation = { officialCli: true, transitiveComponents: components.length, bundles, versions,
-    registryComponents: values['registry-components'], integrities }
+    registryComponents: values['registry-components'], registrySuite: values['registry-suite'], integrities }
   writeFileSync(join(home, 'install.json'), JSON.stringify(installation, null, 2) + '\n')
 }
 writeFileSync(join(profile, 'cordis.patch.yml'), dump([
