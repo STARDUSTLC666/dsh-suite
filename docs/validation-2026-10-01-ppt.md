@@ -30,6 +30,6 @@ The release is gated on the suite's 11 manifest, lockfile and offline-environmen
 
 ## Limits
 
-The Windows native backends and generated artifacts described above were exercised. Linux/macOS native rendering, Electron startup and all native desktop UI flows are separate acceptance scopes. CI on Ubuntu checks the package build and unit tests, rather than native office rendering. Browser presenter-popup controls were not independently accepted in this round.
+The Windows native backends and generated artifacts described above were exercised. Linux WASM rendering, macOS native rendering, Electron startup and all native desktop UI flows are separate acceptance scopes. CI on Ubuntu checks the package build and unit tests, rather than native office rendering. Browser presenter-popup controls were not independently accepted in this round.
 
 The existing user profile, credentials and foreground windows are preserved. Other plugins' production external services were not retested during this PPT release. Previous desktop and live-service limits remain documented in the earlier validation records.
