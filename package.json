@@ -1,6 +1,6 @@
 {
   "name": "@stardustlc/dsh-suite",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "DSH 插件全家桶：18 个组件覆盖邮件、日历、媒体创作、开发运维、消息通知与极简 PTC，一条命令安装。",
   "type": "module",
   "dsh": {
@@ -18,7 +18,8 @@
     "ptc-minimal.patch.yml",
     "docs/validation-2026-09-27.md",
     "docs/validation-2026-10-01.md",
-    "docs/validation-2026-10-01-calendar-rss.md"
+    "docs/validation-2026-10-01-calendar-rss.md",
+    "docs/validation-2026-10-01-ppt.md"
   ],
   "scripts": {
     "test": "node --test \"test/*.test.mjs\"",
@@ -55,7 +56,7 @@
     "dsh-flakefinder": "0.3.4",
     "dsh-hyperframes": "0.4.2",
     "dsh-minimal-ptc": "0.5.2",
-    "dsh-ppt": "0.5.1",
+    "dsh-ppt": "0.6.0",
     "dsh-remotion": "0.3.4",
     "dsh-rss": "0.4.3",
     "dsh-slack": "0.3.3",

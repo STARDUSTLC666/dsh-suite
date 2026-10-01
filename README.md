@@ -17,7 +17,7 @@ node scripts/verify-compat.mjs --harness-root <harness 检出>   # 或在套件�
 
 ## 兼容性
 
-验证宿主：官方发布标签源码构建的 Harness `0.2.0-rc.2`（commit `639ed01539`）+ Windows / Node `24.16.0`。18 个组件共同加载，注册 99 个工具、35 个技能，工具 schema 与健康检查契约通过。套件另有 11 项清单、锁文件与离线环境测试。0.2.9 升级 Calendar 0.9.3 和 RSS 0.4.3，修复连接表单及订阅 URL 比较问题；其余组件保持已验证版本。验证范围与桌面、真实服务限制见 [本轮验收记录](docs/validation-2026-10-01-calendar-rss.md)，此前的 Dream、Email 和 Slack 修复见 [0.2.8 记录](docs/validation-2026-10-01.md)。
+验证宿主：官方发布标签源码构建的 Harness `0.2.0-rc.2`（commit `639ed01539`）+ Windows / Node `24.16.0`。18 个组件共同加载，注册 104 个工具、35 个插件技能，工具 schema 与健康检查契约通过。套件另有 11 项清单、锁文件与离线环境测试。0.2.10 升级 PPT 到 0.6.0，新增图片排版、编辑与撤销、逐页质量报告、可编辑图表、场景提纲与品牌配置，并提供可选 PNG/PDF 渲染；其余 17 个组件保持已验证版本。Windows 放映、导出和渲染范围见 [PPT 验收记录](docs/validation-2026-10-01-ppt.md)，此前的 [Calendar/RSS](docs/validation-2026-10-01-calendar-rss.md) 和 [Dream/Email/Slack](docs/validation-2026-10-01.md) 验收记录继续保留。
 
 ## 安装
 
@@ -62,7 +62,7 @@ dsh plugin --profile web remove @stardustlc/dsh-suite
 | | dsh-dream | 会话回放 → 来源核验 → 经验审阅 → 项目规则预览、写入与回滚（含隐私脱敏） |
 | 🎬 媒体工坊 | dsh-ffmpeg | 探测/剪辑/拼接/转码/字幕/抽帧/GIF/调整（变速·音量·静音·旋转）十工具 |
 | | dsh-voice | edge-tts 合成 + ASR 转写 + 音色试听 |
-| | dsh-ppt | 一句话生成 HTML 放映 + PPTX 导出：7 页型（金句/表格）+ 演讲者备注 |
+| | dsh-ppt | HTML 放映 + 可编辑 PPTX：11 页型（含图片与图表）、逐页编辑/撤销、质量报告、四种场景提纲、品牌配置与演讲者备注；可选官方 LibreOffice Kit 导出 PNG/PDF |
 | | dsh-hyperframes | HyperFrames by HeyGen 官方视频技能（21 个上游技能） |
 | | dsh-remotion | Remotion React 编程式视频技能 |
 | 🔧 DevOps | dsh-docker | 容器七工具（含 health 自检）+ exec 审批门（@stardustlc/dsh-docker） |
@@ -125,4 +125,4 @@ HyperFrames 与 Remotion 另有真实注册表回归：卸载一个已注册技�
 
 ## License
 
-MIT（各组件许可证以各自仓库为准，均为 MIT）
+MIT（各组件许可证以各自仓库为准，均为 MIT）。PPT 的可选 LibreOffice Kit 使用 MPL-2.0；启用或再分发该渲染器时请保留其许可证和第三方声明，详见 [PPT 的集成说明](https://github.com/STARDUSTLC666/dsh-ppt/blob/master/docs/LIBREOFFICE-INTEGRATION-2026-10-01.md)。

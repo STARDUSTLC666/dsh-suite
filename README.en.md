@@ -16,7 +16,7 @@ node scripts/verify-compat.mjs --harness-root <harness checkout>
 
 ## Compatibility
 
-Validation host: Harness `0.2.0-rc.2` built from its official release tag (commit `639ed01539`), Windows and Node `24.16.0`. All 18 components mount together with 99 tools and 35 skills; tool schemas and health contracts pass. The suite also has 11 manifest, lockfile and offline-environment tests. Version 0.2.9 upgrades Calendar to 0.9.3 and RSS to 0.4.3, fixing connection form behavior and subscription URL comparison. Other verified component pins remain in place. See the [current validation record](docs/validation-2026-10-01-calendar-rss.md) for desktop and live-service limits, and the [0.2.8 record](docs/validation-2026-10-01.md) for the previous Dream, Email and Slack fixes.
+Validation host: Harness `0.2.0-rc.2` built from its official release tag (commit `639ed01539`), Windows and Node `24.16.0`. All 18 components mount together with 104 tools and 35 plugin skills; tool schemas and health contracts pass. The suite also has 11 manifest, lockfile and offline-environment tests. Version 0.2.10 upgrades PPT to 0.6.0 with image layouts, editing and undo, per-slide quality reports, editable charts, scenario outlines, branding and optional PNG/PDF rendering. The other 17 verified component pins remain in place. See the [PPT validation record](docs/validation-2026-10-01-ppt.md) for Windows slideshow, export and rendering coverage; the earlier [Calendar/RSS](docs/validation-2026-10-01-calendar-rss.md) and [Dream/Email/Slack](docs/validation-2026-10-01.md) records remain available.
 
 ## Install / Uninstall
 
@@ -59,7 +59,7 @@ Keep your profile's `cordis.patch.yml` configuration overrides, then restart Web
 | | dsh-dream | Session replay → source verification → lesson review → project-rule preview, apply and rollback (privacy masking) |
 | Media | dsh-ffmpeg | probe/cut/concat/encode/subtitle/frames/GIF/adjust (speed/volume/mute/rotate), ten tools |
 | | dsh-voice | edge-tts synthesis + ASR transcription + voice preview |
-| | dsh-ppt | One prompt to HTML slideshow + PPTX export: 7 layouts (quote/table) + speaker notes |
+| | dsh-ppt | HTML slideshow and editable PPTX: 11 layouts including images/charts, per-slide editing/undo, quality reports, four scenario outlines, branding and speaker notes; optional PNG/PDF export via the official LibreOffice Kit |
 | | dsh-hyperframes | HyperFrames by HeyGen bundle of 21 skills |
 | | dsh-remotion | Remotion programmatic-video skill |
 | DevOps | @stardustlc/dsh-docker | Seven container tools (incl. health) + exec approval gate |
@@ -108,4 +108,4 @@ Run directories and reports remain available for inspection. `smoke-harness.mjs`
 
 ## License
 
-MIT (all components are MIT in their own repos)
+MIT (all components are MIT in their own repos). The optional LibreOffice Kit renderer used by PPT is MPL-2.0; preserve its license and third-party notices when enabling or redistributing it. See the [PPT integration notes](https://github.com/STARDUSTLC666/dsh-ppt/blob/master/docs/LIBREOFFICE-INTEGRATION-2026-10-01.md).
