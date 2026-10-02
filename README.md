@@ -17,7 +17,7 @@ node scripts/verify-compat.mjs --harness-root <harness 检出>   # 或在套件�
 
 ## 兼容性
 
-验证宿主：官方发布标签源码构建的 Harness `0.2.0-rc.2`（commit `639ed01539`）+ Windows / Node `24.16.0`。18 个组件共同加载，注册 104 个工具、35 个插件技能，工具 schema 与健康检查契约通过。套件另有 11 项清单、锁文件与离线环境测试。0.2.11 同步 Email 0.14.6，修复空端点覆盖手工服务器的问题，见 [Email PR #18 验收记录](docs/validation-2026-10-02-email.md)。PPT 保持 0.6.0，支持图片排版、编辑与撤销、逐页质量报告、可编辑图表、场景提纲、品牌配置及可选 PNG/PDF 渲染。Windows 放映、导出和渲染范围见 [PPT 验收记录](docs/validation-2026-10-01-ppt.md)，此前的 [Calendar/RSS](docs/validation-2026-10-01-calendar-rss.md) 和 [Dream/Email/Slack](docs/validation-2026-10-01.md) 验收记录继续保留。
+验证宿主：官方发布标签源码构建的 Harness `0.2.0-rc.2`（commit `639ed01539`）+ Windows / Node `24.16.0`。18 个组件共同加载，注册 104 个工具、35 个插件技能，工具 schema 与健康检查契约通过。套件另有 11 项清单、锁文件与离线环境测试。0.2.12 同步 RSS 0.5.0，新增订阅管理面板、OPML 导入预览，并修复并发保存与损坏导入问题，见 [RSS 验收记录](docs/validation-2026-10-02-rss.md)。Email 保持 0.14.6，修复空端点覆盖手工服务器的问题，见 [Email PR #18 验收记录](docs/validation-2026-10-02-email.md)。PPT 保持 0.6.0，支持图片排版、编辑与撤销、逐页质量报告、可编辑图表、场景提纲、品牌配置及可选 PNG/PDF 渲染。Windows 放映、导出和渲染范围见 [PPT 验收记录](docs/validation-2026-10-01-ppt.md)，此前的 [Calendar/RSS](docs/validation-2026-10-01-calendar-rss.md) 和 [Dream/Email/Slack](docs/validation-2026-10-01.md) 验收记录继续保留。
 
 ## 安装
 
@@ -57,7 +57,7 @@ dsh plugin --profile web remove @stardustlc/dsh-suite
 | :-- | :-- | :-- |
 | 📨 办公流 | dsh-email | IMAP/SMTP 十工具：收发/搜索/附件/增量新邮件监视/标记整理/回复转发，八大服务商预设 + 自定义预设，Outlook OAuth2 设备码登录（内置公共客户端，开箱即用），卡片式多账号设置页（中英双语），发信审批门 |
 | | dsh-calendar | CalDAV 日程查建改删搜（Google/iCloud/Nextcloud/自建）；设置页里带月/周/议程面板（记住上次视图、周视图从 07:00 起、**拖动即可改期**），连接配置在面板内填写并先测后存 |
-| | dsh-rss | RSS/Atom 订阅 + 跨订阅搜索 + 增量抓取 |
+| | dsh-rss | RSS/Atom 订阅 + 跨订阅搜索 + 增量抓取；中英双语订阅管理面板、分类筛选、可用性检查与 OPML 导入预览/导出 |
 | | dsh-cite | Crossref 文献检索 + 四种引文格式 + BibTeX |
 | | dsh-dream | 会话回放 → 来源核验 → 经验审阅 → 项目规则预览、写入与回滚（含隐私脱敏） |
 | 🎬 媒体工坊 | dsh-ffmpeg | 探测/剪辑/拼接/转码/字幕/抽帧/GIF/调整（变速·音量·静音·旋转）十工具 |

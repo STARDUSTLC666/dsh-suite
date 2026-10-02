@@ -51,8 +51,8 @@ importers:
         specifier: 0.3.4
         version: 0.3.4
       dsh-rss:
-        specifier: 0.4.3
-        version: 0.4.3
+        specifier: 0.5.0
+        version: 0.5.0
       dsh-slack:
         specifier: 0.3.3
         version: 0.3.3
@@ -239,8 +239,8 @@ packages:
     resolution: {integrity: sha512-SyzxcCeK7l2axdHXqL6KLGPLAEXxaYLlFD7LnH2IUbxrwpnTZG11lfFXxXTtH6T1+TM6+Iasb7iLdWE5TSTTmw==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-rss@0.4.3:
-    resolution: {integrity: sha512-5nzR/cKGocNU40O5+28ZtA8eUHUNzTPsqGvIPsyV1x5cKt43nnG09/wlKhiXZmEKNGySnYFXjhf2qg1e1x/QFQ==}
+  dsh-rss@0.5.0:
+    resolution: {integrity: sha512-ow7Y/lQKjzl1+FSYPakeYQneb1rk2oo9XLAER2Qe00M55JEOSB8A9ugURowdxELFQX4VeXSxQ9pwNRDBwAjliw==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   dsh-slack@0.3.3:
@@ -747,7 +747,7 @@ snapshots:
     dependencies:
       yaml: 2.9.1
 
-  dsh-rss@0.4.3:
+  dsh-rss@0.5.0:
     dependencies:
       '@deepseek-ai/schemastery': 3.18.3
       fast-xml-parser: 5.11.1

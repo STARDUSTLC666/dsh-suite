@@ -16,7 +16,7 @@ node scripts/verify-compat.mjs --harness-root <harness checkout>
 
 ## Compatibility
 
-Validation host: Harness `0.2.0-rc.2` built from its official release tag (commit `639ed01539`), Windows and Node `24.16.0`. All 18 components mount together with 104 tools and 35 plugin skills; tool schemas and health contracts pass. The suite also has 11 manifest, lockfile and offline-environment tests. Version 0.2.11 pins Email 0.14.6 to preserve manually configured servers when form endpoints are empty; see the [Email PR #18 validation record](docs/validation-2026-10-02-email.md). PPT remains at 0.6.0 with image layouts, editing and undo, per-slide quality reports, editable charts, scenario outlines, branding and optional PNG/PDF rendering. See the [PPT validation record](docs/validation-2026-10-01-ppt.md) for Windows slideshow, export and rendering coverage; the earlier [Calendar/RSS](docs/validation-2026-10-01-calendar-rss.md) and [Dream/Email/Slack](docs/validation-2026-10-01.md) records remain available.
+Validation host: Harness `0.2.0-rc.2` built from its official release tag (commit `639ed01539`), Windows and Node `24.16.0`. All 18 components mount together with 104 tools and 35 plugin skills; tool schemas and health contracts pass. The suite also has 11 manifest, lockfile and offline-environment tests. Version 0.2.12 pins RSS 0.5.0 with a subscription panel, OPML import previews and fixes for concurrent saves and malformed imports; see the [RSS validation record](docs/validation-2026-10-02-rss.md). Email remains at 0.14.6 to preserve manually configured servers when form endpoints are empty; see the [Email PR #18 validation record](docs/validation-2026-10-02-email.md). PPT remains at 0.6.0 with image layouts, editing and undo, per-slide quality reports, editable charts, scenario outlines, branding and optional PNG/PDF rendering. See the [PPT validation record](docs/validation-2026-10-01-ppt.md) for Windows slideshow, export and rendering coverage; the earlier [Calendar/RSS](docs/validation-2026-10-01-calendar-rss.md) and [Dream/Email/Slack](docs/validation-2026-10-01.md) records remain available.
 
 ## Install / Uninstall
 
@@ -54,7 +54,7 @@ Keep your profile's `cordis.patch.yml` configuration overrides, then restart Web
 | :-- | :-- | :-- |
 | Office | dsh-email | Ten IMAP/SMTP tools: list/read/search/send, attachments, incremental new-mail watch, flag & folder moves, reply/reply-all/forward; eight provider presets plus custom ones, Outlook OAuth2 device-code login (bundled public client — works out of the box), card-based multi-account settings page (bilingual), send-approval gate |
 | | dsh-calendar | CalDAV list/create/update/delete/search (Google/iCloud/Nextcloud/custom); ships a month/week/agenda panel in Settings (remembers your view, week view starts at 07:00, **drag to reschedule**) where the connection is entered, tested and saved |
-| | dsh-rss | RSS/Atom subscriptions + cross-feed search + incremental fetch |
+| | dsh-rss | RSS/Atom subscriptions + cross-feed search + incremental fetch; bilingual subscription panel, category filters, availability checks and OPML import previews/export |
 | | dsh-cite | Crossref lookup + four citation styles + BibTeX |
 | | dsh-dream | Session replay → source verification → lesson review → project-rule preview, apply and rollback (privacy masking) |
 | Media | dsh-ffmpeg | probe/cut/concat/encode/subtitle/frames/GIF/adjust (speed/volume/mute/rotate), ten tools |
