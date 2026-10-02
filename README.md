@@ -17,7 +17,7 @@ node scripts/verify-compat.mjs --harness-root <harness 检出>   # 或在套件�
 
 ## 兼容性
 
-验证宿主：官方发布标签源码构建的 Harness `0.2.0-rc.2`（commit `639ed01539`）+ Windows / Node `24.16.0`。18 个组件共同加载，注册 104 个工具、35 个插件技能，工具 schema 与健康检查契约通过。套件另有 11 项清单、锁文件与离线环境测试。0.2.10 升级 PPT 到 0.6.0，新增图片排版、编辑与撤销、逐页质量报告、可编辑图表、场景提纲与品牌配置，并提供可选 PNG/PDF 渲染；其余 17 个组件保持已验证版本。Windows 放映、导出和渲染范围见 [PPT 验收记录](docs/validation-2026-10-01-ppt.md)，此前的 [Calendar/RSS](docs/validation-2026-10-01-calendar-rss.md) 和 [Dream/Email/Slack](docs/validation-2026-10-01.md) 验收记录继续保留。
+验证宿主：官方发布标签源码构建的 Harness `0.2.0-rc.2`（commit `639ed01539`）+ Windows / Node `24.16.0`。18 个组件共同加载，注册 104 个工具、35 个插件技能，工具 schema 与健康检查契约通过。套件另有 11 项清单、锁文件与离线环境测试。0.2.11 同步 Email 0.14.6，修复空端点覆盖手工服务器的问题，见 [Email PR #18 验收记录](docs/validation-2026-10-02-email.md)。PPT 保持 0.6.0，支持图片排版、编辑与撤销、逐页质量报告、可编辑图表、场景提纲、品牌配置及可选 PNG/PDF 渲染。Windows 放映、导出和渲染范围见 [PPT 验收记录](docs/validation-2026-10-01-ppt.md)，此前的 [Calendar/RSS](docs/validation-2026-10-01-calendar-rss.md) 和 [Dream/Email/Slack](docs/validation-2026-10-01.md) 验收记录继续保留。
 
 ## 安装
 
