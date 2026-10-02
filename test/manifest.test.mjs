@@ -83,9 +83,10 @@ test('冻结锁文件与全部组件版本一致，源码安装不会退回旧�
 })
 
 test('双语安装命令只启用套件，避免 duplicate loader entry id', () => {
-  for (const file of ['README.md', 'README.en.md']) {
+  for (const file of ['README.md', 'README.en.md', 'docs/USAGE.md', 'docs/USAGE.en.md']) {
     const readme = readFileSync(join(root, file), 'utf8')
-    const commands = [...readme.matchAll(/^dsh plugin --profile web add ([^\n]+)/gm)].map(match => match[1].trim())
-    assert.deepEqual(commands, ['@stardustlc/dsh-suite', 'github:STARDUSTLC666/dsh-suite'])
+    const commands = [...readme.matchAll(/^dsh plugin --profile (?:web|desktop) add ([^\n]+)/gm)].map(match => match[1].trim())
+    const expected = file.startsWith('docs/') ? ['@stardustlc/dsh-suite', 'github:STARDUSTLC666/dsh-suite'] : ['@stardustlc/dsh-suite']
+    assert.deepEqual(commands, expected, file)
   }
 })

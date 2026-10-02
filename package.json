@@ -1,7 +1,7 @@
 {
   "name": "@stardustlc/dsh-suite",
   "version": "0.2.14",
-  "description": "DSH 插件全家桶：18 个组件覆盖邮件、日历、媒体创作、开发运维、消息通知与极简 PTC，一条命令安装。",
+  "description": "一次安装 18 个独立 DSH 插件，并统一组合它们的默认配置。",
   "type": "module",
   "dsh": {
     "bundle": {
@@ -23,7 +23,9 @@
     "docs/validation-2026-10-02-email.md",
     "docs/validation-2026-10-02-rss.md",
     "docs/validation-2026-10-02-rss-vpn.md",
-    "docs/validation-2026-10-02-top-downloads.md"
+    "docs/validation-2026-10-02-top-downloads.md",
+    "docs",
+    "CHANGELOG.md"
   ],
   "scripts": {
     "test": "node --test \"test/*.test.mjs\"",

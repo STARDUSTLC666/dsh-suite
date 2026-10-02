@@ -1,115 +1,44 @@
-[简体中文](README.md)
-
-![npm](https://img.shields.io/npm/v/@stardustlc/dsh-suite) ![downloads](https://img.shields.io/npm/dm/@stardustlc/dsh-suite) ![license](https://img.shields.io/github/license/STARDUSTLC666/dsh-suite) ![stars](https://img.shields.io/github/stars/STARDUSTLC666/dsh-suite?style=social)
-
 # dsh-suite
 
-> **The STARDUSTLC plugin suite**: 18 DSH plugins, one command.
+[中文](README.md)
 
-Bundles five product lines — office flow (with dream-based memory), media studio, DevOps, messaging and presets — into your DeepSeek Harness at once. Every row in the combined patch keeps the component's own defaults.
+Install 18 independent DSH plugins with a shared bundle of their defaults.
 
-Re-verify the whole suite against any built Harness checkout (writes a JSON report):
+[![npm](https://img.shields.io/npm/v/@stardustlc/dsh-suite)](https://www.npmjs.com/package/@stardustlc/dsh-suite) [![downloads](https://img.shields.io/npm/dm/@stardustlc/dsh-suite)](https://www.npmjs.com/package/@stardustlc/dsh-suite)
 
-```bash
-node scripts/verify-compat.mjs --harness-root <harness checkout>
-```
+## What it does
 
-## Compatibility
+- Cover email, calendars, memory, media, developer tools and notifications.
+- Pin component versions for reproducible installation and co-load checks.
+- Components can also be installed and configured independently.
 
-Validation host: Harness `0.2.0-rc.2` built from its official release tag (commit `639ed01539`), Windows and Node `24.16.0`. All 18 components mount together with 104 tools and 35 plugin skills; tool schemas and health contracts pass. The suite also has 11 manifest, lockfile and offline-environment tests.
+## Install
 
-Version 0.2.14 pins the three most downloaded independent components: PPT 0.7.0 adds slideshow navigation, page-number input, issue links and direct downloads; Calendar 0.9.4 updates its network dependency and verifies proxy requests; Email 0.14.7 refreshes mail dependencies and fixes effective-server display and empty IMAP responses. See the [batch acceptance record](docs/validation-2026-10-02-top-downloads.md) for test, browser and production-service boundaries. DingTalk retains its existing version.
-
-Earlier [RSS VPN](docs/validation-2026-10-02-rss-vpn.md), [subscription panel](docs/validation-2026-10-02-rss.md), [Email PR #18](docs/validation-2026-10-02-email.md), [PPT slideshow/rendering](docs/validation-2026-10-01-ppt.md), [Calendar/RSS](docs/validation-2026-10-01-calendar-rss.md) and [Dream/Email/Slack](docs/validation-2026-10-01.md) records retain their original scope.
-
-## Install / Uninstall
-
-Installing the suite automatically installs the verified versions of all 18 components. The profile activates one suite layer, which loads the components:
+In DSH Desktop, install `@stardustlc/dsh-suite` from the Plugins panel. If the bundled dsh command is available:
 
 ```bash
-dsh plugin --profile web add @stardustlc/dsh-suite
+dsh plugin --profile desktop add @stardustlc/dsh-suite
 ```
 
-Alternatively, install the suite source from GitHub; its components still come from npm:
+For the web version, replace `desktop` with `web`. Restart DSH after installation.
 
-```bash
-dsh plugin --profile web add github:STARDUSTLC666/dsh-suite
-```
+## Start using it
 
-```bash
-dsh plugin --profile web remove @stardustlc/dsh-suite
-```
+Install the suite when you need the full set, then configure the accounts and tools you use. For a few features, install the corresponding individual plugins. The guide lists the components.
 
-Restart the web service afterwards. Prefer a single component? Install its own repo directly without this suite.
+## Requirements and configuration
 
-### Migrate an older suite installation
+Enable only the suite bundle in the profile; it loads the components. Each component still has its own account, executable and network requirements.
 
-If the suite and all components were previously installed as direct dependencies, first upgrade the suite to 0.1.3 or later with the command above, then remove the components' direct-install records. They remain installed as suite dependencies, avoiding the `duplicate loader entry id` startup failure:
+Detailed configuration, tool arguments and troubleshooting are in the [usage guide](docs/USAGE.en.md). For standalone development, follow the Node requirement in [package.json](package.json).
 
-```bash
-dsh plugin --profile web remove @stardustlc/dsh-docker @stardustlc/dsh-dream dsh-calendar dsh-cite dsh-code-security dsh-codex-port dsh-dingtalk dsh-email dsh-ffmpeg dsh-flakefinder dsh-hyperframes dsh-minimal-ptc dsh-ppt dsh-remotion dsh-rss dsh-slack dsh-sql dsh-voice
-```
+## Documentation
 
-Keep your profile's `cordis.patch.yml` configuration overrides, then restart Web.
-
-## What's inside (18)
-
-| Line | Component | Capability |
-| :-- | :-- | :-- |
-| Office | dsh-email | Ten IMAP/SMTP tools: list/read/search/send, attachments, incremental new-mail watch, flag & folder moves, reply/reply-all/forward; eight provider presets plus custom ones, Outlook OAuth2 device-code login (bundled public client — works out of the box), card-based multi-account settings page (bilingual), send-approval gate |
-| | dsh-calendar | CalDAV list/create/update/delete/search (Google/iCloud/Nextcloud/custom); ships a month/week/agenda panel in Settings (remembers your view, week view starts at 07:00, **drag to reschedule**) where the connection is entered, tested and saved |
-| | dsh-rss | RSS/Atom subscriptions + cross-feed search + incremental fetch; bilingual subscription panel, category filters, availability checks and OPML import previews/export |
-| | dsh-cite | Crossref lookup + four citation styles + BibTeX |
-| | dsh-dream | Session replay → source verification → lesson review → project-rule preview, apply and rollback (privacy masking) |
-| Media | dsh-ffmpeg | probe/cut/concat/encode/subtitle/frames/GIF/adjust (speed/volume/mute/rotate), ten tools |
-| | dsh-voice | edge-tts synthesis + ASR transcription + voice preview |
-| | dsh-ppt | HTML slideshow and editable PPTX: 11 layouts including images/charts, per-slide editing/undo, quality reports, four scenario outlines, branding and speaker notes; optional PNG/PDF export via the official LibreOffice Kit |
-| | dsh-hyperframes | HyperFrames by HeyGen bundle of 21 skills |
-| | dsh-remotion | Remotion programmatic-video skill |
-| DevOps | @stardustlc/dsh-docker | Seven container tools (incl. health) + exec approval gate |
-| | dsh-sql | SQLite/MySQL/PostgreSQL + read-only guard + approval gate + stats/CSV |
-| | dsh-flakefinder | Flaky-test detection + quarantine manifest |
-| | dsh-code-security | 40+ rule deterministic security review + SARIF |
-| | dsh-codex-port | Batch-port official Codex plugins into DSH skills |
-| Messaging | dsh-dingtalk | DingTalk group robot (HMAC signing) |
-| | dsh-slack | Two-way Slack over Socket Mode |
-| Presets | dsh-minimal-ptc | Minimal-PTC agent preset |
-
-16 components provide `*_health`; use the read-only `ppt_themes` for PPT and check the preset picker for minimal-ptc. Some health tools contact external services or invoke local CLIs.
-
-## Configuration
-
-Override any component by its id in your profile's `cordis.patch.yml`.
-
-## Development
-
-```bash
-pnpm install
-pnpm test   # suite manifest, documentation and offline-environment tests
-```
-
-Place the 18 component checkouts beside `dsh-suite`, with development dependencies already installed and Harness already built. The verifier discovers components from `cordis.patch.yml`, rebuilds with each local TypeScript compiler and runs top-level unit tests. It never runs an installation command.
-
-```bash
-node scripts/verify-local.mjs --harness-root C:/path/to/deepseek-harness --report ../.harness-validation/offline-report.json
-node scripts/verify-local.mjs --harness-root C:/path/to/deepseek-harness --contracts-only --json
-node scripts/smoke-harness.mjs --harness-root C:/path/to/deepseek-harness --contract-report ../.harness-validation/offline-report.json --report ../.harness-validation/smoke-report.json
-node scripts/smoke-harness.mjs --harness-root C:/path/to/deepseek-harness --install-tarballs ../.harness-validation/tarballs.json --contract-report ../.harness-validation/offline-report.json --report ../.harness-validation/install-report.json
-node scripts/smoke-harness.mjs --harness-root C:/path/to/deepseek-harness --install-tarballs ../.harness-validation/tarballs.json --registry-components --registry-suite --contract-report ../.harness-validation/offline-report.json --report ../.harness-validation/registry-report.json
-```
-
-`--workspace-root` selects the parent of the component repositories. `--report` saves JSON, `--json` prints only JSON, and failures return a nonzero exit status. `--contracts-only` validates existing `lib/` artifacts without rebuilding or running unit tests.
-
-Use `--install-tarballs` before release to test installation. The report must contain `{ "ok": true, "packages": [{ "name", "version", "tarball", "integrity" }] }` for the suite and all 18 components, with `sha512-...` integrity values. Only the temporary profile redirects those versions to local tarballs. The official CLI installs the suite; verification requires transitive component dependencies, no duplicate profile layers, successful startup, the complete registry and PTC mounting. Dependency installation can contact npm; this mode is not an offline test.
-
-Contracts use the selected Harness's real `ToolRuntime` and `SkillRegistry`: required service declarations, all parameter/output schemas, skill registrations and collisions, both PTC SDKs, and the execution/rendering of 16 health fixtures plus `ppt_themes`. Legacy-host checks cover the retired directory format. On 0.1.7, startup verification checks declarative preset registration and module resolution. Startup verification also mounts it in a real agent, requiring `run_code` as the model entry point and retention of plugin tools and the shell. Only these read-only output samples are executed; other business workflows rely on the component unit tests and mocked dependencies.
-
-HyperFrames and Remotion also undergo a real registry regression: remove one registered skill and require unhealthy status, then restore the matching registration and require healthy status. The startup smoke check executes both health tools and requires all bundled skills to be active.
-
-Child environments omit service credentials and put HOME, DSH_HOME, CODEX_HOME and temporary files under workspace `.harness-validation/`. A Node preload permits loopback mock servers and blocks external fetch/TCP/UDP. It prevents accidental network access by trusted tests; it is not an OS sandbox. Test names containing `integration`, `live` or `e2e` are excluded and reported. Voice synthesis is opt-in via that component's `pnpm test:integration`. Crossref and subprocess version probes use fixtures, so `fixtureOk` does not describe live service readiness.
-
-Run directories and reports remain available for inspection. `smoke-harness.mjs` covers real CLI startup, all components loaded together, Web HTTP and authentication, and compares every tool and skill against `--contract-report`. Add `--extra-plugin C:/path/to/modlens` to include a locally installed Modlens. These development scripts are used from the source checkout and are not shipped in the suite's patch-only npm package.
+- [Usage and troubleshooting](docs/USAGE.en.md)
+- [Changelog](CHANGELOG.md)
+- [Validation scope and history](docs/VALIDATION.md)
+- [Report a problem or suggest a feature](https://github.com/STARDUSTLC666/dsh-suite/issues)
 
 ## License
 
-MIT (all components are MIT in their own repos). The optional LibreOffice Kit renderer used by PPT is MPL-2.0; preserve its license and third-party notices when enabling or redistributing it. See the [PPT integration notes](https://github.com/STARDUSTLC666/dsh-ppt/blob/master/docs/LIBREOFFICE-INTEGRATION-2026-10-01.md).
+[MIT](LICENSE)
