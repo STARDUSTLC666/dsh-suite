@@ -16,7 +16,11 @@ node scripts/verify-compat.mjs --harness-root <harness checkout>
 
 ## Compatibility
 
-Validation host: Harness `0.2.0-rc.2` built from its official release tag (commit `639ed01539`), Windows and Node `24.16.0`. All 18 components mount together with 104 tools and 35 plugin skills; tool schemas and health contracts pass. The suite also has 11 manifest, lockfile and offline-environment tests. Version 0.2.13 pins RSS 0.5.1 for VPN Fake-IP and Windows system-proxy compatibility, with real external feeds and visible add/check operations verified; see the [RSS VPN record](docs/validation-2026-10-02-rss-vpn.md). The earlier [subscription-panel record](docs/validation-2026-10-02-rss.md) remains available. Email remains at 0.14.6 to preserve manually configured servers when form endpoints are empty; see the [Email PR #18 validation record](docs/validation-2026-10-02-email.md). PPT remains at 0.6.0 with image layouts, editing and undo, per-slide quality reports, editable charts, scenario outlines, branding and optional PNG/PDF rendering. See the [PPT validation record](docs/validation-2026-10-01-ppt.md) for Windows slideshow, export and rendering coverage; the earlier [Calendar/RSS](docs/validation-2026-10-01-calendar-rss.md) and [Dream/Email/Slack](docs/validation-2026-10-01.md) records remain available.
+Validation host: Harness `0.2.0-rc.2` built from its official release tag (commit `639ed01539`), Windows and Node `24.16.0`. All 18 components mount together with 104 tools and 35 plugin skills; tool schemas and health contracts pass. The suite also has 11 manifest, lockfile and offline-environment tests.
+
+Version 0.2.14 pins the three most downloaded independent components: PPT 0.7.0 adds slideshow navigation, page-number input, issue links and direct downloads; Calendar 0.9.4 updates its network dependency and verifies proxy requests; Email 0.14.7 refreshes mail dependencies and fixes effective-server display and empty IMAP responses. See the [batch acceptance record](docs/validation-2026-10-02-top-downloads.md) for test, browser and production-service boundaries. DingTalk retains its existing version.
+
+Earlier [RSS VPN](docs/validation-2026-10-02-rss-vpn.md), [subscription panel](docs/validation-2026-10-02-rss.md), [Email PR #18](docs/validation-2026-10-02-email.md), [PPT slideshow/rendering](docs/validation-2026-10-01-ppt.md), [Calendar/RSS](docs/validation-2026-10-01-calendar-rss.md) and [Dream/Email/Slack](docs/validation-2026-10-01.md) records retain their original scope.
 
 ## Install / Uninstall
 

@@ -24,3 +24,8 @@ minimumReleaseAgeExclude:
   - '@slack/socket-mode@3.1.0'
   - '@slack/types@3.2.0'
   - '@slack/web-api@8.2.0'
+  # Reviewed Email dependency updates; keep release-age exceptions version-specific.
+  - 'imapflow@2.2.1'
+  - 'mailparser@3.9.33'
+  - 'nodemailer@10.0.13'
+  - 'ip-address@10.7.3'

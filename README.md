@@ -17,7 +17,11 @@ node scripts/verify-compat.mjs --harness-root <harness 检出>   # 或在套件�
 
 ## 兼容性
 
-验证宿主：官方发布标签源码构建的 Harness `0.2.0-rc.2`（commit `639ed01539`）+ Windows / Node `24.16.0`。18 个组件共同加载，注册 104 个工具、35 个插件技能，工具 schema 与健康检查契约通过。套件另有 11 项清单、锁文件与离线环境测试。0.2.13 同步 RSS 0.5.1，兼容 VPN Fake-IP 与 Windows 系统代理，真实外部订阅与设置页添加操作通过，见 [RSS VPN 验收记录](docs/validation-2026-10-02-rss-vpn.md)。此前的 [订阅面板验收](docs/validation-2026-10-02-rss.md) 继续保留。Email 保持 0.14.6，修复空端点覆盖手工服务器的问题，见 [Email PR #18 验收记录](docs/validation-2026-10-02-email.md)。PPT 保持 0.6.0，支持图片排版、编辑与撤销、逐页质量报告、可编辑图表、场景提纲、品牌配置及可选 PNG/PDF 渲染。Windows 放映、导出和渲染范围见 [PPT 验收记录](docs/validation-2026-10-01-ppt.md)，此前的 [Calendar/RSS](docs/validation-2026-10-01-calendar-rss.md) 和 [Dream/Email/Slack](docs/validation-2026-10-01.md) 验收记录继续保留。
+验证宿主：官方发布标签源码构建的 Harness `0.2.0-rc.2`（commit `639ed01539`）+ Windows / Node `24.16.0`。18 个组件共同加载，注册 104 个工具、35 个插件技能，工具 schema 与健康检查契约通过。套件另有 11 项清单、锁文件与离线环境测试。
+
+0.2.14 同步下载量前三的独立组件：PPT 0.7.0 增加放映翻页、页码跳转、质量提示定位和直接下载；Calendar 0.9.4 更新网络依赖并验证代理请求；Email 0.14.7 更新邮件依赖、修复服务器摘要显示及空 IMAP 响应。测试、浏览器操作与真实服务的边界见 [本批验收记录](docs/validation-2026-10-02-top-downloads.md)。钉钉本次保持原版本。
+
+此前的 [RSS VPN](docs/validation-2026-10-02-rss-vpn.md)、[订阅面板](docs/validation-2026-10-02-rss.md)、[Email PR #18](docs/validation-2026-10-02-email.md)、[PPT 放映与渲染](docs/validation-2026-10-01-ppt.md)、[Calendar/RSS](docs/validation-2026-10-01-calendar-rss.md) 和 [Dream/Email/Slack](docs/validation-2026-10-01.md) 验收记录继续保留原有范围。
 
 ## 安装
 
