@@ -2,6 +2,10 @@
 
 [Overview](../README.en.md) · [Changelog](../CHANGELOG.md) · [Validation](VALIDATION.md)
 
+## UI language
+
+Select Chinese or English in DSH Settings → General → Language. Both interfaces use the same saved lessons, drafts, feeds, events and projects; language changes do not duplicate or translate user content. Native file controls follow the OS/browser language and original engine diagnostics remain intact. Dream records lessons when the assistant calls its tools; it does not continuously learn in the background. Candidate submission, acceptance and rule application are separate steps.
+
 ## Install / Uninstall
 
 Installing the suite automatically installs the verified versions of all 18 components. The profile activates one suite layer, which loads the components:

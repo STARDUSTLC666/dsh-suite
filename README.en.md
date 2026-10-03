@@ -30,7 +30,7 @@ Install the suite when you need the full set, then configure the accounts and to
 
 Enable only the suite bundle in the profile; it loads the components. Each component still has its own account, executable and network requirements.
 
-This version synchronizes the latest component workbenches; see the [validation record](docs/validation-2026-10-03-workbenches.md). Localization varies by component. Dream and PPT settings currently remain primarily Chinese.
+This version pins language fixes for seven components: Dream, PPT, Calendar, Email, RSS and the two video workbenches follow the host Chinese/English UI language while preserving original content. See the [validation record](docs/validation-2026-10-03-language.md) for actual interactions and their limits.
 
 Detailed configuration, tool arguments and troubleshooting are in the [usage guide](docs/USAGE.en.md). For standalone development, follow the Node requirement in [package.json](package.json).
 

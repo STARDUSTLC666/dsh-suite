@@ -2,6 +2,12 @@
 
 [返回简介](README.md) · [使用说明](docs/USAGE.md) · [验证记录](docs/VALIDATION.md)
 
+## 0.2.16 (2026-10-03)
+
+- 同步 Dream 0.7.1、PPT 0.8.1、Calendar 0.10.1、Email 0.15.2、RSS 0.5.2、HyperFrames 0.5.1 与 Remotion 0.4.1，固定公开组件版本。
+- 补齐 Dream / PPT 工作台英文界面和后台恢复引导；修复邮件 / 日历 / RSS 的菜单切换滞后，以及日历悬浮按钮、日期和重复详情。用户资料保留原文。
+- 七个组件 1103 项 Windows 测试通过、1 项可选压力测试跳过；官方 RC2 / alpha 的 110 工具、35 插件技能、19 输出样例检查通过。浏览器操作与桌面 / 真实服务边界见 [验收记录](docs/validation-2026-10-03-language.md)。
+
 ## 0.2.15 (2026-10-03)
 
 - 同步独立组件：Dream 0.7.0、PPT 0.8.0、Calendar 0.10.0、Email 0.15.1、HyperFrames 0.5.0、Remotion 0.4.0、Cite 0.4.1。

@@ -1,5 +1,7 @@
 # 0.2.15：独立工作台同步与官方新版兼容
 
+这是 0.2.15 发布时的记录；后续语言修复与新版验证见 [0.2.16](validation-2026-10-03-language.md)。
+
 2026-10-03，Windows / Node 24.16.0。先完成独立插件验收，再同步 Suite 的精确版本依赖。用户的账号、密钥与资料未迁移，VPN 保持开启。
 
 | 本次更新组件 | 版本 | 独立验收范围 |
@@ -26,7 +28,7 @@
 
 Cite 的正常按钮、重复提示及失败信息已在官方中文 / English 切换中实际验证，两种界面共用同一文献库。文献标题、作者、文件名、工程名等用户资料保留原文。
 
-语言支持随组件而异：Dream 与 PPT 的设置页当前仍以中文为主；部分其他界面的后台错误信息也有中文回退。主要按钮支持切换不能等同于所有状态和错误提示已完成翻译。本版没有宣称整套插件完成双语化。
+0.2.15 发布时的语言支持随组件而异：当时 Dream 与 PPT 的设置页仍以中文为主；部分其他界面的后台错误信息也有中文回退。主要按钮支持切换不能等同于所有状态和错误提示已完成翻译。本版没有宣称整套插件完成双语化。
 
 媒体渲染依赖采用各引擎固定版本并需用户显式准备；Cite 使用四种基本引文模板，不宣称覆盖各期刊全部规范。用户界面与业务流程的验证记录见各组件的 `docs/VALIDATION.md`。
 
@@ -34,4 +36,4 @@ Cite 的正常按钮、重复提示及失败信息已在官方中文 / English �
 
 This release pins seven independently tested workbenches. Official RC2 and public alpha checks cover 18 components, 110 tools, 35 plugin skills and 19 read-only schema fixtures. Web startup additionally checks authentication, media skills, a real Minimal PTC agent and clean process termination. Public tarball integrity and official CLI installation are checked separately during release.
 
-Visible browser tests do not establish native desktop interaction or real mailbox delivery/calendar imports. Localization remains partial across the suite: Cite's Chinese/English UI uses one library, while Dream/PPT remain primarily Chinese and some other backend errors still fall back to Chinese. User-created content retains its original language.
+Visible browser tests do not establish native desktop interaction or real mailbox delivery/calendar imports. At the time of 0.2.15, localization was partial across the suite: Cite's Chinese/English UI uses one library, while Dream/PPT remain primarily Chinese and some other backend errors still fall back to Chinese. User-created content retains its original language.

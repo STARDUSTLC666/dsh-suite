@@ -30,7 +30,7 @@ dsh plugin --profile desktop add @stardustlc/dsh-suite
 
 profile 只启用 Suite 这一层，由它加载组件。组件的账号、外部程序与网络要求仍各自适用。
 
-本版同步最新一批独立组件，验证范围见[本次记录](docs/validation-2026-10-03-workbenches.md)。设置页的语言支持随组件而异，Dream 与 PPT 当前仍以中文为主。
+本版同步七个组件的语言修复，Dream、PPT、日历、邮件、RSS 与视频工作台跟随宿主中文 / English 切换，用户正文保留原文。实际操作与验收边界见[本次记录](docs/validation-2026-10-03-language.md)。
 
 详细配置、工具参数与排错见[使用说明](docs/USAGE.md)。从源码独立开发时，Node 要求以 [package.json](package.json) 为准。
 
