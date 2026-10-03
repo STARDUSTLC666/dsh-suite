@@ -2,6 +2,8 @@
 
 [English](README.en.md)
 
+![dsh-suite 鲸鱼娘插件封面](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/master/assets/cover-whale-girl.png)
+
 一次安装 18 个独立 DSH 插件，并统一组合它们的默认配置。
 
 [![npm](https://img.shields.io/npm/v/@stardustlc/dsh-suite)](https://www.npmjs.com/package/@stardustlc/dsh-suite) [![downloads](https://img.shields.io/npm/dm/@stardustlc/dsh-suite)](https://www.npmjs.com/package/@stardustlc/dsh-suite)
