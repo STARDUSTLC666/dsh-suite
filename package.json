@@ -1,6 +1,6 @@
 {
   "name": "@stardustlc/dsh-suite",
-  "version": "0.2.16",
+  "version": "0.2.17",
   "description": "一次安装 18 个独立 DSH 插件，并统一组合它们的默认配置。",
   "type": "module",
   "dsh": {
@@ -51,7 +51,7 @@
   },
   "dependencies": {
     "@stardustlc/dsh-docker": "0.3.4",
-    "@stardustlc/dsh-dream": "0.7.1",
+    "@stardustlc/dsh-dream": "0.8.0",
     "dsh-calendar": "0.10.1",
     "dsh-cite": "0.4.1",
     "dsh-code-security": "0.3.6",
