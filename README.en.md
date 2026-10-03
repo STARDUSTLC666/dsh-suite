@@ -30,6 +30,8 @@ Install the suite when you need the full set, then configure the accounts and to
 
 Enable only the suite bundle in the profile; it loads the components. Each component still has its own account, executable and network requirements.
 
+This version synchronizes the latest component workbenches; see the [validation record](docs/validation-2026-10-03-workbenches.md). Localization varies by component. Dream and PPT settings currently remain primarily Chinese.
+
 Detailed configuration, tool arguments and troubleshooting are in the [usage guide](docs/USAGE.en.md). For standalone development, follow the Node requirement in [package.json](package.json).
 
 ## Documentation

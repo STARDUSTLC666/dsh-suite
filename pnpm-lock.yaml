@@ -12,14 +12,14 @@ importers:
         specifier: 0.3.4
         version: 0.3.4
       '@stardustlc/dsh-dream':
-        specifier: 0.6.0
-        version: 0.6.0
+        specifier: 0.7.0
+        version: 0.7.0
       dsh-calendar:
-        specifier: 0.9.4
-        version: 0.9.4
+        specifier: 0.10.0
+        version: 0.10.0
       dsh-cite:
-        specifier: 0.3.5
-        version: 0.3.5
+        specifier: 0.4.1
+        version: 0.4.1
       dsh-code-security:
         specifier: 0.3.6
         version: 0.3.6
@@ -30,8 +30,8 @@ importers:
         specifier: 0.2.2
         version: 0.2.2
       dsh-email:
-        specifier: 0.14.7
-        version: 0.14.7
+        specifier: 0.15.1
+        version: 0.15.1
       dsh-ffmpeg:
         specifier: 0.4.4
         version: 0.4.4
@@ -39,17 +39,17 @@ importers:
         specifier: 0.3.4
         version: 0.3.4
       dsh-hyperframes:
-        specifier: 0.4.2
-        version: 0.4.2
+        specifier: 0.5.0
+        version: 0.5.0
       dsh-minimal-ptc:
         specifier: 0.5.2
         version: 0.5.2
       dsh-ppt:
-        specifier: 0.7.0
-        version: 0.7.0
+        specifier: 0.8.0
+        version: 0.8.0
       dsh-remotion:
-        specifier: 0.3.4
-        version: 0.3.4
+        specifier: 0.4.0
+        version: 0.4.0
       dsh-rss:
         specifier: 0.5.1
         version: 0.5.1
@@ -68,6 +68,24 @@ importers:
         version: 4.3.1
 
 packages:
+
+  '@citation-js/core@0.9.0':
+    resolution: {integrity: sha512-IIIfDFirx8B7eYiYIg412If3WVJAefJUS7IsAnkW3YSuThHK4fW9Ibog6wCqmT6pfXW1VM9wfGPFvO2J5k859A==}
+    engines: {node: '>=22.12.0'}
+
+  '@citation-js/date@0.5.1':
+    resolution: {integrity: sha512-1iDKAZ4ie48PVhovsOXQ+C6o55dWJloXqtznnnKy6CltJBQLIuLLuUqa8zlIvma0ZigjVjgDUhnVaNU1MErtZw==}
+    engines: {node: '>=10.0.0'}
+
+  '@citation-js/name@0.4.2':
+    resolution: {integrity: sha512-brSPsjs2fOVzSnARLKu0qncn6suWjHVQtrqSUrnqyaRH95r/Ad4wPF5EsoWr+Dx8HzkCGb/ogmoAzfCsqlTwTQ==}
+    engines: {node: '>=6'}
+
+  '@citation-js/plugin-bibtex@0.9.0':
+    resolution: {integrity: sha512-9n8EVP/kq+v7VuoWVI+p8SRE3KikQYd2c78NSRq9btC4b3XzuBA3qFI3uF6xyxbNLPtY7+Y4BQDayta2yrl1zQ==}
+    engines: {node: '>=22.12.0'}
+    peerDependencies:
+      '@citation-js/core': ^0.9.0
 
   '@deepseek-ai/cosmokit@1.8.4':
     resolution: {integrity: sha512-zOX7hFKtUQNY6GlZi1OCGY+bp6swWDf8aFNbCSAonVKEpEb5Tc2m3moUtNZscT7ksflIcVn+qgqYZo9QKUF+fQ==}
@@ -123,8 +141,8 @@ packages:
     resolution: {integrity: sha512-qJcKOBSgZINmJLugMFo3yMXsYWi/oMtKWnUQe+YHqjfiU1qnUe1j9sOiO3RgiZtGOqPAXuDnRfJphWK8M9NjwQ==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  '@stardustlc/dsh-dream@0.6.0':
-    resolution: {integrity: sha512-6CMlMYSvmX8W2XW8//6U72Qu1wDWxKlo+CCzIIjVbkhudPyx3xzFaBm8jy0qg7roUZmHA/c4kNCIF/E0nU9+bw==}
+  '@stardustlc/dsh-dream@0.7.0':
+    resolution: {integrity: sha512-e76+PbZ96Cafzdv/NBUTQfFB4gXQMGZVTE2zchNMaLrExJjfVhpvPfmnd4f7yYkJxDwqTl/ncyfgxwDzEyWN7A==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   '@types/node@26.5.1':
@@ -186,12 +204,12 @@ packages:
   domutils@3.2.2:
     resolution: {integrity: sha512-6kZKyUajlDuqlHKVX1w7gyslj9MPIXzIFiz/rGu35uC1wMi+kMhQwGhl4lt9unC9Vb9INnY9Z3/ZA3+FhASLaw==}
 
-  dsh-calendar@0.9.4:
-    resolution: {integrity: sha512-0npe3K7IGK+sNGxvQtNPyqXzGtjJrYR9NvcHvCVZpU6t0j7fYeRs9i8aJ4b1EXW7UUd0RDmkg75S3iLbdrunVg==}
+  dsh-calendar@0.10.0:
+    resolution: {integrity: sha512-ToHozz4zbia6m7h3uD74Ulbzouw9u1apv8XWYgVcqItKK2Qqw3A8C5xR/PbQk0Xt6CrsmZx4UJkJvbKNzxe0ig==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-cite@0.3.5:
-    resolution: {integrity: sha512-e5PSjZS7/r9qffPEWOYJjRRUVvD6V8fZTAYdz7X4uCUS94LF4z39eAyKmYi/Uh62+T6Jq8PGK2aJ6nrEsH1wDg==}
+  dsh-cite@0.4.1:
+    resolution: {integrity: sha512-ifruwk1sgpUAn3N6HHqS0m9QSVZc/f6xD3UlBKggOg2DY/bAB0Uo4+rHE/LwUExIiFppXYVQugylPE5rYMgXKA==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   dsh-code-security@0.3.6:
@@ -206,8 +224,8 @@ packages:
     resolution: {integrity: sha512-BsDNUDj0KlxROLM6QbrhZZb8YQ1tF0qysEavHHCfU4L96kxVywFgUaE55LxlA/usEQsz7eGVGCAsvPyKWgWTkg==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-email@0.14.7:
-    resolution: {integrity: sha512-yWnVVhwXW1jGVfEznztTzKglhAfQVf6uKSgY8k2sDw0JNevG/tDTdvl1wrK0KufD5IBVFbrDXYkqkKkQvhsxuw==}
+  dsh-email@0.15.1:
+    resolution: {integrity: sha512-tK7kFtJqZc3oTnmmSUtqf+/ZCqXG2gzrgboMZifFv8IFovSUFV5dPHcpDLFJFMBnJFNlDcWNU9aJbjKqkCjMDg==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   dsh-ffmpeg@0.4.4:
@@ -218,25 +236,25 @@ packages:
     resolution: {integrity: sha512-h7QF2dICjlYKlb/3gylCZjOXkU3IulrrHzy4XBMFyjG31U2v2Olr9YF0RydwHnVF1y/wesqDZC/IPFFT6pyGIg==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-hyperframes@0.4.2:
-    resolution: {integrity: sha512-5s5/kOA4yTU7n47W0crWuX7q2Pn/3/oUfVAdG7L6ejKsjs7/lePgXwHdIRk89e4uaK3iMBX7OlSlU14eNhSZAQ==}
+  dsh-hyperframes@0.5.0:
+    resolution: {integrity: sha512-bketB/6aCSiiuu1zFtC+2hBwildJC5qGIVC2Zp1nHJSdrRuBdpH9OGzAz8w2JTxKQI5itoionXIiSGyrYP/pzA==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   dsh-minimal-ptc@0.5.2:
     resolution: {integrity: sha512-/26bAixBWjsq9aGjCZR1aKIEppmUm4it0uyHRSM0mCHxfT3eaNIkDrhE0rqjB4N4Q6iVng62ejyG13mjKu+bNA==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-ppt@0.7.0:
-    resolution: {integrity: sha512-4ICEYbSQOVrg5eSPR8n8Q6t7NHfeBAhfUQYwy7peV/u3haaIUh6HpWmWR93RUXgZvpGpDtkrwRaCcBFbPvkOzA==}
+  dsh-ppt@0.8.0:
+    resolution: {integrity: sha512-HELJLd1Avq4gVF1VP/z20ICub1n6HgZoiL4epxfmXdDhkEG3TOyWkBtvHscLt2IutZOhdvCjVtig8RDLv7rjJA==}
     engines: {node: ^22.19.0 || >=24.0.0}
     peerDependencies:
-      '@deepseek-ai/libreoffice-kit': 0.1.3
+      '@deepseek-ai/libreoffice-kit': 0.1.5
     peerDependenciesMeta:
       '@deepseek-ai/libreoffice-kit':
         optional: true
 
-  dsh-remotion@0.3.4:
-    resolution: {integrity: sha512-SyzxcCeK7l2axdHXqL6KLGPLAEXxaYLlFD7LnH2IUbxrwpnTZG11lfFXxXTtH6T1+TM6+Iasb7iLdWE5TSTTmw==}
+  dsh-remotion@0.4.0:
+    resolution: {integrity: sha512-b+jEcvjwWGv6je76pCn8GZMZrh41wQSkk7jl1AyNRAmZ+/kt5EVM3p172MLin4dgG/I/kbToD0FIgAft35lE8w==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   dsh-rss@0.5.1:
@@ -285,6 +303,9 @@ packages:
 
   generate-function@2.3.1:
     resolution: {integrity: sha512-eeB5GfMNeevm/GRYq20ShmsaGcmI81kIX2K9XQx5miC8KdHaC6Jm0qQ8ZNeGOi7wYB8OsdxKs+Y2oVuTFuVwKQ==}
+
+  graceful-fs@4.2.11:
+    resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
   he@1.2.0:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
@@ -351,6 +372,9 @@ packages:
   mailparser@3.9.33:
     resolution: {integrity: sha512-+ZYhApN4f7B8+jokb7VZeml8lxYHixVJ3tJTB5iPG9/MJpy8YmBHGdy+AWJ9dmtUX6t0xlu4rxwj1b7eWCvbDA==}
     engines: {node: '>=20.0.0'}
+
+  moo@0.5.3:
+    resolution: {integrity: sha512-m2fmM2dDm7GZQsY7KK2cme8agi+AAljILjQnof7p1ZMDe6dQ4bdnSMx0cPppudoeNv5hEFQirN6u+O4fDE0IWA==}
 
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
@@ -462,6 +486,9 @@ packages:
   process-warning@5.1.0:
     resolution: {integrity: sha512-jQSaVHsPgtyw60e1rQ/A+/ArPEj/S8pS/vFnyGa/gYFXrKk/6RuDkoqVDQ5NI5MmS01698ltlAk0NoDBNLujRw==}
 
+  proper-lockfile@4.1.2:
+    resolution: {integrity: sha512-TjNPblN4BwAWMXU8s9AEz4JmQxnD1NNL7bNOY/AKUzyamc379FWASUhc/K1pL2noVb+XmZKLL68cjzLsiOAMaA==}
+
   proxy-agent-negotiate@1.1.0:
     resolution: {integrity: sha512-N8IBcM3UgCVzz2L2Lqv8DVntDnnC8/hiV4nEDUPkqq72TPUgYWjQc+bdZlBPZK9LzPAvOY//gAt0S0DApoOXWQ==}
     engines: {node: '>= 20'}
@@ -485,6 +512,10 @@ packages:
   real-require@1.0.0:
     resolution: {integrity: sha512-P4nbQYQfePJxRSmY+v/KINxVucm4NF3p3s7pJveMTtom52FR4YGltUQLB8idDXwDDWW+eYrWDFbuzUnjoWHF7g==}
 
+  retry@0.12.0:
+    resolution: {integrity: sha512-9LkiTwjUh6rT555DtE9rTX+BKByPfrMzEAtnlEtdEwr3Nkffwiihqe2bWADg+OQRjt9gl6ICdmB/ZFDCGAtSow==}
+    engines: {node: '>= 4'}
+
   retry@0.13.1:
     resolution: {integrity: sha512-XQBQ3I8W1Cge0Seh+6gjj03LbmRFWuoszgK9ooCpwYIrhhoO80pfq4cUkU5DkknwfOfFteRwlZ56PYOGYyFWdg==}
     engines: {node: '>= 4'}
@@ -505,6 +536,9 @@ packages:
 
   selderee@0.12.0:
     resolution: {integrity: sha512-b1YMh3+DHZp59DLna3qVwQ5iOla/nrI6mLBNW02XxU77M3046Df6VLkoaJyFz20VsGIG5kkp+FK0kg4K4HnUFw==}
+
+  signal-exit@3.0.7:
+    resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
 
   smart-buffer@4.2.0:
     resolution: {integrity: sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==}
@@ -528,9 +562,16 @@ packages:
   strnum@2.4.2:
     resolution: {integrity: sha512-rDG3Ah4TV0k1hWvLSzkZtMmLN9+eS+h3knq4MP6A42Y3Yh5qGNnOUs1jJkoSr8FG5dsL28c7KgkIBzSEykqtuw==}
 
+  sync-fetch-undici@0.7.1:
+    resolution: {integrity: sha512-t/rJBTRr3/WCs/04MnLStgGGFac1Ge6WDugNxO+KoMqtfmWENMPJbtAmGqIWnwsXi+B7Uh0P0ea2QRkKIZTIPg==}
+    engines: {node: '>=22.12.0'}
+
   thread-stream@4.2.0:
     resolution: {integrity: sha512-e2zZ96wSChazBsbENf/Pcm/4swHt2cEKQ92rhUjkL9GCKiTDJIaTBenjE/m9DXi0QBmTMDkFDdOomUy20A1tDQ==}
     engines: {node: '>=20'}
+
+  timezones-ical-library@2.3.2:
+    resolution: {integrity: sha512-AEhFhnhx6jI40kbcZ+rnpDnvb9raIvkyJGuBJvr6a1tfsbHWVM0oIqxbDZ3h8o/4m/x7lAXW9z+Abahdrlwn3Q==}
 
   tlds@1.261.0:
     resolution: {integrity: sha512-QXqwfEl9ddlGBaRFXIvNKK6OhipSiLXuRuLJX5DErz0o0Q0rYxulWLdFryTkV5PkdZct5iMInwYEGe/eR++1AA==}
@@ -553,6 +594,10 @@ packages:
   undici@8.11.2:
     resolution: {integrity: sha512-u4UB2/IrKdU6lFxumHmmo1a3fCQO5tzQllRorfoRS63txhrB7xTpSn1PftwC4qEHkOaqP95fCWW4lJzwErwzhQ==}
     engines: {node: '>=22.19.0'}
+
+  whatwg-mimetype@5.0.0:
+    resolution: {integrity: sha512-sXcNcHOC51uPGF0P/D4NVtrkjSU2fNsm9iog4ZvZJsL3rjoDAzXZhkm2MWt1y+PUdggKAYVoMAIYcs78wJ51Cw==}
+    engines: {node: '>=20'}
 
   ws@8.21.3:
     resolution: {integrity: sha512-201TZ/kPWxoPr/OKWjquZR1SWKXcvxdH+e1xrx89b3YbmzLMFCLfnaG1HFIgWzJOEWZ7MvpK++odZufgYR50Rw==}
@@ -584,6 +629,23 @@ packages:
     hasBin: true
 
 snapshots:
+
+  '@citation-js/core@0.9.0':
+    dependencies:
+      '@citation-js/date': 0.5.1
+      '@citation-js/name': 0.4.2
+      sync-fetch-undici: 0.7.1
+
+  '@citation-js/date@0.5.1': {}
+
+  '@citation-js/name@0.4.2': {}
+
+  '@citation-js/plugin-bibtex@0.9.0(@citation-js/core@0.9.0)':
+    dependencies:
+      '@citation-js/core': 0.9.0
+      '@citation-js/date': 0.5.1
+      '@citation-js/name': 0.4.2
+      moo: 0.5.3
 
   '@deepseek-ai/cosmokit@1.8.4': {}
 
@@ -648,7 +710,7 @@ snapshots:
 
   '@stardustlc/dsh-docker@0.3.4': {}
 
-  '@stardustlc/dsh-dream@0.6.0': {}
+  '@stardustlc/dsh-dream@0.7.0': {}
 
   '@types/node@26.5.1':
     dependencies:
@@ -700,18 +762,23 @@ snapshots:
       domelementtype: 2.3.0
       domhandler: 5.0.3
 
-  dsh-calendar@0.9.4:
+  dsh-calendar@0.10.0:
     dependencies:
       '@deepseek-ai/schemastery': 3.18.3
       ical.js: 2.2.1
       schemastery: 3.18.0
+      timezones-ical-library: 2.3.2
       tsdav: 2.3.3
       undici: 8.11.2
       yaml: 2.9.1
     transitivePeerDependencies:
       - supports-color
 
-  dsh-cite@0.3.5: {}
+  dsh-cite@0.4.1:
+    dependencies:
+      '@citation-js/core': 0.9.0
+      '@citation-js/plugin-bibtex': 0.9.0(@citation-js/core@0.9.0)
+      proper-lockfile: 4.1.2
 
   dsh-code-security@0.3.6: {}
 
@@ -721,12 +788,13 @@ snapshots:
 
   dsh-dingtalk@0.2.2: {}
 
-  dsh-email@0.14.7:
+  dsh-email@0.15.1:
     dependencies:
       '@deepseek-ai/schemastery': 3.18.3
       imapflow: 2.2.1
       mailparser: 3.9.33
       nodemailer: 10.0.13
+      proper-lockfile: 4.1.2
       schemastery: 3.18.0
       yaml: 2.9.1
 
@@ -734,18 +802,22 @@ snapshots:
 
   dsh-flakefinder@0.3.4: {}
 
-  dsh-hyperframes@0.4.2:
+  dsh-hyperframes@0.5.0:
     dependencies:
+      fflate: 0.8.3
+      proper-lockfile: 4.1.2
       yaml: 2.9.1
 
   dsh-minimal-ptc@0.5.2: {}
 
-  dsh-ppt@0.7.0:
+  dsh-ppt@0.8.0:
     dependencies:
       '@office-kit/pptx': 0.21.0
 
-  dsh-remotion@0.3.4:
+  dsh-remotion@0.4.0:
     dependencies:
+      fflate: 0.8.3
+      proper-lockfile: 4.1.2
       yaml: 2.9.1
 
   dsh-rss@0.5.1:
@@ -810,6 +882,8 @@ snapshots:
   generate-function@2.3.1:
     dependencies:
       is-property: 1.0.2
+
+  graceful-fs@4.2.11: {}
 
   he@1.2.0: {}
 
@@ -897,6 +971,8 @@ snapshots:
       nodemailer: 10.0.13
       punycode.js: 2.3.1
       tlds: 1.261.0
+
+  moo@0.5.3: {}
 
   ms@2.1.3: {}
 
@@ -1011,6 +1087,12 @@ snapshots:
 
   process-warning@5.1.0: {}
 
+  proper-lockfile@4.1.2:
+    dependencies:
+      graceful-fs: 4.2.11
+      retry: 0.12.0
+      signal-exit: 3.0.7
+
   proxy-agent-negotiate@1.1.0: {}
 
   punycode.js@2.3.1: {}
@@ -1020,6 +1102,8 @@ snapshots:
   real-require@0.2.0: {}
 
   real-require@1.0.0: {}
+
+  retry@0.12.0: {}
 
   retry@0.13.1: {}
 
@@ -1037,6 +1121,8 @@ snapshots:
   selderee@0.12.0:
     dependencies:
       parseley: 0.13.1
+
+  signal-exit@3.0.7: {}
 
   smart-buffer@4.2.0: {}
 
@@ -1057,9 +1143,15 @@ snapshots:
     dependencies:
       anynum: 1.0.1
 
+  sync-fetch-undici@0.7.1:
+    dependencies:
+      whatwg-mimetype: 5.0.0
+
   thread-stream@4.2.0:
     dependencies:
       real-require: 1.0.0
+
+  timezones-ical-library@2.3.2: {}
 
   tlds@1.261.0: {}
 
@@ -1077,6 +1169,8 @@ snapshots:
   undici@8.10.2: {}
 
   undici@8.11.2: {}
+
+  whatwg-mimetype@5.0.0: {}
 
   ws@8.21.3: {}
 

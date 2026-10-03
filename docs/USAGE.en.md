@@ -36,16 +36,16 @@ Keep your profile's `cordis.patch.yml` configuration overrides, then restart Web
 
 | Line | Component | Capability |
 | :-- | :-- | :-- |
-| Office | dsh-email | Ten IMAP/SMTP tools: list/read/search/send, attachments, incremental new-mail watch, flag & folder moves, reply/reply-all/forward; eight provider presets plus custom ones, Outlook OAuth2 device-code login (bundled public client — works out of the box), card-based multi-account settings page (bilingual), send-approval gate |
-| | dsh-calendar | CalDAV list/create/update/delete/search (Google/iCloud/Nextcloud/custom); ships a month/week/agenda panel in Settings (remembers your view, week view starts at 07:00, **drag to reschedule**) where the connection is entered, tested and saved |
+| Office | dsh-email | Eleven IMAP/SMTP and local-draft tools; editable drafts and attachment previews, per-account trusted recipients, Outlook OAuth2 login, bilingual multi-account settings and send approval |
+| | dsh-calendar | CalDAV list/create/update/delete/search; month/week/agenda and drag rescheduling; ICS file/text previews, duplicate/conflict checks and connection/authorization guidance |
 | | dsh-rss | RSS/Atom subscriptions + cross-feed search + incremental fetch; bilingual subscription panel, category filters, availability checks and OPML import previews/export |
-| | dsh-cite | Crossref lookup + four citation styles + BibTeX |
+| | dsh-cite | Bilingual library: DOI / BibTeX batch import, duplicate review, explicit Crossref enrichment, four basic citation formats and original-source backups |
 | | dsh-dream | Session replay → source verification → lesson review → project-rule preview, apply and rollback (privacy masking) |
 | Media | dsh-ffmpeg | probe/cut/concat/encode/subtitle/frames/GIF/adjust (speed/volume/mute/rotate), ten tools |
 | | dsh-voice | edge-tts synthesis + ASR transcription + voice preview |
 | | dsh-ppt | HTML slideshow and editable PPTX: 11 layouts including images/charts, per-slide editing/undo, quality reports, four scenario outlines, branding and speaker notes; optional PNG/PDF export via the official LibreOffice Kit |
-| | dsh-hyperframes | HyperFrames by HeyGen bundle of 21 skills |
-| | dsh-remotion | Remotion programmatic-video skill |
+| | dsh-hyperframes | HyperFrames by HeyGen's 21 skills; bilingual templates, assets, Studio previews, MP4 and source downloads |
+| | dsh-remotion | Remotion React video skills; bilingual templates, assets, Studio previews, MP4 and source downloads |
 | DevOps | @stardustlc/dsh-docker | Seven container tools (incl. health) + exec approval gate |
 | | dsh-sql | SQLite/MySQL/PostgreSQL + read-only guard + approval gate + stats/CSV |
 | | dsh-flakefinder | Flaky-test detection + quarantine manifest |

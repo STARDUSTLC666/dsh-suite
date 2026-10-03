@@ -38,16 +38,16 @@ dsh plugin --profile web remove @stardustlc/dsh-suite
 
 | 产品线 | 组件 | 能力 |
 | :-- | :-- | :-- |
-| 📨 办公流 | dsh-email | IMAP/SMTP 十工具：收发/搜索/附件/增量新邮件监视/标记整理/回复转发，八大服务商预设 + 自定义预设，Outlook OAuth2 设备码登录（内置公共客户端，开箱即用），卡片式多账号设置页（中英双语），发信审批门 |
-| | dsh-calendar | CalDAV 日程查建改删搜（Google/iCloud/Nextcloud/自建）；设置页里带月/周/议程面板（记住上次视图、周视图从 07:00 起、**拖动即可改期**），连接配置在面板内填写并先测后存 |
+| 📨 办公流 | dsh-email | IMAP/SMTP 与本地草稿，共 11 工具；可编辑草稿与附件预览、按账号的可信收件人策略、Outlook OAuth2 登录、中英双语多账号设置和发信审批 |
+| | dsh-calendar | CalDAV 日程查建改删搜；月/周/议程面板与拖动改期；ICS 文件/文本导入预览、重复与冲突检查、连接和授权引导 |
 | | dsh-rss | RSS/Atom 订阅 + 跨订阅搜索 + 增量抓取；中英双语订阅管理面板、分类筛选、可用性检查与 OPML 导入预览/导出 |
-| | dsh-cite | Crossref 文献检索 + 四种引文格式 + BibTeX |
+| | dsh-cite | 中英文文献库：DOI / BibTeX 批量导入、去重、显式 Crossref 补全、四种基本引文格式及原始来源备份 |
 | | dsh-dream | 会话回放 → 来源核验 → 经验审阅 → 项目规则预览、写入与回滚（含隐私脱敏） |
 | 🎬 媒体工坊 | dsh-ffmpeg | 探测/剪辑/拼接/转码/字幕/抽帧/GIF/调整（变速·音量·静音·旋转）十工具 |
 | | dsh-voice | edge-tts 合成 + ASR 转写 + 音色试听 |
 | | dsh-ppt | HTML 放映 + 可编辑 PPTX：11 页型（含图片与图表）、逐页编辑/撤销、质量报告、四种场景提纲、品牌配置与演讲者备注；可选官方 LibreOffice Kit 导出 PNG/PDF |
-| | dsh-hyperframes | HyperFrames by HeyGen 官方视频技能（21 个上游技能） |
-| | dsh-remotion | Remotion React 编程式视频技能 |
+| | dsh-hyperframes | HyperFrames by HeyGen 的 21 个视频技能；中英文模板工作台、素材、Studio 预览、MP4 与源码下载 |
+| | dsh-remotion | Remotion React 视频技能；中英文模板工作台、素材、Studio 预览、MP4 与源码下载 |
 | 🔧 DevOps | dsh-docker | 容器七工具（含 health 自检）+ exec 审批门（@stardustlc/dsh-docker） |
 | | dsh-sql | SQLite/MySQL/PostgreSQL + 只读保护 + 审批门 + 统计/CSV |
 | | dsh-flakefinder | flaky 测试识别 + 隔离清单 |
