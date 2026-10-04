@@ -6,7 +6,7 @@
 
 Install 18 independent DSH plugins with a shared bundle of their defaults.
 
-[![npm](https://img.shields.io/npm/v/@stardustlc/dsh-suite)](https://www.npmjs.com/package/@stardustlc/dsh-suite) [![downloads](https://img.shields.io/npm/dm/@stardustlc/dsh-suite)](https://www.npmjs.com/package/@stardustlc/dsh-suite)
+[![npm](https://img.shields.io/npm/v/@stardustlc/dsh-suite)](https://www.npmjs.com/package/@stardustlc/dsh-suite) [![downloads](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/npm-downloads/assets/dsh-suite-downloads.svg)](https://www.npmjs.com/package/@stardustlc/dsh-suite)
 
 ## What it does
 

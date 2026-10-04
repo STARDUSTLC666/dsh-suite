@@ -6,7 +6,7 @@
 
 一次安装 18 个独立 DSH 插件，并统一组合它们的默认配置。
 
-[![npm](https://img.shields.io/npm/v/@stardustlc/dsh-suite)](https://www.npmjs.com/package/@stardustlc/dsh-suite) [![downloads](https://img.shields.io/npm/dm/@stardustlc/dsh-suite)](https://www.npmjs.com/package/@stardustlc/dsh-suite)
+[![npm](https://img.shields.io/npm/v/@stardustlc/dsh-suite)](https://www.npmjs.com/package/@stardustlc/dsh-suite) [![downloads](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/npm-downloads/assets/dsh-suite-downloads.svg)](https://www.npmjs.com/package/@stardustlc/dsh-suite)
 
 ## 功能
 

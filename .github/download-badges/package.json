@@ -1,0 +1,6 @@
+{
+  "name": "dsh-download-badge-tools",
+  "private": true,
+  "type": "module",
+  "dependencies": { "badge-maker": "6.0.0" }
+}

@@ -1,0 +1,37 @@
+name: Refresh download badges
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 4 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: download-badges
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+      - run: npm ci --prefix .github/download-badges --ignore-scripts --registry=https://registry.npmjs.org
+      - run: node --test .github/scripts/download-badges.test.mjs
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: npm-downloads
+          path: .download-badges
+      - run: node .github/scripts/download-badges.mjs .download-badges
+      - name: Save verified counts and generated badges
+        working-directory: .download-badges
+        run: |
+          git add assets downloads.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'chore: refresh verified npm download counts'
+          git push origin HEAD:npm-downloads
