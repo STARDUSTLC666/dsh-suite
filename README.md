@@ -32,7 +32,7 @@ dsh plugin --profile desktop add @stardustlc/dsh-suite
 
 profile 只启用 Suite 这一层，由它加载组件。组件的账号、外部程序与网络要求仍各自适用。
 
-本版同步 Dream 的自动候选整理与已采纳经验回用，提供独立开关和模型预算；其余组件保留既有版本。实际操作与验收边界见[本次记录](docs/validation-2026-10-04-dream-auto.md)。各工作台跟随宿主语言，用户正文保留原文。
+本版同步 Dream 0.9.0：安静后合并整理、可恢复的延后队列、聊天独立控制、批量审阅和事实到期复核。实际操作与验收边界见 [Dream 验收](https://github.com/STARDUSTLC666/dsh-dream/blob/master/docs/validation/0.9.0.md)。各工作台跟随宿主语言，用户正文保留原文。
 
 详细配置、工具参数与排错见[使用说明](docs/USAGE.md)。从源码独立开发时，Node 要求以 [package.json](package.json) 为准。
 

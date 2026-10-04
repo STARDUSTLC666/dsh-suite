@@ -32,7 +32,7 @@ Install the suite when you need the full set, then configure the accounts and to
 
 Enable only the suite bundle in the profile; it loads the components. Each component still has its own account, executable and network requirements.
 
-This version pins Dream's automatic candidate collection and accepted-memory retrieval, with separate switches and model-call budgets. Other component versions are retained. See the [validation record](docs/validation-2026-10-04-dream-auto.md) for actual interactions and their limits. Workbench UI follows the host language while preserving original content.
+This version pins Dream 0.9.0: quiet-time consolidation, a recoverable deferred queue, per-chat controls, atomic batch review and fact review deadlines. See [Dream validation](https://github.com/STARDUSTLC666/dsh-dream/blob/master/docs/validation/0.9.0.md) for actual interactions and their limits. Workbench UI follows the host language while preserving original content.
 
 Detailed configuration, tool arguments and troubleshooting are in the [usage guide](docs/USAGE.en.md). For standalone development, follow the Node requirement in [package.json](package.json).
 
