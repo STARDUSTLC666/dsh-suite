@@ -30,8 +30,8 @@ importers:
         specifier: 0.2.2
         version: 0.2.2
       dsh-email:
-        specifier: 0.15.2
-        version: 0.15.2
+        specifier: 0.15.3
+        version: 0.15.3
       dsh-ffmpeg:
         specifier: 0.4.4
         version: 0.4.4
@@ -51,8 +51,8 @@ importers:
         specifier: 0.4.1
         version: 0.4.1
       dsh-rss:
-        specifier: 0.5.2
-        version: 0.5.2
+        specifier: 0.6.0
+        version: 0.6.0
       dsh-slack:
         specifier: 0.3.3
         version: 0.3.3
@@ -224,8 +224,8 @@ packages:
     resolution: {integrity: sha512-BsDNUDj0KlxROLM6QbrhZZb8YQ1tF0qysEavHHCfU4L96kxVywFgUaE55LxlA/usEQsz7eGVGCAsvPyKWgWTkg==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-email@0.15.2:
-    resolution: {integrity: sha512-xpzpNvcPiAyqWdtqswkvU4StV0D4r8STRgOFk9U0j3xwlu6g9U35OeAkfayEJcpKb9jHDmxyN1ec+retcj7TIg==}
+  dsh-email@0.15.3:
+    resolution: {integrity: sha512-XFtqWOoCvVYh9Xnb6Wnj5HcJNcxQu565lE1OdiKL4fzdKnAiDCk2aKV1m4vpkYlEmCCC1nTgCu8ZfF/5D/8UXA==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   dsh-ffmpeg@0.4.4:
@@ -257,8 +257,8 @@ packages:
     resolution: {integrity: sha512-y1SUnUEI7b5eeVnZ8jVGxlTRIS4F+SSYjgPI5FJD0bkDLdFkBlOazKDNoxDCshMhMFaZEK/PhysFKvJo1BDDLg==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-rss@0.5.2:
-    resolution: {integrity: sha512-S4wdUj0c7lpK51JsfPe66MZxG0mLcRno4KhbMUglfU7wThnPxNes6IMxui3bP7uX7+8gjxt8Ztv8+wWwccYsYw==}
+  dsh-rss@0.6.0:
+    resolution: {integrity: sha512-Rg8DVulLOHB+ACs21HHrJv2nv44riKXZkv6ZzB0Nhm/h/vhOv4/FqjS7DjWLV3+DKR/bIWJYNC78X14L/Ka/xA==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   dsh-slack@0.3.3:
@@ -788,7 +788,7 @@ snapshots:
 
   dsh-dingtalk@0.2.2: {}
 
-  dsh-email@0.15.2:
+  dsh-email@0.15.3:
     dependencies:
       '@deepseek-ai/schemastery': 3.18.3
       imapflow: 2.2.1
@@ -820,7 +820,7 @@ snapshots:
       proper-lockfile: 4.1.2
       yaml: 2.9.1
 
-  dsh-rss@0.5.2:
+  dsh-rss@0.6.0:
     dependencies:
       '@deepseek-ai/schemastery': 3.18.3
       fast-xml-parser: 5.11.1

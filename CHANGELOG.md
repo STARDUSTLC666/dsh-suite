@@ -2,6 +2,11 @@
 
 [返回简介](README.md) · [使用说明](docs/USAGE.md) · [验证记录](docs/VALIDATION.md)
 
+## 0.2.19 (2026-10-04)
+
+- 同步 Email 0.15.3 的持久化新邮件弹窗开关和 RSS 0.6.0 的五类推荐源目录、文章预览与订阅入口，其余 16 个插件保持原版本。
+- 独立插件的 Windows 回归、官方宿主浏览器操作与真实 RSS 抓取通过；原生桌面本轮未操作。详见 [邮件通知开关验收](https://github.com/STARDUSTLC666/dsh-email/blob/main/docs/validation/0.15.3.md) 与 [RSS 推荐源验收](https://github.com/STARDUSTLC666/dsh-rss/blob/master/docs/validation-0.6.0.md)。
+
 ## 0.2.18 (2026-10-04)
 
 - 同步 Dream 0.8.1：辅助整理对明确支持关闭推理的模型使用短 JSON 提取，修复真实 DeepSeek 因推理耗尽预算而丢失候选的问题；主任务设置与其余 17 个插件版本不变。
