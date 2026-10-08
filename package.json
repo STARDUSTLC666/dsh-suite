@@ -1,6 +1,6 @@
 {
   "name": "@stardustlc/dsh-suite",
-  "version": "0.2.22",
+  "version": "0.2.23",
   "description": "一次安装 18 个独立 DSH 插件，并统一组合它们的默认配置。",
   "type": "module",
   "dsh": {
@@ -57,7 +57,7 @@
     "dsh-code-security": "0.3.7",
     "dsh-codex-port": "0.3.0",
     "dsh-dingtalk": "0.2.2",
-    "dsh-email": "0.16.1",
+    "dsh-email": "0.16.2",
     "dsh-ffmpeg": "0.4.5",
     "dsh-flakefinder": "0.3.5",
     "dsh-hyperframes": "0.6.0",
