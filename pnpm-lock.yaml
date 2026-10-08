@@ -30,8 +30,8 @@ importers:
         specifier: 0.2.2
         version: 0.2.2
       dsh-email:
-        specifier: 0.16.0
-        version: 0.16.0
+        specifier: 0.16.1
+        version: 0.16.1
       dsh-ffmpeg:
         specifier: 0.4.5
         version: 0.4.5
@@ -216,8 +216,8 @@ packages:
     resolution: {integrity: sha512-BsDNUDj0KlxROLM6QbrhZZb8YQ1tF0qysEavHHCfU4L96kxVywFgUaE55LxlA/usEQsz7eGVGCAsvPyKWgWTkg==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-email@0.16.0:
-    resolution: {integrity: sha512-BVjHo1OqIcKfpmFjV/5cyL4OR+zXxAKf5P/IwKcur4ZQdTOeBFQn6Fb9wR3EXyUoWqRocaVeR82yNfRacd/zvQ==}
+  dsh-email@0.16.1:
+    resolution: {integrity: sha512-UpRb+NgD+RT7vE4khkYj84sPT9UZPUzSA8F6xfxCwdix0FSvSuY4XyQtSSPaPjebesFc7DrzEFM+eySZU1eOmQ==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   dsh-ffmpeg@0.4.5:
@@ -765,7 +765,7 @@ snapshots:
 
   dsh-dingtalk@0.2.2: {}
 
-  dsh-email@0.16.0:
+  dsh-email@0.16.1:
     dependencies:
       '@deepseek-ai/schemastery': 3.18.3
       imapflow: 2.2.1
