@@ -3,7 +3,8 @@ import assert from 'node:assert/strict'
 import { readFileSync, existsSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
-import { load as yamlLoad } from 'js-yaml'
+import { createRequire } from 'node:module'
+import { load as yamlLoad, DEFAULT_SCHEMA, Type } from 'js-yaml'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 
@@ -48,6 +49,16 @@ test('package.json 元数据：许可证/关键词/入口', () => {
 test('README 双语文档齐备', () => {
   assert.ok(existsSync(join(root, 'README.md')))
   assert.ok(existsSync(join(root, 'README.en.md')))
+})
+
+test('套件 PTC 通过已安装组件的公开入口等待定时服务，不在启动中切换 disabled', () => {
+  const schema = DEFAULT_SCHEMA.extend([new Type('tag:yaml.org,2002:js', { kind: 'scalar', construct: value => ({ __jsExpr: value }) })])
+  const preset = yamlLoad(readFileSync(join(root, 'ptc-minimal.patch.yml'), 'utf8'), { schema })[0].insert[0].config.plugins
+  const row = preset.find(entry => entry.id === 'tool-schedule')
+  assert.equal(row.name, 'dsh-minimal-ptc/schedule-tools')
+  assert.equal(row.disabled, undefined)
+  const require = createRequire(join(root, 'package.json'))
+  assert.ok(existsSync(require.resolve(row.name)), 'Published PTC component must export the optional scheduling module')
 })
 
 test('组合补丁条目字段受约束（防注释/字段混入）', () => {

@@ -4,7 +4,7 @@
 
 ## UI language
 
-Select Chinese or English in DSH Settings → General → Language. Both interfaces use the same saved lessons, drafts, feeds, events and projects; language changes do not duplicate or translate user content. Native file controls follow the OS/browser language and original engine diagnostics remain intact. Dream records lessons when the assistant calls its tools; it does not continuously learn in the background. Candidate submission, acceptance and rule application are separate steps.
+Select Chinese or English in DSH Settings → General → Language. Both interfaces use the same saved lessons, drafts, feeds, events and projects; language changes do not duplicate or translate user content. Native file controls follow the OS/browser language and original engine diagnostics remain intact. Dream can consolidate lesson candidates after task completion and a quiet period, within its budget, and retains manual tools. Candidates require human acceptance before reuse. Each chat controls contribution and use separately. It never automatically accepts candidates, edits user projects or treats retrieval counts as fact verification.
 
 ## Install / Uninstall
 

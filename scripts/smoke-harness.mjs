@@ -28,6 +28,11 @@ const harness = resolve(values['harness-root'])
 const cli = join(harness, 'apps/cli/lib/bin.js')
 assert.ok(existsSync(cli), `Build Harness first: ${cli}`)
 const version = JSON.parse(readFileSync(join(harness, 'apps/cli/package.json'), 'utf8')).version
+let hasSchedulingModule = false
+try {
+  createRequire(realpathSync(join(harness, 'apps/cli/package.json'))).resolve('@deepseek-ai/dsh-tool-schedule')
+  hasSchedulingModule = true
+} catch {}
 const validationRoot = join(workspace, '.harness-validation')
 mkdirSync(validationRoot, { recursive: true })
 const home = mkdtempSync(join(validationRoot, 'smoke-'))
@@ -227,6 +232,11 @@ try {
   assert.deepEqual(registry.presetRuntime.modelTools, ['run_code'], 'Minimal PTC must expose the program tool to the model')
   assert.deepEqual(registry.tools.filter(name => !registry.presetRuntime.registeredTools.includes(name)), [], 'The preset lost installed plugin tools')
   assert.ok(registry.presetRuntime.registeredTools.includes('bash'), 'Minimal PTC is missing its shell tool')
+  if (hasSchedulingModule) {
+    for (const name of ['schedule_create', 'schedule_list', 'schedule_update', 'schedule_delete']) {
+      assert.ok(registry.presetRuntime.registeredTools.includes(name), 'Minimal PTC lost the official scheduling tool: ' + name)
+    }
+  }
   for (const [name, result] of Object.entries(registry.skillHealth)) {
     assert.equal(result.isError, false, name + ' execution failed')
     assert.equal(result.value.ok, true, name + ' reported incomplete skill registration')
@@ -262,6 +272,7 @@ try {
     skillHealthChecked: Object.keys(registry.skillHealth),
     preset: registry.preset, presetMounted: registry.presetRuntime.mounted,
     presetModelTools: registry.presetRuntime.modelTools,
+    presetSchedulingTools: registry.presetRuntime.registeredTools.filter(name => name.startsWith('schedule_')),
     httpStatus: response.status, tokenExchangeStatus: login.status,
     unauthenticatedStatus: unauthenticated.status, home, registry }
 } catch (error) {

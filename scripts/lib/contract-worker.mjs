@@ -3,6 +3,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { createRequire } from 'node:module'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
+import yaml from 'js-yaml'
 
 const [harnessRoot, input, output] = process.argv.slice(2)
 const report = { ok: false, plugins: [], tools: 0, skills: 0, healthChecks: 0, outputChecks: 0, registryLossChecks: 0, mockedRequests: [] }
@@ -152,7 +153,17 @@ try {
         for (const filename of ['preset.yml', 'agent.cordis.yml', 'gitbash-executor.mjs']) assert.ok(existsSync(join(preset, filename)), 'Preset materialization missing: ' + filename)
         const cliRequire = createRequire(join(harnessRoot, 'apps/cli/package.json'))
         const composition = readFileSync(join(preset, 'agent.cordis.yml'), 'utf8')
-        const references = [...composition.matchAll(/^\s+name:\s*['"](@deepseek-ai\/[^'"\r\n]+)['"]/gm)].map((match) => match[1])
+        // Resolve only active rows, just as the real loader does. An optional
+        // current-host tool must not be imported by the legacy-host verifier.
+        const jsSchema = yaml.DEFAULT_SCHEMA.extend([new yaml.Type('tag:yaml.org,2002:js', { kind: 'scalar', construct: value => ({ __jsExpr: value }) })])
+        const activeReferences = rows => rows.flatMap(row => {
+          const disabled = typeof row.disabled?.__jsExpr === 'string'
+            ? new Function('ctx', `return (${row.disabled.__jsExpr})`)(context)
+            : row.disabled === true
+          if (disabled) return []
+          return [typeof row.name === 'string' && row.name.startsWith('@deepseek-ai/') ? row.name : [], ...(row.group ? activeReferences(row.config) : [])].flat()
+        })
+        const references = activeReferences(yaml.load(composition, { schema: jsSchema }))
         for (const specifier of new Set(references)) cliRequire.resolve(specifier)
         item.presetModules = [...new Set(references)]
       } else {
