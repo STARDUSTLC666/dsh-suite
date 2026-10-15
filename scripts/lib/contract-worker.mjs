@@ -5,7 +5,7 @@ import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import yaml from 'js-yaml'
 
-const [harnessRoot, input, output] = process.argv.slice(2)
+const [harnessRoot, input, output, suiteManifestFile] = process.argv.slice(2)
 const report = { ok: false, plugins: [], tools: 0, skills: 0, healthChecks: 0, outputChecks: 0, registryLossChecks: 0, mockedRequests: [] }
 let host
 const disposers = []
@@ -17,6 +17,27 @@ try {
   const toolsApi = await importFile(join(harnessRoot, 'packages/core/tools/lib/index.js'))
   const { Context } = await importFile(require.resolve('@deepseek-ai/cordis'))
   const cliRequireForHarness = createRequire(join(harnessRoot, 'apps/cli/package.json'))
+  const catalog = JSON.parse(readFileSync(input, 'utf8'))
+  const boot = await importFile(cliRequireForHarness.resolve('@deepseek-ai/dsh-app-boot'))
+  if (typeof boot.evaluatePluginCompatibility === 'function') {
+    const runtimeVersion = boot.getDshRuntimeVersion()
+    const manifests = catalog.map(plugin => plugin.manifest)
+    if (suiteManifestFile) manifests.push(JSON.parse(readFileSync(suiteManifestFile, 'utf8')))
+    report.compatibility = {
+      status: 'passed', runtimeVersion,
+      packages: manifests.map(manifest => ({
+        name: manifest.name, version: manifest.version,
+        issue: boot.evaluatePluginCompatibility(manifest, {}, runtimeVersion) ?? null,
+      })),
+    }
+    const incompatible = report.compatibility.packages.filter(pkg => pkg.issue !== null)
+    if (incompatible.length > 0) {
+      report.compatibility.status = 'failed'
+      throw new Error('Official DSH preflight rejected: ' + incompatible.map(pkg => boot.pluginCompatibilityWarning(pkg.issue)).join('\n'))
+    }
+  } else {
+    report.compatibility = { status: 'skipped', reason: 'This older DSH runtime does not expose plugin compatibility preflight' }
+  }
   let hasModernPtcRuntime = false
   try { cliRequireForHarness.resolve('@deepseek-ai/dsh-workflow-ptc'); hasModernPtcRuntime = true } catch { hasModernPtcRuntime = false }
   const { default: SystemPrompt } = await importFile(require.resolve('@deepseek-ai/dsh-system-prompt'))
@@ -57,7 +78,7 @@ try {
   }
   const schemas = []
   const skillNames = new Set()
-  for (const plugin of JSON.parse(readFileSync(input, 'utf8'))) {
+  for (const plugin of catalog) {
     const item = { name: plugin.name, ok: false, tools: [], skills: [], fixtures: [], warnings: [] }
     report.plugins.push(item)
     const definitions = []

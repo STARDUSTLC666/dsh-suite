@@ -51,7 +51,7 @@ if (values.help) {
     const input = join(runDirectory, 'catalog.json')
     const output = join(runDirectory, 'contracts.json')
     writeFileSync(input, JSON.stringify(catalog))
-    const contract = await runNode(['--import', preload, fileURLToPath(new URL('./lib/contract-worker.mjs', import.meta.url)), harnessRoot, input, output], {
+    const contract = await runNode(['--import', preload, fileURLToPath(new URL('./lib/contract-worker.mjs', import.meta.url)), harnessRoot, input, output, join(suiteRoot, 'package.json')], {
       cwd: runDirectory, env: offlineEnvironment(join(runDirectory, 'contracts')),
     })
     report.contracts = existsSync(output) ? JSON.parse(readFileSync(output, 'utf8')) : contract
