@@ -34,7 +34,7 @@ Install the suite when you need the full set, then configure the accounts and to
 
 Enable only the suite bundle in the profile; it loads the components. Each component still has its own account, executable and network requirements.
 
-This version targets official DSH 0.2.1-alpha.3, restores the minimal PTC subagent preset, adds PPT slide duplication/deletion, fixes GIF trimming and mixed-format video concatenation, and hardens RSS connection error isolation. It also pins Code Security 0.3.8. Workbench UI follows the host language while preserving original content. See [this validation record](docs/validation-2026-10-15.md) for actual interactions and their limits.
+This version pins Code Security 0.4.1: a bilingual security workbench, optional secret/data-flow/dependency engines, redacted evidence, fix tracking and opt-in quiet checks per project. Compatibility is verified with official DSH 0.2.1-alpha.3; see [this validation record](docs/validation-2026-10-15-security.md). The same day's PPT, FFmpeg, RSS and minimal PTC changes are in the [previous record](docs/validation-2026-10-15.md).
 
 Detailed configuration, tool arguments and troubleshooting are in the [usage guide](docs/USAGE.en.md). For standalone development, follow the Node requirement in [package.json](package.json).
 
