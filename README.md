@@ -34,7 +34,7 @@ dsh plugin --profile desktop add @stardustlc/dsh-suite
 
 profile 只启用 Suite 这一层，由它加载组件。组件的账号、外部程序与网络要求仍各自适用。
 
-本版同步 Dream 0.9.0：安静后合并整理、可恢复的延后队列、聊天独立控制、批量审阅和事实到期复核。实际操作与验收边界见 [Dream 验收](https://github.com/STARDUSTLC666/dsh-dream/blob/master/docs/validation/0.9.0.md)。各工作台跟随宿主语言，用户正文保留原文。
+本版适配官方 DSH 0.2.1-alpha.3，修复极简 PTC 的子代理预设挂载，增加 PPT 页面复制/删除，修复 GIF 截取与不同规格视频拼接，并加强 RSS 连接错误隔离。同步 Code Security 0.3.8；各工作台跟随宿主语言，用户正文保留原文。实际操作与未测范围见 [本次验收](docs/validation-2026-10-15.md)。
 
 详细配置、工具参数与排错见[使用说明](docs/USAGE.md)。从源码独立开发时，Node 要求以 [package.json](package.json) 为准。
 
