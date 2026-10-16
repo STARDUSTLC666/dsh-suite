@@ -15,10 +15,10 @@
           # PTC tool presentation (`tool-presentation` with `mode: ptc`), where the
           # model composes a TypeScript program against a generated SDK and `run_code`
           # executes it. What differs is the persona row, taken verbatim from `minimal`:
-          # a fixed one-line persona marked `complete: true` with
-          # `includeRuntimeContext: false`, so global identity, Web orientation, tool
-          # guidance, and later assembly listeners cannot add prompt text, and runtime
-          # context snapshots are suppressed. The `agent-instructions` row from `ptc` is
+          # a fixed one-line identity plus the Host-generated PTC SDK, marked complete
+          # with `includeRuntimeContext: false`. Other identity and workspace guidance
+          # cannot add prompt text, and runtime context snapshots are suppressed.
+          # The `agent-instructions` row from `ptc` is
           # dropped for the same reason — its workspace instruction baselines would add
           # user-role text the minimal prompt policy excludes.
           #
@@ -28,10 +28,9 @@
 
           # ── identity ────────────────────────────────────────────────────────────────
 
-          # The persona is the complete system prompt (minimal-mode prompt policy).
-          # dsh 0.1.3 renamed the persona config field `text` to `prefix` (required).
+          # The complete prompt keeps the minimal identity and the callable tool SDK.
           - id: persona
-            name: '@deepseek-ai/dsh-persona'
+            name: dsh-minimal-ptc/ptc-persona
             config:
               prefix: You are a helpful software engineer assistant.
               complete: true

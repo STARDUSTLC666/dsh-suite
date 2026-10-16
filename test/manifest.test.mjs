@@ -59,6 +59,9 @@ test('套件 PTC 通过已安装组件的公开入口等待定时服务，不在
   assert.equal(row.disabled, undefined)
   const require = createRequire(join(root, 'package.json'))
   assert.ok(existsSync(require.resolve(row.name)), 'Published PTC component must export the optional scheduling module')
+  const persona = preset.find(entry => entry.id === 'persona')
+  assert.equal(persona.name, 'dsh-minimal-ptc/ptc-persona', 'Suite must use the same SDK-preserving persona as standalone PTC')
+  assert.ok(existsSync(require.resolve(persona.name)), 'The pinned registry component must export the PTC persona')
 })
 
 test('组合补丁条目字段受约束（防注释/字段混入）', () => {

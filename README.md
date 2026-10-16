@@ -34,7 +34,7 @@ dsh plugin --profile desktop add @stardustlc/dsh-suite
 
 profile 只启用 Suite 这一层，由它加载组件。组件的账号、外部程序与网络要求仍各自适用。
 
-本版同步 Code Security 0.4.1：中英文安全工作台、可选密钥/数据流/依赖漏洞引擎、脱敏与修复追踪，以及按项目开启的安静自动检查。已通过官方 DSH 0.2.1-alpha.3 / alpha.4 的共同加载与兼容性检查；新版的全新安装、安全与 PPT 浏览器操作见 [alpha.4 验收](docs/validation-2026-10-15-alpha4.md)。[安全功能验收](docs/validation-2026-10-15-security.md) 与 [同日其他改进](docs/validation-2026-10-15.md) 分别保留详细范围。
+本版同步极简 PTC 0.5.6，修复模型看不到工具 SDK 的问题，并跟随官方 DSH 0.2.1-alpha.5 的执行格式指引。18 个组件的回归与兼容性检查、实际 PTC 执行、安全和 PPT 浏览器操作见 [本次验收](docs/validation-2026-10-17-alpha5.md)。Code Security 0.4.1 的功能说明见 [安全记录](docs/validation-2026-10-15-security.md)。
 
 详细配置、工具参数与排错见[使用说明](docs/USAGE.md)。从源码独立开发时，Node 要求以 [package.json](package.json) 为准。
 

@@ -106,6 +106,9 @@ export function apply(ctx, config) {
           mounted: true,
           modelTools: assembly.tools.map(tool => tool.name).sort(),
           registeredTools: ctx.tools.schemas(handle.agent).map(tool => tool.name).sort(),
+          sdkPresent: assembly.sections.some(section => section.text.includes('declare const tools:') || section.text.includes('class tools:')),
+          sdkMissingTools: ctx.tools.schemas(handle.agent).filter(tool => tool.name !== 'run_code'
+            && !assembly.sections.some(section => section.text.includes(tool.name))).map(tool => tool.name),
         }
       } finally {
         await handle.dispose()
@@ -237,6 +240,8 @@ try {
       assert.ok(registry.presetRuntime.registeredTools.includes(name), 'Minimal PTC lost the official scheduling tool: ' + name)
     }
   }
+  assert.equal(registry.presetRuntime.sdkPresent, true, 'Minimal PTC lost its callable tool SDK')
+  assert.deepEqual(registry.presetRuntime.sdkMissingTools, [], 'Minimal PTC SDK omits visible tools')
   for (const [name, result] of Object.entries(registry.skillHealth)) {
     assert.equal(result.isError, false, name + ' execution failed')
     assert.equal(result.value.ok, true, name + ' reported incomplete skill registration')
@@ -271,6 +276,7 @@ try {
     toolCount: registry.tools.length, skillCount: registry.skills.length,
     skillHealthChecked: Object.keys(registry.skillHealth),
     preset: registry.preset, presetMounted: registry.presetRuntime.mounted,
+    presetSdkPresent: registry.presetRuntime.sdkPresent,
     presetModelTools: registry.presetRuntime.modelTools,
     presetSchedulingTools: registry.presetRuntime.registeredTools.filter(name => name.startsWith('schedule_')),
     httpStatus: response.status, tokenExchangeStatus: login.status,

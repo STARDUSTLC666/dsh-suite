@@ -42,8 +42,8 @@ importers:
         specifier: 0.6.0
         version: 0.6.0
       dsh-minimal-ptc:
-        specifier: 0.5.5
-        version: 0.5.5
+        specifier: 0.5.6
+        version: 0.5.6
       dsh-ppt:
         specifier: 0.10.0
         version: 0.10.0
@@ -282,8 +282,8 @@ packages:
     resolution: {integrity: sha512-JyuwScjzBaOsAV2zx28TF8RZcyrQkcJhwYywePbeVlcfzYMMsETftzzbx8W8RCovxNyZ+sWP8z3erGkk8Lw4fg==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-minimal-ptc@0.5.5:
-    resolution: {integrity: sha512-7aUNJABcr8H7+QEGA7XHxcaIllNgY3E68eLkxF7d+RpZfhrcl7SfdORGHviw6f1QFudZsXo9mnygi2Hucp/m/Q==}
+  dsh-minimal-ptc@0.5.6:
+    resolution: {integrity: sha512-pkSeh6P6/rchnI0Zygb4pBrVfayHyw2CnzHKGhKwvKlIH/7tu1rNNrj+DOP6cdGnKJYxGiSq5fWDY3sP5rl0Pw==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   dsh-ppt@0.10.0:
@@ -923,7 +923,7 @@ snapshots:
       proper-lockfile: 4.1.2
       yaml: 2.9.1
 
-  dsh-minimal-ptc@0.5.5: {}
+  dsh-minimal-ptc@0.5.6: {}
 
   dsh-ppt@0.10.0:
     dependencies:

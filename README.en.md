@@ -34,7 +34,7 @@ Install the suite when you need the full set, then configure the accounts and to
 
 Enable only the suite bundle in the profile; it loads the components. Each component still has its own account, executable and network requirements.
 
-This version pins Code Security 0.4.1: a bilingual security workbench, optional secret/data-flow/dependency engines, redacted evidence, fix tracking and opt-in quiet checks per project. Joint loading and compatibility checks pass on official DSH 0.2.1-alpha.3 and alpha.4. See the [alpha.4 record](docs/validation-2026-10-15-alpha4.md) for a fresh installation and Security/PPT browser interactions. [Security validation](docs/validation-2026-10-15-security.md) and the [other changes from the same day](docs/validation-2026-10-15.md) retain their separate scopes.
+This version pins minimal PTC 0.5.6, fixing missing tool SDK declarations in the model prompt and following official DSH 0.2.1-alpha.5 execution-format guidance. See [this validation record](docs/validation-2026-10-17-alpha5.md) for the 18-component regressions, compatibility, actual PTC execution and Security/PPT browser interactions. Code Security 0.4.1 features remain documented in the [security record](docs/validation-2026-10-15-security.md).
 
 Detailed configuration, tool arguments and troubleshooting are in the [usage guide](docs/USAGE.en.md). For standalone development, follow the Node requirement in [package.json](package.json).
 
