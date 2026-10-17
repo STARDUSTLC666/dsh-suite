@@ -151,6 +151,8 @@ if (!artifactReport) {
     writeFileSync(join(profile, 'pnpm-workspace.yaml'), dump({ overrides }))
   }
   writeFileSync(join(home, '.npmrc'), 'registry=https://registry.npmjs.org/\n')
+  // The plugin manager resolves pnpm configuration from the profile directory.
+  writeFileSync(join(profile, '.npmrc'), 'registry=https://registry.npmjs.org/\n')
   Object.assign(env, { npm_config_userconfig: join(home, '.npmrc'), npm_config_registry: 'https://registry.npmjs.org/' })
   console.log('Installing the suite through the official CLI with ' + (values['registry-components'] ? 'published components...' : 'audited component tarballs...'))
   try {
