@@ -18,3 +18,12 @@ minimumReleaseAgeExclude:
   - dsh-slack@0.3.4
   - dsh-sql@0.4.5
   - dsh-voice@0.3.6
+  - '@stardustlc/dsh-dream@0.10.0'
+  - dsh-calendar@0.11.0
+  - dsh-cite@0.5.0
+  - dsh-code-security@0.5.0
+  - dsh-email@0.17.0
+  - dsh-hyperframes@0.7.0
+  - dsh-ppt@0.11.0
+  - dsh-remotion@0.6.0
+  - dsh-rss@0.7.0

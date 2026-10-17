@@ -2,6 +2,10 @@
 
 [返回简介](README.md) · [使用说明](docs/USAGE.md) · [验证记录](docs/VALIDATION.md)
 
+## 0.2.29（2026-10-17）
+
+- 跟随 9 个组件的「首次使用分步引导」版本：`dsh-email 0.17.0`、`dsh-calendar 0.11.0`、`@stardustlc/dsh-dream 0.10.0`、`dsh-rss 0.7.0`、`dsh-ppt 0.11.0`、`dsh-code-security 0.5.0`、`dsh-hyperframes 0.7.0`、`dsh-remotion 0.6.0`、`dsh-cite 0.5.0`。
+- 锁文件同步；其余 9 个组件版本未变。
 ## 0.2.28（2026-10-17）
 
 - 依赖 pin 跟随 `@stardustlc/dsh-dream` **0.9.1**（派生索引紧凑序列化，−32% 体积）与 `@stardustlc/dsh-docker` **0.4.2**（补 `publishConfig.access`）。
