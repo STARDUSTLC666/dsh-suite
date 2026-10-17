@@ -1,32 +1,20 @@
 verifyDepsBeforeRun: false
-# These first-party packages are exact version pins, with registry integrity checked
-# by the manifest test. Name exclusions also work in pnpm 11.7 frozen installs.
 minimumReleaseAgeExclude:
-  - '@stardustlc/dsh-docker'
-  - '@stardustlc/dsh-dream'
-  - dsh-calendar
-  - dsh-cite
-  - dsh-code-security
-  - dsh-codex-port
-  - dsh-dingtalk
-  - dsh-email
-  - dsh-ffmpeg
-  - dsh-flakefinder
-  - dsh-hyperframes
-  - dsh-minimal-ptc
-  - dsh-ppt
-  - dsh-remotion
-  - dsh-rss
-  - dsh-slack
-  - dsh-sql
-  - dsh-voice
-  # Reviewed Socket Mode 3.1 SDK release and its new transitive packages.
-  - '@slack/socket-mode@3.1.0'
-  - '@slack/types@3.2.0'
-  - '@slack/web-api@8.2.0'
-  # Reviewed Email dependency updates; keep release-age exceptions version-specific.
-  - 'imapflow@2.2.1'
-  - 'mailparser@3.9.33'
-  - 'nodemailer@10.0.13'
-  - 'ip-address@10.7.3'
-  - undici@8.12.1
+  - '@stardustlc/dsh-docker@0.4.2'
+  - '@stardustlc/dsh-dream@0.9.1'
+  - dsh-calendar@0.10.4
+  - dsh-cite@0.4.2
+  - dsh-code-security@0.4.1
+  - dsh-codex-port@0.3.0
+  - dsh-dingtalk@0.2.2
+  - dsh-email@0.16.3
+  - dsh-ffmpeg@0.5.0
+  - dsh-flakefinder@0.3.5
+  - dsh-hyperframes@0.6.0
+  - dsh-minimal-ptc@0.5.6
+  - dsh-ppt@0.10.0
+  - dsh-remotion@0.5.0
+  - dsh-rss@0.6.3
+  - dsh-slack@0.3.4
+  - dsh-sql@0.4.5
+  - dsh-voice@0.3.6
