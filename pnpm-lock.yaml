@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@stardustlc/dsh-docker':
-        specifier: 0.4.1
-        version: 0.4.1
+        specifier: 0.4.2
+        version: 0.4.2
       '@stardustlc/dsh-dream':
-        specifier: 0.9.0
-        version: 0.9.0
+        specifier: 0.9.1
+        version: 0.9.1
       dsh-calendar:
         specifier: 0.10.4
         version: 0.10.4
@@ -179,12 +179,12 @@ packages:
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
 
-  '@stardustlc/dsh-docker@0.4.1':
-    resolution: {integrity: sha512-un/xU92CMy0yHz/i8AGjJDpS5qbGp0+Zs9rnGjQlND+nDhR7dFnHN7M8As0fTE1jv5RNuK2WZETwJvQr5MlBGA==}
+  '@stardustlc/dsh-docker@0.4.2':
+    resolution: {integrity: sha512-1bcg6qMomja1YIfBlRD7U0i2I/X1f8tiIAvZrFDV4WxOZlU2gGlXHFhGL6GifDVRwXG3wXgYENGU2OAuoiiCjg==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  '@stardustlc/dsh-dream@0.9.0':
-    resolution: {integrity: sha512-+VeOPHUFSFSrLtYvGl06CdNBKmGW8grL/EMALYzHeFfSWpz62V2+f0qrpg+vJe2wyfLHysyjEaKrAoqd2F1zzA==}
+  '@stardustlc/dsh-dream@0.9.1':
+    resolution: {integrity: sha512-wYgV1iIYIHz3SOrl7wl/E9DCNVrqaETm/ZfVxzO8kQFU6mBrmiYICFJYgTCJovfXiwbwn+9G2xWzBnlgf8/29A==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   '@types/node@26.5.1':
@@ -813,9 +813,9 @@ snapshots:
 
   '@standard-schema/spec@1.1.0': {}
 
-  '@stardustlc/dsh-docker@0.4.1': {}
+  '@stardustlc/dsh-docker@0.4.2': {}
 
-  '@stardustlc/dsh-dream@0.9.0': {}
+  '@stardustlc/dsh-dream@0.9.1': {}
 
   '@types/node@26.5.1':
     dependencies:
