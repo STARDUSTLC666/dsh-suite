@@ -18,3 +18,4 @@ minimumReleaseAgeExclude:
   - "dsh-slack@0.3.4"
   - "dsh-sql@0.4.6"
   - "dsh-voice@0.3.7"
+  - dsh-email@0.18.0

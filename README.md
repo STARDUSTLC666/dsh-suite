@@ -34,7 +34,7 @@ dsh plugin --profile desktop add @stardustlc/dsh-suite
 
 profile 只启用 Suite 这一层，由它加载组件。组件的账号、外部程序与网络要求仍各自适用。
 
-本版同步日历 0.10.4、邮件 0.16.3 与 RSS 0.6.3，修复表单标签、配置提示和英文窄窗口布局。现有版本在官方 DSH **0.2.1-rc.1** 的兼容复查见 [新版宿主记录](docs/validation-2026-10-17-rc1.md)；之前的逐插件修复和范围见 [基础操作记录](docs/validation-2026-10-17-human.md)。极简 PTC 0.5.6 的工具 SDK 修复见 [执行记录](docs/validation-2026-10-17-alpha5.md)。
+本版同步邮件 **0.18.0**，新增 AgentMail 与收发邮件工作台。18 个组件通过官方 DSH **0.2.1-rc.2** 的全新安装、启动和 PTC SDK 检查，范围见 [0.2.32 验收记录](docs/validation-2026-10-21-email.md)。邮件的真实服务验收边界与逐项浏览器操作另列说明。
 
 详细配置、工具参数与排错见[使用说明](docs/USAGE.md)。从源码独立开发时，Node 要求以 [package.json](package.json) 为准。
 

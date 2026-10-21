@@ -34,7 +34,7 @@ Install the suite when you need the full set, then configure the accounts and to
 
 Enable only the suite bundle in the profile; it loads the components. Each component still has its own account, executable and network requirements.
 
-This version pins Calendar 0.10.4, Email 0.16.3 and RSS 0.6.3, fixing form labels, setup guidance and the narrow-window English layout. The existing versions are rechecked on official DSH **0.2.1-rc.1** in the [new host record](docs/validation-2026-10-17-rc1.md). Earlier per-plugin fixes and scope remain in the [interaction record](docs/validation-2026-10-17-human.md). Minimal PTC 0.5.6's tool SDK fix remains documented in the [execution record](docs/validation-2026-10-17-alpha5.md).
+This version pins Email **0.18.0**, adding AgentMail and the mailbox workbench. All 18 components passed a clean installation, startup and PTC SDK check on official DSH **0.2.1-rc.2**; see the [0.2.32 validation record](docs/validation-2026-10-21-email.md). Per-action browser checks and the limits of real-service acceptance are recorded separately.
 
 Detailed configuration, tool arguments and troubleshooting are in the [usage guide](docs/USAGE.en.md). For standalone development, follow the Node requirement in [package.json](package.json).
 
