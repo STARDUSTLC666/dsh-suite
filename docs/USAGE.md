@@ -49,7 +49,7 @@ dsh plugin --profile web remove @stardustlc/dsh-suite
 | | dsh-dream | 会话回放 → 来源核验 → 经验审阅 → 项目规则预览、写入与回滚（含隐私脱敏） |
 | 🎬 媒体工坊 | dsh-ffmpeg | 探测/剪辑/拼接/转码/字幕/抽帧/GIF/调整（变速·音量·静音·旋转）十工具 |
 | | dsh-voice | edge-tts 合成 + ASR 转写 + 音色试听 |
-| | dsh-ppt | HTML 放映 + 可编辑 PPTX：11 页型（含图片与图表）、逐页编辑/撤销、质量报告、四种场景提纲、品牌配置与演讲者备注；可选官方 LibreOffice Kit 导出 PNG/PDF |
+| | dsh-ppt | HTML 放映 + 可编辑 PPTX：图文、图表、轻量编辑与撤销、质量检查；可选 AI 预审 / 模拟答辩，主动开启后复用宿主模型，采纳另存副本；可选官方 LibreOffice Kit 渲染 |
 | | dsh-hyperframes | HyperFrames by HeyGen 的 21 个视频技能；中英文模板工作台、素材、Studio 预览、MP4 与源码下载 |
 | | dsh-remotion | Remotion React 视频技能；中英文模板工作台、素材、Studio 预览、MP4 与源码下载 |
 | 🔧 DevOps | dsh-docker | 容器七工具（含 health 自检）+ exec 审批门（@stardustlc/dsh-docker） |

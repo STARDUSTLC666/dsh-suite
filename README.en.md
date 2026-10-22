@@ -34,7 +34,7 @@ Install the suite when you need the full set, then configure the accounts and to
 
 Enable only the suite bundle in the profile; it loads the components. Each component still has its own account, executable and network requirements.
 
-This version pins Email **0.18.0**, adding AgentMail and the mailbox workbench. All 18 components passed a clean installation, startup and PTC SDK check on official DSH **0.2.1-rc.2**; see the [0.2.32 validation record](docs/validation-2026-10-21-email.md). Per-action browser checks and the limits of real-service acceptance are recorded separately.
+This version pins PPT **0.14.0**, adding optional AI review and rehearsal while preserving direct delivery. See the [0.2.33 validation record](docs/validation-2026-10-22-ppt.md) for installation, host checks, browser interaction and the separate simulated-model and untested boundaries.
 
 Detailed configuration, tool arguments and troubleshooting are in the [usage guide](docs/USAGE.en.md). For standalone development, follow the Node requirement in [package.json](package.json).
 

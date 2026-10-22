@@ -45,8 +45,8 @@ importers:
         specifier: 0.5.6
         version: 0.5.6
       dsh-ppt:
-        specifier: 0.13.0
-        version: 0.13.0
+        specifier: 0.14.0
+        version: 0.14.0
       dsh-remotion:
         specifier: 0.6.0
         version: 0.6.0
@@ -286,8 +286,8 @@ packages:
     resolution: {integrity: sha512-pkSeh6P6/rchnI0Zygb4pBrVfayHyw2CnzHKGhKwvKlIH/7tu1rNNrj+DOP6cdGnKJYxGiSq5fWDY3sP5rl0Pw==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-ppt@0.13.0:
-    resolution: {integrity: sha512-DUWMcNHk76GLptm1Dn4ClZ61ScS6YFRisEagE1pD3/5CyfO0iGxTNJzJlmO7YRpdXWoL4g/tK+GUZw2I+xiXYQ==}
+  dsh-ppt@0.14.0:
+    resolution: {integrity: sha512-3MqNlywuCQoGP/lKZgRqC9WB7ODg729kjeKVwkroXybIxSG0dcisPMmxhr8oL2KcjsLz5XMccx3IJYx5cdlHNg==}
     engines: {node: ^22.19.0 || >=24.0.0}
     peerDependencies:
       '@deepseek-ai/libreoffice-kit': 0.1.5
@@ -925,7 +925,7 @@ snapshots:
 
   dsh-minimal-ptc@0.5.6: {}
 
-  dsh-ppt@0.13.0:
+  dsh-ppt@0.14.0:
     dependencies:
       '@office-kit/pptx': 0.21.0
       fflate: 0.8.3
