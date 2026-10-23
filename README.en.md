@@ -34,7 +34,7 @@ Install the suite when you need the full set, then configure the accounts and to
 
 Enable only the suite bundle in the profile; it loads the components. Each component still has its own account, executable and network requirements.
 
-This version pins PPT **0.15.0**, adding optional data lineage and live what-if assumptions. Preview affected slides before confirming source or parameter updates; ordinary delivery stays available. See the [0.2.34 validation record](docs/validation-2026-10-23-ppt-data.md).
+This version pins PPT **0.16.0**, adding optional AI review of actual PPTX images, formatting-only copies, re-rendered checks and before/after comparison. Ordinary delivery stays available. See the [0.2.35 validation record](docs/validation-2026-10-23-ppt-visual.md).
 
 Detailed configuration, tool arguments and troubleshooting are in the [usage guide](docs/USAGE.en.md). For standalone development, follow the Node requirement in [package.json](package.json).
 

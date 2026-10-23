@@ -34,7 +34,7 @@ dsh plugin --profile desktop add @stardustlc/dsh-suite
 
 profile 只启用 Suite 这一层，由它加载组件。组件的账号、外部程序与网络要求仍各自适用。
 
-本版同步 PPT **0.15.0**，可选数字溯源与现场推演，更新材料和假设前可预览页面差异，再确认保存；普通生成与下载保持直接交付。安装与宿主验证范围见 [0.2.34 验收记录](docs/validation-2026-10-23-ppt-data.md)。
+本版同步 PPT **0.16.0**，新增可选 AI 看图检查与排版修复：读取实际 PPTX 图片，另存修复副本后重新渲染复查，支持前后对比与停止；普通生成仍直接交付。安装与宿主验证范围见 [0.2.35 验收记录](docs/validation-2026-10-23-ppt-visual.md)。
 
 详细配置、工具参数与排错见[使用说明](docs/USAGE.md)。从源码独立开发时，Node 要求以 [package.json](package.json) 为准。
 
