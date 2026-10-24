@@ -1,121 +1,121 @@
 {
   "schemaVersion": 1,
   "source": "https://api.npmjs.org/downloads/point/last-month/",
-  "refreshedAt": "2026-10-23T09:26:40.204Z",
+  "refreshedAt": "2026-10-24T08:58:16.795Z",
   "entries": {
     "dsh-calendar": {
-      "downloads": 7281,
+      "downloads": 5807,
       "package": "dsh-calendar",
-      "start": "2026-09-19",
-      "end": "2026-10-18"
+      "start": "2026-09-23",
+      "end": "2026-10-22"
     },
     "dsh-cite": {
-      "downloads": 4740,
+      "downloads": 4670,
       "package": "dsh-cite",
-      "start": "2026-09-19",
-      "end": "2026-10-18"
+      "start": "2026-09-23",
+      "end": "2026-10-22"
     },
     "dsh-code-security": {
-      "downloads": 2856,
+      "downloads": 2788,
       "package": "dsh-code-security",
-      "start": "2026-09-19",
-      "end": "2026-10-18"
+      "start": "2026-09-23",
+      "end": "2026-10-22"
     },
     "dsh-codex-port": {
-      "downloads": 2377,
+      "downloads": 2298,
       "package": "dsh-codex-port",
-      "start": "2026-09-19",
-      "end": "2026-10-18"
+      "start": "2026-09-23",
+      "end": "2026-10-22"
     },
     "dsh-dingtalk": {
-      "downloads": 1888,
+      "downloads": 1809,
       "package": "dsh-dingtalk",
-      "start": "2026-09-19",
-      "end": "2026-10-18"
+      "start": "2026-09-23",
+      "end": "2026-10-22"
     },
     "dsh-docker": {
-      "downloads": 2428,
-      "start": "2026-09-19",
-      "end": "2026-10-18",
+      "downloads": 2353,
+      "start": "2026-09-23",
+      "end": "2026-10-22",
       "package": "@stardustlc/dsh-docker"
     },
     "dsh-dream": {
-      "downloads": 4114,
-      "start": "2026-09-19",
-      "end": "2026-10-18",
+      "downloads": 4122,
+      "start": "2026-09-23",
+      "end": "2026-10-22",
       "package": "@stardustlc/dsh-dream"
     },
     "dsh-email": {
-      "downloads": 7422,
+      "downloads": 7042,
       "package": "dsh-email",
-      "start": "2026-09-19",
-      "end": "2026-10-18"
+      "start": "2026-09-23",
+      "end": "2026-10-22"
     },
     "dsh-ffmpeg": {
-      "downloads": 4679,
+      "downloads": 4517,
       "package": "dsh-ffmpeg",
-      "start": "2026-09-19",
-      "end": "2026-10-18"
+      "start": "2026-09-23",
+      "end": "2026-10-22"
     },
     "dsh-flakefinder": {
-      "downloads": 2136,
+      "downloads": 2036,
       "package": "dsh-flakefinder",
-      "start": "2026-09-19",
-      "end": "2026-10-18"
+      "start": "2026-09-23",
+      "end": "2026-10-22"
     },
     "dsh-hyperframes": {
       "downloads": 5299,
       "package": "dsh-hyperframes",
-      "start": "2026-09-19",
-      "end": "2026-10-18"
+      "start": "2026-09-23",
+      "end": "2026-10-22"
     },
     "dsh-minimal-ptc": {
-      "downloads": 2983,
+      "downloads": 2887,
       "package": "dsh-minimal-ptc",
-      "start": "2026-09-19",
-      "end": "2026-10-18"
+      "start": "2026-09-23",
+      "end": "2026-10-22"
     },
     "dsh-ppt": {
-      "downloads": 13032,
+      "downloads": 12859,
       "package": "dsh-ppt",
-      "start": "2026-09-19",
-      "end": "2026-10-18"
+      "start": "2026-09-23",
+      "end": "2026-10-22"
     },
     "dsh-remotion": {
-      "downloads": 4947,
+      "downloads": 4910,
       "package": "dsh-remotion",
-      "start": "2026-09-19",
-      "end": "2026-10-18"
+      "start": "2026-09-23",
+      "end": "2026-10-22"
     },
     "dsh-rss": {
-      "downloads": 3953,
+      "downloads": 3881,
       "package": "dsh-rss",
-      "start": "2026-09-19",
-      "end": "2026-10-18"
+      "start": "2026-09-23",
+      "end": "2026-10-22"
     },
     "dsh-slack": {
-      "downloads": 2323,
+      "downloads": 2227,
       "package": "dsh-slack",
-      "start": "2026-09-19",
-      "end": "2026-10-18"
+      "start": "2026-09-23",
+      "end": "2026-10-22"
     },
     "dsh-sql": {
-      "downloads": 2191,
+      "downloads": 2091,
       "package": "dsh-sql",
-      "start": "2026-09-19",
-      "end": "2026-10-18"
+      "start": "2026-09-23",
+      "end": "2026-10-22"
     },
     "dsh-suite": {
-      "downloads": 7078,
-      "start": "2026-09-19",
-      "end": "2026-10-18",
+      "downloads": 6210,
+      "start": "2026-09-23",
+      "end": "2026-10-22",
       "package": "@stardustlc/dsh-suite"
     },
     "dsh-voice": {
-      "downloads": 3136,
+      "downloads": 3030,
       "package": "dsh-voice",
-      "start": "2026-09-19",
-      "end": "2026-10-18"
+      "start": "2026-09-23",
+      "end": "2026-10-22"
     }
   },
   "retained": []
