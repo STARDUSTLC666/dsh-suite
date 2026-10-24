@@ -34,7 +34,9 @@ Install the suite when you need the full set, then configure the accounts and to
 
 Enable only the suite bundle in the profile; it loads the components. Each component still has its own account, executable and network requirements.
 
-This version pins PPT **0.16.0**, adding optional AI review of actual PPTX images, formatting-only copies, re-rendered checks and before/after comparison. Ordinary delivery stays available. See the [0.2.35 validation record](docs/validation-2026-10-23-ppt-visual.md).
+This version pins PPT **0.16.1** and supports official DSH **0.2.1-rc.3**. Visual review, AI review and rehearsal preserve the selected provider and model when the catalog refreshes; a removed route requires a new selection. Ordinary delivery stays available.
+
+See the [RC.3 validation record](docs/validation-2026-10-24-rc3.md) for installation, joint startup and the tested boundaries.
 
 Detailed configuration, tool arguments and troubleshooting are in the [usage guide](docs/USAGE.en.md). For standalone development, follow the Node requirement in [package.json](package.json).
 

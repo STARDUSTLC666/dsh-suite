@@ -34,7 +34,9 @@ dsh plugin --profile desktop add @stardustlc/dsh-suite
 
 profile 只启用 Suite 这一层，由它加载组件。组件的账号、外部程序与网络要求仍各自适用。
 
-本版同步 PPT **0.16.0**，新增可选 AI 看图检查与排版修复：读取实际 PPTX 图片，另存修复副本后重新渲染复查，支持前后对比与停止；普通生成仍直接交付。安装与宿主验证范围见 [0.2.35 验收记录](docs/validation-2026-10-23-ppt-visual.md)。
+本版同步 PPT **0.16.1**，修复 DSH 动态模型目录刷新后悄悄换用其他模型的问题；视觉检查、AI 预审与模拟答辩会保留原选择，模型下线后要求重新选择。支持官方 DSH **0.2.1-rc.3**；普通生成仍直接交付。
+
+安装、共同启动与操作边界见 [RC.3 验证记录](docs/validation-2026-10-24-rc3.md)。
 
 详细配置、工具参数与排错见[使用说明](docs/USAGE.md)。从源码独立开发时，Node 要求以 [package.json](package.json) 为准。
 
