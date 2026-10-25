@@ -34,7 +34,7 @@ Install the suite when you need the full set, then configure the accounts and to
 
 Enable only the suite bundle in the profile; it loads the components. Each component still has its own account, executable and network requirements.
 
-This version pins PPT **0.16.1** and supports official DSH **0.2.1-rc.3**. Visual review, AI review and rehearsal preserve the selected provider and model when the catalog refreshes; a removed route requires a new selection. Ordinary delivery stays available.
+This version pins Dream **0.11.0**, Email **0.18.1** and RSS **0.7.1**: human acceptance and explicit global scope for memory, consistent decimal-string IMAP identifiers, and bounded malformed feed parsing. It supports official DSH **0.2.1-rc.3** and retains PPT **0.16.1** model-selection fixes.
 
 See the [RC.3 validation record](docs/validation-2026-10-24-rc3.md) for installation, joint startup and the tested boundaries.
 

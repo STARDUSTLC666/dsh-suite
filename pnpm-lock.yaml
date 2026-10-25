@@ -12,8 +12,8 @@ importers:
         specifier: 0.4.2
         version: 0.4.2
       '@stardustlc/dsh-dream':
-        specifier: 0.10.0
-        version: 0.10.0
+        specifier: 0.11.0
+        version: 0.11.0
       dsh-calendar:
         specifier: 0.11.2
         version: 0.11.2
@@ -30,8 +30,8 @@ importers:
         specifier: 0.2.2
         version: 0.2.2
       dsh-email:
-        specifier: 0.18.0
-        version: 0.18.0
+        specifier: 0.18.1
+        version: 0.18.1
       dsh-ffmpeg:
         specifier: 0.5.0
         version: 0.5.0
@@ -51,8 +51,8 @@ importers:
         specifier: 0.6.0
         version: 0.6.0
       dsh-rss:
-        specifier: 0.7.0
-        version: 0.7.0
+        specifier: 0.7.1
+        version: 0.7.1
       dsh-slack:
         specifier: 0.3.4
         version: 0.3.4
@@ -183,8 +183,8 @@ packages:
     resolution: {integrity: sha512-1bcg6qMomja1YIfBlRD7U0i2I/X1f8tiIAvZrFDV4WxOZlU2gGlXHFhGL6GifDVRwXG3wXgYENGU2OAuoiiCjg==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  '@stardustlc/dsh-dream@0.10.0':
-    resolution: {integrity: sha512-ZKEUn44PeHtw0RXWOqsAQAVT8gD6+dGRdmsF+Z3UPPhM5g3Eolod3OzfZIPc4jlrnKNjGIHQpTWahWprsh+Mhg==}
+  '@stardustlc/dsh-dream@0.11.0':
+    resolution: {integrity: sha512-ufXt5mB+bB7HmEYjludUUbJa8LgVtjxKYk0YHGEUynmocqzp+fBDTaYXRsFCtmaeDSzfuh2H8Pk7SSVUM3jxtA==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   '@types/node@26.5.1':
@@ -269,8 +269,8 @@ packages:
     resolution: {integrity: sha512-BsDNUDj0KlxROLM6QbrhZZb8YQ1tF0qysEavHHCfU4L96kxVywFgUaE55LxlA/usEQsz7eGVGCAsvPyKWgWTkg==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-email@0.18.0:
-    resolution: {integrity: sha512-NvyNTp76gyRijOHn0LishdhS0EbbBNh34RYBVV2LvVPMy1pzN1XCeaiDagfWKqJOrwZJvDEbmebtr9EkrnWs/A==}
+  dsh-email@0.18.1:
+    resolution: {integrity: sha512-zH+sElfYF6qhzzyp9W/vd/aaQd7uUhJ2ahWQYxvnBNHKiTP49HYMZVlaDLKxlITPccjmPdltqfy2FIbfN6nMFw==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   dsh-ffmpeg@0.5.0:
@@ -302,8 +302,8 @@ packages:
     resolution: {integrity: sha512-j/kuPvgBQQ4urxMOEj6rynxDpAEW4Cv/NKPrtcrR3Bb20BXFwHhKY34V/zdXDt3acz90VgQ5eBQZ+fW2jT3wTA==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
-  dsh-rss@0.7.0:
-    resolution: {integrity: sha512-P+wvVQTKb0kJCaZRgEN7uk6/cG1FpTgbgzCB1+u0prNHo63L0IBxq21I2ANol7EH/Hd30VqKi7saxbhmdADhNQ==}
+  dsh-rss@0.7.1:
+    resolution: {integrity: sha512-kzzzFEGt0mQ9w3aDojA3cw9cWt8eaVYgM4Rj4S8fPB1vUUaGoIGSUdEW/RaLjXmc7S8CleGUMEIr6goIYpW6Ug==}
     engines: {node: ^22.19.0 || >=24.0.0}
 
   dsh-slack@0.3.4:
@@ -822,7 +822,7 @@ snapshots:
 
   '@stardustlc/dsh-docker@0.4.2': {}
 
-  '@stardustlc/dsh-dream@0.10.0': {}
+  '@stardustlc/dsh-dream@0.11.0': {}
 
   '@types/node@26.5.1':
     dependencies:
@@ -910,7 +910,7 @@ snapshots:
 
   dsh-dingtalk@0.2.2: {}
 
-  dsh-email@0.18.0:
+  dsh-email@0.18.1:
     dependencies:
       '@deepseek-ai/schemastery': 3.18.3
       imapflow: 2.2.1
@@ -947,7 +947,7 @@ snapshots:
       proper-lockfile: 4.1.2
       yaml: 2.9.1
 
-  dsh-rss@0.7.0:
+  dsh-rss@0.7.1:
     dependencies:
       '@deepseek-ai/schemastery': 3.18.3
       fast-xml-parser: 5.11.1
