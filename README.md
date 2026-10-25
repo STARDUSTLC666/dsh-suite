@@ -34,9 +34,9 @@ dsh plugin --profile desktop add @stardustlc/dsh-suite
 
 profile 只启用 Suite 这一层，由它加载组件。组件的账号、外部程序与网络要求仍各自适用。
 
-本版同步 Dream **0.11.0**、邮件 **0.18.1** 与 RSS **0.7.1**：经验由用户确认采纳，全局范围明确确认；修复字符串 UID 的邮箱操作，以及异常订阅正文导致的卡顿。支持官方 DSH **0.2.1-rc.3**，保留 PPT **0.16.1** 的模型选择修复。
+本版更新九个插件的原生工作台：Dream、邮件、RSS、日历、引文、代码安全、PPT、HyperFrames 与 Remotion。界面跟随 DSH 中英文和深浅色，支持窄屏、未保存保护和真实成品预览。独立插件仍可分别安装；其余九个组件版本保持不变。
 
-安装、共同启动与操作边界见 [RC.3 验证记录](docs/validation-2026-10-24-rc3.md)。
+支持官方 DSH **0.2.1-rc.3**。设计、维护与实际操作边界见[工作台说明](docs/WORKBENCH_UI.md)和[本轮验收](docs/validation-2026-10-25-workbenches.md)。
 
 详细配置、工具参数与排错见[使用说明](docs/USAGE.md)。从源码独立开发时，Node 要求以 [package.json](package.json) 为准。
 

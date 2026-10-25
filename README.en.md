@@ -34,9 +34,9 @@ Install the suite when you need the full set, then configure the accounts and to
 
 Enable only the suite bundle in the profile; it loads the components. Each component still has its own account, executable and network requirements.
 
-This version pins Dream **0.11.0**, Email **0.18.1** and RSS **0.7.1**: human acceptance and explicit global scope for memory, consistent decimal-string IMAP identifiers, and bounded malformed feed parsing. It supports official DSH **0.2.1-rc.3** and retains PPT **0.16.1** model-selection fixes.
+This version updates nine native workbenches: Dream, Email, RSS, Calendar, Cite, Code Security, PPT, HyperFrames and Remotion. They follow host language and theme, adapt to narrow windows, protect edits and show real output. Components remain independently installable; the other nine versions are unchanged.
 
-See the [RC.3 validation record](docs/validation-2026-10-24-rc3.md) for installation, joint startup and the tested boundaries.
+Supports official DSH **0.2.1-rc.3**. See the [workbench guide](docs/WORKBENCH_UI.md) and [validation record](docs/validation-2026-10-25-workbenches.md) for design and real-operation boundaries.
 
 Detailed configuration, tool arguments and troubleshooting are in the [usage guide](docs/USAGE.en.md). For standalone development, follow the Node requirement in [package.json](package.json).
 
