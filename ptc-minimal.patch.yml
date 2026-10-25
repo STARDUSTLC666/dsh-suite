@@ -14,10 +14,9 @@
           # Everything in `ptc` is here unchanged — full standard capabilities plus the
           # PTC tool presentation (`tool-presentation` with `mode: ptc`), where the
           # model composes a TypeScript program against a generated SDK and `run_code`
-          # executes it. What differs is the persona row, taken verbatim from `minimal`:
-          # a fixed one-line identity plus the Host-generated PTC SDK, marked complete
-          # with `includeRuntimeContext: false`. Other identity and workspace guidance
-          # cannot add prompt text, and runtime context snapshots are suppressed.
+          # executes it. The persona changes only the one-line identity, with
+          # `includeRuntimeContext: false`. Host SDK, plan and tool guidance remain
+          # composable; optional runtime context snapshots are suppressed.
           # The `agent-instructions` row from `ptc` is
           # dropped for the same reason — its workspace instruction baselines would add
           # user-role text the minimal prompt policy excludes.
@@ -28,12 +27,11 @@
 
           # ── identity ────────────────────────────────────────────────────────────────
 
-          # The complete prompt keeps the minimal identity and the callable tool SDK.
+          # Keep the minimal identity without discarding Host SDK or tool policy sections.
           - id: persona
             name: dsh-minimal-ptc/ptc-persona
             config:
               prefix: You are a helpful software engineer assistant.
-              complete: true
               includeRuntimeContext: false
 
           # ── shell ───────────────────────────────────────────────────────────────────

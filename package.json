@@ -1,6 +1,6 @@
 {
   "name": "@stardustlc/dsh-suite",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "一次安装 18 个独立 DSH 插件，并统一组合它们的默认配置。",
   "type": "module",
   "dsh": {
@@ -50,22 +50,22 @@
     "node": "^22.19.0 || >=24.0.0"
   },
   "dependencies": {
-    "@stardustlc/dsh-docker": "0.4.2",
+    "@stardustlc/dsh-docker": "0.4.3",
     "@stardustlc/dsh-dream": "0.12.0",
     "dsh-calendar": "0.12.0",
-    "dsh-cite": "0.6.0",
-    "dsh-code-security": "0.6.0",
-    "dsh-codex-port": "0.3.0",
-    "dsh-dingtalk": "0.2.2",
+    "dsh-cite": "0.6.1",
+    "dsh-code-security": "0.6.1",
+    "dsh-codex-port": "0.3.1",
+    "dsh-dingtalk": "0.2.3",
     "dsh-email": "0.19.0",
-    "dsh-ffmpeg": "0.5.0",
+    "dsh-ffmpeg": "0.5.1",
     "dsh-flakefinder": "0.3.5",
     "dsh-hyperframes": "0.8.0",
-    "dsh-minimal-ptc": "0.5.6",
+    "dsh-minimal-ptc": "0.5.7",
     "dsh-ppt": "0.17.0",
     "dsh-remotion": "0.7.0",
     "dsh-rss": "0.8.0",
-    "dsh-slack": "0.3.4",
+    "dsh-slack": "0.3.5",
     "dsh-sql": "0.4.6",
     "dsh-voice": "0.3.7"
   },

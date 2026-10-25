@@ -1,5 +1,11 @@
 # 更新记录
 
+## 0.3.1（2026-10-26）
+
+- 同步 Docker、Slack、钉钉、极简 PTC、Cite、Code Security、FFmpeg 和 Codex Port 的问题修复，保持 18 个组件与现有启用方式。
+- 组合内的 PTC 预设同步官方提示词组合修复；锁定组件的精确版本与 registry 完整性。
+- 验收范围见[本次记录](docs/validation-2026-10-26.md)。
+
 ## 0.3.0（2026-10-25）
 
 - 更新九个独立插件的原生工作台：Calendar 0.12.0、Cite 0.6.0、Code Security 0.6.0、Dream 0.12.0、Email 0.19.0、HyperFrames 0.8.0、PPT 0.17.0、Remotion 0.7.0、RSS 0.8.0。
