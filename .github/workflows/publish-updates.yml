@@ -1,0 +1,71 @@
+name: Publish per-plugin update controls
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Exact shared library version to verify or publish
+        required: true
+        type: string
+      publish:
+        description: Publish after verification
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: npm-updates-library
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+    working-directory: packages/updates
+
+env:
+  RELEASE_VERSION: ${{ inputs.version }}
+
+jobs:
+  validate:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node: ['22', '24']
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: ${{ matrix.node }}
+          registry-url: https://registry.npmjs.org
+      - run: npm ci --ignore-scripts --registry=https://registry.npmjs.org
+      - run: node -e 'const assert=require("node:assert/strict"); assert.equal(require("./package.json").version, process.env.RELEASE_VERSION)'
+      - run: npm test
+      - run: npm pack --ignore-scripts
+      - run: git diff --exit-code
+
+  release:
+    if: inputs.publish
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+          registry-url: https://registry.npmjs.org
+      - run: npm install --global npm@11.21.1 --ignore-scripts --registry=https://registry.npmjs.org
+      - run: npm ci --ignore-scripts --registry=https://registry.npmjs.org
+      - run: node -e 'const assert=require("node:assert/strict"); assert.equal(require("./package.json").version, process.env.RELEASE_VERSION)'
+      - run: npm test
+      - run: npm pack --ignore-scripts
+      - run: npm publish stardustlc-dsh-updates-${RELEASE_VERSION}.tgz --access public --provenance --ignore-scripts --registry=https://registry.npmjs.org

@@ -1,0 +1,22 @@
+{
+  "name": "@stardustlc/dsh-updates",
+  "version": "0.1.0",
+  "description": "Shared opt-in update checks and native DSH plugin update controls for STARDUSTLC plugins.",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "exports": {
+    ".": { "types": "./lib/index.d.ts", "default": "./lib/index.js" },
+    "./build": "./lib/build.js",
+    "./package.json": "./package.json"
+  },
+  "files": ["lib", "README.md", "LICENSE"],
+  "scripts": { "test": "node --test \"test/*.test.mjs\"" },
+  "engines": { "node": "^22.19.0 || >=24.0.0" },
+  "dependencies": { "acorn": "8.15.0", "proper-lockfile": "4.1.2", "semver": "7.8.5" },
+  "license": "MIT",
+  "publishConfig": { "access": "public" },
+  "repository": { "type": "git", "url": "git+https://github.com/STARDUSTLC666/dsh-suite.git", "directory": "packages/updates" },
+  "author": "STARDUSTLC666",
+  "packageManager": "pnpm@11.7.0"
+}

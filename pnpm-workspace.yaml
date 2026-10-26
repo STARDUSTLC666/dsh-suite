@@ -1,4 +1,6 @@
 verifyDepsBeforeRun: false
+packages:
+  - packages/*
 minimumReleaseAgeExclude:
   - '@stardustlc/dsh-docker@0.4.3'
   - '@stardustlc/dsh-dream@0.12.0'
