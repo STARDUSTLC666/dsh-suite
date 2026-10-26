@@ -1,0 +1,20 @@
+import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
+
+const pkg = JSON.parse(readFileSync(new URL('../../packages/updates/package.json', import.meta.url), 'utf8'))
+assert.equal(pkg.name, '@stardustlc/dsh-updates')
+assert.equal(pkg.version, process.env.RELEASE_VERSION)
+assert.equal(process.env.GITHUB_REPOSITORY, 'STARDUSTLC666/dsh-suite')
+assert.equal(process.env.GITHUB_REF, 'refs/heads/master')
+assert.ok(process.env.ACTIONS_ID_TOKEN_REQUEST_URL && process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN)
+const url = new URL(process.env.ACTIONS_ID_TOKEN_REQUEST_URL)
+url.searchParams.set('audience', 'npm:registry.npmjs.org')
+const response = await fetch(url, { headers: { authorization: 'Bearer ' + process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN }, signal: AbortSignal.timeout(30000) })
+assert.ok(response.ok, 'GitHub OIDC request failed: HTTP ' + response.status)
+const oidc = await response.json()
+assert.equal(typeof oidc.value, 'string')
+const exchanged = await fetch('https://registry.npmjs.org/-/npm/v1/oidc/token/exchange/package/' + pkg.name.replace('/', '%2f'), { method: 'POST', headers: { authorization: 'Bearer ' + oidc.value }, signal: AbortSignal.timeout(30000) })
+assert.ok(exchanged.ok, 'npm trusted publisher exchange failed: HTTP ' + exchanged.status)
+const result = await exchanged.json()
+assert.equal(typeof result.token, 'string')
+console.log('Verified npm OIDC trust for ' + pkg.name)

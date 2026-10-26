@@ -50,7 +50,6 @@ jobs:
       - run: git diff --exit-code
 
   release:
-    if: inputs.publish
     needs: validate
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -63,9 +62,17 @@ jobs:
         with:
           node-version: '24'
           registry-url: https://registry.npmjs.org
-      - run: npm install --global npm@11.21.1 --ignore-scripts --registry=https://registry.npmjs.org
-      - run: npm ci --ignore-scripts --registry=https://registry.npmjs.org
-      - run: node -e 'const assert=require("node:assert/strict"); assert.equal(require("./package.json").version, process.env.RELEASE_VERSION)'
-      - run: npm test
-      - run: npm pack --ignore-scripts
-      - run: npm publish stardustlc-dsh-updates-${RELEASE_VERSION}.tgz --access public --provenance --ignore-scripts --registry=https://registry.npmjs.org
+      - name: Verify npm OIDC authorization without publishing
+        run: node ../../.github/scripts/verify-updates-oidc.mjs
+      - if: inputs.publish
+        run: npm install --global npm@11.21.1 --ignore-scripts --registry=https://registry.npmjs.org
+      - if: inputs.publish
+        run: npm ci --ignore-scripts --registry=https://registry.npmjs.org
+      - if: inputs.publish
+        run: node -e 'const assert=require("node:assert/strict"); assert.equal(require("./package.json").version, process.env.RELEASE_VERSION)'
+      - if: inputs.publish
+        run: npm test
+      - if: inputs.publish
+        run: npm pack --ignore-scripts
+      - if: inputs.publish
+        run: npm publish stardustlc-dsh-updates-${RELEASE_VERSION}.tgz --access public --provenance --ignore-scripts --registry=https://registry.npmjs.org
