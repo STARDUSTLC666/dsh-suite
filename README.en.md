@@ -34,11 +34,18 @@ Install the suite when you need the full set, then configure the accounts and to
 
 Enable only the suite bundle in the profile; it loads the components. Each component still has its own account, executable and network requirements.
 
-This version updates nine native workbenches: Dream, Email, RSS, Calendar, Cite, Code Security, PPT, HyperFrames and Remotion. They follow host language and theme, adapt to narrow windows, protect edits and show real output. Components remain independently installable; the other nine versions are unchanged.
+This version synchronizes independent update controls across all 18 components. Nine native workbenches retain host language, theme, narrow-window support and edit protection; the remaining components provide controls in their own settings sections. Components remain independently installable.
 
-Supports official DSH **0.2.1-rc.3**. See the [workbench guide](docs/WORKBENCH_UI.md) and [validation record](docs/validation-2026-10-25-workbenches.md) for design and real-operation boundaries.
+Supports official DSH **0.2.1-rc.3**. See the [workbench guide](docs/WORKBENCH_UI.md) and [validation record](docs/validation-2026-10-27-updates.md) for design and real-operation boundaries.
 
 Detailed configuration, tool arguments and troubleshooting are in the [usage guide](docs/USAGE.en.md). For standalone development, follow the Node requirement in [package.json](package.json).
+
+
+## Plugin updates
+
+Each component keeps update controls on its own page or in settings. Components installed through Suite explicitly direct installation to the whole Suite, avoiding duplicate component installations. Check releases, read notes, defer reminders and confirm installation there. **Automatic installation is off by default**; explicit opt-in only allows compatible stable patches while idle with no unsaved changes. DSH is never forcibly restarted and local-source installs are preserved.
+
+Older Suite releases need one manual update in native plugin management to acquire these controls.
 
 ## Documentation
 
