@@ -32,16 +32,55 @@ test('wrapping uses syntax positions rather than changing strings or nested pare
   assert.throws(() => wrapClient(source, 'arbitrary-package'), /Unknown/)
 })
 
-test('an existing workbench receives its own update button without a global sidebar or page', async () => {
+test('an existing workbench receives an inline footer while keeping its own header actions', async () => {
   const source = 'window.__ModuleLoader__.load({id:"dsh-cite",factory:r=>({apply(){},render(){return h(W.Page,{title:"Library",actions:action},"body")}})});\n'
   const wrapped = wrapClient(source, 'dsh-cite')
-  assert.match(wrapped, /__stardustUpdatesPage\(React,\{title:"Library",actions:action\},"dsh-cite"\)/)
+  assert.match(wrapped, /__stardustUpdatesInlinePage\(React,h\(W\.Page,\{title:"Library",actions:action\},"body"\),"dsh-cite"\)/)
   assert.match(wrapped, /"hasWorkbench":true/)
   assert.equal(unwrapClient(wrapped), source)
   assert.equal(wrapClient(wrapped, 'dsh-cite'), wrapped)
   const bootstrap = await readFile(new URL('../lib/ui-client.js', import.meta.url), 'utf8')
   assert.doesNotMatch(bootstrap, /sidebar\.panellist|W\.register\(/)
+  assert.doesNotMatch(bootstrap, /settings\.section|function Overlay\(/)
   assert.doesNotMatch(bootstrap, /Update all|更新全部/)
+})
+
+test('inline footer preserves original page children and actions and uses the native detail slot subject', async () => {
+  const context = vm.createContext({ Symbol, Map, Set }), source = await readFile(new URL('../lib/ui-client.js', import.meta.url), 'utf8')
+  vm.runInContext(source, context)
+  const actions = {}, content = [{ type: 'draft', key: 'draft' }], page = { type: 'Page', props: { actions, children: content } }
+  const React = { createElement: (type, props) => ({ type, props }), cloneElement: (element, props, ...children) => ({ ...element, props: { ...element.props, ...props, children } }) }
+  const withFooter = context.__stardustUpdatesInlinePage(React, page, 'dsh-cite')
+  assert.equal(withFooter.props.actions, actions); assert.equal(withFooter.props.children[0], content)
+  assert.equal(withFooter.props.children[1].props.name, 'dsh-cite')
+  assert.equal(page.props.children, content, 'Original element must remain unchanged')
+  const rows = [{ name: '@stardustlc/dsh-suite' }, { name: 'dsh-cite', bundledBy: '@stardustlc/dsh-suite' }, { name: 'dsh-ffmpeg' }]
+  assert.equal(context.__stardustUpdatesDetailName({ kind: 'bundle', pkg: { name: 'dsh-ffmpeg' } }, rows), 'dsh-ffmpeg')
+  assert.equal(context.__stardustUpdatesDetailName({ kind: 'row', pkg: { name: '@stardustlc/dsh-suite' }, row: { moduleName: 'dsh-cite/client' } }, rows), 'dsh-cite')
+  assert.equal(context.__stardustUpdatesDetailName({ kind: 'bundle', pkg: { name: 'unrelated' } }, rows), null)
+  assert.equal(context.__stardustUpdatesDetailName({ kind: 'item', id: 'dsh-ffmpeg' }, rows), null)
+})
+
+test('the previously published header wrapper migrates to a footer without duplicate controls', () => {
+  const original = 'window.__ModuleLoader__.load({id:"dsh-cite",factory:r=>({render(){return h(W.Page,{title:"Library",actions:action},"draft")}})});\n'
+  const legacy = '/* STARDUSTLC_UPDATE_CLIENT_BODY_START */\nwindow.__ModuleLoader__.load(__stardustUpdatesWrap({id:"dsh-cite",factory:r=>({render(){return h(W.Page,__stardustUpdatesPage(React,{title:"Library",actions:action},"dsh-cite"),"draft")}})},{}));\n\n/* STARDUSTLC_UPDATE_CLIENT_BODY_END */'
+  assert.equal(unwrapClient(legacy), original)
+  const wrapped = wrapClient(legacy, 'dsh-cite')
+  assert.equal(unwrapClient(wrapped), original)
+  assert.equal(wrapClient(wrapped, 'dsh-cite'), wrapped)
+  assert.doesNotMatch(wrapped, /__stardustUpdatesPage\(/)
+})
+
+test('native configuration drafts and saving state protect the footer install controls', async () => {
+  const context = vm.createContext({ Symbol, Map, Set }), source = await readFile(new URL('../lib/ui-client.js', import.meta.url), 'utf8')
+  vm.runInContext(source, context)
+  const button = (text, { disabled = false, footer = false, visible = true, busy = false } = {}) => ({ textContent: text, disabled, closest: () => footer ? {} : null, getClientRects: () => visible ? [{}] : [], getAttribute: key => key === 'aria-busy' && busy ? 'true' : null })
+  const document = items => ({ querySelectorAll: () => [{ querySelectorAll: () => items }] })
+  const read = items => JSON.parse(JSON.stringify(context.__stardustUpdatesNativeFormState(document(items))))
+  assert.deepEqual(read([button('保存')]), { dirty: true, busy: false })
+  assert.deepEqual(read([button('Save changes')]), { dirty: true, busy: false })
+  assert.deepEqual(read([button('Saving…', { disabled: true })]), { dirty: false, busy: true })
+  assert.deepEqual(read([button('保存', { disabled: true }), button('保存', { footer: true }), button('Save', { visible: false }), button('导出')]), { dirty: false, busy: false })
 })
 
 test('draft guard remains active when a dirty panel closes and clears only on a clean mount of that plugin', async () => {

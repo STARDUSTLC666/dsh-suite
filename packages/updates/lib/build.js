@@ -31,13 +31,18 @@ export function unwrapClient(source) {
   const call = find(syntax(body), node => node.type === 'CallExpression' && node.callee.type === 'Identifier' && node.callee.name === '__stardustUpdatesWrap')
   if (!call || call.arguments.length !== 2) throw new Error('Wrapped module definition not found')
   body = body.slice(0, call.start) + body.slice(call.arguments[0].start, call.arguments[0].end) + body.slice(call.end)
-  return replacements(body, collect(syntax(body), node => node.type === 'CallExpression' && node.callee.type === 'Identifier' && node.callee.name === '__stardustUpdatesPage').map(node => ({ start: node.start, end: node.end, text: body.slice(node.arguments[1].start, node.arguments[1].end) })))
+  for (let index = 0; index < 100; index++) {
+    const wrapper = find(syntax(body), node => node.type === 'CallExpression' && node.callee.type === 'Identifier' && ['__stardustUpdatesPage', '__stardustUpdatesInlinePage'].includes(node.callee.name))
+    if (!wrapper) return body
+    body = body.slice(0, wrapper.start) + body.slice(wrapper.arguments[1].start, wrapper.arguments[1].end) + body.slice(wrapper.end)
+  }
+  throw new Error('Too many update-client wrappers')
 }
 export function wrapClient(source, name, packageVersion = null) {
   if (!Object.hasOwn(PACKAGES, name)) throw new Error('Unknown participant package')
   source = unwrapClient(source).replace(/\r\n/g, '\n')
   const pages = collect(syntax(source), node => node.type === 'CallExpression' && node.arguments[0]?.type === 'MemberExpression' && node.arguments[0].object.name === 'W' && node.arguments[0].property.name === 'Page' && node.arguments[1]?.type === 'ObjectExpression')
-  source = replacements(source, pages.map(node => ({ start: node.arguments[1].start, end: node.arguments[1].end, text: '__stardustUpdatesPage(React,' + source.slice(node.arguments[1].start, node.arguments[1].end) + ',' + JSON.stringify(name) + ')' })))
+  source = replacements(source, pages.flatMap(node => [{ start: node.start, end: node.start, text: '__stardustUpdatesInlinePage(React,' }, { start: node.end, end: node.end, text: ',' + JSON.stringify(name) + ')' }]))
   const ast = syntax(source)
   const call = find(ast, node => node.type === 'CallExpression' && node.callee.type === 'MemberExpression' && node.callee.property.name === 'load' && node.callee.object.type === 'MemberExpression' && node.callee.object.property.name === '__ModuleLoader__')
   if (!call || call.arguments.length !== 1 || call.arguments[0].type !== 'ObjectExpression') throw new Error('Expected one DSH client module definition')

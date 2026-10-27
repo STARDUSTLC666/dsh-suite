@@ -4,7 +4,7 @@ Shared update controls used by STARDUSTLC's DSH plugins. This is an internal lib
 
 ## 使用者 / Users
 
-- 每个插件在自己的页面或设置项提供更新入口，显示版本与更新记录。没有新增统一更新总页。检查、安装授权、推迟提醒和忽略版本按包独立保存。
+- 更新区位于原有工作台内容末尾；没有工作台的插件，位于原生插件详情页底部。更新记录和选项原地展开，不增加更新设置菜单或单独页面。检查、安装授权、推迟提醒和忽略版本按包独立保存。
 - 自动检查默认开启，每个插件每天最多一次；可分别关闭，手动检查始终可用。
 - **自动安装默认关闭。** 手动安装先确认版本。只有用户明确启用后，兼容的稳定补丁更新才会在空闲时安装；次版本、主版本与预发布版本不会自动安装。
 - 有运行任务、未保存修改、页面状态未知、旧版插件尚未提供状态保护或等待重启时，自动安装暂停。更新不会自动重启 DSH，也不会更新 DSH 本体。
@@ -12,7 +12,7 @@ Shared update controls used by STARDUSTLC's DSH plugins. This is an internal lib
 - Suite 组件统一通过 Suite 更新。停用状态保留；本地路径、Git、压缩包与别名安装保持原来的更新方式。
 - 发布新版不会直接替换旧用户的安装。旧版用户先通过官方插件管理更新一次，才会获得这个更新入口。
 
-Each plugin exposes its own controls on its workbench or settings page. Consent, checks, deferral and ignored releases are independent; there is no global update page. Automatic checks are on by default; **automatic installation is off by default**. Manual updates require confirmation. Explicitly enabled automatic updates only install compatible stable patches while the profile is idle and protected browser state is known. No forced restart, DSH upgrade, local-source replacement, disabled-plugin enablement or Suite component duplication occurs. Older plugin releases need one manual update to acquire these controls.
+Each plugin exposes its controls at the bottom of its existing workbench or native plugin detail page. Release notes and options expand in place without extra navigation or settings entries. Consent, checks, deferral and ignored releases are independent; there is no global update page. Automatic checks are on by default; **automatic installation is off by default**. Manual updates require confirmation. Explicitly enabled automatic updates only install compatible stable patches while the profile is idle and protected browser state is known. No forced restart, DSH upgrade, local-source replacement, disabled-plugin enablement or Suite component duplication occurs. Older plugin releases need one manual update to acquire these controls.
 
 ## Integration
 
@@ -26,7 +26,7 @@ export function apply(ctx) {
 }
 ```
 
-After generating the ordinary browser client, call `buildClient(root, 'lib/client.js')` from `@stardustlc/dsh-updates/build`. It adds an update button to that plugin's existing workbench header. For a host-only plugin, `buildClient(root)` generates `lib/update-client.js` and contributes that plugin's own settings item. Declare a Web client with the standard settings/layout/sidebar module dependencies. The original client permissions and return value are retained; controls attach through a separate optional owner-only injection. Shared root fibers coordinate transport and installation without adding a global page. Current public DSH APIs are required; unsupported service shapes skip registration.
+After generating the ordinary browser client, call `buildClient(root, 'lib/client.js')` from `@stardustlc/dsh-updates/build`. It appends an inline footer after that plugin's existing workbench children, preserving its original header actions and draft state. For a host-only plugin, `buildClient(root)` generates `lib/update-client.js`. The shared client contributes the same footer through the official `plugins.detail.section` slot using its public bundle/row subject, without adding a settings item. Declare a Web client with the standard settings/layout/sidebar module dependencies. The original client permissions and return value are retained; controls attach through a separate optional owner-only injection. Shared root fibers coordinate transport and installation without adding a global page. Current public DSH APIs are required; unsupported service shapes skip registration.
 
 Existing editable workbenches call `__stardustUpdatesGuard(React, id, { dirty, busy, retainOnClose })` from their source component. Set `retainOnClose` only for drafts/jobs cached across panel mounts. Reports contain booleans and identifiers, never form values, account settings or credentials. Legacy participants pause automatic installation until manually upgraded. Custom third-party plugin draft state is outside this library's guard contract.
 
