@@ -30,6 +30,8 @@ For the web version, replace `desktop` with `web`. Restart DSH after installatio
 
 Install the suite when you need the full set, then configure the accounts and tools you use. For a few features, install the corresponding individual plugins. The guide lists the components.
 
+0.5.0 includes PPT 0.19.0: choose a share bundle with current speaker notes or a project bundle retaining the JSON. Downloads require no AI review. Feature upgrades remain a user choice; automatic installation is off by default.
+
 ## Requirements and configuration
 
 Enable only the suite bundle in the profile; it loads the components. Each component still has its own account, executable and network requirements.
