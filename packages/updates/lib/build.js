@@ -2,7 +2,7 @@ import { parse } from 'acorn'
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { PACKAGES } from './policy.js'
+import { PACKAGES, SUITE_COMPONENTS } from './policy.js'
 
 const directory = dirname(fileURLToPath(import.meta.url))
 const START = '/* STARDUSTLC_UPDATE_CLIENT_BODY_START */', END = '/* STARDUSTLC_UPDATE_CLIENT_BODY_END */'
@@ -33,7 +33,7 @@ export function unwrapClient(source) {
   body = body.slice(0, call.start) + body.slice(call.arguments[0].start, call.arguments[0].end) + body.slice(call.end)
   return replacements(body, collect(syntax(body), node => node.type === 'CallExpression' && node.callee.type === 'Identifier' && node.callee.name === '__stardustUpdatesPage').map(node => ({ start: node.start, end: node.end, text: body.slice(node.arguments[1].start, node.arguments[1].end) })))
 }
-export function wrapClient(source, name) {
+export function wrapClient(source, name, packageVersion = null) {
   if (!Object.hasOwn(PACKAGES, name)) throw new Error('Unknown participant package')
   source = unwrapClient(source).replace(/\r\n/g, '\n')
   const pages = collect(syntax(source), node => node.type === 'CallExpression' && node.arguments[0]?.type === 'MemberExpression' && node.arguments[0].object.name === 'W' && node.arguments[0].property.name === 'Page' && node.arguments[1]?.type === 'ObjectExpression')
@@ -42,7 +42,7 @@ export function wrapClient(source, name) {
   const call = find(ast, node => node.type === 'CallExpression' && node.callee.type === 'MemberExpression' && node.callee.property.name === 'load' && node.callee.object.type === 'MemberExpression' && node.callee.object.property.name === '__ModuleLoader__')
   if (!call || call.arguments.length !== 1 || call.arguments[0].type !== 'ObjectExpression') throw new Error('Expected one DSH client module definition')
   const arg = call.arguments[0]
-  const body = source.slice(0, arg.start) + '__stardustUpdatesWrap(' + source.slice(arg.start, arg.end) + ',' + JSON.stringify({ name, version: '0.1.0', hasWorkbench: pages.length > 0 }) + ')' + source.slice(arg.end)
+  const body = source.slice(0, arg.start) + '__stardustUpdatesWrap(' + source.slice(arg.start, arg.end) + ',' + JSON.stringify({ name, version: '0.1.0', hasWorkbench: pages.length > 0, packageVersion, label: PACKAGES[name][0], labelEn: PACKAGES[name][1], suiteComponent: SUITE_COMPONENTS.has(name) }) + ')' + source.slice(arg.end)
   const kit = readFileSync(join(directory, 'ui-kit.js'), 'utf8').replace(/\r\n/g, '\n'), client = readFileSync(join(directory, 'ui-client.js'), 'utf8').replace(/\r\n/g, '\n')
   return '// Generated: shared optional update controls; edit the original client templates.\n(function(){\n' + kit + '\n' + client + '\n' + START + '\n' + body + '\n' + END + '\n})();\n'
 }
@@ -51,5 +51,5 @@ export function buildClient(root, existingClient) {
   const source = existingClient ? readFileSync(join(root, existingClient), 'utf8') : 'window.__ModuleLoader__.load({id:' + JSON.stringify(pkg.name) + ',factory:require=>({apply(){}})});\n'
   const destination = join(root, existingClient || 'lib/update-client.js')
   mkdirSync(dirname(destination), { recursive: true })
-  writeFileSync(destination, wrapClient(source, pkg.name))
+  writeFileSync(destination, wrapClient(source, pkg.name, pkg.version))
 }

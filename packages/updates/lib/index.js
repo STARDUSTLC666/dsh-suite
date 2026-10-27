@@ -6,6 +6,7 @@ import { NativeInstaller } from './installer.js'
 import { boundedBody } from './io.js'
 import { PACKAGES, SUITE } from './policy.js'
 
+// Shared host/client protocol version. UI-only package patches retain it.
 export const VERSION = '0.1.0'
 export const ROUTE = '/api/stardustlc/plugin-updates'
 const POOL = Symbol.for('stardustlc.plugin-updates.host.v1')

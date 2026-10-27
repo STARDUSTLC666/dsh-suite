@@ -85,6 +85,26 @@ test('HTTP mutation requires custom header, JSON and explicit manual consent; pa
   assert.equal((await handler(huge)).status, 413)
 })
 
+test('official Suite-only inventory retains active component entries without inventing install targets', async () => {
+  const context = vm.createContext({ Symbol, Map, Set }), source = await readFile(new URL('../lib/ui-client.js', import.meta.url), 'utf8')
+  vm.runInContext(source, context)
+  const suite = { name: '@stardustlc/dsh-suite', version: '0.4.0', enabled: true, sourceKind: 'registry' }
+  const cite = { name: 'dsh-cite', packageVersion: '0.7.1', suiteComponent: true, label: '引文库', labelEn: 'Citations' }
+  const review = { name: '@stardustlc/dsh-review', packageVersion: '0.4.1', suiteComponent: false, label: 'Review' }
+  const input = { rows: [suite], job: null }
+  const view = context.__stardustUpdatesSuiteRows(input, [cite, cite, review])
+  assert.equal(input.rows.length, 1, 'Host inventory must remain unchanged')
+  assert.equal(view.rows.length, 2)
+  assert.equal(view.rows[1].name, cite.name); assert.equal(view.rows[1].version, cite.packageVersion)
+  assert.equal(view.rows[1].bundledBy, suite.name)
+  assert.equal(view.rows[1].sourceKind, 'suite', 'Component must not become an independently installable target')
+  const independent = { rows: [{ name: cite.name, version: '0.6.0' }] }
+  assert.equal(context.__stardustUpdatesSuiteRows(independent, [cite]), independent)
+  const direct = { name: cite.name, version: '0.7.0' }
+  assert.equal(context.__stardustUpdatesSuiteRows({ rows: [suite, direct] }, [cite]).rows[1], direct)
+  assert.equal(context.__stardustUpdatesSuiteRows({ rows: [{ ...suite, enabled: false }] }, [cite]).rows.length, 1)
+})
+
 test('host activity uses public agent/job statuses and fails closed for unknown or throwing services', () => {
   const ctx = services => ({ get: name => services[name] })
   assert.deepEqual(hostActivity(ctx({ agents: { list: () => [] }, jobs: { list: () => [] } })), { known: true, busy: false, agents: 0, jobs: 0 })
