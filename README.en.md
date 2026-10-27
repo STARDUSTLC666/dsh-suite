@@ -43,7 +43,7 @@ Detailed configuration, tool arguments and troubleshooting are in the [usage gui
 
 ## Plugin updates
 
-Each component keeps update controls on its own page or in settings. Components installed through Suite explicitly direct installation to the whole Suite, avoiding duplicate component installations. Check releases, read notes, defer reminders and confirm installation there. **Automatic installation is off by default**; explicit opt-in only allows compatible stable patches while idle with no unsaved changes. DSH is never forcibly restarted and local-source installs are preserved.
+Requires DSH 0.2.1-rc.3 or newer. Update controls sit at the bottom of the existing workbench, or native plugin details for plugins without a workbench. Checks, release notes and preferences expand in place, with no separate update page or settings menu. Automatic checks are on by default; **automatic installation is off by default**. Only explicit opt-in permits compatible stable patches while idle with no unsaved changes. Preferences are independent, with per-plugin disable, deferral and ignore controls. No forced DSH restart or upgrade, and local-source installations stay unchanged. Suite components explain and operate on the whole Suite in the same footer.
 
 Older Suite releases need one manual update in native plugin management to acquire these controls.
 
