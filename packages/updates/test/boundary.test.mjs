@@ -83,6 +83,30 @@ test('native configuration drafts and saving state protect the footer install co
   assert.deepEqual(read([button('保存', { disabled: true }), button('保存', { footer: true }), button('Save', { visible: false }), button('导出')]), { dirty: false, busy: false })
 })
 
+test('a footer ignores a legacy controller until its renderer is available', async () => {
+  const context = vm.createContext({ Symbol, Map, Set }), source = await readFile(new URL('../lib/ui-client.js', import.meta.url), 'utf8')
+  vm.runInContext(source, context)
+  context.__stardustUpdatesGuards().clients.add({ has: () => true })
+  const React = { useState: () => [0, () => {}], useEffect() {}, createElement() { throw new Error('Must not render an undefined legacy component') } }
+  assert.equal(context.__StardustPluginUpdatesFooter({ React, name: 'dsh-cite' }), null)
+})
+
+test('legacy-first loading hands over one controller after its current install and retains participant guards', async () => {
+  const context = vm.createContext({ Symbol, Map, Set, WeakMap, Promise, setTimeout, clearTimeout }), source = await readFile(new URL('../lib/ui-client.js', import.meta.url), 'utf8')
+  vm.runInContext(source, context)
+  const effects = [], root = { plugin(definition) { const cleanup = []; definition.apply({ effect(fn) { cleanup.push(fn()) } }); return { async dispose() { for (const fn of cleanup) await fn?.() } } } }
+  let oldDisposed = 0, newStarted = 0
+  const oldRef = {}, old = { refs: new Map([[oldRef, { name: 'legacy' }]]), alive: true, hold: true, fiber: { async dispose() { oldDisposed++; old.alive = false; context[Symbol.for('stardustlc.plugin-updates.client.v1')].delete(root) } } }
+  const pools = new WeakMap([[root, old]]); context[Symbol.for('stardustlc.plugin-updates.client.v1')] = pools
+  context.__stardustUpdatesClient = () => { newStarted++; return { dispose() {} } }
+  context.__stardustUpdatesJoin({ root, effect(fn) { effects.push(fn()) } }, {}, () => {}, { name: 'dsh-cite', version: VERSION })
+  await Promise.resolve(); assert.equal(oldDisposed, 0); old.hold = false
+  await old.migration
+  assert.equal(oldDisposed, 1); assert.equal(newStarted, 1); assert.equal(pools.get(root), old); assert.equal(old.uiRevision, 2)
+  assert.equal(old.refs.has(oldRef), true); assert.equal(old.refs.size, 2)
+  effects.forEach(fn => fn()); assert.equal(old.refs.size, 1)
+})
+
 test('draft guard remains active when a dirty panel closes and clears only on a clean mount of that plugin', async () => {
   const context = vm.createContext({ Symbol, Map, Set }), source = await readFile(new URL('../lib/ui-client.js', import.meta.url), 'utf8')
   vm.runInContext(source, context)
