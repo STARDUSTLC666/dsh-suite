@@ -39,8 +39,8 @@ importers:
         specifier: 0.4.3
         version: 0.4.3
       dsh-hyperframes:
-        specifier: 0.9.3
-        version: 0.9.3
+        specifier: 0.10.0
+        version: 0.10.0
       dsh-minimal-ptc:
         specifier: 0.6.3
         version: 0.6.3
@@ -48,8 +48,8 @@ importers:
         specifier: 0.19.0
         version: 0.19.0
       dsh-remotion:
-        specifier: 0.8.3
-        version: 0.8.3
+        specifier: 0.9.0
+        version: 0.9.0
       dsh-rss:
         specifier: 0.9.3
         version: 0.9.3
@@ -302,8 +302,8 @@ packages:
     resolution: {integrity: sha512-fVLD/XCZGDs5uf/t7RLmbPvqrEs1znBbqOI+FdFrxrvi0sxShsmX7T+kpA+55ipacvgu12dh3f4qCdQEFH3Kyg==}
     engines: {dsh: '>=0.2.1-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  dsh-hyperframes@0.9.3:
-    resolution: {integrity: sha512-q3jKijSaFvGSo8VWhRl1SII+rwNd36gjkArho8Ehqj90w/NCVsS6RuqLXjER1gFCYq3/eP5HC/SEtcjiT0Pfgw==}
+  dsh-hyperframes@0.10.0:
+    resolution: {integrity: sha512-NjS3J5nWJEGscpP8DJn6239OLEZiedCG8fisyuWanKFB+zmCHNNKmYrsFru1btYaFh7HU2bb7J7k585ypw5nwQ==}
     engines: {dsh: '>=0.2.1-rc.3', node: ^22.19.0 || >=24.0.0}
 
   dsh-minimal-ptc@0.6.3:
@@ -319,8 +319,8 @@ packages:
       '@deepseek-ai/libreoffice-kit':
         optional: true
 
-  dsh-remotion@0.8.3:
-    resolution: {integrity: sha512-GuUR9gk6vUuMccjsRRdRvHj4xbQ30QdalJI66CNkJHZ+c0Cq8inIDnrzqLFOGT1iwmoOeCixQyx5C4XA7wKGnQ==}
+  dsh-remotion@0.9.0:
+    resolution: {integrity: sha512-8uuDCD/wGu+xkwdc1/G7yUULWfAE1+HqztXJwC7yDBcXWAws0N9AGSYOwtrTXSTVWv4wU9fTbaspoN+NyUuUoQ==}
     engines: {dsh: '>=0.2.1-rc.3', node: ^22.19.0 || >=24.0.0}
 
   dsh-rss@0.9.3:
@@ -970,7 +970,7 @@ snapshots:
       '@stardustlc/dsh-updates': 0.1.3
       proper-lockfile: 4.1.2
 
-  dsh-hyperframes@0.9.3:
+  dsh-hyperframes@0.10.0:
     dependencies:
       '@stardustlc/dsh-updates': 0.1.3
       fflate: 0.8.3
@@ -989,7 +989,7 @@ snapshots:
       fflate: 0.8.3
       jsep: 1.4.0
 
-  dsh-remotion@0.8.3:
+  dsh-remotion@0.9.0:
     dependencies:
       '@stardustlc/dsh-updates': 0.1.3
       fflate: 0.8.3

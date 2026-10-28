@@ -10,6 +10,8 @@ Install 18 independent DSH plugins with a shared bundle of their defaults.
 
 Feedback and contributions are welcome: report [issues](https://github.com/STARDUSTLC666/dsh-suite/issues) or submit [pull requests](https://github.com/STARDUSTLC666/dsh-suite/pulls).
 
+0.6.0 adds image ordering in the HyperFrames and Remotion Media tabs and includes official HyperFrames 0.8.209. Existing MP4s remain available; export again after reordering.
+
 ## What it does
 
 - Cover email, calendars, memory, media, developer tools and notifications.
@@ -30,7 +32,7 @@ For the web version, replace `desktop` with `web`. Restart DSH after installatio
 
 Install the suite when you need the full set, then configure the accounts and tools you use. For a few features, install the corresponding individual plugins. The guide lists the components.
 
-0.5.0 includes PPT 0.19.0: choose a share bundle with current speaker notes or a project bundle retaining the JSON. Downloads require no AI review. Feature upgrades remain a user choice; automatic installation is off by default.
+PPT 0.19.0 also provides: choose a share bundle with current speaker notes or a project bundle retaining the JSON. Downloads require no AI review. Feature upgrades remain a user choice; automatic installation is off by default.
 
 ## Requirements and configuration
 

@@ -1,6 +1,6 @@
 {
   "name": "@stardustlc/dsh-suite",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "一次安装 18 个独立 DSH 插件，并统一组合它们的默认配置。",
   "type": "module",
   "dsh": {
@@ -61,10 +61,10 @@
     "dsh-email": "0.20.3",
     "dsh-ffmpeg": "0.6.3",
     "dsh-flakefinder": "0.4.3",
-    "dsh-hyperframes": "0.9.3",
+    "dsh-hyperframes": "0.10.0",
     "dsh-minimal-ptc": "0.6.3",
     "dsh-ppt": "0.19.0",
-    "dsh-remotion": "0.8.3",
+    "dsh-remotion": "0.9.0",
     "dsh-rss": "0.9.3",
     "dsh-slack": "0.4.3",
     "dsh-sql": "0.5.3",
