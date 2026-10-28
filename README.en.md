@@ -10,7 +10,7 @@ Install 18 independent DSH plugins with a shared bundle of their defaults.
 
 Feedback and contributions are welcome: report [issues](https://github.com/STARDUSTLC666/dsh-suite/issues) or submit [pull requests](https://github.com/STARDUSTLC666/dsh-suite/pulls).
 
-0.6.0 adds image ordering in the HyperFrames and Remotion Media tabs and includes official HyperFrames 0.8.209. Existing MP4s remain available; export again after reordering.
+0.6.1 includes SQL 0.5.4: each database query uses a read-only transaction, preventing session settings from bypassing read-only protection. HyperFrames / Remotion image ordering and the official HyperFrames 0.8.209 skills remain included.
 
 ## What it does
 

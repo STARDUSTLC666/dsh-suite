@@ -10,7 +10,7 @@
 
 欢迎使用，遇到问题或有改进建议，请提交 [issues](https://github.com/STARDUSTLC666/dsh-suite/issues) 和 [PR](https://github.com/STARDUSTLC666/dsh-suite/pulls)。
 
-0.6.0 同步 HyperFrames 与 Remotion 的图片排序操作，以及官方 HyperFrames 0.8.209 技能和渲染器。旧 MP4 保留，调整图片后重新导出生效。
+0.6.1 同步 SQL 0.5.4：数据库查询逐次使用只读事务，防止会话设置修改后绕过只读保护。保留 HyperFrames、Remotion 图片排序与官方 HyperFrames 0.8.209 技能。
 
 ## 功能
 
