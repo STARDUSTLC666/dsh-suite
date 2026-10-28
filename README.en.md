@@ -10,7 +10,7 @@ Install 18 independent DSH plugins with a shared bundle of their defaults.
 
 Feedback and contributions are welcome: report [issues](https://github.com/STARDUSTLC666/dsh-suite/issues) or submit [pull requests](https://github.com/STARDUSTLC666/dsh-suite/pulls).
 
-0.6.1 includes SQL 0.5.4: each database query uses a read-only transaction, preventing session settings from bypassing read-only protection. HyperFrames / Remotion image ordering and the official HyperFrames 0.8.209 skills remain included.
+0.6.2 includes speech protocol, code inspection and write-confirmation fixes, plus the official HyperFrames 0.8.211 skills and renderer. The [per-plugin audit](docs/validation-2026-10-28-boundaries.md) distinguishes local tests, native host, browser interactions and live services.
 
 ## What it does
 
@@ -40,7 +40,7 @@ Enable only the suite bundle in the profile; it loads the components. Each compo
 
 This version synchronizes independent update controls across all 18 components. Nine native workbenches retain host language, theme, narrow-window support and edit protection; the remaining components provide controls in their own settings sections. Components remain independently installable.
 
-Supports official DSH **0.2.1-rc.3**. See the [workbench guide](docs/WORKBENCH_UI.md) and [validation record](docs/validation-2026-10-27-updates.md) for design and real-operation boundaries.
+Requires official DSH **0.2.1-rc.3 or newer**; this round was checked on **0.2.1-rc.4**. See the [workbench guide](docs/WORKBENCH_UI.md) and [validation record](docs/validation-2026-10-28-boundaries.md) for actual-operation boundaries. Review and Computer Use remain separate plugins outside this bundle's 18 components.
 
 Detailed configuration, tool arguments and troubleshooting are in the [usage guide](docs/USAGE.en.md). For standalone development, follow the Node requirement in [package.json](package.json).
 

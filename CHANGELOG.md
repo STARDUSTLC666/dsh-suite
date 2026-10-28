@@ -1,5 +1,11 @@
 # 更新记录
 
+## 0.6.2 (2026-10-28)
+
+- 同步 Voice 0.5.0、CodeSecurity 0.7.4、SQL 0.5.5、RSS 0.9.4、Flakefinder 0.4.4、HyperFrames 0.10.1、Remotion 0.9.1。
+- 跟进 Edge 在线语音 v2 协议、Git 属性隔离、写操作确认提示，以及官方 HyperFrames 0.8.211 技能与渲染环境；自动安装仍默认关闭。
+- 20 个独立插件和 Suite 的本轮审查范围见验证记录；Review 和 Computer Use 继续独立安装，不计入 Suite 的 18 组件。未配置账号或 Docker 引擎不记为实测通过。
+
 ## 0.6.1 (2026-10-28)
 
 - 同步 SQL 0.5.4：MySQL / PostgreSQL 查询逐次使用独立只读事务，完成或报错后回滚；取消和截流销毁连接。
