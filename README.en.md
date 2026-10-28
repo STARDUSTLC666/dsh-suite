@@ -4,7 +4,7 @@
 
 ![dsh-suite whale girl plugin cover](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/master/assets/cover-whale-girl.png)
 
-Install 18 independent DSH plugins with a shared bundle of their defaults.
+Install 18 independent DSH plugins for email, calendars, memory, media and developer workflows with their combined defaults. Components remain independently installable; Review and Computer Use are distributed separately.
 
 [![npm](https://img.shields.io/npm/v/@stardustlc/dsh-suite)](https://www.npmjs.com/package/@stardustlc/dsh-suite) [![downloads](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/npm-downloads/assets/dsh-suite-downloads.svg)](https://www.npmjs.com/package/@stardustlc/dsh-suite)
 
@@ -43,7 +43,6 @@ This version synchronizes independent update controls across all 18 components. 
 Requires official DSH **0.2.1-rc.3 or newer**; this round was checked on **0.2.1-rc.4**. See the [workbench guide](docs/WORKBENCH_UI.md) and [validation record](docs/validation-2026-10-28-boundaries.md) for actual-operation boundaries. Review and Computer Use remain separate plugins outside this bundle's 18 components.
 
 Detailed configuration, tool arguments and troubleshooting are in the [usage guide](docs/USAGE.en.md). For standalone development, follow the Node requirement in [package.json](package.json).
-
 
 ## Plugin updates
 

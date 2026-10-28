@@ -4,7 +4,7 @@
 
 ![dsh-suite 鲸鱼娘插件封面](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/master/assets/cover-whale-girl.png)
 
-一次安装 18 个独立 DSH 插件，并统一组合它们的默认配置。
+一次安装 18 个独立 DSH 插件，覆盖邮件、日历、记忆、媒体创作与开发运维，并组合它们的默认配置。各组件仍可单独安装；Review 与 Computer Use 另行提供。
 
 [![npm](https://img.shields.io/npm/v/@stardustlc/dsh-suite)](https://www.npmjs.com/package/@stardustlc/dsh-suite) [![downloads](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/npm-downloads/assets/dsh-suite-downloads.svg)](https://www.npmjs.com/package/@stardustlc/dsh-suite)
 
@@ -43,7 +43,6 @@ profile 只启用 Suite 这一层，由它加载组件。组件的账号、外�
 需要官方 DSH **0.2.1-rc.3 或更新版本**；本轮在 **0.2.1-rc.4** 复查。设计与维护见[工作台说明](docs/WORKBENCH_UI.md)，实际操作边界见[本轮验收](docs/validation-2026-10-28-boundaries.md)。Review 与 Computer Use 继续作为独立插件提供，不计入本包的 18 个组件。
 
 详细配置、工具参数与排错见[使用说明](docs/USAGE.md)。从源码独立开发时，Node 要求以 [package.json](package.json) 为准。
-
 
 ## 插件更新
 
