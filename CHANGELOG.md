@@ -1,5 +1,12 @@
 # 更新记录
 
+## 0.7.0 (2026-10-29)
+
+- 同步 PPT 0.20.0、Remotion 0.10.0、HyperFrames 0.11.0、FFmpeg 0.7.1。
+- 三个创作工作台支持工程检索与排序；新增视频总览图，HyperFrames 技能与渲染器同步官方 0.8.214。
+- 保留原文件、未保存修改保护与用户选择更新；自动安装仍默认关闭。
+- Sync searchable project libraries, bounded video contact sheets and official HyperFrames 0.8.214.
+
 ## 0.6.3 (2026-10-29)
 
 - 同步仓库与 npm 的简明介绍、中英文 README 和反馈入口；本次为文档与包元数据更新。

@@ -10,7 +10,7 @@ Install 18 independent DSH plugins for email, calendars, memory, media and devel
 
 Feedback and contributions are welcome: report [issues](https://github.com/STARDUSTLC666/dsh-suite/issues) or submit [pull requests](https://github.com/STARDUSTLC666/dsh-suite/pulls).
 
-0.6.3 synchronizes npm descriptions and both README guides for all 18 components, retaining the speech protocol, code inspection and write-confirmation fixes and the official HyperFrames 0.8.211 skills and renderer. The [per-plugin audit](docs/validation-2026-10-28-boundaries.md) distinguishes local tests, native host, browser interactions and live services.
+0.7.0 adds project search and sorting in PPT, Remotion and HyperFrames, video contact sheets in FFmpeg, and official HyperFrames 0.8.214. See the [verification scope](docs/validation-2026-10-29-project-library.md).
 
 ## What it does
 
@@ -32,7 +32,7 @@ For the web version, replace `desktop` with `web`. Restart DSH after installatio
 
 Install the suite when you need the full set, then configure the accounts and tools you use. For a few features, install the corresponding individual plugins. The guide lists the components.
 
-PPT 0.19.0 also provides: choose a share bundle with current speaker notes or a project bundle retaining the JSON. Downloads require no AI review. Feature upgrades remain a user choice; automatic installation is off by default.
+PPT 0.20.0 also provides: choose a share bundle with current speaker notes or a project bundle retaining the JSON. Downloads require no AI review. Feature upgrades remain a user choice; automatic installation is off by default.
 
 ## Requirements and configuration
 

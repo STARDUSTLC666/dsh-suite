@@ -10,7 +10,7 @@
 
 欢迎使用，遇到问题或有改进建议，请提交 [issues](https://github.com/STARDUSTLC666/dsh-suite/issues) 和 [PR](https://github.com/STARDUSTLC666/dsh-suite/pulls)。
 
-0.6.3 同步全部 18 个组件的 npm 简介和中英文使用指南，保留语音协议、代码检查与写操作确认修复，以及官方 HyperFrames 0.8.211 技能和渲染环境。[逐插件复查记录](docs/validation-2026-10-28-boundaries.md)区分本地测试、官方宿主、浏览器操作与真实服务。
+0.7.0 同步 PPT、Remotion、HyperFrames 的工程检索与排序、FFmpeg 视频总览图，以及官方 HyperFrames 0.8.214 技能和渲染器。见[本轮验证范围](docs/validation-2026-10-29-project-library.md)。
 
 ## 功能
 
@@ -38,7 +38,7 @@ profile 只启用 Suite 这一层，由它加载组件。组件的账号、外�
 
 本版同步全部 18 个组件的独立更新入口。九个原生工作台保留中英文、深浅色、窄屏和未保存保护；其余组件在自己的设置项中提供更新操作。独立插件仍可分别安装。
 
-同时包含 PPT 0.19.0，在演示文稿工作台按需要下载「分享成品包」或「完整工程包」。分享包附当前讲稿，工程包保留 JSON；下载无需 AI 预审。功能版本升级由用户确认，自动安装默认关闭。
+同时包含 PPT 0.20.0，在演示文稿工作台按需要下载「分享成品包」或「完整工程包」。分享包附当前讲稿，工程包保留 JSON；下载无需 AI 预审。功能版本升级由用户确认，自动安装默认关闭。
 
 需要官方 DSH **0.2.1-rc.3 或更新版本**；本轮在 **0.2.1-rc.4** 复查。设计与维护见[工作台说明](docs/WORKBENCH_UI.md)，实际操作边界见[本轮验收](docs/validation-2026-10-28-boundaries.md)。Review 与 Computer Use 继续作为独立插件提供，不计入本包的 18 个组件。
 
