@@ -12,7 +12,7 @@ Install 18 independent DSH plugins for email, calendars, memory, media and devel
 
 Feedback and contributions are welcome: report [issues](https://github.com/STARDUSTLC666/dsh-suite/issues) or submit [pull requests](https://github.com/STARDUSTLC666/dsh-suite/pulls).
 
-0.7.0 adds project search and sorting in PPT, Remotion and HyperFrames, video contact sheets in FFmpeg, and official HyperFrames 0.8.214. See the [verification scope](docs/validation-2026-10-29-project-library.md).
+0.8.0 adds opt-in POP3 receiving in Email, with bounded search, attachments and the existing SMTP draft-confirmation flow. See the [POP3 validation scope](docs/validation-2026-10-29-pop3.md).
 
 ## What it does
 

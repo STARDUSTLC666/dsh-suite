@@ -1,5 +1,12 @@
 # 更新记录
 
+## 0.8.0 (2026-10-30)
+
+- 同步 Email 0.21.0：新增可选 POP3 收信、稳定 UIDL、本地检索范围和附件，继续使用 SMTP 草稿确认；其余 17 个组件版本不变。
+- 说明 POP3 的只读收件箱与协议限制；不提供虚假的服务器未读、星标或已发送文件夹。自动安装仍默认关闭。
+- Include opt-in POP3 receiving and preserve the existing SMTP confirmation flow.
+
+
 ## 0.7.1 (2026-10-29)
 
 - Pin all 18 component documentation releases; Review and Computer Use remain independently installable.

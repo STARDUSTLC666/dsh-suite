@@ -30,8 +30,8 @@ importers:
         specifier: 0.3.5
         version: 0.3.5
       dsh-email:
-        specifier: 0.20.5
-        version: 0.20.5
+        specifier: 0.21.0
+        version: 0.21.0
       dsh-ffmpeg:
         specifier: 0.7.2
         version: 0.7.2
@@ -290,8 +290,8 @@ packages:
     resolution: {integrity: sha512-EAZhqf7TK5vsRm3TiIEyLjJ/PceZS1s09rIfZ2r+esiOmOXJ4taoUpKZyc4HbXWmd9xrL8m/3JlFtvaOuG0L7g==}
     engines: {dsh: '>=0.2.1-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  dsh-email@0.20.5:
-    resolution: {integrity: sha512-x6wECuu5EAkuazlXXIRlZR86JMciHOCFcBu+j4iUnmGGoNPZU7OEh/7z7awZ/HP2UYUOGwwRKJgDfCRlZZgh/A==}
+  dsh-email@0.21.0:
+    resolution: {integrity: sha512-ChGgRthFy+3IbU1WciTaX7eVj9X4g2NHlBlkn7su/ffd5Y/VqhWN5BxoHJEApBWaOmVStiET+WcCoJH7nQX7mQ==}
     engines: {dsh: '>=0.2.1-rc.3', node: ^22.19.0 || >=24.0.0}
 
   dsh-ffmpeg@0.7.2:
@@ -466,6 +466,11 @@ packages:
   named-placeholders@1.1.6:
     resolution: {integrity: sha512-Tz09sEL2EEuv5fFowm419c1+a/jSMiBjI9gHxVLrVdbUkkNUUfjsVYs9pVZu5oCon/kmRh9TfLEObFtkVxmY0w==}
     engines: {node: '>=8.0.0'}
+
+  node-pop3@0.15.3:
+    resolution: {integrity: sha512-n/YTu/4b/SE3yGgMGT2xhj1HzOYTXCqHX4hrsahl8sMoTLvZXjnlzW2mI6XGlRxrQu4w3tuJVbF30AgzvCfyAg==}
+    engines: {node: ^20.11.0 || >= 22.0.0}
+    hasBin: true
 
   nodemailer@10.0.13:
     resolution: {integrity: sha512-SzG86OlvcW/NNhUFC6uROMwRTL4n7MswfQqC/T8mhkmnY1YVa23zUEMYi4ijSeXSl9GLz9ZeTJDUatEDuY5FeQ==}
@@ -950,12 +955,14 @@ snapshots:
     dependencies:
       '@stardustlc/dsh-updates': 0.1.3
 
-  dsh-email@0.20.5:
+  dsh-email@0.21.0:
     dependencies:
       '@deepseek-ai/schemastery': 3.18.3
       '@stardustlc/dsh-updates': 0.1.3
+      html-to-text: 10.0.1
       imapflow: 2.2.1
       mailparser: 3.9.33
+      node-pop3: 0.15.3
       nodemailer: 10.0.13
       proper-lockfile: 4.1.2
       schemastery: 3.18.0
@@ -1176,6 +1183,8 @@ snapshots:
   named-placeholders@1.1.6:
     dependencies:
       lru.min: 1.1.5
+
+  node-pop3@0.15.3: {}
 
   nodemailer@10.0.13: {}
 
