@@ -1,5 +1,12 @@
 # 更新记录
 
+## 0.7.1 (2026-10-29)
+
+- Pin all 18 component documentation releases; Review and Computer Use remain independently installable.
+
+- 补齐中英文使用流程：准备、入口、具体操作与结果核对；新增累计 npm 下载徽章并保留月统计。
+- Add practical getting-started workflows and lifetime npm download badges alongside monthly counts.
+
 ## 0.7.0 (2026-10-29)
 
 - 同步 PPT 0.20.0、Remotion 0.10.0、HyperFrames 0.11.0、FFmpeg 0.7.1。

@@ -6,7 +6,9 @@
 
 一次安装 18 个独立 DSH 插件，覆盖邮件、日历、记忆、媒体创作与开发运维，并组合它们的默认配置。各组件仍可单独安装；Review 与 Computer Use 另行提供。
 
-[![npm](https://img.shields.io/npm/v/@stardustlc/dsh-suite)](https://www.npmjs.com/package/@stardustlc/dsh-suite) [![downloads](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/npm-downloads/assets/dsh-suite-downloads.svg)](https://www.npmjs.com/package/@stardustlc/dsh-suite)
+[![npm](https://img.shields.io/npm/v/@stardustlc/dsh-suite)](https://www.npmjs.com/package/@stardustlc/dsh-suite) [![downloads](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/npm-downloads/assets/dsh-suite-downloads.svg)](https://www.npmjs.com/package/@stardustlc/dsh-suite) [![total downloads](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/npm-downloads/assets/dsh-suite-total-downloads.svg)](https://www.npmjs.com/package/@stardustlc/dsh-suite)
+
+[下载统计说明](https://github.com/STARDUSTLC666/dsh-suite/blob/npm-downloads/README.md)
 
 欢迎使用，遇到问题或有改进建议，请提交 [issues](https://github.com/STARDUSTLC666/dsh-suite/issues) 和 [PR](https://github.com/STARDUSTLC666/dsh-suite/pulls)。
 
@@ -30,7 +32,11 @@ dsh plugin --profile desktop add @stardustlc/dsh-suite
 
 ## 开始使用
 
-需要整套功能时安装本包，随后配置所需组件的账号和工具。只需少数功能时，可直接安装对应独立插件。组件列表见使用说明。
+1. 把 @stardustlc/dsh-suite 安装到实际使用的 desktop 或 web profile，完成后重启该 profile。
+2. 在插件管理中检查 Suite 与组件加载情况；本包包含 18 个组件，Review 与 Computer Use 另外安装。
+3. 只配置要使用的组件：邮件和日历需要自己的账号，媒体工具需要对应本机环境。
+4. 从左侧栏工作台或对话工具开始一个具体任务，按各组件说明核对实际结果。
+5. 在组件页面底部检查更新；Suite 安装的组件通过整包更新，是否安装及何时重启由你决定。
 
 ## 依赖与配置
 

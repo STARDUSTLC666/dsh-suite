@@ -26,10 +26,11 @@ jobs:
           ref: npm-downloads
           path: .download-badges
       - run: node .github/scripts/download-badges.mjs .download-badges
+      - run: cp docs/DOWNLOADS.md .download-badges/README.md
       - name: Save verified counts and generated badges
         working-directory: .download-badges
         run: |
-          git add assets downloads.json
+          git add assets downloads.json README.md
           if git diff --cached --quiet; then exit 0; fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'

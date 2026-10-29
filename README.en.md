@@ -6,7 +6,9 @@
 
 Install 18 independent DSH plugins for email, calendars, memory, media and developer workflows with their combined defaults. Components remain independently installable; Review and Computer Use are distributed separately.
 
-[![npm](https://img.shields.io/npm/v/@stardustlc/dsh-suite)](https://www.npmjs.com/package/@stardustlc/dsh-suite) [![downloads](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/npm-downloads/assets/dsh-suite-downloads.svg)](https://www.npmjs.com/package/@stardustlc/dsh-suite)
+[![npm](https://img.shields.io/npm/v/@stardustlc/dsh-suite)](https://www.npmjs.com/package/@stardustlc/dsh-suite) [![downloads](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/npm-downloads/assets/dsh-suite-downloads.svg)](https://www.npmjs.com/package/@stardustlc/dsh-suite) [![total downloads](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/npm-downloads/assets/dsh-suite-total-downloads.svg)](https://www.npmjs.com/package/@stardustlc/dsh-suite)
+
+[Download statistics](https://github.com/STARDUSTLC666/dsh-suite/blob/npm-downloads/README.md)
 
 Feedback and contributions are welcome: report [issues](https://github.com/STARDUSTLC666/dsh-suite/issues) or submit [pull requests](https://github.com/STARDUSTLC666/dsh-suite/pulls).
 
@@ -30,9 +32,11 @@ For the web version, replace `desktop` with `web`. Restart DSH after installatio
 
 ## Start using it
 
-Install the suite when you need the full set, then configure the accounts and tools you use. For a few features, install the corresponding individual plugins. The guide lists the components.
-
-PPT 0.20.0 also provides: choose a share bundle with current speaker notes or a project bundle retaining the JSON. Downloads require no AI review. Feature upgrades remain a user choice; automatic installation is off by default.
+1. Install @stardustlc/dsh-suite in the desktop or web profile you use, then restart that profile.
+2. Check Suite and its components in plugin management. The bundle contains 18 components; install Review and Computer Use separately.
+3. Configure only the components you need: email/calendar require your accounts, and media tools require their local runtimes.
+4. Start a concrete task from a sidebar workbench or conversation tools and verify its real result.
+5. Check updates at the bottom of a component page. Suite components update as a bundle; you choose installation and restart timing.
 
 ## Requirements and configuration
 
