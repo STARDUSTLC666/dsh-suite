@@ -1,5 +1,11 @@
 # 更新记录
 
+## 0.6.3 (2026-10-29)
+
+- 同步仓库与 npm 的简明介绍、中英文 README 和反馈入口；本次为文档与包元数据更新。
+- Sync npm descriptions and both README guides with the repository, including issue and pull-request links.
+- Pin all 18 component documentation patches; Review and Computer Use remain separate packages.
+
 ## 0.6.2 (2026-10-28)
 
 - 同步 Voice 0.5.0、CodeSecurity 0.7.4、SQL 0.5.5、RSS 0.9.4、Flakefinder 0.4.4、HyperFrames 0.10.1、Remotion 0.9.1。

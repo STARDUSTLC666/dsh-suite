@@ -10,7 +10,7 @@
 
 欢迎使用，遇到问题或有改进建议，请提交 [issues](https://github.com/STARDUSTLC666/dsh-suite/issues) 和 [PR](https://github.com/STARDUSTLC666/dsh-suite/pulls)。
 
-0.6.2 同步语音协议、代码检查与写操作确认修复，以及官方 HyperFrames 0.8.211 技能和渲染环境。[逐插件复查记录](docs/validation-2026-10-28-boundaries.md)区分本地测试、官方宿主、浏览器操作与真实服务。
+0.6.3 同步全部 18 个组件的 npm 简介和中英文使用指南，保留语音协议、代码检查与写操作确认修复，以及官方 HyperFrames 0.8.211 技能和渲染环境。[逐插件复查记录](docs/validation-2026-10-28-boundaries.md)区分本地测试、官方宿主、浏览器操作与真实服务。
 
 ## 功能
 

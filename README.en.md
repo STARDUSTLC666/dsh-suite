@@ -10,7 +10,7 @@ Install 18 independent DSH plugins for email, calendars, memory, media and devel
 
 Feedback and contributions are welcome: report [issues](https://github.com/STARDUSTLC666/dsh-suite/issues) or submit [pull requests](https://github.com/STARDUSTLC666/dsh-suite/pulls).
 
-0.6.2 includes speech protocol, code inspection and write-confirmation fixes, plus the official HyperFrames 0.8.211 skills and renderer. The [per-plugin audit](docs/validation-2026-10-28-boundaries.md) distinguishes local tests, native host, browser interactions and live services.
+0.6.3 synchronizes npm descriptions and both README guides for all 18 components, retaining the speech protocol, code inspection and write-confirmation fixes and the official HyperFrames 0.8.211 skills and renderer. The [per-plugin audit](docs/validation-2026-10-28-boundaries.md) distinguishes local tests, native host, browser interactions and live services.
 
 ## What it does
 
