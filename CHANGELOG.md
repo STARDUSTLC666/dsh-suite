@@ -1,5 +1,12 @@
 # 更新记录
 
+## 0.9.0 (2026-10-30)
+
+- 同步 Calendar 0.14.1：新增只读空闲时段查询、工作时间与缓冲条件、明确的时区和范围；选择候选只填写新建草稿，并保留夏令时重复钟点的绝对时间。
+- 透明及取消日程不再产生冲突提示；其余 17 个组件版本不变，自动安装仍默认关闭。
+- Include Calendar availability suggestions, exact draft instants and consistent conflict checks.
+
+
 ## 0.8.0 (2026-10-30)
 
 - 同步 Email 0.21.0：新增可选 POP3 收信、稳定 UIDL、本地检索范围和附件，继续使用 SMTP 草稿确认；其余 17 个组件版本不变。

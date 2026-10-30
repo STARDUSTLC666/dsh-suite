@@ -12,7 +12,7 @@
 
 欢迎使用，遇到问题或有改进建议，请提交 [issues](https://github.com/STARDUSTLC666/dsh-suite/issues) 和 [PR](https://github.com/STARDUSTLC666/dsh-suite/pulls)。
 
-0.8.0 同步 Email 的可选 POP3 收信：范围明确的搜索、附件与原有 SMTP 草稿确认流程。见 [POP3 验证范围](docs/validation-2026-10-29-pop3.md)。
+0.9.0 同步日历的空闲时段建议：设置工作日、时间、时长与缓冲，选择后进入新建草稿再确认保存。见[空闲查询说明](docs/calendar-availability-2026-10-30.md)。
 
 ## 功能
 
