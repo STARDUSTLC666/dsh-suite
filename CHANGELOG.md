@@ -1,5 +1,13 @@
 # 更新记录
 
+## 0.9.1 (2026-10-30)
+
+- 同步 18 个组件的图标补丁版本；Review 与 Computer Use 保持独立安装。
+
+- 原生插件列表与详情新增专门生成的鲸鱼娘图标：大头像、独立功能符号、透明留白，适合 30 / 36 px 显示；原封面保留。
+- Add purpose-made whale-girl artwork with a distinct function emblem, transparent padding and small-size readability; preserve the original cover.
+
+
 ## 0.9.0 (2026-10-30)
 
 - 同步 Calendar 0.14.1：新增只读空闲时段查询、工作时间与缓冲条件、明确的时区和范围；选择候选只填写新建草稿，并保留夏令时重复钟点的绝对时间。

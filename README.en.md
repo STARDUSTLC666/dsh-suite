@@ -12,7 +12,7 @@ Install 18 independent DSH plugins for email, calendars, memory, media and devel
 
 Feedback and contributions are welcome: report [issues](https://github.com/STARDUSTLC666/dsh-suite/issues) or submit [pull requests](https://github.com/STARDUSTLC666/dsh-suite/pulls).
 
-0.9.0 adds Calendar availability suggestions: set hours, weekdays, duration and buffers, then review a new-event draft. See the [availability guide](docs/calendar-availability-2026-10-30.md).
+0.9.1 gives the bundle and its 18 plugins purpose-made whale-girl icons with distinct function emblems, transparent padding and native list/detail support. Calendar availability suggestions remain included; [availability guide](docs/calendar-availability-2026-10-30.md).
 
 ## What it does
 
