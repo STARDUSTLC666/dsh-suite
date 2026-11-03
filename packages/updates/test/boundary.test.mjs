@@ -45,6 +45,15 @@ test('an existing workbench receives an inline footer while keeping its own head
   assert.doesNotMatch(bootstrap, /Update all|更新全部/)
 })
 
+test('an incompatible release names the environment that has to change instead of only refusing', async () => {
+  const source = await readFile(new URL('../lib/ui-client.js', import.meta.url), 'utf8')
+  // releaseOf() reports dsh-version / node-version / deprecated / not-bundle; the footer must
+  // translate each one, otherwise the user only sees "incompatible" with no next step.
+  assert.match(source, /function requirement\(release\)/)
+  for (const code of ['dsh-version', 'node-version', 'deprecated', 'not-bundle']) assert.ok(source.includes(code + ':') || source.includes("'" + code + "':"), code)
+  assert.match(source, /!row\.release\.compatible[\s\S]{0,240}requirement\(row\.release\)/)
+})
+
 test('inline footer preserves original page children and actions and uses the native detail slot subject', async () => {
   const context = vm.createContext({ Symbol, Map, Set }), source = await readFile(new URL('../lib/ui-client.js', import.meta.url), 'utf8')
   vm.runInContext(source, context)

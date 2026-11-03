@@ -61,6 +61,20 @@ Keep your profile's `cordis.patch.yml` configuration overrides, then restart Web
 
 16 components provide `*_health`; use the read-only `ppt_themes` for PPT and check the preset picker for minimal-ptc. Some health tools contact external services or invoke local CLIs.
 
+## Troubleshooting
+
+Start with the component's `*_health` tool when you need more detail.
+
+| Symptom | Cause | What to do |
+|---|---|---|
+| Startup fails with `duplicate loader entry id` | A component is both loaded by the suite and installed directly | Remove that component's direct-install record and keep the suite layer; see [migration](#migrate-an-older-suite-installation) |
+| No update control at the bottom of the plugin details | DSH is older than 0.2.1-rc.3, the plugin release is old, or the component comes from a local/Git/alias install | Upgrade DSH, then update once in native plugin management; local and external sources keep their original method |
+| An update exists but the button is disabled | Unsaved edits, a running task, an unresponsive window, or an unconfirmed previous install | Save or discard edits and wait for the task; disconnected windows can be reconfirmed in the same footer |
+| "Latest release is incompatible with this environment" | The release requires a newer DSH or Node.js | The current version keeps working; upgrade the runtime and check again |
+| Preferences cannot be read | `stardustlc-plugin-updates.json` in the profile is corrupt or unreadable | Automatic installation is off; repair or delete the file and restart |
+| A component still fails after configuration | Accounts, external programs and network requirements belong to each component | Run its `*_health` tool and follow its output |
+| Slow dependency downloads | Restricted npm network | Prefer the npm install command above, then retry with a proxy |
+
 ## Configuration
 
 Override any component by its id in your profile's `cordis.patch.yml`.

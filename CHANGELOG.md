@@ -1,5 +1,13 @@
 # 更新记录
 
+## 未发布
+
+- 更新页脚说明不兼容的原因：DSH 版本、Node.js 版本、已弃用或非插件包，而不是只说“新版本暂不兼容当前环境”；当前版本继续可用。
+- `scripts/sync-workbench-ui.mjs` 覆盖第十份副本 `packages/updates/lib/ui-kit.js`，`--check` 现在能发现共享更新页脚的 UI 漂移。
+- README 中英文新增「包含哪些组件」目录（18 个组件按产品线分组、链接各自仓库，并指出 Review 与 Computer Use 不在其中）与「兼容性与混合安装」说明。
+- 使用说明中英文补齐排错表（重复 loader 条目、缺少更新入口、按钮不可点、不兼容提示、偏好文件损坏等），并新增英文排错章节。
+- Name the reason an update is incompatible instead of only refusing it, cover the shared footer's tenth workbench-UI copy in `--check`, and document the component directory, mixed installs and troubleshooting in both languages.
+
 ## 0.9.1 (2026-10-30)
 
 - 同步 18 个组件的图标补丁版本；Review 与 Computer Use 保持独立安装。

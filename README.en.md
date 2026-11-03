@@ -20,6 +20,19 @@ Feedback and contributions are welcome: report [issues](https://github.com/STARD
 - Pin component versions for reproducible installation and co-load checks.
 - Components can also be installed and configured independently.
 
+## What is included
+
+| Line | Components (each with its own repository and version) |
+|---|---|
+| 📨 Office | [Email](https://github.com/STARDUSTLC666/dsh-email) · [Calendar](https://github.com/STARDUSTLC666/dsh-calendar) · [RSS](https://github.com/STARDUSTLC666/dsh-rss) · [Citations](https://github.com/STARDUSTLC666/dsh-cite) · [Dream](https://github.com/STARDUSTLC666/dsh-dream) |
+| 🎬 Media | [FFmpeg](https://github.com/STARDUSTLC666/dsh-ffmpeg) · [Voice](https://github.com/STARDUSTLC666/dsh-voice) · [PPT](https://github.com/STARDUSTLC666/dsh-ppt) · [HyperFrames](https://github.com/STARDUSTLC666/dsh-hyperframes) · [Remotion](https://github.com/STARDUSTLC666/dsh-remotion) |
+| 🔧 DevOps | [Docker](https://github.com/STARDUSTLC666/dsh-docker) · [SQL](https://github.com/STARDUSTLC666/dsh-sql) · [Flakefinder](https://github.com/STARDUSTLC666/dsh-flakefinder) · [Code Security](https://github.com/STARDUSTLC666/dsh-code-security) · [Codex Port](https://github.com/STARDUSTLC666/dsh-codex-port) |
+| 💬 Notifications and presets | [DingTalk](https://github.com/STARDUSTLC666/dsh-dingtalk) · [Slack](https://github.com/STARDUSTLC666/dsh-slack) · [Minimal PTC](https://github.com/STARDUSTLC666/dsh-minimal-ptc) |
+
+Nine components ship a native main-area workbench (Calendar, Citations, Code Security, Dream, Email, HyperFrames, PPT, Remotion, RSS); the rest are used from their own settings sections or conversation tools. Capabilities, tool arguments and self-checks are listed in the [usage guide](docs/USAGE.en.md#whats-inside-18).
+
+[@stardustlc/dsh-review](https://github.com/STARDUSTLC666/dsh-review) (Git change review) and [deepseek-computer-use](https://github.com/STARDUSTLC666/deepseek-computer-use) (Windows desktop control) are companion plugins and are **not** part of these 18 components.
+
 ## Install
 
 In DSH Desktop, install `@stardustlc/dsh-suite` from the Plugins panel. If the bundled dsh command is available:
@@ -45,6 +58,13 @@ Enable only the suite bundle in the profile; it loads the components. Each compo
 This version synchronizes independent update controls across all 18 components. Nine native workbenches retain host language, theme, narrow-window support and edit protection; the remaining components provide controls in their own settings sections. Components remain independently installable.
 
 Requires official DSH **0.2.1-rc.3 or newer**; this round was checked on **0.2.1-rc.4**. See the [workbench guide](docs/WORKBENCH_UI.md) and [validation record](docs/validation-2026-10-28-boundaries.md) for actual-operation boundaries. Review and Computer Use remain separate plugins outside this bundle's 18 components.
+
+### Compatibility and mixed installs
+
+- Requires official DSH 0.2.1-rc.3 or newer. On an older host the components still load, but the update control at the bottom of the page is absent: upgrade DSH first, then reopen the plugin details.
+- Suite pins component versions and updates them as one bundle; the footer on any component page acts on the whole Suite.
+- Components can also be installed and updated independently. Do not install the same component both ways: the profile ends up with a duplicate loader entry (`duplicate loader entry id`); see the [migration steps](docs/USAGE.en.md#migrate-an-older-suite-installation).
+- When a new release does not match this environment (a newer DSH or Node.js is required, for example), the footer states the reason and the current version keeps working; check again after upgrading.
 
 Detailed configuration, tool arguments and troubleshooting are in the [usage guide](docs/USAGE.en.md). For standalone development, follow the Node requirement in [package.json](package.json).
 

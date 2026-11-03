@@ -21,7 +21,7 @@
 
 ## 维护
 
-规范源为 `ui/workbench-ui.js`。`node scripts/sync-workbench-ui.mjs` 显式同步到九个仓库的 `templates/workbench-ui.js`，`--check` 检查一致性。每个仓库拥有自己的 `templates/client.js`、领域面板和 `scripts/build-client.mjs`；`pnpm run build` 生成发布的 `lib/client.js`，不依赖安装 Suite。
+规范源为 `ui/workbench-ui.js`。`node scripts/sync-workbench-ui.mjs` 显式同步到九个仓库的 `templates/workbench-ui.js`，并向 `packages/updates/lib/ui-kit.js` 复制同一份（共享更新页脚在每个插件页面里渲染同样的组件），`--check` 检查这十份副本的一致性。每个仓库拥有自己的 `templates/client.js`、领域面板和 `scripts/build-client.mjs`；`pnpm run build` 生成发布的 `lib/client.js`，不依赖安装 Suite。
 
 使用 RC.3 的 `main` / `key` 与 `sidebar.panellist` / `id`，通过各自槽位就绪回调注册；保留 `settings.section`。主区遵守宿主窗口留白变量。文件预览通过公开 `uiWorkspace.openSession` 和 `sidebarRight.openResource` 联动。
 

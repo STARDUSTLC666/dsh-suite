@@ -20,6 +20,19 @@
 - 固定组件版本，便于复现安装与共同加载检查。
 - 各组件也可以单独安装与配置。
 
+## 包含哪些组件
+
+| 产品线 | 组件（各自拥有独立仓库与版本） |
+|---|---|
+| 📨 办公流 | [邮件](https://github.com/STARDUSTLC666/dsh-email) · [日历](https://github.com/STARDUSTLC666/dsh-calendar) · [RSS](https://github.com/STARDUSTLC666/dsh-rss) · [文献库](https://github.com/STARDUSTLC666/dsh-cite) · [Dream 记忆](https://github.com/STARDUSTLC666/dsh-dream) |
+| 🎬 媒体工坊 | [FFmpeg](https://github.com/STARDUSTLC666/dsh-ffmpeg) · [语音](https://github.com/STARDUSTLC666/dsh-voice) · [演示文稿](https://github.com/STARDUSTLC666/dsh-ppt) · [HyperFrames](https://github.com/STARDUSTLC666/dsh-hyperframes) · [Remotion](https://github.com/STARDUSTLC666/dsh-remotion) |
+| 🔧 DevOps | [Docker](https://github.com/STARDUSTLC666/dsh-docker) · [SQL](https://github.com/STARDUSTLC666/dsh-sql) · [Flakefinder](https://github.com/STARDUSTLC666/dsh-flakefinder) · [代码安全](https://github.com/STARDUSTLC666/dsh-code-security) · [Codex 移植](https://github.com/STARDUSTLC666/dsh-codex-port) |
+| 💬 通知与预设 | [钉钉](https://github.com/STARDUSTLC666/dsh-dingtalk) · [Slack](https://github.com/STARDUSTLC666/dsh-slack) · [极简 PTC](https://github.com/STARDUSTLC666/dsh-minimal-ptc) |
+
+九个组件有原生主区工作台（日历、文献库、代码安全、Dream、邮件、HyperFrames、演示文稿、Remotion、RSS），其余在各自设置项或对话工具里使用。每个组件的能力、工具参数与自检见[使用说明 · 组件清单](docs/USAGE.md#组件清单)。
+
+[@stardustlc/dsh-review](https://github.com/STARDUSTLC666/dsh-review)（Git 改动审阅）与 [deepseek-computer-use](https://github.com/STARDUSTLC666/deepseek-computer-use)（Windows 桌面操作）是配套插件，**不在**这 18 个组件里，需要单独安装。
+
 ## 安装
 
 桌面版可在「插件」面板按包名 `@stardustlc/dsh-suite` 安装。已配置 dsh 命令时也可使用：
@@ -47,6 +60,13 @@ profile 只启用 Suite 这一层，由它加载组件。组件的账号、外�
 同时包含 PPT 0.20.0，在演示文稿工作台按需要下载「分享成品包」或「完整工程包」。分享包附当前讲稿，工程包保留 JSON；下载无需 AI 预审。功能版本升级由用户确认，自动安装默认关闭。
 
 需要官方 DSH **0.2.1-rc.3 或更新版本**；本轮在 **0.2.1-rc.4** 复查。设计与维护见[工作台说明](docs/WORKBENCH_UI.md)，实际操作边界见[本轮验收](docs/validation-2026-10-28-boundaries.md)。Review 与 Computer Use 继续作为独立插件提供，不计入本包的 18 个组件。
+
+### 兼容性与混合安装
+
+- 需要官方 DSH 0.2.1-rc.3 或更新版本。宿主更旧时组件仍会加载，但页面底部的更新入口不会出现——先升级 DSH，再回到插件详情页查看。
+- Suite 锁定组件版本，整包一起更新：在任一组件页面底部操作的都是 Suite 整包。
+- 组件也可以独立安装并单独更新。但不要同时用两种方式安装同一个组件：profile 会出现重复的 loader 条目（`duplicate loader entry id`），处理见[迁移步骤](docs/USAGE.md#从旧版全家桶迁移)。
+- 新版本与当前环境不匹配时（例如要求更新的 DSH 或 Node.js），页面底部会写明原因，并保留当前版本继续使用；升级环境后再检查即可。
 
 详细配置、工具参数与排错见[使用说明](docs/USAGE.md)。从源码独立开发时，Node 要求以 [package.json](package.json) 为准。
 

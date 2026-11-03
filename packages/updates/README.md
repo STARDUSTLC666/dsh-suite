@@ -10,9 +10,11 @@ Shared update controls used by STARDUSTLC's DSH plugins. This is an internal lib
 - 有运行任务、未保存修改、页面状态未知、旧版插件尚未提供状态保护或等待重启时，自动安装暂停。更新不会自动重启 DSH，也不会更新 DSH 本体。
 - 可推迟提醒和自动安装 24 小时，或忽略某个版本的提醒；仍可手动安装。关闭自动安装会请求取消尚在执行的自动操作，已落盘的结果以官方包管理器回执为准。
 - Suite 组件统一通过 Suite 更新。停用状态保留；本地路径、Git、压缩包与别名安装保持原来的更新方式。
+- 新版本与当前环境不匹配时，页面写明是 DSH 本版、Node.js、弃用还是非插件包，而不是只说“不兼容”；当前版本继续可用。
+- 单个组件也可以独立安装并单独更新，但不要同一个组件既交给 Suite 又直接安装，否则 profile 会出现重复的 loader 条目。
 - 发布新版不会直接替换旧用户的安装。旧版用户先通过官方插件管理更新一次，才会获得这个更新入口。
 
-Each plugin exposes its controls at the bottom of its existing workbench or native plugin detail page. Release notes and options expand in place without extra navigation or settings entries. Consent, checks, deferral and ignored releases are independent; there is no global update page. Automatic checks are on by default; **automatic installation is off by default**. Manual updates require confirmation. Explicitly enabled automatic updates only install compatible stable patches while the profile is idle and protected browser state is known. No forced restart, DSH upgrade, local-source replacement, disabled-plugin enablement or Suite component duplication occurs. Older plugin releases need one manual update to acquire these controls.
+An incompatible release names the environment that must change (DSH version, Node.js version, deprecated release or a non-bundle package) instead of only reporting that it is incompatible, and the current version keeps working. Installing one component both through Suite and directly creates a duplicate loader entry, so keep exactly one ownership. Each plugin exposes its controls at the bottom of its existing workbench or native plugin detail page. Release notes and options expand in place without extra navigation or settings entries. Consent, checks, deferral and ignored releases are independent; there is no global update page. Automatic checks are on by default; **automatic installation is off by default**. Manual updates require confirmation. Explicitly enabled automatic updates only install compatible stable patches while the profile is idle and protected browser state is known. No forced restart, DSH upgrade, local-source replacement, disabled-plugin enablement or Suite component duplication occurs. Older plugin releases need one manual update to acquire these controls.
 
 ## Integration
 
