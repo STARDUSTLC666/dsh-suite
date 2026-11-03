@@ -26,3 +26,9 @@
 使用 RC.3 的 `main` / `key` 与 `sidebar.panellist` / `id`，通过各自槽位就绪回调注册；保留 `settings.section`。主区遵守宿主窗口留白变量。文件预览通过公开 `uiWorkspace.openSession` 和 `sidebarRight.openResource` 联动。
 
 验收边界和真实路径见 [2026-10-25 验收记录](validation-2026-10-25-workbenches.md)。
+
+## v1.1（未发布）
+
+- `Empty` / `Dialog` / `Status` 自带 `<style>` 与 `.dshw` 主题作用域，放在 `Page` 外也不会变成裸控件。
+- `Status` 新增 `warn` 色调（`tone="warn"`），用于“需注意但非错误”的提示。
+- 新增 `Styles` 导出，供自定义浮层显式注入同一份样式。
