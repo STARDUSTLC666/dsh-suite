@@ -2,14 +2,14 @@ verifyDepsBeforeRun: false
 packages:
   - packages/*
 minimumReleaseAgeExclude:
-  - "@stardustlc/dsh-docker@0.5.9"
-  - "@stardustlc/dsh-dream@0.13.9"
+  - '@stardustlc/dsh-docker@0.5.9'
+  - '@stardustlc/dsh-dream@0.13.9'
   - dsh-calendar@0.14.5
   - dsh-cite@0.7.9
   - dsh-code-security@0.7.10
   - dsh-codex-port@0.4.9
   - dsh-dingtalk@0.3.9
-  - dsh-email@0.21.4
+  - dsh-email@0.21.5
   - dsh-ffmpeg@0.7.6
   - dsh-flakefinder@0.4.10
   - dsh-hyperframes@0.11.5
@@ -20,4 +20,5 @@ minimumReleaseAgeExclude:
   - dsh-slack@0.4.9
   - dsh-sql@0.5.11
   - dsh-voice@0.5.6
-  - "@stardustlc/dsh-updates@0.1.4"
+  - '@stardustlc/dsh-updates@0.1.4'
+  - dsh-email@0.21.4

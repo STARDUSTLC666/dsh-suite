@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.10.2 (2026-11-04)
+
+- 同步 Email 0.21.5：已登录的局域网浏览器可配置邮箱，保留原本的本地接口限制和用户更新选择。
+- Include authenticated LAN email settings without relaxing the legacy route guards or enabling automatic installation.
+
 ## 0.10.1 (2026-11-04)
 
 - 18 个组件锁定到本轮已验证的新版本；PTC 适配宿主执行器拆分，保留旧宿主分支与原来的 SDK。
