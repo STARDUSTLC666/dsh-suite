@@ -45,6 +45,16 @@ try {
   host = new Context()
   await host.plugin(SystemPrompt)
   await host.plugin(toolsApi.default)
+  // alpha.3 separates tool registration from executor selection and moves
+  // program SDK rendering to the PTC executor package. Keep older hosts too.
+  let sdkApi = toolsApi
+  if (typeof host.tools.setExecutor === 'function') {
+    const native = await importFile(cliRequireForHarness.resolve('@deepseek-ai/dsh-tool-executor-native'))
+    await host.plugin(native)
+  }
+  if (typeof toolsApi.renderToolsSdk !== 'function') {
+    sdkApi = await importFile(cliRequireForHarness.resolve('@deepseek-ai/dsh-tool-executor-ptc'))
+  }
   await host.plugin(Skills)
   report.harnessVersion = JSON.parse(readFileSync(toolsPackage, 'utf8')).version
 
@@ -266,7 +276,7 @@ try {
       item.error = error.message
     }
   }
-  for (const [language, render] of [['typescript', toolsApi.renderToolsSdk], ['python', toolsApi.renderToolsSdkPy]]) {
+  for (const [language, render] of [['typescript', sdkApi.renderToolsSdk], ['python', sdkApi.renderToolsSdkPy]]) {
     const sdk = render(schemas)
     assert.ok(typeof sdk === 'string' && sdk.length > 0, language + ' PTC SDK did not render')
     for (const schema of schemas) assert.ok(sdk.includes(schema.name), language + ' PTC SDK missing ' + schema.name)

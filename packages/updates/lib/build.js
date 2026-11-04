@@ -1,5 +1,5 @@
 import { parse } from 'acorn'
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { PACKAGES, SUITE_COMPONENTS } from './policy.js'
@@ -38,16 +38,17 @@ export function unwrapClient(source) {
   }
   throw new Error('Too many update-client wrappers')
 }
-export function wrapClient(source, name, packageVersion = null) {
+export function wrapClient(source, name, packageVersion = null, iconData = null) {
   if (!Object.hasOwn(PACKAGES, name)) throw new Error('Unknown participant package')
   source = unwrapClient(source).replace(/\r\n/g, '\n')
   const pages = collect(syntax(source), node => node.type === 'CallExpression' && node.arguments[0]?.type === 'MemberExpression' && node.arguments[0].object.name === 'W' && node.arguments[0].property.name === 'Page' && node.arguments[1]?.type === 'ObjectExpression')
   source = replacements(source, pages.flatMap(node => [{ start: node.start, end: node.start, text: '__stardustUpdatesInlinePage(React,' }, { start: node.end, end: node.end, text: ',' + JSON.stringify(name) + ')' }]))
+  const sectionIds = collect(syntax(source), node => node.type === 'ObjectExpression' && node.properties?.some(p => p.key?.name === 'name' && p.value?.value === 'settings.section')).map(node => node.properties.find(p => p.key?.name === 'id')?.value?.value).filter(id => typeof id === 'string')
   const ast = syntax(source)
   const call = find(ast, node => node.type === 'CallExpression' && node.callee.type === 'MemberExpression' && node.callee.property.name === 'load' && node.callee.object.type === 'MemberExpression' && node.callee.object.property.name === '__ModuleLoader__')
   if (!call || call.arguments.length !== 1 || call.arguments[0].type !== 'ObjectExpression') throw new Error('Expected one DSH client module definition')
   const arg = call.arguments[0]
-  const body = source.slice(0, arg.start) + '__stardustUpdatesWrap(' + source.slice(arg.start, arg.end) + ',' + JSON.stringify({ name, version: '0.1.0', hasWorkbench: pages.length > 0, packageVersion, label: PACKAGES[name][0], labelEn: PACKAGES[name][1], suiteComponent: SUITE_COMPONENTS.has(name) }) + ')' + source.slice(arg.end)
+  const body = source.slice(0, arg.start) + '__stardustUpdatesWrap(' + source.slice(arg.start, arg.end) + ',' + JSON.stringify({ name, version: '0.1.0', hasWorkbench: pages.length > 0, packageVersion, label: PACKAGES[name][0], labelEn: PACKAGES[name][1], suiteComponent: SUITE_COMPONENTS.has(name), sectionIds, iconData }) + ')' + source.slice(arg.end)
   const kit = readFileSync(join(directory, 'ui-kit.js'), 'utf8').replace(/\r\n/g, '\n'), client = readFileSync(join(directory, 'ui-client.js'), 'utf8').replace(/\r\n/g, '\n')
   return '// Generated: shared optional update controls; edit the original client templates.\n(function(){\n' + kit + '\n' + client + '\n' + START + '\n' + body + '\n' + END + '\n})();\n'
 }
@@ -56,5 +57,7 @@ export function buildClient(root, existingClient) {
   const source = existingClient ? readFileSync(join(root, existingClient), 'utf8') : 'window.__ModuleLoader__.load({id:' + JSON.stringify(pkg.name) + ',factory:require=>({apply(){}})});\n'
   const destination = join(root, existingClient || 'lib/update-client.js')
   mkdirSync(dirname(destination), { recursive: true })
-  writeFileSync(destination, wrapClient(source, pkg.name, pkg.version))
+  const iconFile = join(root, 'assets/plugin-icon.webp')
+  const iconData = existsSync(iconFile) ? 'data:image/webp;base64,' + readFileSync(iconFile).toString('base64') : null
+  writeFileSync(destination, wrapClient(source, pkg.name, pkg.version, iconData))
 }

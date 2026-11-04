@@ -75,6 +75,13 @@ function __stardustUpdatesWrap(definition, participant) {
     const React = require('react');
     return { ...original, apply(ctx, ...args) {
       const result = original.apply?.call(this, ctx, ...args);
+      // The optional alpha.3 slot stays dormant in older hosts; its scoped
+      // injection unregisters naturally when the plugin is unloaded.
+      if (participant.iconData && participant.sectionIds?.length && typeof ctx.inject === 'function') ctx.inject(['slots'], host => {
+        for (const id of new Set(participant.sectionIds)) host.slots.inject('settings.section.icon', () => host.slots.register({ name: 'settings.section.icon', id }, function PluginSettingsIcon({ size = 20 }) {
+          return React.createElement('img', { src: participant.iconData, alt: '', 'aria-hidden': true, width: size, height: size, style: { objectFit: 'contain', display: 'block', flexShrink: 0 } });
+        }));
+      });
       if (typeof ctx.inject === 'function') ctx.inject(['slots', 'locale', 'remote', 'remote.pluginManager'], host => __stardustUpdatesJoin(host, React, require, participant));
       return result;
     } };

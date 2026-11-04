@@ -41,7 +41,7 @@ test('an existing workbench receives an inline footer while keeping its own head
   assert.equal(wrapClient(wrapped, 'dsh-cite'), wrapped)
   const bootstrap = await readFile(new URL('../lib/ui-client.js', import.meta.url), 'utf8')
   assert.doesNotMatch(bootstrap, /sidebar\.panellist|W\.register\(/)
-  assert.doesNotMatch(bootstrap, /settings\.section|function Overlay\(/)
+  assert.doesNotMatch(bootstrap, /name:\s*['"]settings\.section['"]|function Overlay\(/)
   assert.doesNotMatch(bootstrap, /Update all|更新全部/)
 })
 
@@ -213,3 +213,26 @@ test('registry fallback is explicit, bounded, and notes render only the exact ch
   const absent = await registry.notes('dsh-cite', '0.6.3'); assert.equal(absent.text, null)
   await assert.rejects(registry.metadata('unowned-package'), /unknown-package/)
 })
+
+test('alpha.3 settings icons match section ids, preserve page registration and dispose with their scope', () => {
+  const source='window.__ModuleLoader__.load({id:"dsh-cite",factory:require=>({apply(ctx){ctx.slots.register({name:"settings.section",id:"cite-settings"},()=>null)}})});\n';
+  const icon='data:image/webp;base64,fixture';
+  const defs=[],registrations=[],cleanup=[];
+  vm.runInNewContext(wrapClient(source,'dsh-cite','0.7.9',icon),{window:{__ModuleLoader__:{load:def=>defs.push(def)}}});
+  const slots={register(meta,component){const row={meta,component};registrations.push(row);return()=>registrations.splice(registrations.indexOf(row),1)},inject(name,callback){assert.equal(name,'settings.section.icon');cleanup.push(callback())}};
+  const plugin=defs[0].factory(()=>({createElement:(type,props)=>({type,props})}));
+  plugin.apply({slots,inject(names,callback){if(names.length===1)callback({slots})}});
+  const row=registrations.find(row=>row.meta.name==='settings.section.icon');
+  assert.equal(row.meta.id,'cite-settings');
+  const image=row.component({size:24,active:true});assert.equal(image.type,'img');assert.equal(image.props.src,icon);assert.equal(image.props.width,24);assert.equal(image.props.alt,'');
+  assert.equal(registrations.filter(row=>row.meta.name==='settings.section').length,1);
+  for(const dispose of cleanup)dispose();assert.equal(registrations.some(row=>row.meta.name==='settings.section.icon'),false);
+});
+test('hosts without the optional icon slot keep working without a new settings page', () => {
+  const source='window.__ModuleLoader__.load({id:"dsh-cite",factory:require=>({apply(ctx){ctx.count++}})});\n',defs=[];
+  vm.runInNewContext(wrapClient(source,'dsh-cite','0.7.9','data:image/webp;base64,fixture'),{window:{__ModuleLoader__:{load:def=>defs.push(def)}}});
+  const ctx={count:0,inject(){throw Error('No injection expected without a matching section')}};
+  // The updater injection remains optional in this minimal legacy host.
+  delete ctx.inject;
+  defs[0].factory(()=>({})).apply(ctx);assert.equal(ctx.count,1);
+});

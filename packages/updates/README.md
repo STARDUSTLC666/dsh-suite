@@ -2,6 +2,8 @@
 
 Shared update controls used by STARDUSTLC's DSH plugins. This is an internal library, not another plugin to enable. Supported hosts provide the public `profileContext`, `connection`, `pluginManager`, `agents` and Loader services. Validated against the official Windows DSH 0.2.1-rc.3 runtime.
 
+0.1.4: existing settings pages can show their own packaged WebP icon through DSH alpha.3's optional `settings.section.icon` slot. Older hosts keep their default icon. Embedded workbenches inherit the host surface, inputs use the host input token, and empty states keep a readable width. Update consent and installation defaults are unchanged.
+
 ## 使用者 / Users
 
 - 更新区位于原有工作台内容末尾；没有工作台的插件，位于原生插件详情页底部。更新记录和选项原地展开，不增加更新设置菜单或单独页面。检查、安装授权、推迟提醒和忽略版本按包独立保存。
