@@ -1,5 +1,12 @@
 # 更新记录
 
+## 0.11.0 (2026-11-05)
+
+- 同步 Email 0.22.0：IMAP 单封与批量移入废纸篓、明确确认与有条件撤销；安全图文阅读、逐封允许外部图片，以及更完整的原文回复。
+- Include Email 0.22.0: confirmed IMAP Trash with conditional Undo, inert formatted reading, per-message external-image consent and longer threaded replies.
+- 其余组件保持既有版本；更新与重启继续由使用者选择。
+
+
 ## 0.10.2 (2026-11-04)
 
 - 同步 Email 0.21.5：已登录的局域网浏览器可配置邮箱，保留原本的本地接口限制和用户更新选择。
