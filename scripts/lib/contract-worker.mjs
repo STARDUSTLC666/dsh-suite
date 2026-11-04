@@ -10,6 +10,13 @@ const report = { ok: false, plugins: [], tools: 0, skills: 0, healthChecks: 0, o
 let host
 const disposers = []
 const importFile = (file) => import(pathToFileURL(file).href)
+async function execute(input) {
+  if (typeof host.tools.setExecutor !== 'function') return host.tools.execute(input)
+  const batch = await host.tools.execute({ calls: [{ type: 'tool-call', id: input.callId, name: input.name, arguments: JSON.stringify(input.arguments) }], signal: input.signal })
+  assert.equal(batch.results.length, 1, 'Native executor must settle the one admitted call')
+  assert.equal(batch.results[0].callId, input.callId)
+  return batch.results[0].result
+}
 
 try {
   const toolsPackage = join(harnessRoot, 'packages/core/tools/package.json')
@@ -110,6 +117,7 @@ try {
         // 与真实宿主 0.1.6 对齐：ptcRuntime 存在时插件会物化 modern 预设（否则引用已下线的 workflow-worker-thread）。
         ptcRuntime: hasModernPtcRuntime ? {} : undefined,
         tools: {
+          setExecutor: typeof host.tools.setExecutor === 'function' ? host.tools.setExecutor.bind(host.tools) : undefined,
           register(...args) {
             try {
               assert.equal(args.length, 1, 'tools.register accepts exactly one definition')
@@ -202,7 +210,7 @@ try {
         const fixtures = definitions.filter((definition) => definition.name.endsWith('_health') || definition.name === 'ppt_themes')
         assert.ok(fixtures.length > 0, 'Plugin has no read-only output contract fixture')
         for (const definition of fixtures) {
-          const result = await host.tools.execute({ callId: 'contract-' + definition.name, name: definition.name, arguments: {}, signal: AbortSignal.timeout(10000) })
+          const result = await execute({ callId: 'contract-' + definition.name, name: definition.name, arguments: {}, signal: AbortSignal.timeout(10000) })
           assert.equal(result.isError, false, JSON.stringify(result.content))
           if (Array.isArray(module.SKILL_NAMES)) {
             assert.equal(result.value.ok, true, 'Bundled skill health must confirm actual registrations')
@@ -217,7 +225,7 @@ try {
         if (plugin.name === 'dsh-code-security') {
           const target = join(process.cwd(), 'contract-review.js')
           writeFileSync(target, 'export const fixture = true\n')
-          const result = await host.tools.execute({ callId: 'contract-secure-scan', name: 'secure_scan', arguments: { target }, signal: AbortSignal.timeout(10000) })
+          const result = await execute({ callId: 'contract-secure-scan', name: 'secure_scan', arguments: { target }, signal: AbortSignal.timeout(10000) })
           assert.equal(result.isError, false, JSON.stringify(result.content))
           assert.equal(result.value.filesScanned, 1)
           assert.equal(result.value.baseline, null)
@@ -240,7 +248,7 @@ try {
               { type: 'reasoning', text: 'contract private reasoning' }, { type: 'text', text: 'contract final answer' },
             ] }, stream: [] }), surfaceOp: 'append' },
           ].map(row => JSON.stringify(row)).join('\n') + '\n')
-          const result = await host.tools.execute({ callId: 'contract-dream-digest', name: 'dream_digest', arguments: { mode: 'full' }, signal: AbortSignal.timeout(10000) })
+          const result = await execute({ callId: 'contract-dream-digest', name: 'dream_digest', arguments: { mode: 'full' }, signal: AbortSignal.timeout(10000) })
           assert.equal(result.isError, false, JSON.stringify(result.content))
           assert.equal(result.value.count, 1, 'The current Harness session generation must be readable')
           const rendered = result.content.map(block => block.text ?? '').join('\n')
@@ -256,7 +264,7 @@ try {
           assert.ok(registration && health, 'Skill bundles need a registered skill and health tool')
           await registration.dispose()
           try {
-            const missing = await host.tools.execute({ callId: 'contract-missing-' + health.name,
+            const missing = await execute({ callId: 'contract-missing-' + health.name,
               name: health.name, arguments: {}, signal: AbortSignal.timeout(10000) })
             assert.equal(missing.isError, false, 'Health must describe missing registrations as a result')
             assert.equal(missing.value.ok, false, 'Health must detect a skill removed from the real registry')
@@ -264,7 +272,7 @@ try {
           } finally {
             registration.dispose = host.skills.register(registration.definition)
           }
-          const restored = await host.tools.execute({ callId: 'contract-restored-' + health.name,
+          const restored = await execute({ callId: 'contract-restored-' + health.name,
             name: health.name, arguments: {}, signal: AbortSignal.timeout(10000) })
           assert.equal(restored.isError, false)
           assert.equal(restored.value.ok, true, 'Health must observe a matching registration restored in the host')

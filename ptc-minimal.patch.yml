@@ -218,6 +218,7 @@
 
               - id: tool-subagent-list-agents
                 name: '@deepseek-ai/dsh-tool-subagent-control/list-agents'
+                disabled: !!js typeof ctx.get('tools')?.setExecutor === 'function'
 
               - id: tool-subagent
                 name: '@deepseek-ai/dsh-tool-subagent'
@@ -296,8 +297,13 @@
           # fails this preset at mount, naming this id, instead of at the first request.
           - id: tool-presentation
             name: '@deepseek-ai/dsh-agent-tool-presentation'
+            disabled: !!js typeof ctx.get('tools')?.setExecutor === 'function'
             config:
               mode: ptc
+
+          - id: tool-executor-ptc
+            name: '@deepseek-ai/dsh-tool-executor-ptc'
+            disabled: !!js typeof ctx.get('tools')?.setExecutor !== 'function'
 
           # Official `ptc` parity rows (0.1.6): the deliverables presenter and the
           # plugin-manager tools (off by default, mirroring the official preset).

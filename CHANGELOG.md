@@ -1,5 +1,14 @@
 # 更新记录
 
+## 0.10.1 (2026-11-04)
+
+- 18 个组件锁定到本轮已验证的新版本；PTC 适配宿主执行器拆分，保留旧宿主分支与原来的 SDK。
+- Pin all 18 components to the verified releases and adapt the PTC preset and contract checks to the current executor API.
+
+- 同步共享界面：嵌入设置时继承宿主底色，输入框跟随主题，空状态保持可读宽度；新版 DSH 可显示插件设置图标。
+- Align embedded surfaces, themed inputs, readable empty states and optional native settings icons.
+
+
 ## 0.10.0 (2026-11-03)
 
 - 更新页脚说明不兼容的原因：DSH 版本、Node.js 版本、已弃用或非插件包，而不是只说“新版本暂不兼容当前环境”；当前版本继续可用。
