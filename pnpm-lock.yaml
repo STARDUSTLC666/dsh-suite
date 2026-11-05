@@ -30,8 +30,8 @@ importers:
         specifier: 0.3.9
         version: 0.3.9
       dsh-email:
-        specifier: 0.22.0
-        version: 0.22.0
+        specifier: 0.22.1
+        version: 0.22.1
       dsh-ffmpeg:
         specifier: 0.7.6
         version: 0.7.6
@@ -306,8 +306,8 @@ packages:
     resolution: {integrity: sha512-0rgtLPoYnsA0FdTs5EAFDnKyskDy/Rx0YgfyJl9ny3kac5DwvD5+xVUH4+0tXkpDYU4x3Vi87qzLicFaEtvSNw==}
     engines: {dsh: '>=0.2.1-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  dsh-email@0.22.0:
-    resolution: {integrity: sha512-NCWgilmTcOPJIO6D1FfzJh2zk7D5T4WkdFKSRpYT+TNTTVBlbTONqZXpYPWas8ClL86DxaN0SGAgjq7Veuy4NQ==}
+  dsh-email@0.22.1:
+    resolution: {integrity: sha512-wmkYoIeSzUJPOZ0nuUezjsqUHJnTCSVQW9NMX8qGM6ZNUN6Z5mM/xLMw/bcFU++IkKlHpQZIWyi2dWoCMjCjVQ==}
     engines: {dsh: '>=0.2.1-rc.3', node: ^22.19.0 || >=24.0.0}
 
   dsh-ffmpeg@0.7.6:
@@ -997,7 +997,7 @@ snapshots:
     dependencies:
       '@stardustlc/dsh-updates': 0.1.4
 
-  dsh-email@0.22.0:
+  dsh-email@0.22.1:
     dependencies:
       '@deepseek-ai/schemastery': 3.18.3
       '@stardustlc/dsh-updates': 0.1.4

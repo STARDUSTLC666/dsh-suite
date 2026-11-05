@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.11.1 (2026-11-05)
+
+- 同步 Email 0.22.1：适配 VPN 的 Fake-IP 解析，通过加密 DNS 验证公网目标并固定连接，图片失败时显示原因。
+- Include Email 0.22.1: verified public downloads on Fake-IP networks and localized image failure reasons. Updates remain optional.
+
 ## 0.11.0 (2026-11-05)
 
 - 同步 Email 0.22.0：IMAP 单封与批量移入废纸篓、明确确认与有条件撤销；安全图文阅读、逐封允许外部图片，以及更完整的原文回复。

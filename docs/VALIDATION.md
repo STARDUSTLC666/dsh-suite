@@ -1,5 +1,7 @@
 # dsh-suite 验证记录
 
+[0.11.1 / 邮件图片与网络](https://github.com/STARDUSTLC666/dsh-email/blob/main/docs/MAILBOX.md)：同步 Fake-IP 兼容与图片错误提示，沿用 18 组件与用户自主更新。
+
 [0.11.0 / 邮件工作流](https://github.com/STARDUSTLC666/dsh-email/blob/main/docs/validation-2026-11-05-mailbox.md)：同步图文、接续回复与 IMAP 废纸篓，沿用 18 组件与用户自主更新。
 
 [0.6.2 / 逐插件复查](validation-2026-10-28-boundaries.md)：20 个独立插件、Suite、官方 rc.4、写确认与 Git 属性边界、真实语音和视频导出，以及受控 AgentMail / Slack 验收范围。
