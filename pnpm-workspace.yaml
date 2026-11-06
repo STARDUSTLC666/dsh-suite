@@ -2,6 +2,7 @@ verifyDepsBeforeRun: false
 packages:
   - packages/*
 minimumReleaseAgeExclude:
+  - dsh-email@0.23.0
   - dsh-email@0.22.1
   - dsh-email@0.22.0
   - '@stardustlc/dsh-docker@0.5.9'

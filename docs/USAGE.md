@@ -42,7 +42,7 @@ dsh plugin --profile web remove @stardustlc/dsh-suite
 
 | 产品线 | 组件 | 能力 |
 | :-- | :-- | :-- |
-| 📨 办公流 | dsh-email | IMAP/SMTP 与本地草稿，共 11 工具；可编辑草稿与附件预览、按账号的可信收件人策略、Outlook OAuth2 登录、中英双语多账号设置和发信审批 |
+| 📨 办公流 | dsh-email | IMAP/SMTP 与本地草稿，共 12 工具；安全 HTML 回复/草稿、确认定时发送、Google/Outlook OAuth、企业邮预设与默认关闭的邮件任务 |
 | | dsh-calendar | CalDAV 日程查建改删搜；月/周/议程面板与拖动改期；ICS 文件/文本导入预览、重复与冲突检查、连接和授权引导 |
 | | dsh-rss | RSS/Atom 订阅 + 跨订阅搜索 + 增量抓取；中英双语订阅管理面板、分类筛选、可用性检查与 OPML 导入预览/导出 |
 | | dsh-cite | 中英文文献库：DOI / BibTeX 批量导入、去重、显式 Crossref 补全、四种基本引文格式及原始来源备份 |

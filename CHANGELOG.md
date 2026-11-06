@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.11.3 (2026-11-07)
+
+- 同步 Email 0.23.0：安全 HTML 草稿与回复、中英法引用、可信回复开关、确认定时发送、Google 授权与企业邮预设、默认关闭的邮件任务。
+- Include Email 0.23.0 rich outgoing mail and optional automation. Scheduling requires DSH to stay running; mail tasks and result replies require explicit opt-in. Updates remain optional.
+
 ## 0.11.2 (2026-11-06)
 
 - 同步 RSS 0.9.11：订阅管理使用 DSH 已认证接口，修复新版桌面端移除来源头后无法保存订阅的问题。
