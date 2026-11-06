@@ -1,5 +1,11 @@
 # 更新记录
 
+## 0.11.2 (2026-11-06)
+
+- 同步 RSS 0.9.11：订阅管理使用 DSH 已认证接口，修复新版桌面端移除来源头后无法保存订阅的问题。
+- 同步 Code Security 0.7.11：明确显示保存报告的时间与范围，减少公开元数据的高熵误报，私钥基线绑定完整材料。
+- Include RSS's authenticated desktop subscription fix and Code Security's saved-report context and credential-evidence corrections. Updates remain optional.
+
 ## 0.11.1 (2026-11-05)
 
 - 同步 Email 0.22.1：适配 VPN 的 Fake-IP 解析，通过加密 DNS 验证公网目标并固定连接，图片失败时显示原因。

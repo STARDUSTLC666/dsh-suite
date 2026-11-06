@@ -21,8 +21,8 @@ importers:
         specifier: 0.7.9
         version: 0.7.9
       dsh-code-security:
-        specifier: 0.7.10
-        version: 0.7.10
+        specifier: 0.7.11
+        version: 0.7.11
       dsh-codex-port:
         specifier: 0.4.9
         version: 0.4.9
@@ -51,8 +51,8 @@ importers:
         specifier: 0.10.5
         version: 0.10.5
       dsh-rss:
-        specifier: 0.9.10
-        version: 0.9.10
+        specifier: 0.9.11
+        version: 0.9.11
       dsh-slack:
         specifier: 0.4.9
         version: 0.4.9
@@ -294,8 +294,8 @@ packages:
     resolution: {integrity: sha512-1Ai833BtVoIFWovdNJC1mb17BRSCVeXZx3tXb59pvbsmz8BqCBZcIDOL1X7Tlswy/eNe1aQAZNkUlhVIgFPaqw==}
     engines: {dsh: '>=0.2.1-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  dsh-code-security@0.7.10:
-    resolution: {integrity: sha512-ZY+78/ylpr4BesnW+VvbxjmFaVUPcGie3CdzzdP7PoHFlGmXtTZhL8Jz3OhMyH8ZreZy+3gqIJznJmnxcFY3gw==}
+  dsh-code-security@0.7.11:
+    resolution: {integrity: sha512-dZAoER0Gbh+o8cMY7/ny2N3QzBx6x2bYnShzfVX24t1Q1KMSVx7DzCUsUozCwdo+6nNOSzBnKSQcPEqMvssCCQ==}
     engines: {dsh: '>=0.2.1-rc.3', node: ^22.19.0 || >=24.0.0}
 
   dsh-codex-port@0.4.9:
@@ -339,8 +339,8 @@ packages:
     resolution: {integrity: sha512-3YVWDYIdF8341eMNGgihWeJ9dWpqzebJZEg6qxb1aT+yOJ0eXLpjGgPvCBpKqECggj8Tanblt9KfdU+irO9UlQ==}
     engines: {dsh: '>=0.2.1-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  dsh-rss@0.9.10:
-    resolution: {integrity: sha512-nt/22sFOvRKqjyOBFcA+PBDg9hGj2YvlE9T1eHGKQ16OOjrtypWs/hBZ7xJvWac8A1TfNILJAEln3f4BhR5p2w==}
+  dsh-rss@0.9.11:
+    resolution: {integrity: sha512-L/AZJLIrPXDGQvrcL3MbIq8Vfie0SEJe2ysmcqgZ8B/n3cH6AVJpP8nfLcbtiK0vR5zbWka1V9iHZHkUBeALWg==}
     engines: {dsh: '>=0.2.1-rc.3', node: ^22.19.0 || >=24.0.0}
 
   dsh-slack@0.4.9:
@@ -977,7 +977,7 @@ snapshots:
       '@stardustlc/dsh-updates': 0.1.4
       proper-lockfile: 4.1.2
 
-  dsh-code-security@0.7.10:
+  dsh-code-security@0.7.11:
     dependencies:
       '@babel/parser': 7.29.9
       '@babel/traverse': 7.29.10
@@ -1047,7 +1047,7 @@ snapshots:
       proper-lockfile: 4.1.2
       yaml: 2.9.1
 
-  dsh-rss@0.9.10:
+  dsh-rss@0.9.11:
     dependencies:
       '@deepseek-ai/schemastery': 3.18.3
       '@stardustlc/dsh-updates': 0.1.4
