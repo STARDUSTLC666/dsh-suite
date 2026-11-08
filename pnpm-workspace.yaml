@@ -2,6 +2,10 @@ verifyDepsBeforeRun: false
 packages:
   - packages/*
 minimumReleaseAgeExclude:
+  - dsh-email@0.24.0
+  - '@stardustlc/dsh-dream@0.14.0'
+  - dsh-ffmpeg@0.7.7
+  - dsh-rss@0.9.12
   - dsh-email@0.23.0
   - dsh-email@0.22.1
   - dsh-email@0.22.0

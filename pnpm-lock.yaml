@@ -12,8 +12,8 @@ importers:
         specifier: 0.5.9
         version: 0.5.9
       '@stardustlc/dsh-dream':
-        specifier: 0.13.9
-        version: 0.13.9
+        specifier: 0.14.0
+        version: 0.14.0
       dsh-calendar:
         specifier: 0.14.5
         version: 0.14.5
@@ -30,11 +30,11 @@ importers:
         specifier: 0.3.9
         version: 0.3.9
       dsh-email:
-        specifier: 0.23.0
-        version: 0.23.0
+        specifier: 0.24.0
+        version: 0.24.0
       dsh-ffmpeg:
-        specifier: 0.7.6
-        version: 0.7.6
+        specifier: 0.7.7
+        version: 0.7.7
       dsh-flakefinder:
         specifier: 0.4.10
         version: 0.4.10
@@ -51,8 +51,8 @@ importers:
         specifier: 0.10.5
         version: 0.10.5
       dsh-rss:
-        specifier: 0.9.11
-        version: 0.9.11
+        specifier: 0.9.12
+        version: 0.9.12
       dsh-slack:
         specifier: 0.4.9
         version: 0.4.9
@@ -195,8 +195,8 @@ packages:
     resolution: {integrity: sha512-dhMCHcnRfdrAJW4CFim4lDfrLT7NntqD5OJeX5mJFtRJH9Mp1yPAn+vCMC6KTfXaHdctxUKDbBNn7AOYK+I8fg==}
     engines: {dsh: '>=0.2.1-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  '@stardustlc/dsh-dream@0.13.9':
-    resolution: {integrity: sha512-lvlNi4t8qgxwsLQo5ayEQ4eZZOr3rVQjXTW/3AggDQV6xtWyuCleBCnsxqalvvWK9MQSXHe4j3EevXq4JdNG3g==}
+  '@stardustlc/dsh-dream@0.14.0':
+    resolution: {integrity: sha512-S9BoXisSJFr+/wjE+wCuUjdPg03wtDC2rm97eaxkZGEpYvbQzOVH260Vx5KBxPWeKbp1XtHG4xfMyoqWu5XsOg==}
     engines: {dsh: '>=0.2.1-rc.3', node: ^22.19.0 || >=24.0.0}
 
   '@stardustlc/dsh-updates@0.1.4':
@@ -306,13 +306,13 @@ packages:
     resolution: {integrity: sha512-0rgtLPoYnsA0FdTs5EAFDnKyskDy/Rx0YgfyJl9ny3kac5DwvD5+xVUH4+0tXkpDYU4x3Vi87qzLicFaEtvSNw==}
     engines: {dsh: '>=0.2.1-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  dsh-email@0.23.0:
-    resolution: {integrity: sha512-K+C/3LTF6ESth4Ds+mlQ2x2zJAxTV1UCeapfICR3f7bVld1MKX0OukiQU95XvKCfTYEBuIE312EccPKtu/1EFg==}
+  dsh-email@0.24.0:
+    resolution: {integrity: sha512-lg3sjDjcDj8k6V4778yJf3zi7vbi9pyvogYFlXBXSBUP+AVBFg0Whb/5pZkIRNwIZ24aqIkU7LPCIuH3ZAfztg==}
     engines: {dsh: '>=0.2.1-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  dsh-ffmpeg@0.7.6:
-    resolution: {integrity: sha512-EQMUDeL8wTgZC4VV1+2Ct5MRXEQpNKx0UAtoOT8bwLJXJp2P9SBAmW6fbkzqlSD23CO6EpiI9kh8wgXqqNURdA==}
-    engines: {dsh: '>=0.2.1-rc.3', node: ^22.19.0 || >=24.0.0}
+  dsh-ffmpeg@0.7.7:
+    resolution: {integrity: sha512-1n+z7U3UqHtaXMEgpHpqQ1aMWBFWQXRbVJUnJHAbSZGwQLYZHSrRPUk+TDo4Ew/YkBcZBiYAAjMWr0e8kE7qkQ==}
+    engines: {dsh: '>=0.2.1-rc.2', node: ^22.19.0 || >=24.0.0}
 
   dsh-flakefinder@0.4.10:
     resolution: {integrity: sha512-fKvplcRDliyKH3NL3HKTz8d6m6CWLxYAlpXdPSgBJzeTa3OjQaIRb7TLCeN4gm3YKudHmHW1AJNfT5oECpJICw==}
@@ -339,8 +339,8 @@ packages:
     resolution: {integrity: sha512-3YVWDYIdF8341eMNGgihWeJ9dWpqzebJZEg6qxb1aT+yOJ0eXLpjGgPvCBpKqECggj8Tanblt9KfdU+irO9UlQ==}
     engines: {dsh: '>=0.2.1-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  dsh-rss@0.9.11:
-    resolution: {integrity: sha512-L/AZJLIrPXDGQvrcL3MbIq8Vfie0SEJe2ysmcqgZ8B/n3cH6AVJpP8nfLcbtiK0vR5zbWka1V9iHZHkUBeALWg==}
+  dsh-rss@0.9.12:
+    resolution: {integrity: sha512-GeLNTHC1lfsxON/bS+vsew3FcGKbNY3S1oxlPDfpEa1UDRnY3ySWE+kCO/y2AAPXrHDkRyjty/4jkAQNy2zmNA==}
     engines: {dsh: '>=0.2.1-rc.3', node: ^22.19.0 || >=24.0.0}
 
   dsh-slack@0.4.9:
@@ -875,7 +875,7 @@ snapshots:
     dependencies:
       '@stardustlc/dsh-updates': 0.1.4
 
-  '@stardustlc/dsh-dream@0.13.9':
+  '@stardustlc/dsh-dream@0.14.0':
     dependencies:
       '@stardustlc/dsh-updates': 0.1.4
 
@@ -997,7 +997,7 @@ snapshots:
     dependencies:
       '@stardustlc/dsh-updates': 0.1.4
 
-  dsh-email@0.23.0:
+  dsh-email@0.24.0:
     dependencies:
       '@deepseek-ai/schemastery': 3.18.3
       '@stardustlc/dsh-updates': 0.1.4
@@ -1012,7 +1012,7 @@ snapshots:
       socks: 2.8.10
       yaml: 2.9.1
 
-  dsh-ffmpeg@0.7.6:
+  dsh-ffmpeg@0.7.7:
     dependencies:
       '@stardustlc/dsh-updates': 0.1.4
 
@@ -1047,7 +1047,7 @@ snapshots:
       proper-lockfile: 4.1.2
       yaml: 2.9.1
 
-  dsh-rss@0.9.11:
+  dsh-rss@0.9.12:
     dependencies:
       '@deepseek-ai/schemastery': 3.18.3
       '@stardustlc/dsh-updates': 0.1.4

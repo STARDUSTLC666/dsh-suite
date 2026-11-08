@@ -1,5 +1,11 @@
 # 更新记录
 
+## 0.11.4 (2026-11-08)
+
+- 同步 Email 0.24.0 的账号保护与确认式文件夹管理、Dream 0.14.0 的可信反向代理、FFmpeg 0.7.7 的 DSH 0.2.1-rc.2 兼容，以及 RSS 0.9.12 的官方英文来源与收录规则。
+- 其余 14 个组件版本保持不变，仍为 18 个独立插件的组合安装；各插件的更新由用户选择，不强制安装。
+- Pin Email 0.24.0, Dream 0.14.0, FFmpeg 0.7.7 and RSS 0.9.12. Keep the other 14 components and optional-update behavior unchanged.
+
 ## 0.11.3 (2026-11-07)
 
 - 同步 Email 0.23.0：安全 HTML 草稿与回复、中英法引用、可信回复开关、确认定时发送、Google 授权与企业邮预设、默认关闭的邮件任务。
