@@ -57,11 +57,11 @@ Enable only the suite bundle in the profile; it loads the components. Each compo
 
 This version synchronizes independent update controls across all 18 components. Nine native workbenches retain host language, theme, narrow-window support and edit protection; the remaining components provide controls in their own settings sections. Components remain independently installable.
 
-Requires official DSH **0.2.1-rc.3 or newer**; this round was checked on **0.2.1-rc.4**. See the [workbench guide](docs/WORKBENCH_UI.md) and [validation record](docs/validation-2026-10-28-boundaries.md) for actual-operation boundaries. Review and Computer Use remain separate plugins outside this bundle's 18 components.
+Requires official DSH **0.2.2-rc.3 or newer**; this round checked 0.2.2-rc.3 at the adaptation level (loading, contracts and offline tests, not the previous full Web walkthrough), recorded [here](docs/validation-2026-11-14-rc3.md). See the [workbench guide](docs/WORKBENCH_UI.md) and the earlier [validation record](docs/validation-2026-10-28-boundaries.md) for actual-operation boundaries. Review and Computer Use remain separate plugins outside this bundle's 18 components.
 
 ### Compatibility and mixed installs
 
-- Requires official DSH 0.2.1-rc.3 or newer. On an older host the components still load, but the update control at the bottom of the page is absent: upgrade DSH first, then reopen the plugin details.
+- Requires official DSH 0.2.2-rc.3 or newer. On an older host the components still load, but the update control at the bottom of the page is absent: upgrade DSH first, then reopen the plugin details.
 - Suite pins component versions and updates them as one bundle; the footer on any component page acts on the whole Suite.
 - Components can also be installed and updated independently. Do not install the same component both ways: the profile ends up with a duplicate loader entry (`duplicate loader entry id`); see the [migration steps](docs/USAGE.en.md#migrate-an-older-suite-installation).
 - When a new release does not match this environment (a newer DSH or Node.js is required, for example), the footer states the reason and the current version keeps working; check again after upgrading.
@@ -70,7 +70,7 @@ Detailed configuration, tool arguments and troubleshooting are in the [usage gui
 
 ## Plugin updates
 
-Requires DSH 0.2.1-rc.3 or newer. Update controls sit at the bottom of the existing workbench, or native plugin details for plugins without a workbench. Checks, release notes and preferences expand in place, with no separate update page or settings menu. Automatic checks are on by default; **automatic installation is off by default**. Only explicit opt-in permits compatible stable patches while idle with no unsaved changes. Preferences are independent, with per-plugin disable, deferral and ignore controls. No forced DSH restart or upgrade, and local-source installations stay unchanged. Suite components explain and operate on the whole Suite in the same footer.
+Requires DSH 0.2.2-rc.3 or newer. Update controls sit at the bottom of the existing workbench, or native plugin details for plugins without a workbench. Checks, release notes and preferences expand in place, with no separate update page or settings menu. Automatic checks are on by default; **automatic installation is off by default**. Only explicit opt-in permits compatible stable patches while idle with no unsaved changes. Preferences are independent, with per-plugin disable, deferral and ignore controls. No forced DSH restart or upgrade, and local-source installations stay unchanged. Suite components explain and operate on the whole Suite in the same footer.
 
 Older Suite releases need one manual update in native plugin management to acquire these controls.
 

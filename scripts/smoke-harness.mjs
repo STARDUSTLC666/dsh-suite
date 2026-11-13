@@ -238,7 +238,7 @@ try {
   assert.deepEqual(registry.tools.filter(name => !registry.presetRuntime.registeredTools.includes(name)), [], 'The preset lost installed plugin tools')
   assert.ok(registry.presetRuntime.registeredTools.includes('bash'), 'Minimal PTC is missing its shell tool')
   if (hasSchedulingModule) {
-    for (const name of ['schedule_create', 'schedule_list', 'schedule_update', 'schedule_delete']) {
+    for (const name of ['schedule_create', 'schedule_list', 'schedule_view', 'schedule_edit']) {
       assert.ok(registry.presetRuntime.registeredTools.includes(name), 'Minimal PTC lost the official scheduling tool: ' + name)
     }
   }

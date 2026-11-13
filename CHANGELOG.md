@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.11.5 (2026-11-14)
+
+- 适配 DSH 0.2.2-rc.3：预设同步子代理配置，冒烟脚本断言官方 `schedule_create` / `schedule_list` / `schedule_view` / `schedule_edit`；组件固定到本次 0.2.2-rc.3 兼容版本，最低 Harness 声明提升至 0.2.2-rc.3。
+- Support DSH 0.2.2-rc.3: sync the preset delegation rows, assert the official `schedule_create` / `schedule_list` / `schedule_view` / `schedule_edit` tools in the smoke script, pin the components to this 0.2.2-rc.3 round and raise the minimum Harness declaration to 0.2.2-rc.3.
+
 ## 0.11.4 (2026-11-08)
 
 - 同步 Email 0.24.0 的账号保护与确认式文件夹管理、Dream 0.14.0 的可信反向代理、FFmpeg 0.7.7 的 DSH 0.2.1-rc.2 兼容，以及 RSS 0.9.12 的官方英文来源与收录规则。
