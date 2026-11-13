@@ -1,432 +1,432 @@
 {
   "schemaVersion": 3,
-  "source": "https://api.npmjs.org/downloads/point/2026-10-13:2026-11-11/",
+  "source": "https://api.npmjs.org/downloads/point/2026-10-14:2026-11-12/",
   "window": {
-    "start": "2026-10-13",
-    "end": "2026-11-11"
+    "start": "2026-10-14",
+    "end": "2026-11-12"
   },
-  "refreshedAt": "2026-11-12T12:59:09.892Z",
+  "refreshedAt": "2026-11-13T12:24:47.411Z",
   "entries": {
     "dsh-calendar": {
-      "downloads": 7272,
+      "downloads": 7288,
       "package": "dsh-calendar",
-      "start": "2026-10-13",
-      "end": "2026-11-11"
+      "start": "2026-10-14",
+      "end": "2026-11-12"
     },
     "dsh-cite": {
-      "downloads": 8885,
+      "downloads": 8874,
       "package": "dsh-cite",
-      "start": "2026-10-13",
-      "end": "2026-11-11"
+      "start": "2026-10-14",
+      "end": "2026-11-12"
     },
     "dsh-code-security": {
-      "downloads": 5824,
+      "downloads": 5798,
       "package": "dsh-code-security",
-      "start": "2026-10-13",
-      "end": "2026-11-11"
+      "start": "2026-10-14",
+      "end": "2026-11-12"
     },
     "dsh-codex-port": {
-      "downloads": 4794,
+      "downloads": 4798,
       "package": "dsh-codex-port",
-      "start": "2026-10-13",
-      "end": "2026-11-11"
+      "start": "2026-10-14",
+      "end": "2026-11-12"
     },
     "dsh-computer-use": {
-      "downloads": 4024,
+      "downloads": 4098,
       "package": "deepseek-computer-use",
-      "start": "2026-10-13",
-      "end": "2026-11-11"
+      "start": "2026-10-14",
+      "end": "2026-11-12"
     },
     "dsh-dingtalk": {
-      "downloads": 4414,
+      "downloads": 4409,
       "package": "dsh-dingtalk",
-      "start": "2026-10-13",
-      "end": "2026-11-11"
+      "start": "2026-10-14",
+      "end": "2026-11-12"
     },
     "dsh-docker": {
-      "downloads": 4779,
-      "start": "2026-10-13",
-      "end": "2026-11-11",
+      "downloads": 4756,
+      "start": "2026-10-14",
+      "end": "2026-11-12",
       "package": "@stardustlc/dsh-docker"
     },
     "dsh-dream": {
-      "downloads": 6769,
-      "start": "2026-10-13",
-      "end": "2026-11-11",
+      "downloads": 6782,
+      "start": "2026-10-14",
+      "end": "2026-11-12",
       "package": "@stardustlc/dsh-dream"
     },
     "dsh-email": {
-      "downloads": 12028,
+      "downloads": 12202,
       "package": "dsh-email",
-      "start": "2026-10-13",
-      "end": "2026-11-11"
+      "start": "2026-10-14",
+      "end": "2026-11-12"
     },
     "dsh-ffmpeg": {
-      "downloads": 13753,
+      "downloads": 13903,
       "package": "dsh-ffmpeg",
-      "start": "2026-10-13",
-      "end": "2026-11-11"
+      "start": "2026-10-14",
+      "end": "2026-11-12"
     },
     "dsh-flakefinder": {
-      "downloads": 4991,
+      "downloads": 5041,
       "package": "dsh-flakefinder",
-      "start": "2026-10-13",
-      "end": "2026-11-11"
+      "start": "2026-10-14",
+      "end": "2026-11-12"
     },
     "dsh-hyperframes": {
-      "downloads": 13109,
+      "downloads": 13189,
       "package": "dsh-hyperframes",
-      "start": "2026-10-13",
-      "end": "2026-11-11"
+      "start": "2026-10-14",
+      "end": "2026-11-12"
     },
     "dsh-minimal-ptc": {
-      "downloads": 4970,
+      "downloads": 4957,
       "package": "dsh-minimal-ptc",
-      "start": "2026-10-13",
-      "end": "2026-11-11"
+      "start": "2026-10-14",
+      "end": "2026-11-12"
     },
     "dsh-ppt": {
-      "downloads": 30792,
+      "downloads": 30961,
       "package": "dsh-ppt",
-      "start": "2026-10-13",
-      "end": "2026-11-11"
+      "start": "2026-10-14",
+      "end": "2026-11-12"
     },
     "dsh-remotion": {
-      "downloads": 14436,
+      "downloads": 14520,
       "package": "dsh-remotion",
-      "start": "2026-10-13",
-      "end": "2026-11-11"
+      "start": "2026-10-14",
+      "end": "2026-11-12"
     },
     "dsh-rss": {
-      "downloads": 6214,
+      "downloads": 6193,
       "package": "dsh-rss",
-      "start": "2026-10-13",
-      "end": "2026-11-11"
+      "start": "2026-10-14",
+      "end": "2026-11-12"
     },
     "dsh-review": {
-      "downloads": 4037,
-      "start": "2026-10-13",
-      "end": "2026-11-11",
+      "downloads": 4145,
+      "start": "2026-10-14",
+      "end": "2026-11-12",
       "package": "@stardustlc/dsh-review"
     },
     "dsh-slack": {
-      "downloads": 4520,
+      "downloads": 4504,
       "package": "dsh-slack",
-      "start": "2026-10-13",
-      "end": "2026-11-11"
+      "start": "2026-10-14",
+      "end": "2026-11-12"
     },
     "dsh-sql": {
-      "downloads": 5577,
+      "downloads": 5605,
       "package": "dsh-sql",
-      "start": "2026-10-13",
-      "end": "2026-11-11"
+      "start": "2026-10-14",
+      "end": "2026-11-12"
     },
     "dsh-suite": {
-      "downloads": 8046,
-      "start": "2026-10-13",
-      "end": "2026-11-11",
+      "downloads": 8047,
+      "start": "2026-10-14",
+      "end": "2026-11-12",
       "package": "@stardustlc/dsh-suite"
     },
     "dsh-voice": {
-      "downloads": 10195,
+      "downloads": 10297,
       "package": "dsh-voice",
-      "start": "2026-10-13",
-      "end": "2026-11-11"
+      "start": "2026-10-14",
+      "end": "2026-11-12"
     }
   },
   "retained": [],
   "totals": {
-    "dsh-codex-port": {
-      "package": "dsh-codex-port",
-      "downloads": 8687,
-      "start": "2026-08-14",
-      "end": "2026-11-11",
-      "createdAt": "2026-08-14T19:57:35.210Z",
+    "dsh-calendar": {
+      "package": "dsh-calendar",
+      "downloads": 19438,
+      "start": "2026-08-13",
+      "end": "2026-11-12",
+      "createdAt": "2026-08-13T22:51:45.184Z",
       "segments": [
         {
-          "start": "2026-08-14",
-          "end": "2026-11-11",
-          "downloads": 8687
-        }
-      ]
-    },
-    "dsh-cite": {
-      "package": "dsh-cite",
-      "downloads": 15141,
-      "start": "2026-08-16",
-      "end": "2026-11-11",
-      "createdAt": "2026-08-16T05:17:57.012Z",
-      "segments": [
-        {
-          "start": "2026-08-16",
-          "end": "2026-11-11",
-          "downloads": 15141
+          "start": "2026-08-13",
+          "end": "2026-11-12",
+          "downloads": 19438
         }
       ]
     },
     "dsh-code-security": {
       "package": "dsh-code-security",
-      "downloads": 9872,
+      "downloads": 9965,
       "start": "2026-08-16",
-      "end": "2026-11-11",
+      "end": "2026-11-12",
       "createdAt": "2026-08-16T09:57:40.692Z",
       "segments": [
         {
           "start": "2026-08-16",
-          "end": "2026-11-11",
-          "downloads": 9872
+          "end": "2026-11-12",
+          "downloads": 9965
         }
       ]
     },
-    "dsh-calendar": {
-      "package": "dsh-calendar",
-      "downloads": 19300,
-      "start": "2026-08-13",
-      "end": "2026-11-11",
-      "createdAt": "2026-08-13T22:51:45.184Z",
+    "dsh-cite": {
+      "package": "dsh-cite",
+      "downloads": 15332,
+      "start": "2026-08-16",
+      "end": "2026-11-12",
+      "createdAt": "2026-08-16T05:17:57.012Z",
       "segments": [
         {
-          "start": "2026-08-13",
-          "end": "2026-11-11",
-          "downloads": 19300
+          "start": "2026-08-16",
+          "end": "2026-11-12",
+          "downloads": 15332
+        }
+      ]
+    },
+    "dsh-codex-port": {
+      "package": "dsh-codex-port",
+      "downloads": 8777,
+      "start": "2026-08-14",
+      "end": "2026-11-12",
+      "createdAt": "2026-08-14T19:57:35.210Z",
+      "segments": [
+        {
+          "start": "2026-08-14",
+          "end": "2026-11-12",
+          "downloads": 8777
         }
       ]
     },
     "dsh-computer-use": {
       "package": "deepseek-computer-use",
-      "downloads": 4024,
+      "downloads": 4098,
       "start": "2026-10-18",
-      "end": "2026-11-11",
+      "end": "2026-11-12",
       "createdAt": "2026-10-18T01:54:03.171Z",
       "segments": [
         {
           "start": "2026-10-18",
-          "end": "2026-11-11",
-          "downloads": 4024
+          "end": "2026-11-12",
+          "downloads": 4098
+        }
+      ]
+    },
+    "dsh-email": {
+      "package": "dsh-email",
+      "downloads": 24715,
+      "start": "2026-08-13",
+      "end": "2026-11-12",
+      "createdAt": "2026-08-13T20:25:23.798Z",
+      "segments": [
+        {
+          "start": "2026-08-13",
+          "end": "2026-11-12",
+          "downloads": 24715
         }
       ]
     },
     "dsh-dingtalk": {
       "package": "dsh-dingtalk",
-      "downloads": 7411,
+      "downloads": 7487,
       "start": "2026-08-13",
-      "end": "2026-11-11",
+      "end": "2026-11-12",
       "createdAt": "2026-08-13T22:50:11.179Z",
       "segments": [
         {
           "start": "2026-08-13",
-          "end": "2026-11-11",
-          "downloads": 7411
+          "end": "2026-11-12",
+          "downloads": 7487
         }
       ]
     },
     "dsh-docker": {
       "package": "@stardustlc/dsh-docker",
-      "downloads": 8371,
+      "downloads": 8444,
       "start": "2026-08-16",
-      "end": "2026-11-11",
+      "end": "2026-11-12",
       "createdAt": "2026-08-16T05:41:57.133Z",
       "segments": [
         {
           "start": "2026-08-16",
-          "end": "2026-11-11",
-          "downloads": 8371
-        }
-      ]
-    },
-    "dsh-email": {
-      "package": "dsh-email",
-      "downloads": 24381,
-      "start": "2026-08-13",
-      "end": "2026-11-11",
-      "createdAt": "2026-08-13T20:25:23.798Z",
-      "segments": [
-        {
-          "start": "2026-08-13",
-          "end": "2026-11-11",
-          "downloads": 24381
-        }
-      ]
-    },
-    "dsh-ffmpeg": {
-      "package": "dsh-ffmpeg",
-      "downloads": 20810,
-      "start": "2026-08-14",
-      "end": "2026-11-11",
-      "createdAt": "2026-08-14T19:36:36.660Z",
-      "segments": [
-        {
-          "start": "2026-08-14",
-          "end": "2026-11-11",
-          "downloads": 20810
+          "end": "2026-11-12",
+          "downloads": 8444
         }
       ]
     },
     "dsh-dream": {
       "package": "@stardustlc/dsh-dream",
-      "downloads": 10881,
+      "downloads": 10990,
       "start": "2026-08-31",
-      "end": "2026-11-11",
+      "end": "2026-11-12",
       "createdAt": "2026-08-31T11:59:21.654Z",
       "segments": [
         {
           "start": "2026-08-31",
-          "end": "2026-11-11",
-          "downloads": 10881
-        }
-      ]
-    },
-    "dsh-hyperframes": {
-      "package": "dsh-hyperframes",
-      "downloads": 19886,
-      "start": "2026-08-14",
-      "end": "2026-11-11",
-      "createdAt": "2026-08-14T20:42:53.748Z",
-      "segments": [
-        {
-          "start": "2026-08-14",
-          "end": "2026-11-11",
-          "downloads": 19886
+          "end": "2026-11-12",
+          "downloads": 10990
         }
       ]
     },
     "dsh-flakefinder": {
       "package": "dsh-flakefinder",
-      "downloads": 8634,
+      "downloads": 8771,
       "start": "2026-08-16",
-      "end": "2026-11-11",
+      "end": "2026-11-12",
       "createdAt": "2026-08-16T05:17:31.554Z",
       "segments": [
         {
           "start": "2026-08-16",
-          "end": "2026-11-11",
-          "downloads": 8634
+          "end": "2026-11-12",
+          "downloads": 8771
+        }
+      ]
+    },
+    "dsh-ffmpeg": {
+      "package": "dsh-ffmpeg",
+      "downloads": 21155,
+      "start": "2026-08-14",
+      "end": "2026-11-12",
+      "createdAt": "2026-08-14T19:36:36.660Z",
+      "segments": [
+        {
+          "start": "2026-08-14",
+          "end": "2026-11-12",
+          "downloads": 21155
         }
       ]
     },
     "dsh-minimal-ptc": {
       "package": "dsh-minimal-ptc",
-      "downloads": 9072,
+      "downloads": 9141,
       "start": "2026-08-16",
-      "end": "2026-11-11",
+      "end": "2026-11-12",
       "createdAt": "2026-08-16T13:30:27.672Z",
       "segments": [
         {
           "start": "2026-08-16",
-          "end": "2026-11-11",
-          "downloads": 9072
+          "end": "2026-11-12",
+          "downloads": 9141
         }
       ]
     },
     "dsh-ppt": {
       "package": "dsh-ppt",
-      "downloads": 47625,
+      "downloads": 48503,
       "start": "2026-08-16",
-      "end": "2026-11-11",
+      "end": "2026-11-12",
       "createdAt": "2026-08-16T05:16:59.034Z",
       "segments": [
         {
           "start": "2026-08-16",
-          "end": "2026-11-11",
-          "downloads": 47625
+          "end": "2026-11-12",
+          "downloads": 48503
+        }
+      ]
+    },
+    "dsh-hyperframes": {
+      "package": "dsh-hyperframes",
+      "downloads": 20196,
+      "start": "2026-08-14",
+      "end": "2026-11-12",
+      "createdAt": "2026-08-14T20:42:53.748Z",
+      "segments": [
+        {
+          "start": "2026-08-14",
+          "end": "2026-11-12",
+          "downloads": 20196
         }
       ]
     },
     "dsh-remotion": {
       "package": "dsh-remotion",
-      "downloads": 21222,
+      "downloads": 21538,
       "start": "2026-08-14",
-      "end": "2026-11-11",
+      "end": "2026-11-12",
       "createdAt": "2026-08-14T20:42:23.205Z",
       "segments": [
         {
           "start": "2026-08-14",
-          "end": "2026-11-11",
-          "downloads": 21222
+          "end": "2026-11-12",
+          "downloads": 21538
         }
       ]
     },
     "dsh-rss": {
       "package": "dsh-rss",
-      "downloads": 10943,
+      "downloads": 11014,
       "start": "2026-08-14",
-      "end": "2026-11-11",
+      "end": "2026-11-12",
       "createdAt": "2026-08-14T11:41:08.716Z",
       "segments": [
         {
           "start": "2026-08-14",
-          "end": "2026-11-11",
-          "downloads": 10943
-        }
-      ]
-    },
-    "dsh-sql": {
-      "package": "dsh-sql",
-      "downloads": 10033,
-      "start": "2026-08-16",
-      "end": "2026-11-11",
-      "createdAt": "2026-08-16T05:16:46.160Z",
-      "segments": [
-        {
-          "start": "2026-08-16",
-          "end": "2026-11-11",
-          "downloads": 10033
+          "end": "2026-11-12",
+          "downloads": 11014
         }
       ]
     },
     "dsh-review": {
       "package": "@stardustlc/dsh-review",
-      "downloads": 4037,
+      "downloads": 4145,
       "start": "2026-10-17",
-      "end": "2026-11-11",
+      "end": "2026-11-12",
       "createdAt": "2026-10-17T13:54:38.664Z",
       "segments": [
         {
           "start": "2026-10-17",
-          "end": "2026-11-11",
-          "downloads": 4037
+          "end": "2026-11-12",
+          "downloads": 4145
+        }
+      ]
+    },
+    "dsh-sql": {
+      "package": "dsh-sql",
+      "downloads": 10168,
+      "start": "2026-08-16",
+      "end": "2026-11-12",
+      "createdAt": "2026-08-16T05:16:46.160Z",
+      "segments": [
+        {
+          "start": "2026-08-16",
+          "end": "2026-11-12",
+          "downloads": 10168
         }
       ]
     },
     "dsh-slack": {
       "package": "dsh-slack",
-      "downloads": 8265,
+      "downloads": 8338,
       "start": "2026-08-13",
-      "end": "2026-11-11",
+      "end": "2026-11-12",
       "createdAt": "2026-08-13T22:50:23.644Z",
       "segments": [
         {
           "start": "2026-08-13",
-          "end": "2026-11-11",
-          "downloads": 8265
+          "end": "2026-11-12",
+          "downloads": 8338
         }
       ]
     },
     "dsh-voice": {
       "package": "dsh-voice",
-      "downloads": 16230,
+      "downloads": 16456,
       "start": "2026-08-14",
-      "end": "2026-11-11",
+      "end": "2026-11-12",
       "createdAt": "2026-08-14T20:17:13.460Z",
       "segments": [
         {
           "start": "2026-08-14",
-          "end": "2026-11-11",
-          "downloads": 16230
+          "end": "2026-11-12",
+          "downloads": 16456
         }
       ]
     },
     "dsh-suite": {
       "package": "@stardustlc/dsh-suite",
-      "downloads": 14816,
+      "downloads": 14904,
       "start": "2026-08-31",
-      "end": "2026-11-11",
+      "end": "2026-11-12",
       "createdAt": "2026-08-31T12:33:10.796Z",
       "segments": [
         {
           "start": "2026-08-31",
-          "end": "2026-11-11",
-          "downloads": 14816
+          "end": "2026-11-12",
+          "downloads": 14904
         }
       ]
     }
