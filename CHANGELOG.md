@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.11.6 (2026-11-14)
+
+- 同步 Email 0.26.0，恢复工具发送本地附件，支持账号卡片手填服务器，并为新邮件订阅补充附件标记和重启恢复。
+- Pin Email 0.26.0 for SMTP attachments, editable custom endpoints, attachment hints and restart catch-up.
+
 ## 0.11.5 (2026-11-14)
 
 - 适配 DSH 0.2.2-rc.3：预设同步子代理配置，冒烟脚本断言官方 `schedule_create` / `schedule_list` / `schedule_view` / `schedule_edit`；组件固定到本次 0.2.2-rc.3 兼容版本，最低 Harness 声明提升至 0.2.2-rc.3。
