@@ -10,7 +10,7 @@ Install 18 independent DSH plugins for email, calendars, memory, media and devel
 
 [Download statistics](https://github.com/STARDUSTLC666/dsh-suite/blob/npm-downloads/README.md)
 
-Feedback and contributions are welcome: report [issues](https://github.com/STARDUSTLC666/dsh-suite/issues) or submit [pull requests](https://github.com/STARDUSTLC666/dsh-suite/pulls).
+Feedback is welcome in [issues](https://github.com/STARDUSTLC666/dsh-suite/issues).
 
 0.9.1 gives the bundle and its 18 plugins purpose-made whale-girl icons with distinct function emblems, transparent padding and native list/detail support. Calendar availability suggestions remain included; [availability guide](docs/calendar-availability-2026-10-30.md).
 
