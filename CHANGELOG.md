@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.11.7 (2026-11-16)
+
+- 同步 dsh-ppt 0.20.7，修复 Windows 版 DSH 导出 PPTX 为 PNG 或 PDF 时找不到内置 LibreOffice 引擎的问题。[dsh-ppt #8](https://github.com/STARDUSTLC666/dsh-ppt/issues/8)
+- Include dsh-ppt 0.20.7 so the Windows desktop app can export slides to PNG and PDF with its bundled LibreOffice engine.
+
 ## 0.11.6 (2026-11-14)
 
 - 同步 Email 0.26.0，恢复工具发送本地附件，支持账号卡片手填服务器，并为新邮件订阅补充附件标记和重启恢复。
