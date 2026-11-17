@@ -115,13 +115,13 @@ test('legacy-first loading hands over one controller after its current install a
   vm.runInContext(source, context)
   const effects = [], root = { plugin(definition) { const cleanup = []; definition.apply({ effect(fn) { cleanup.push(fn()) } }); return { async dispose() { for (const fn of cleanup) await fn?.() } } } }
   let oldDisposed = 0, newStarted = 0
-  const oldRef = {}, old = { refs: new Map([[oldRef, { name: 'legacy' }]]), alive: true, hold: true, uiRevision: 3, fiber: { async dispose() { oldDisposed++; old.alive = false; context[Symbol.for('stardustlc.plugin-updates.client.v1')].delete(root) } } }
+  const oldRef = {}, old = { refs: new Map([[oldRef, { name: 'legacy' }]]), alive: true, hold: true, uiRevision: 4, fiber: { async dispose() { oldDisposed++; old.alive = false; context[Symbol.for('stardustlc.plugin-updates.client.v1')].delete(root) } } }
   const pools = new WeakMap([[root, old]]); context[Symbol.for('stardustlc.plugin-updates.client.v1')] = pools
   context.__stardustUpdatesClient = () => { newStarted++; return { dispose() {} } }
   context.__stardustUpdatesJoin({ root, effect(fn) { effects.push(fn()) } }, {}, () => {}, { name: 'dsh-cite', version: VERSION })
   await Promise.resolve(); assert.equal(oldDisposed, 0); old.hold = false
   await old.migration
-  assert.equal(oldDisposed, 1); assert.equal(newStarted, 1); assert.equal(pools.get(root), old); assert.equal(old.uiRevision, 4)
+  assert.equal(oldDisposed, 1); assert.equal(newStarted, 1); assert.equal(pools.get(root), old); assert.equal(old.uiRevision, 5)
   assert.equal(old.refs.has(oldRef), true); assert.equal(old.refs.size, 2)
   effects.forEach(fn => fn()); assert.equal(old.refs.size, 1)
 })
@@ -278,6 +278,13 @@ test('Suite-only inventory keeps transitive component entries attached while Sui
   assert.equal(view.rows.length, 2)
   assert.equal(view.rows[1].name, 'dsh-cite')
   assert.equal(view.rows[1].bundledBy, '@stardustlc/dsh-suite')
+})
+
+test('footer includes subtle non-intrusive GitHub star and component issue links', async () => {
+  const source = await readFile(new URL('../lib/ui-client.js', import.meta.url), 'utf8')
+  assert.match(source, /https:\/\/github\.com\/STARDUSTLC666\//)
+  assert.match(source, /Star dsh-suite on GitHub/)
+  assert.match(source, /ownRepo \+ '\/issues'/)
 })
 
 test('alpha.3 settings icons match section ids, preserve page registration and dispose with their scope', () => {
