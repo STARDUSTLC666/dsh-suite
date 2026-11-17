@@ -43,7 +43,11 @@ test('package.json 元数据：许可证/关键词/入口', () => {
   assert.equal(pkg.name, '@stardustlc/dsh-suite')
   assert.equal(pkg.license, 'MIT')
   assert.ok(pkg.keywords.includes('dsh-plugin'))
+  assert.equal(pkg.dsh.manifestVersion, 1)
   assert.deepEqual(pkg.dsh.bundle.patch, ['./cordis.patch.yml', './ptc-minimal.patch.yml'])
+  assert.equal(pkg.exports['./locale/*.json'], './locale/*.json')
+  assert.ok(existsSync(join(root, 'locale/zh.json')))
+  assert.ok(existsSync(join(root, 'locale/en.json')))
 })
 
 test('README 双语文档齐备', () => {

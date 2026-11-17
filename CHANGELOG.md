@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.11.10 (2026-11-18)
+
+- 同步全部 18 个套件组件至最新 DSH 0.2.2 深度适配版本：9 个工作台升级动态五风格视觉体系（编辑暖纸、线性暗黑、玻璃拟态、新粗野、高对比无障碍），全部组件补齐双语元数据与 Cordis 4 `ctx.effect` 热重载生命周期清理。
+- Update all 18 bundled components to their latest DSH 0.2.2 releases: 9 UI workbenches gain the 5-style dynamic theme system (Editorial Paper, Linear Dark, Glass Studio, Neo-Brutalist, Accessible High-Contrast), and all components include bilingual locale metadata and Cordis 4 `ctx.effect` hot-reload cleanup.
+
 ## 0.11.9 (2026-11-17)
 
 - 同步日历 0.17.0，支持发现 iCloud 日历和从文字或截图填写日程草稿，并修复顶栏选中状态的对齐。
