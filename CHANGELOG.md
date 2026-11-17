@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.11.11 (2026-11-18)
+
+- 同步全部 18 个组件至集成 `@stardustlc/dsh-updates` 0.2.1 的补丁版本：恢复 Suite 整包统一更新（移除「切换为独立安装」拆包迁移），保留整包与独立插件的原地热更新与失败自动回滚，检查间隔恢复为每天最多一次。
+- Sync all 18 bundled components to their `@stardustlc/dsh-updates` 0.2.1 patch releases: restore unified whole-Suite updates (removing the standalone conversion flow), retain in-place hot reload and automatic rollback, and restore the once-daily background check interval.
+
 ## 0.11.10 (2026-11-18)
 
 - 同步全部 18 个套件组件至最新 DSH 0.2.2 深度适配版本：9 个工作台升级动态五风格视觉体系（编辑暖纸、线性暗黑、玻璃拟态、新粗野、高对比无障碍），全部组件补齐双语元数据与 Cordis 4 `ctx.effect` 热重载生命周期清理。
