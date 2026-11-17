@@ -3,6 +3,7 @@ import { createRequire } from 'node:module'
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs'
 import { resolve, join } from 'node:path'
 import { pathToFileURL } from 'node:url'
+import { isDeepStrictEqual } from 'node:util'
 const require = createRequire(new URL('../download-badges/package.json', import.meta.url))
 const { makeBadge } = require('badge-maker')
 export const packages = [
@@ -18,13 +19,18 @@ export const packages = [
   ['dsh-slack', 'dsh-slack'], ['dsh-sql', 'dsh-sql'],
   ['dsh-suite', '@stardustlc/dsh-suite'], ['dsh-voice', 'dsh-voice'],
 ]
-/** Query complete UTC days explicitly; relative aliases can be cached incorrectly. */
+function windowThrough(end) {
+  const start = new Date(end)
+  start.setUTCDate(start.getUTCDate() - 29)
+  return { start: start.toISOString().slice(0, 10), end }
+}
+
+/** Latest possible complete UTC window, before checking npm data availability. */
 export function countWindow(now = new Date()) {
   const end = new Date(now)
   if (!Number.isFinite(end.getTime())) throw new Error('Invalid statistics clock')
   end.setUTCHours(0, 0, 0, 0); end.setUTCDate(end.getUTCDate() - 1)
-  const start = new Date(end); start.setUTCDate(start.getUTCDate() - 29)
-  return { start: start.toISOString().slice(0, 10), end: end.toISOString().slice(0, 10) }
+  return windowThrough(end.toISOString().slice(0, 10))
 }
 export function validCount(value, name, expected) {
   const date = value && /^\d{4}-\d{2}-\d{2}$/.test(value.start) && /^\d{4}-\d{2}-\d{2}$/.test(value.end)
@@ -85,10 +91,11 @@ export async function lifetimeCount(name, fetcher, end) {
   return { package: name, downloads, start: windows[0].start, end, createdAt: info.time.created, segments }
 }
 async function request(names, fetcher, period) {
+  const path = names ? period + '/' + names : period
   let last
   for (let attempt = 0; attempt < 3; attempt++) {
     try {
-      const response = await fetcher('https://api.npmjs.org/downloads/point/' + period + '/' + names, { signal: AbortSignal.timeout(20000), headers: { accept: 'application/json' } })
+      const response = await fetcher('https://api.npmjs.org/downloads/point/' + path, { signal: AbortSignal.timeout(20000), headers: { accept: 'application/json' } })
       if (!response.ok) throw new Error('npm statistics HTTP ' + response.status)
       return await response.json()
     } catch (error) {
@@ -98,13 +105,36 @@ async function request(names, fetcher, period) {
   }
   throw last
 }
+
+function isUtcDay(day) {
+  return typeof day === 'string' && Number.isFinite(Date.parse(day)) && new Date(day).toISOString().slice(0, 10) === day
+}
+
+async function publishedDay(fetcher, expectedEnd) {
+  // An explicit date can return a zero before npm has processed that day's logs.
+  const latest = await request('', fetcher, 'last-day')
+  const day = latest?.end
+  if (!isUtcDay(day) || latest.start !== day || day > expectedEnd
+      || !Number.isSafeInteger(latest.downloads) || latest.downloads <= 0) {
+    throw new Error('Invalid npm last available day')
+  }
+  return day
+}
+
 export async function refresh(directory, fetcher = fetch, { now = new Date(), includeTotals = true } = {}) {
-  const window = countWindow(now), period = window.start + ':' + window.end
+  const expectedEnd = countWindow(now).end
+  const availableThrough = await publishedDay(fetcher, expectedEnd)
   const output = resolve(directory), statsFile = join(output, 'downloads.json')
   let previous = { entries: {} }
   if (existsSync(statsFile)) {
-    try { previous = JSON.parse(readFileSync(statsFile, 'utf8')) } catch { /* no unvalidated fallback */ }
+    try { previous = JSON.parse(readFileSync(statsFile, 'utf8')) ?? previous } catch { /* no unvalidated fallback */ }
   }
+  const previousEnd = previous.window?.end
+  if (availableThrough < expectedEnd && isUtcDay(previousEnd) && previousEnd >= availableThrough) {
+    return { pending: true, expectedEnd, availableThrough }
+  }
+
+  const window = windowThrough(availableThrough), period = window.start + ':' + window.end
   const counts = {}, failures = []
   const plain = packages.filter(([, name]) => !name.startsWith('@')).map(([, name]) => name)
   try { Object.assign(counts, await request(plain.join(','), fetcher, period)) } catch (error) { failures.push(error.message) }
@@ -145,7 +175,11 @@ export async function refresh(directory, fetcher = fetch, { now = new Date(), in
   mkdirSync(join(output, 'assets'), { recursive: true })
   for (const [repo] of packages) writeFileSync(join(output, 'assets', repo + '-downloads.svg'), badge(entries[repo]) + '\n')
   if (includeTotals) for (const [repo] of packages) writeFileSync(join(output, 'assets', repo + '-total-downloads.svg'), lifetimeBadge(totals[repo]) + '\n')
-  const report = { schemaVersion: includeTotals ? 3 : 2, source: 'https://api.npmjs.org/downloads/point/' + period + '/', window, refreshedAt: new Date(now).toISOString(), entries, retained, ...(includeTotals ? { totals, totalsRetained } : {}) }
+  const snapshot = { schemaVersion: includeTotals ? 3 : 2, source: 'https://api.npmjs.org/downloads/point/' + period + '/', window, entries, retained, ...(includeTotals ? { totals, totalsRetained } : {}) }
+  const { refreshedAt, ...previousSnapshot } = previous
+  const report = typeof refreshedAt === 'string' && isDeepStrictEqual(previousSnapshot, snapshot)
+    ? previous
+    : { ...snapshot, refreshedAt: new Date(now).toISOString() }
   writeFileSync(statsFile, JSON.stringify(report, null, 2) + '\n')
   if (retained.length) console.warn('Preserved earlier verified statistics for: ' + retained.join(', '))
   for (const message of failures) console.warn(message)
@@ -153,5 +187,9 @@ export async function refresh(directory, fetcher = fetch, { now = new Date(), in
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
   const result = await refresh(process.argv[2] ?? '.download-badges')
-  console.log(JSON.stringify({ badges: Object.keys(result.entries).length, totalBadges: Object.keys(result.totals || {}).length, retained: result.retained, totalsRetained: result.totalsRetained }))
+  if (result.pending) {
+    console.log('npm downloads are available through ' + result.availableThrough + '. Waiting for ' + result.expectedEnd + '.')
+  } else {
+    console.log(JSON.stringify({ badges: Object.keys(result.entries).length, totalBadges: Object.keys(result.totals || {}).length, retained: result.retained, totalsRetained: result.totalsRetained }))
+  }
 }

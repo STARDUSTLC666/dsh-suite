@@ -8,6 +8,9 @@ const now = new Date('2026-10-27T15:00:00Z'), window = countWindow(now)
 const value = name => ({ package: name, downloads: 5800, ...window })
 const namesIn = url => decodeURIComponent(new URL(url).pathname.replace(/^\/downloads\/point\/[^/]+\//, '')).split(',')
 const reply = (url, change = row => row) => { const names = namesIn(url), result = Object.fromEntries(names.map(name => [name, change(value(name))])); return { ok: true, json: async () => names.length > 1 ? result : result[names[0]] } }
+const lastDayUrl = 'https://api.npmjs.org/downloads/point/last-day'
+const lastDayReply = (day, downloads = 1000000) => ({ ok: true, json: async () => ({ start: day, end: day, downloads }) })
+const withPublishedDay = (fetcher, day = window.end) => url => url === lastDayUrl ? lastDayReply(day) : fetcher(url)
 test('the query window uses thirty complete UTC days across month and leap-year boundaries', () => {
   assert.deepEqual(window, { start: '2026-09-27', end: '2026-10-26' })
   assert.deepEqual(countWindow(new Date('2024-03-01T01:00:00Z')), { start: '2024-01-31', end: '2024-02-29' })
@@ -31,7 +34,7 @@ test('a malformed upstream record retains a verified previous count instead of i
     assert.match(url, /\/2026-09-27:2026-10-26\//); assert.doesNotMatch(url, /last-month/)
     return reply(url, row => row.package === 'dsh-email' ? { error: 'upstream unavailable' } : row)
   }
-  const report = await refresh(directory, fetcher, { now, includeTotals: false })
+  const report = await refresh(directory, withPublishedDay(fetcher), { now, includeTotals: false })
   assert.equal(calls.length, 5)
   assert.equal(Object.keys(report.entries).length, 21)
   assert.deepEqual(report.retained, ['dsh-email'])
@@ -65,16 +68,16 @@ test('lifetime count uses creation metadata and a cumulative label instead of a 
 })
 test('refresh generates both badge types and never accepts a total smaller than the matching month',async t=>{
   const dir=mkdtempSync(join(tmpdir(),'dsh-total-badges-'));t.after(()=>rmSync(dir,{recursive:true,force:true}))
-  const report=await refresh(dir,totalReply,{now});assert.equal(report.schemaVersion,3);assert.equal(Object.keys(report.totals).length,21)
+  const report=await refresh(dir,withPublishedDay(totalReply),{now});assert.equal(report.schemaVersion,3);assert.equal(Object.keys(report.totals).length,21)
   assert.match(readFileSync(join(dir,'assets/dsh-email-total-downloads.svg'),'utf8'),/10,000/)
   const before=readFileSync(join(dir,'downloads.json'),'utf8')
-  const after=await refresh(dir,url=>totalReply(url,row=>row.start==='2026-09-01'&&row.package==='dsh-email'?{...row,downloads:1}:row),{now})
+  const after=await refresh(dir,withPublishedDay(url=>totalReply(url,row=>row.start==='2026-09-01'&&row.package==='dsh-email'?{...row,downloads:1}:row)),{now})
   assert.deepEqual(after.totalsRetained,['dsh-email']);assert.equal(after.totals['dsh-email'].downloads,10000)
   assert.equal(JSON.parse(before).totals['dsh-email'].downloads,10000)
 })
 test('missing lifetime data on a first run does not publish monthly-only or fake zero totals',async t=>{
   const dir=mkdtempSync(join(tmpdir(),'dsh-total-badges-'));t.after(()=>rmSync(dir,{recursive:true,force:true}));const file=join(dir,'downloads.json');writeFileSync(file,'{"keep":true}')
-  await assert.rejects(refresh(dir,url=>totalReply(url,row=>row.start==='2026-09-01'?{error:'unavailable'}:row),{now}),/No verified lifetime/)
+  await assert.rejects(refresh(dir,withPublishedDay(url=>totalReply(url,row=>row.start==='2026-09-01'?{error:'unavailable'}:row)),{now}),/No verified lifetime/)
   assert.equal(readFileSync(file,'utf8'),'{"keep":true}')
 })
 test('a total statistics outage leaves previously generated files unchanged', async t => {
@@ -83,20 +86,60 @@ test('a total statistics outage leaves previously generated files unchanged', as
   const original = JSON.stringify({ entries: Object.fromEntries(packages.map(([repo, name]) => [repo, value(name)])) })
   const file = join(directory, 'downloads.json')
   writeFileSync(file, original)
-  await assert.rejects(refresh(directory, async () => ({ ok: true, json: async () => ({ error: 'rate limited' }) }), { now }), /All upstream requests failed/)
+  await assert.rejects(refresh(directory, withPublishedDay(async () => ({ ok: true, json: async () => ({ error: 'rate limited' }) })), { now }), /All upstream requests failed/)
   assert.equal(readFileSync(file, 'utf8'), original)
 })
 test('a structurally valid stale zero cannot overwrite current verified statistics', async t => {
   const directory = mkdtempSync(join(tmpdir(), 'dsh-badge-test-')); t.after(() => rmSync(directory, { recursive: true, force: true }))
   const original = JSON.stringify({ entries: Object.fromEntries(packages.map(([repo,name]) => [repo,value(name)])) }), file = join(directory,'downloads.json')
   writeFileSync(file, original)
-  await assert.rejects(refresh(directory, async url => reply(url, row => ({ ...row, downloads: 0, start: '2026-06-02', end: '2026-07-01' })), { now }), /All upstream requests failed/)
+  await assert.rejects(refresh(directory, withPublishedDay(async url => reply(url, row => ({ ...row, downloads: 0, start: '2026-06-02', end: '2026-07-01' }))), { now }), /All upstream requests failed/)
   assert.equal(readFileSync(file,'utf8'), original)
 })
 test('stale legacy data is not treated as a current fallback when fresh queries fail', async t => {
   const directory = mkdtempSync(join(tmpdir(), 'dsh-badge-test-')); t.after(() => rmSync(directory, { recursive: true, force: true }))
   const original = JSON.stringify({ entries: Object.fromEntries(packages.map(([repo,name]) => [repo,{ ...value(name), downloads:0, start:'2026-06-02', end:'2026-07-01' }])) }), file = join(directory,'downloads.json')
   writeFileSync(file, original)
-  await assert.rejects(refresh(directory, async url => reply(url, () => ({ error:'unavailable' })), { now }), /No verified statistics/)
+  await assert.rejects(refresh(directory, withPublishedDay(async url => reply(url, () => ({ error:'unavailable' }))), { now }), /No verified statistics/)
   assert.equal(readFileSync(file,'utf8'), original)
+})
+
+test('an unpublished day preserves the previous snapshot until a later check confirms the data', async t => {
+  const directory = mkdtempSync(join(tmpdir(), 'dsh-badge-test-'))
+  t.after(() => rmSync(directory, { recursive: true, force: true }))
+  const previousDay = '2026-10-25'
+  await refresh(directory, withPublishedDay(totalReply, previousDay), { now: new Date('2026-10-26T15:00:00Z') })
+  const reportPath = join(directory, 'downloads.json')
+  const badgePath = join(directory, 'assets/dsh-email-downloads.svg')
+  const previousReport = readFileSync(reportPath, 'utf8')
+  const previousBadge = readFileSync(badgePath, 'utf8')
+
+  const pending = await refresh(directory, async url => {
+    assert.equal(url, lastDayUrl)
+    return lastDayReply(previousDay)
+  }, { now })
+  assert.deepEqual(pending, { pending: true, expectedEnd: window.end, availableThrough: previousDay })
+  assert.equal(readFileSync(reportPath, 'utf8'), previousReport)
+  assert.equal(readFileSync(badgePath, 'utf8'), previousBadge)
+
+  const refreshed = await refresh(directory, withPublishedDay(totalReply), { now })
+  assert.deepEqual(refreshed.window, window)
+  assert.match(readFileSync(badgePath, 'utf8'), /2026-09-27 to 2026-10-26/)
+  const currentReport = readFileSync(reportPath, 'utf8')
+  await refresh(directory, withPublishedDay(totalReply), { now: new Date('2026-10-27T21:00:00Z') })
+  assert.equal(readFileSync(reportPath, 'utf8'), currentReport)
+
+  const delayedDay = '2026-10-27'
+  const caughtUp = await refresh(directory, withPublishedDay(totalReply, delayedDay), { now: new Date('2026-10-29T12:00:00Z') })
+  assert.equal(caughtUp.window.end, delayedDay)
+  assert.equal(caughtUp.totals['dsh-email'].end, delayedDay)
+})
+
+test('an empty registry-wide day cannot be treated as published', async t => {
+  const directory = mkdtempSync(join(tmpdir(), 'dsh-badge-test-'))
+  t.after(() => rmSync(directory, { recursive: true, force: true }))
+  await assert.rejects(refresh(directory, async url => {
+    assert.equal(url, lastDayUrl)
+    return lastDayReply(window.end, 0)
+  }, { now }), /Invalid npm last available day/)
 })
