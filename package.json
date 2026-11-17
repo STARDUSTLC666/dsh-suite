@@ -1,6 +1,6 @@
 {
   "name": "@stardustlc/dsh-suite",
-  "version": "0.11.7",
+  "version": "0.11.8",
   "description": "DSH 组合包：一次安装 18 个独立插件，覆盖邮件、日历、记忆、媒体与开发工具；更新由用户选择。欢迎提交 issues 和 PR。",
   "type": "module",
   "dsh": {
@@ -52,24 +52,24 @@
     "dsh": ">=0.2.2-rc.3"
   },
   "dependencies": {
-    "@stardustlc/dsh-docker": "0.5.10",
-    "@stardustlc/dsh-dream": "0.14.1",
-    "dsh-calendar": "0.14.6",
-    "dsh-cite": "0.7.10",
-    "dsh-code-security": "0.7.12",
-    "dsh-codex-port": "0.4.10",
-    "dsh-dingtalk": "0.3.10",
-    "dsh-email": "0.26.0",
-    "dsh-ffmpeg": "0.7.8",
-    "dsh-flakefinder": "0.4.11",
-    "dsh-hyperframes": "0.11.6",
-    "dsh-minimal-ptc": "0.6.10",
-    "dsh-ppt": "0.20.7",
-    "dsh-remotion": "0.10.6",
-    "dsh-rss": "0.9.13",
-    "dsh-slack": "0.4.10",
-    "dsh-sql": "0.5.12",
-    "dsh-voice": "0.5.7"
+    "@stardustlc/dsh-docker": "0.5.11",
+    "@stardustlc/dsh-dream": "0.15.2",
+    "dsh-calendar": "0.16.1",
+    "dsh-cite": "0.8.1",
+    "dsh-code-security": "0.7.13",
+    "dsh-codex-port": "0.4.11",
+    "dsh-dingtalk": "0.3.11",
+    "dsh-email": "0.27.3",
+    "dsh-ffmpeg": "0.7.9",
+    "dsh-flakefinder": "0.4.12",
+    "dsh-hyperframes": "0.11.7",
+    "dsh-minimal-ptc": "0.6.11",
+    "dsh-ppt": "0.20.8",
+    "dsh-remotion": "0.10.7",
+    "dsh-rss": "0.9.14",
+    "dsh-slack": "0.4.11",
+    "dsh-sql": "0.5.13",
+    "dsh-voice": "0.5.8"
   },
   "devDependencies": {
     "js-yaml": "^4.1.0"

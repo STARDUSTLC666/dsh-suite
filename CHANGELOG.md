@@ -1,5 +1,12 @@
 # 更新记录
 
+## 0.11.8 (2026-11-17)
+
+- 更新全部 18 个组件。打开任一组件的更新区，可将 Suite 切换为独立安装，保留版本和配置。切换后可单独检查、热更新或开启该组件的空闲补丁自动安装。
+- 如果切换时提示重启，Harness 会在下次启动时核对组件是否加载成功。
+- Update all 18 bundled components. Use a component’s update area to convert Suite to independent installations at the same versions with the existing settings. Each component can then check, hot-load, or opt into idle patch updates independently.
+- If the conversion asks for a restart, Harness verifies the components after startup.
+
 ## 0.11.7 (2026-11-16)
 
 - 同步 dsh-ppt 0.20.7，修复 Windows 版 DSH 导出 PPTX 为 PNG 或 PDF 时找不到内置 LibreOffice 引擎的问题。[dsh-ppt #8](https://github.com/STARDUSTLC666/dsh-ppt/issues/8)
