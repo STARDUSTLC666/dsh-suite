@@ -55,7 +55,7 @@ For the web version, replace `desktop` with `web`. Restart DSH after installatio
 
 Enable only the suite bundle in the profile; it loads the components. Each component still has its own account, executable and network requirements.
 
-This version synchronizes update controls across all 18 components. Nine native workbenches retain host language, theme, narrow-window support and edit protection; the remaining components provide controls in native plugin details. Components remain independently installable.
+This release aligns all 18 components with DeepSeek Harness `>=0.2.2-rc.3`, adding bilingual locale metadata and Cordis `ctx.effect` hot-reload cleanup. Nine native workbenches support 5 switchable themes (Native Glass, Cream Paper, Claude Warm Paper, 8-Bit Pixel, Sky Mint) alongside host language, narrow-window layout, and edit protection; the remaining components provide update controls in native plugin details and remain independently installable.
 
 Requires official DSH **0.2.2-rc.3 or newer**; this round checked 0.2.2-rc.3 at the adaptation level (loading, contracts and offline tests, not the previous full Web walkthrough), recorded [here](docs/validation-2026-11-14-rc3.md). See the [workbench guide](docs/WORKBENCH_UI.md) and the earlier [validation record](docs/validation-2026-10-28-boundaries.md) for actual-operation boundaries. Review and Computer Use remain separate plugins outside this bundle's 18 components.
 
