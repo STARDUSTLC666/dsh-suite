@@ -5,7 +5,12 @@ import lockfile from 'proper-lockfile'
 import { DEFAULT_PREFERENCES, preferences } from './policy.js'
 
 export class UpdateStore {
-  constructor(profileDir) { this.directory = profileDir; this.file = join(profileDir, 'stardustlc-plugin-updates.json'); this.cacheFile = join(profileDir, 'stardustlc-plugin-update-cache.json') }
+  constructor(profileDir) {
+    this.directory = profileDir
+    this.file = join(profileDir, 'stardustlc-plugin-updates.json')
+    this.cacheFile = join(profileDir, 'stardustlc-plugin-update-cache.json')
+    this.suiteRecoveryFile = join(profileDir, 'stardustlc-suite-recovery.json')
+  }
   async read() {
     try {
       const stat = await fs.lstat(this.file)
@@ -43,4 +48,17 @@ export class UpdateStore {
     } catch { return null }
   }
   async saveCache(rows, checkedAt, automaticAttempts = {}) { await this.atomic(this.cacheFile, { schema: 1, checkedAt, rows, automaticAttempts }) }
+  async readSuiteRecovery() {
+    try {
+      const stat = await fs.lstat(this.suiteRecoveryFile)
+      if (!stat.isFile() || stat.isSymbolicLink() || stat.size > 32768) throw new Error('suite-recovery-unreadable')
+      const value = JSON.parse(await fs.readFile(this.suiteRecoveryFile, 'utf8'))
+      if (value?.schema !== 1 || !Object.hasOwn(value, 'plan')) throw new Error('suite-recovery-unreadable')
+      return value.plan
+    } catch (error) {
+      if (error.code === 'ENOENT') return null
+      throw new Error('suite-recovery-unreadable')
+    }
+  }
+  async saveSuiteRecovery(plan) { await this.atomic(this.suiteRecoveryFile, { schema: 1, plan }) }
 }

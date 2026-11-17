@@ -25,6 +25,7 @@ function collect(ast, predicate, out = []) {
 function replacements(source, changes) { for (const item of changes.sort((a, b) => b.start - a.start)) source = source.slice(0, item.start) + item.text + source.slice(item.end); return source }
 export function unwrapClient(source) {
   if (!source.includes(START)) return source
+  source = source.replace(/\r\n/g, '\n')
   const start = source.indexOf(START) + START.length, end = source.lastIndexOf(END)
   if (end <= start) throw new Error('Invalid existing update-client wrapper')
   let body = source.slice(start, end).replace(/^\n/, '').replace(/\n$/, '')
@@ -41,14 +42,16 @@ export function unwrapClient(source) {
 export function wrapClient(source, name, packageVersion = null, iconData = null) {
   if (!Object.hasOwn(PACKAGES, name)) throw new Error('Unknown participant package')
   source = unwrapClient(source).replace(/\r\n/g, '\n')
-  const pages = collect(syntax(source), node => node.type === 'CallExpression' && node.arguments[0]?.type === 'MemberExpression' && node.arguments[0].object.name === 'W' && node.arguments[0].property.name === 'Page' && node.arguments[1]?.type === 'ObjectExpression')
+  const sourceTree = syntax(source)
+  const explicitFooter = find(sourceTree, node => node.type === 'CallExpression' && node.callee.name === '__stardustUpdatesFooter')
+  const pages = explicitFooter ? [] : collect(sourceTree, node => node.type === 'CallExpression' && node.arguments[0]?.type === 'MemberExpression' && node.arguments[0].object.name === 'W' && node.arguments[0].property.name === 'Page' && node.arguments[1]?.type === 'ObjectExpression')
   source = replacements(source, pages.flatMap(node => [{ start: node.start, end: node.start, text: '__stardustUpdatesInlinePage(React,' }, { start: node.end, end: node.end, text: ',' + JSON.stringify(name) + ')' }]))
   const sectionIds = collect(syntax(source), node => node.type === 'ObjectExpression' && node.properties?.some(p => p.key?.name === 'name' && p.value?.value === 'settings.section')).map(node => node.properties.find(p => p.key?.name === 'id')?.value?.value).filter(id => typeof id === 'string')
   const ast = syntax(source)
   const call = find(ast, node => node.type === 'CallExpression' && node.callee.type === 'MemberExpression' && node.callee.property.name === 'load' && node.callee.object.type === 'MemberExpression' && node.callee.object.property.name === '__ModuleLoader__')
   if (!call || call.arguments.length !== 1 || call.arguments[0].type !== 'ObjectExpression') throw new Error('Expected one DSH client module definition')
   const arg = call.arguments[0]
-  const body = source.slice(0, arg.start) + '__stardustUpdatesWrap(' + source.slice(arg.start, arg.end) + ',' + JSON.stringify({ name, version: '0.1.0', hasWorkbench: pages.length > 0, packageVersion, label: PACKAGES[name][0], labelEn: PACKAGES[name][1], suiteComponent: SUITE_COMPONENTS.has(name), sectionIds, iconData }) + ')' + source.slice(arg.end)
+  const body = source.slice(0, arg.start) + '__stardustUpdatesWrap(' + source.slice(arg.start, arg.end) + ',' + JSON.stringify({ name, version: '0.1.0', hasWorkbench: !!explicitFooter || pages.length > 0, packageVersion, label: PACKAGES[name][0], labelEn: PACKAGES[name][1], suiteComponent: SUITE_COMPONENTS.has(name), sectionIds, iconData }) + ')' + source.slice(arg.end)
   const kit = readFileSync(join(directory, 'ui-kit.js'), 'utf8').replace(/\r\n/g, '\n'), client = readFileSync(join(directory, 'ui-client.js'), 'utf8').replace(/\r\n/g, '\n')
   return '// Generated: shared optional update controls; edit the original client templates.\n(function(){\n' + kit + '\n' + client + '\n' + START + '\n' + body + '\n' + END + '\n})();\n'
 }

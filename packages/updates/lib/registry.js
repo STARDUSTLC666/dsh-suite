@@ -1,6 +1,8 @@
 import { PACKAGES } from './policy.js'
 import { abortable, boundedBody } from './io.js'
 
+const REGISTRIES = ['https://registry.npmjs.org', 'https://registry.npmmirror.com']
+
 export class UpdateRegistry {
   constructor({ fetchImpl = fetch, timeoutMs = 15000 } = {}) { this.fetch = fetchImpl; this.timeoutMs = timeoutMs }
   async json(url, signal, maxBytes = 2 * 1024 * 1024) {
@@ -9,12 +11,14 @@ export class UpdateRegistry {
     if (!response.ok || !response.body) throw new Error('registry-http-' + response.status)
     return JSON.parse(await boundedBody(response.body, maxBytes, combined))
   }
-  async metadata(name, signal) {
+  async metadata(name, signal, checkedRegistry) {
     if (!Object.hasOwn(PACKAGES, name)) throw new Error('unknown-package')
-    for (const registry of ['https://registry.npmjs.org', 'https://registry.npmmirror.com']) {
+    if (checkedRegistry !== undefined && !REGISTRIES.includes(checkedRegistry)) throw new Error('invalid-release')
+    for (const registry of checkedRegistry ? [checkedRegistry] : REGISTRIES) {
       try { return { document: await this.json(registry + '/' + encodeURIComponent(name), signal), registry } }
-      catch (error) { signal?.throwIfAborted(); if (registry.includes('npmmirror.com')) throw new Error('registry-unavailable') }
+      catch { signal?.throwIfAborted() }
     }
+    throw new Error('registry-unavailable')
   }
   async notes(name, version, signal) {
     const item = PACKAGES[name]

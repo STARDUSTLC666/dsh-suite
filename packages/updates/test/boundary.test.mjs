@@ -32,6 +32,15 @@ test('wrapping uses syntax positions rather than changing strings or nested pare
   assert.throws(() => wrapClient(source, 'arbitrary-package'), /Unknown/)
 })
 
+test('an explicit footer supports custom workbenches without adding a second footer', () => {
+  const source = "window.__ModuleLoader__.load({id:'dsh-calendar',factory:require=>{function render(){return h(W.Page, {}, __stardustUpdatesFooter(React, 'dsh-calendar'))} return {apply(){}}}});"
+  const wrapped = wrapClient(source, 'dsh-calendar', '0.14.6')
+  assert.match(wrapped, /"hasWorkbench":true/)
+  assert.equal(unwrapClient(wrapped), source)
+  assert.equal(wrapClient(wrapped, 'dsh-calendar', '0.14.6'), wrapped)
+  assert.equal(wrapClient(wrapped.replaceAll('\n', '\r\n'), 'dsh-calendar', '0.14.6'), wrapped)
+})
+
 test('an existing workbench receives an inline footer while keeping its own header actions', async () => {
   const source = 'window.__ModuleLoader__.load({id:"dsh-cite",factory:r=>({apply(){},render(){return h(W.Page,{title:"Library",actions:action},"body")}})});\n'
   const wrapped = wrapClient(source, 'dsh-cite')
@@ -111,9 +120,54 @@ test('legacy-first loading hands over one controller after its current install a
   context.__stardustUpdatesJoin({ root, effect(fn) { effects.push(fn()) } }, {}, () => {}, { name: 'dsh-cite', version: VERSION })
   await Promise.resolve(); assert.equal(oldDisposed, 0); old.hold = false
   await old.migration
-  assert.equal(oldDisposed, 1); assert.equal(newStarted, 1); assert.equal(pools.get(root), old); assert.equal(old.uiRevision, 2)
+  assert.equal(oldDisposed, 1); assert.equal(newStarted, 1); assert.equal(pools.get(root), old); assert.equal(old.uiRevision, 3)
   assert.equal(old.refs.has(oldRef), true); assert.equal(old.refs.size, 2)
   effects.forEach(fn => fn()); assert.equal(old.refs.size, 1)
+})
+
+test('an upgraded Host coordinator waits for a legacy installation and inherits participants', async t => {
+  const { registerUpdates } = await import('../lib/index.js')
+  const key = Symbol.for('stardustlc.plugin-updates.host.v1')
+  const previousPool = globalThis[key]
+  const profile = { dir: new URL('./unused-host-fixture/', import.meta.url).href }
+  const clients = new Map()
+  const engine = { clients, history: [], pendingRestart: false }
+  let settled, oldDisposed = 0, routesRegistered = 0
+  engine.jobPromise = new Promise(resolve => { settled = resolve }).finally(() => { engine.jobPromise = null })
+  const legacy = { refs: new Map([['original', 'dsh-rss']]), version: VERSION, engine,
+    fiber: { async dispose() { oldDisposed++; globalThis[key].delete(profile) } } }
+  globalThis[key] = new WeakMap([[profile, legacy]])
+  const services = {
+    profileContext: profile,
+    connection: { fetch: { register() { routesRegistered++; return () => {} } } },
+    pluginManager: { listBundles: async () => [], installBundle() {}, removeBundle() {}, cancelInstall() {} },
+    agents: { list: () => [] },
+    loader: { import: async () => ({ getDshRuntimeVersion: () => '0.2.2-rc.3' }) },
+  }
+  const effects = []
+  const get = name => services[name]
+  const root = { get, plugin(plugin) {
+    const fiber = Promise.resolve(plugin.apply({ get, effect: setup => effects.push(setup()) }))
+    fiber.dispose = async () => { for (const dispose of effects.reverse()) await dispose?.() }
+    return fiber
+  } }
+  t.after(async () => {
+    const current = globalThis[key].get(profile)
+    if (current !== legacy) await current?.fiber?.dispose()
+    globalThis[key] = previousPool
+  })
+  const host = { root, get, inject(_services, attach) { attach(this) }, effect() {} }
+  registerUpdates(host, { name: 'dsh-cite' })
+  await Promise.resolve()
+  assert.equal(oldDisposed, 0)
+  settled()
+  await legacy.upgrade
+  const current = globalThis[key].get(profile)
+  await current.fiber
+  assert.equal(oldDisposed, 1)
+  assert.equal(routesRegistered, 1)
+  assert.equal(current.engine.clients, clients)
+  assert.deepEqual([...current.refs.values()], ['dsh-rss', 'dsh-cite'])
 })
 
 test('draft guard remains active when a dirty panel closes and clears only on a clean mount of that plugin', async () => {

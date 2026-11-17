@@ -1,8 +1,12 @@
 import { randomUUID } from 'node:crypto'
+import { readFile } from 'node:fs/promises'
+import { join } from 'node:path'
+import { setTimeout as delay } from 'node:timers/promises'
 import { UpdateCoordinator } from './coordinator.js'
 import { UpdateStore } from './store.js'
 import { UpdateRegistry } from './registry.js'
 import { NativeInstaller } from './installer.js'
+import { SuiteMigration } from './suite-migration.js'
 import { boundedBody } from './io.js'
 import { PACKAGES, SUITE } from './policy.js'
 
@@ -10,6 +14,7 @@ import { PACKAGES, SUITE } from './policy.js'
 export const VERSION = '0.1.0'
 export const ROUTE = '/api/stardustlc/plugin-updates'
 const POOL = Symbol.for('stardustlc.plugin-updates.host.v1')
+const HOST_REVISION = 2
 function roots() { return globalThis[POOL] ??= new WeakMap() }
 const get = (ctx, name) => { try { return ctx.get?.(name) } catch { return undefined } }
 const response = (value, status = 200) => new Response(JSON.stringify(value), { status, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store', 'x-content-type-options': 'nosniff' } })
@@ -42,6 +47,7 @@ export function createHandler(engine, registry) {
       switch (input.action) {
         case 'state': value = await engine.snapshot(); break
         case 'check': value = await engine.check(true, input.name); break
+        case 'check-when-due': value = await engine.check(false, input.name); break
         case 'preferences': value = await engine.changePreferences(input); break
         case 'ignore': case 'later': value = await engine.choice(input); break
         case 'heartbeat': engine.heartbeat(input); value = true; break
@@ -50,6 +56,12 @@ export function createHandler(engine, registry) {
         case 'install':
           if (input.confirmation !== 'update-installed-plugin') throw new Error('manual-consent-required')
           value = await engine.start(input); break
+        case 'migrate-suite':
+          if (input.confirmation !== 'convert-suite-to-independent-bundles') throw new Error('manual-consent-required')
+          value = await engine.migrateSuite(input); break
+        case 'recover-suite':
+          if (input.confirmation !== 'restore-previous-suite') throw new Error('manual-consent-required')
+          value = await engine.migrateSuite(input); break
         case 'cancel': value = await engine.cancel(input.id); break
         case 'notes': {
           const row = engine.rows.find(row => row.name === input.name)
@@ -66,7 +78,92 @@ export function createHandler(engine, registry) {
   }
 }
 
-/** Join one shared, profile-owned coordinator without making an ordinary plugin an update daemon. */
+function scheduleStop(record) {
+  if (record.refs.size || record.stopping || record.timer) return
+  record.timer = setTimeout(() => {
+    record.timer = null
+    if (record.refs.size || record.stopping || record.engine?.jobPromise) return
+    record.stopping = true
+    record.stopPromise = Promise.resolve(record.fiber?.dispose?.()).catch(() => {})
+  }, 1000)
+  record.timer.unref?.()
+}
+
+function createCoordinator(root, profile, refs = new Map(), inherited) {
+  const record = { refs, version: VERSION, revision: HOST_REVISION, engine: null, fiber: null, stopping: false, timer: null }
+  roots().set(profile, record)
+  record.fiber = root.plugin({
+    name: 'stardustlc-plugin-update-coordinator',
+    inject: ['profileContext', 'connection', 'pluginManager', 'agents', 'loader'],
+    async apply(owner) {
+      owner.effect(() => async () => {
+        record.stopping = true
+        await record.engine?.dispose()
+        if (roots().get(profile) === record) roots().delete(profile)
+      })
+      const manager = get(owner, 'pluginManager'), connection = get(owner, 'connection')
+      const boot = await get(owner, 'loader').import('@deepseek-ai/dsh-app-boot')
+      if (typeof boot.getDshRuntimeVersion !== 'function') return
+      const store = new UpdateStore(profile.dir), registry = new UpdateRegistry()
+      const suiteMigration = ['setBundleEnabled', 'listPlugins', 'inspect'].every(method => typeof manager[method] === 'function')
+        ? new SuiteMigration(manager, async () => JSON.parse(await readFile(join(profile.dir, 'node_modules', ...SUITE.split('/'), 'package.json'), 'utf8')), () => !!get(owner, 'hmr'), store)
+        : undefined
+      const installer = new NativeInstaller(manager, {
+        getBundle: async name => (await manager.listBundles()).find(bundle => bundle.name === name),
+        canProceed: () => engine.ensureIdle({ automatic: engine.job?.mode === 'automatic' }),
+      })
+      const engine = new UpdateCoordinator({ manager, store, registry, installer, suiteMigration, activity: async () => hostActivity(owner), runtimeVersion: boot.getDshRuntimeVersion(), autoReady: rows => {
+        const participants = new Set(record.refs.values())
+        return participants.size > 0 && rows.every(row => !row.enabled || row.name === SUITE || participants.has(row.name))
+      } })
+      record.engine = engine
+      await engine.initialize()
+      if (inherited) Object.assign(engine, inherited)
+      owner.on?.('plugin-manager/update-state', ({ requestId, step }) => engine.progress(requestId, step))
+      owner.on?.('plugin-manager/install-state', ({ requestId, phase }) => engine.progress(requestId, phase))
+      owner.effect(() => connection.fetch.register({ path: ROUTE, methods: ['POST'], requestBody: 'streaming', fetch: createHandler(engine, registry) }))
+      let ticking = false
+      const tick = async () => {
+        if (ticking || record.stopping) return
+        if (!record.refs.size) { scheduleStop(record); return }
+        ticking = true
+        try { await engine.tick() } catch { /* The next manual check can report bounded failures. */ }
+        finally { ticking = false }
+      }
+      owner.effect(() => {
+        const timer = setInterval(() => { void tick() }, 30000), start = setTimeout(() => { void tick() }, 10000)
+        timer.unref?.(); start.unref?.()
+        return () => { clearInterval(timer); clearTimeout(start) }
+      })
+    },
+  })
+  void Promise.resolve(record.fiber).catch(() => {
+    record.stopping = true
+    if (roots().get(profile) === record) roots().delete(profile)
+  })
+  return record
+}
+
+function upgradeCoordinator(root, profile, record) {
+  if (record.version !== VERSION || record.revision >= HOST_REVISION || record.upgrade) return
+  record.upgrade = Promise.resolve(record.fiber).then(async () => {
+    const engine = record.engine
+    while (record.refs.size && !record.stopping && (engine?.starting || engine?.jobPromise || engine?.checkGate)) {
+      await (engine.jobPromise ?? engine.checkGate ?? delay(50))
+    }
+    if (!record.refs.size || record.stopping || roots().get(profile) !== record || ['unknown', 'restore-failed'].includes(engine?.job?.state)) return
+    record.stopping = true
+    record.stopPromise = record.upgrade
+    clearTimeout(record.timer)
+    const inherited = engine && { clients: engine.clients, job: engine.job, history: engine.history, pendingRestart: engine.pendingRestart }
+    if (engine) engine.updaterRestart = true
+    await record.fiber.dispose()
+    if (roots().get(profile) === record) roots().delete(profile)
+    if (!roots().get(profile) && record.refs.size) createCoordinator(root, profile, record.refs, inherited)
+  }).catch(() => {})
+}
+
+/** Join the profile's update service, with one reference per participating plugin. */
 export function registerUpdates(ctx, participant) {
   if (!Object.hasOwn(PACKAGES, participant?.name) || typeof ctx?.inject !== 'function') return
   ctx.inject(['profileContext', 'connection', 'pluginManager', 'agents', 'loader'], host => {
@@ -74,64 +171,26 @@ export function registerUpdates(ctx, participant) {
     if (!profile?.dir || get(root, 'profileContext') !== profile || typeof root.plugin !== 'function') return
     const manager = get(host, 'pluginManager'), connection = get(host, 'connection')
     if (typeof connection?.fetch?.register !== 'function' || ['listBundles', 'installBundle', 'removeBundle', 'cancelInstall'].some(name => typeof manager?.[name] !== 'function')) return
-    let record = roots().get(profile)
-    if (record?.stopping) {
+    const record = roots().get(profile) ?? createCoordinator(root, profile)
+    if (record.stopping) {
       if (!record.stopPromise) return
-      let disposed = false; host.effect(() => () => { disposed = true })
-      void Promise.resolve(record.stopPromise).then(() => { if (!disposed) registerUpdates(host, participant) })
+      let disposed = false
+      host.effect(() => () => { disposed = true })
+      void Promise.resolve(record.stopPromise).then(() => { if (!disposed && roots().get(profile) !== record) registerUpdates(host, participant) })
       return
-    }
-    if (!record) {
-      record = { refs: new Map(), version: VERSION, engine: null, fiber: null, stopping: false, timer: null }
-      roots().set(profile, record)
-      const shared = record
-      const plugin = {
-        name: 'stardustlc-plugin-update-coordinator',
-        inject: ['profileContext', 'connection', 'pluginManager', 'agents', 'loader'],
-        async apply(owner) {
-          owner.effect(() => async () => { shared.stopping = true; await shared.engine?.dispose(); if (roots().get(profile) === shared) roots().delete(profile) })
-          const profile = get(owner, 'profileContext'), manager = get(owner, 'pluginManager'), connection = get(owner, 'connection')
-          const boot = await get(owner, 'loader').import('@deepseek-ai/dsh-app-boot')
-          if (typeof boot.getDshRuntimeVersion !== 'function') return
-          const store = new UpdateStore(profile.dir), registry = new UpdateRegistry()
-          let engine
-          const installer = new NativeInstaller(manager, { getBundle: async name => (await manager.listBundles()).find(bundle => bundle.name === name), canProceed: async () => { if (engine) await engine.ensureIdle({ automatic: engine.job?.mode === 'automatic' }) } })
-          engine = new UpdateCoordinator({ manager, store, registry, installer, activity: async () => hostActivity(owner), runtimeVersion: boot.getDshRuntimeVersion(), autoReady: rows => {
-            const participants = new Set(shared.refs.values())
-            return participants.size > 0 && rows.every(row => !row.enabled || row.name === SUITE || participants.has(row.name))
-          } })
-          shared.engine = engine
-          await engine.initialize()
-          // RC.3's streaming HTTP bridge supplies a body even for GET, which Fetch
-          // rejects. Keep all state reads and mutations on its supported POST path.
-          owner.effect(() => connection.fetch.register({ path: ROUTE, methods: ['POST'], requestBody: 'streaming', fetch: createHandler(engine, registry) }))
-          let ticking = false
-          const tick = async () => {
-            if (ticking || shared.stopping || !shared.refs.size) return
-            ticking = true
-            try { await engine.tick() } catch { /* UI state and next manual check report bounded failures. */ }
-            finally { ticking = false }
-          }
-          owner.effect(() => { const timer = setInterval(() => { void tick() }, 30000); timer.unref?.(); const start = setTimeout(() => { void tick() }, 10000); start.unref?.(); return () => { clearInterval(timer); clearTimeout(start) } })
-        },
-      }
-      record.fiber = root.plugin(plugin)
-      void Promise.resolve(record.fiber).catch(() => { record.stopping = true; if (roots().get(profile) === record) roots().delete(profile) })
     }
     if (record.version !== VERSION && record.engine) { record.engine.pendingRestart = true; record.engine.updaterRestart = true }
     clearTimeout(record.timer)
-    const ref = randomUUID(); record.refs.set(ref, participant.name)
+    record.timer = null
+    const ref = randomUUID()
+    record.refs.set(ref, participant.name)
+    upgradeCoordinator(root, profile, record)
     host.effect(() => () => {
       record.refs.delete(ref)
-      if (record.refs.size || record.stopping) return
-      const stop = () => {
-        if (record.refs.size || record.stopping) return
-        record.stopping = true
-        record.stopPromise = Promise.resolve(record.fiber?.dispose?.()).catch(() => {})
-      }
-      const schedule = () => { record.timer = setTimeout(stop, 1000); record.timer.unref?.() }
-      if (record.engine?.jobPromise) void record.engine.jobPromise.finally(schedule)
-      else schedule()
+      const current = roots().get(profile)
+      if (current?.refs !== record.refs || current.refs.size || current.stopping) return
+      if (current.engine?.jobPromise) void current.engine.jobPromise.finally(() => scheduleStop(current))
+      else scheduleStop(current)
     })
   })
 }

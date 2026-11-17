@@ -162,6 +162,47 @@ test('automatic updates only accept stable compatible patches; manual confirmati
   assert.equal(f.calls.length, 1)
 })
 
+test('a compatible release below latest is selected and installed at its checked version', async t => {
+  const f = await fixture(t)
+  const older = version('dsh-cite')
+  const latest = version('dsh-cite', '0.7.0')
+  latest.versions['0.7.0'].engines.dsh = '>=1.0.0'
+  const registries = []
+  f.registry.metadata = async (_name, _signal, requestedRegistry) => {
+    registries.push(requestedRegistry)
+    return { document: { ...latest, versions: { ...older.versions, ...latest.versions } }, registry: 'https://registry.npmjs.org' }
+  }
+  const result = (await f.coordinator.check(true, 'dsh-cite')).rows[0]
+  assert.equal(result.release.version, '0.6.2')
+  assert.deepEqual(result.blockedRelease, { version: '0.7.0', compatible: false, reason: 'dsh-version', required: '>=1.0.0' })
+  await f.coordinator.start({ name: 'dsh-cite', version: '0.6.2' })
+  await f.coordinator.jobPromise
+  assert.equal(f.coordinator.job.state, 'complete')
+  assert.equal(f.calls[0].release.version, '0.6.2')
+  assert.deepEqual(registries, [undefined, 'https://registry.npmjs.org'])
+})
+
+test('native progress, temporary removal, and the actual installed version are scoped to the admitted job', async t => {
+  const f = await fixture(t, { bundles: [bundle(), bundle('dsh-ppt')] })
+  let resolveInstall
+  f.installer.install = async () => new Promise(resolve => { resolveInstall = resolve })
+  await f.coordinator.check(true, 'dsh-cite')
+  const job = await f.coordinator.start({ name: 'dsh-cite', version: '0.6.2' })
+  while (!resolveInstall) await new Promise(resolve => setImmediate(resolve))
+  f.coordinator.progress(job.id, 'removing')
+  f.coordinator.progress('different-job', 'restoring')
+  f.state.bundles = f.state.bundles.filter(entry => entry.name !== 'dsh-cite')
+  const snapshot = await f.coordinator.snapshot()
+  assert.equal(snapshot.job.phase, 'removing')
+  assert.equal(snapshot.rows.find(row => row.name === 'dsh-cite').updating, true)
+  assert.equal(snapshot.rows.find(row => row.name === 'dsh-ppt').updating, undefined)
+  f.state.bundles.push(bundle())
+  resolveInstall({ native: true, result: { application: 'applied', version: '0.6.1' } })
+  await f.coordinator.jobPromise
+  assert.equal(f.coordinator.job.state, 'failed')
+  assert.equal(f.coordinator.job.reason, 'version-mismatch')
+})
+
 test('ignore and later suppress automatic installation without hiding the available version', async t => {
   for (const action of ['ignore', 'later']) {
     const f = await fixture(t); await optIn(f); await f.coordinator.check(true)
