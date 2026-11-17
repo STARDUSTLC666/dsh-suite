@@ -6,7 +6,7 @@ import { join } from 'node:path'
 import { UpdateCoordinator } from '../lib/coordinator.js'
 import { UpdateStore } from '../lib/store.js'
 import { NativeInstaller } from '../lib/installer.js'
-import { DEFAULT_PREFERENCES, packagePreferences, targets, releaseOf, eligibleAuto, SUITE } from '../lib/policy.js'
+import { DEFAULT_PREFERENCES, CHECK_INTERVAL, packagePreferences, targets, releaseOf, eligibleAuto, SUITE } from '../lib/policy.js'
 
 const integrity = 'sha512-' + Buffer.alloc(64, 7).toString('base64')
 const version = (name, value = '0.6.2') => ({ 'dist-tags': { latest: value }, versions: { [value]: { name, version: value, dsh: { bundle: { patch: './cordis.patch.yml' } }, dist: { integrity }, engines: { node: '>=22', dsh: '>=0.2.1-rc.3' } } } })
@@ -162,24 +162,53 @@ test('automatic updates only accept stable compatible patches; manual confirmati
   assert.equal(f.calls.length, 1)
 })
 
-test('a compatible release below latest is selected and installed at its checked version', async t => {
-  const f = await fixture(t)
-  const older = version('dsh-cite')
-  const latest = version('dsh-cite', '0.7.0')
-  latest.versions['0.7.0'].engines.dsh = '>=1.0.0'
+test('Suite updates as one whole bundle via native updateBundle hot-reload while background checks stay once daily', async t => {
+  assert.equal(CHECK_INTERVAL, 24 * 60 * 60 * 1000)
+  const f = await fixture(t, { bundles: [bundle(SUITE, { version: '0.11.9', source: SUITE + '@0.11.9' }), bundle()] })
   const registries = []
-  f.registry.metadata = async (_name, _signal, requestedRegistry) => {
-    registries.push(requestedRegistry)
-    return { document: { ...latest, versions: { ...older.versions, ...latest.versions } }, registry: 'https://registry.npmjs.org' }
+  f.registry.metadata = async (name, _signal, requestedRegistry) => {
+    registries.push([name, requestedRegistry])
+    return { document: version(name, name === SUITE ? '0.11.10' : '0.6.2'), registry: 'https://registry.npmjs.org' }
   }
-  const result = (await f.coordinator.check(true, 'dsh-cite')).rows[0]
-  assert.equal(result.release.version, '0.6.2')
-  assert.deepEqual(result.blockedRelease, { version: '0.7.0', compatible: false, reason: 'dsh-version', required: '>=1.0.0' })
-  await f.coordinator.start({ name: 'dsh-cite', version: '0.6.2' })
+  await f.coordinator.tick()
+  assert.deepEqual(registries, [[SUITE, undefined]])
+  f.state.now += 15 * 60 * 1000
+  await f.coordinator.tick()
+  assert.equal(registries.length, 1, 'Background check must not repeat after 15 minutes')
+  f.state.now += 24 * 60 * 60 * 1000
+  await f.coordinator.tick()
+  assert.equal(registries.length, 2, 'Background check runs again once 24 hours have elapsed')
+
+  f.coordinator.clients.set(fresh(f.state.now).id, fresh(f.state.now))
+  await assert.rejects(f.coordinator.start({ name: 'dsh-cite', version: '0.6.2' }), /managed-by-suite/)
+  const updateCalls = []
+  const nativeInstaller = new NativeInstaller({
+    async updateBundle(name, nextVersion, options) {
+      updateCalls.push([name, nextVersion, options])
+      f.state.bundles = f.state.bundles.map(entry => entry.name === name ? { ...entry, version: nextVersion } : entry)
+      return { step: 'apply', result: { application: 'applied', changed: true, version: nextVersion } }
+    },
+  })
+  f.coordinator.installer = nativeInstaller
+  await f.coordinator.start({ name: SUITE, version: '0.11.10' })
   await f.coordinator.jobPromise
   assert.equal(f.coordinator.job.state, 'complete')
-  assert.equal(f.calls[0].release.version, '0.6.2')
-  assert.deepEqual(registries, [undefined, 'https://registry.npmjs.org'])
+  assert.equal(f.coordinator.pendingRestart, false)
+  assert.equal(updateCalls.length, 1)
+  assert.equal(updateCalls[0][0], SUITE)
+  assert.equal(updateCalls[0][1], '0.11.10')
+  assert.equal(updateCalls[0][2].registry, 'https://registry.npmjs.org')
+  assert.deepEqual(registries.at(-1), [SUITE, 'https://registry.npmjs.org'])
+})
+
+test('build-blocked native update results fail cleanly without leaving unconfirmed state', async t => {
+  const f = await fixture(t)
+  await f.coordinator.check(true, 'dsh-cite')
+  f.installer.install = async () => ({ native: true, result: { application: 'applied', changed: true, version: '0.6.2', pendingBuilds: ['dsh-cite'] } })
+  await f.coordinator.start({ name: 'dsh-cite', version: '0.6.2' })
+  await f.coordinator.jobPromise
+  assert.equal(f.coordinator.job.state, 'failed')
+  assert.equal(f.coordinator.job.reason, 'build-blocked')
 })
 
 test('native progress, temporary removal, and the actual installed version are scoped to the admitted job', async t => {

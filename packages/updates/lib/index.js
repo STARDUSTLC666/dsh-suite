@@ -1,12 +1,9 @@
 import { randomUUID } from 'node:crypto'
-import { readFile } from 'node:fs/promises'
-import { join } from 'node:path'
 import { setTimeout as delay } from 'node:timers/promises'
 import { UpdateCoordinator } from './coordinator.js'
 import { UpdateStore } from './store.js'
 import { UpdateRegistry } from './registry.js'
 import { NativeInstaller } from './installer.js'
-import { SuiteMigration } from './suite-migration.js'
 import { boundedBody } from './io.js'
 import { PACKAGES, SUITE } from './policy.js'
 
@@ -14,7 +11,7 @@ import { PACKAGES, SUITE } from './policy.js'
 export const VERSION = '0.1.0'
 export const ROUTE = '/api/stardustlc/plugin-updates'
 const POOL = Symbol.for('stardustlc.plugin-updates.host.v1')
-const HOST_REVISION = 2
+const HOST_REVISION = 3
 function roots() { return globalThis[POOL] ??= new WeakMap() }
 const get = (ctx, name) => { try { return ctx.get?.(name) } catch { return undefined } }
 const response = (value, status = 200) => new Response(JSON.stringify(value), { status, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store', 'x-content-type-options': 'nosniff' } })
@@ -47,7 +44,6 @@ export function createHandler(engine, registry) {
       switch (input.action) {
         case 'state': value = await engine.snapshot(); break
         case 'check': value = await engine.check(true, input.name); break
-        case 'check-when-due': value = await engine.check(false, input.name); break
         case 'preferences': value = await engine.changePreferences(input); break
         case 'ignore': case 'later': value = await engine.choice(input); break
         case 'heartbeat': engine.heartbeat(input); value = true; break
@@ -56,12 +52,6 @@ export function createHandler(engine, registry) {
         case 'install':
           if (input.confirmation !== 'update-installed-plugin') throw new Error('manual-consent-required')
           value = await engine.start(input); break
-        case 'migrate-suite':
-          if (input.confirmation !== 'convert-suite-to-independent-bundles') throw new Error('manual-consent-required')
-          value = await engine.migrateSuite(input); break
-        case 'recover-suite':
-          if (input.confirmation !== 'restore-previous-suite') throw new Error('manual-consent-required')
-          value = await engine.migrateSuite(input); break
         case 'cancel': value = await engine.cancel(input.id); break
         case 'notes': {
           const row = engine.rows.find(row => row.name === input.name)
@@ -105,14 +95,11 @@ function createCoordinator(root, profile, refs = new Map(), inherited) {
       const boot = await get(owner, 'loader').import('@deepseek-ai/dsh-app-boot')
       if (typeof boot.getDshRuntimeVersion !== 'function') return
       const store = new UpdateStore(profile.dir), registry = new UpdateRegistry()
-      const suiteMigration = ['setBundleEnabled', 'listPlugins', 'inspect'].every(method => typeof manager[method] === 'function')
-        ? new SuiteMigration(manager, async () => JSON.parse(await readFile(join(profile.dir, 'node_modules', ...SUITE.split('/'), 'package.json'), 'utf8')), () => !!get(owner, 'hmr'), store)
-        : undefined
       const installer = new NativeInstaller(manager, {
         getBundle: async name => (await manager.listBundles()).find(bundle => bundle.name === name),
         canProceed: () => engine.ensureIdle({ automatic: engine.job?.mode === 'automatic' }),
       })
-      const engine = new UpdateCoordinator({ manager, store, registry, installer, suiteMigration, activity: async () => hostActivity(owner), runtimeVersion: boot.getDshRuntimeVersion(), autoReady: rows => {
+      const engine = new UpdateCoordinator({ manager, store, registry, installer, activity: async () => hostActivity(owner), runtimeVersion: boot.getDshRuntimeVersion(), autoReady: rows => {
         const participants = new Set(record.refs.values())
         return participants.size > 0 && rows.every(row => !row.enabled || row.name === SUITE || participants.has(row.name))
       } })

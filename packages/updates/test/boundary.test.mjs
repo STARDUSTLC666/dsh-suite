@@ -52,6 +52,7 @@ test('an existing workbench receives an inline footer while keeping its own head
   assert.doesNotMatch(bootstrap, /sidebar\.panellist|W\.register\(/)
   assert.doesNotMatch(bootstrap, /name:\s*['"]settings\.section['"]|function Overlay\(/)
   assert.doesNotMatch(bootstrap, /Update all|更新全部/)
+  assert.doesNotMatch(bootstrap, /migrate-suite|recover-suite|切换为独立安装|Use independent installations/)
 })
 
 test('an incompatible release names the environment that has to change instead of only refusing', async () => {
@@ -114,13 +115,13 @@ test('legacy-first loading hands over one controller after its current install a
   vm.runInContext(source, context)
   const effects = [], root = { plugin(definition) { const cleanup = []; definition.apply({ effect(fn) { cleanup.push(fn()) } }); return { async dispose() { for (const fn of cleanup) await fn?.() } } } }
   let oldDisposed = 0, newStarted = 0
-  const oldRef = {}, old = { refs: new Map([[oldRef, { name: 'legacy' }]]), alive: true, hold: true, fiber: { async dispose() { oldDisposed++; old.alive = false; context[Symbol.for('stardustlc.plugin-updates.client.v1')].delete(root) } } }
+  const oldRef = {}, old = { refs: new Map([[oldRef, { name: 'legacy' }]]), alive: true, hold: true, uiRevision: 3, fiber: { async dispose() { oldDisposed++; old.alive = false; context[Symbol.for('stardustlc.plugin-updates.client.v1')].delete(root) } } }
   const pools = new WeakMap([[root, old]]); context[Symbol.for('stardustlc.plugin-updates.client.v1')] = pools
   context.__stardustUpdatesClient = () => { newStarted++; return { dispose() {} } }
   context.__stardustUpdatesJoin({ root, effect(fn) { effects.push(fn()) } }, {}, () => {}, { name: 'dsh-cite', version: VERSION })
   await Promise.resolve(); assert.equal(oldDisposed, 0); old.hold = false
   await old.migration
-  assert.equal(oldDisposed, 1); assert.equal(newStarted, 1); assert.equal(pools.get(root), old); assert.equal(old.uiRevision, 3)
+  assert.equal(oldDisposed, 1); assert.equal(newStarted, 1); assert.equal(pools.get(root), old); assert.equal(old.uiRevision, 4)
   assert.equal(old.refs.has(oldRef), true); assert.equal(old.refs.size, 2)
   effects.forEach(fn => fn()); assert.equal(old.refs.size, 1)
 })
@@ -134,7 +135,7 @@ test('an upgraded Host coordinator waits for a legacy installation and inherits 
   const engine = { clients, history: [], pendingRestart: false }
   let settled, oldDisposed = 0, routesRegistered = 0
   engine.jobPromise = new Promise(resolve => { settled = resolve }).finally(() => { engine.jobPromise = null })
-  const legacy = { refs: new Map([['original', 'dsh-rss']]), version: VERSION, engine,
+  const legacy = { refs: new Map([['original', 'dsh-rss']]), version: VERSION, revision: 2, engine,
     fiber: { async dispose() { oldDisposed++; globalThis[key].delete(profile) } } }
   globalThis[key] = new WeakMap([[profile, legacy]])
   const services = {
@@ -266,6 +267,17 @@ test('registry fallback is explicit, bounded, and notes render only the exact ch
   assert.match(notes.url, /^https:\/\/github.com\/STARDUSTLC666\/dsh-cite\/blob\/master\/CHANGELOG.md$/)
   const absent = await registry.notes('dsh-cite', '0.6.3'); assert.equal(absent.text, null)
   await assert.rejects(registry.metadata('unowned-package'), /unknown-package/)
+})
+
+test('Suite-only inventory keeps transitive component entries attached while Suite is mid-hot-update', async () => {
+  const context = vm.createContext({ Symbol, Map, Set }), source = await readFile(new URL('../lib/ui-client.js', import.meta.url), 'utf8')
+  vm.runInContext(source, context)
+  const suiteDisabledMidSwap = { name: '@stardustlc/dsh-suite', version: '0.11.9', enabled: false, sourceKind: 'registry', updating: true }
+  const cite = { name: 'dsh-cite', packageVersion: '0.8.1', suiteComponent: true, label: '引文库', labelEn: 'Citations' }
+  const view = context.__stardustUpdatesSuiteRows({ rows: [suiteDisabledMidSwap], job: { name: '@stardustlc/dsh-suite', state: 'installing', phase: 'applying' } }, [cite])
+  assert.equal(view.rows.length, 2)
+  assert.equal(view.rows[1].name, 'dsh-cite')
+  assert.equal(view.rows[1].bundledBy, '@stardustlc/dsh-suite')
 })
 
 test('alpha.3 settings icons match section ids, preserve page registration and dispose with their scope', () => {

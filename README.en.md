@@ -49,20 +49,20 @@ For the web version, replace `desktop` with `web`. Restart DSH after installatio
 2. Check Suite and its components in plugin management. The bundle contains 18 components; install Review and Computer Use separately.
 3. Configure only the components you need: email/calendar require your accounts, and media tools require their local runtimes.
 4. Start a concrete task from a sidebar workbench or conversation tools and verify its real result.
-5. Check updates at the bottom of each component page. Once the new controls are available, convert Suite to independent installations to update its components individually.
+5. Check updates at the bottom of a component page. Suite components update together as a bundle, hot-reloading in place when supported while leaving any manual restart timing to you.
 
 ## Requirements and configuration
 
 Enable only the suite bundle in the profile; it loads the components. Each component still has its own account, executable and network requirements.
 
-This version synchronizes independent update controls across all 18 components. Nine native workbenches retain host language, theme, narrow-window support and edit protection; the remaining components provide controls in their own settings sections. Components remain independently installable.
+This version synchronizes update controls across all 18 components. Nine native workbenches retain host language, theme, narrow-window support and edit protection; the remaining components provide controls in native plugin details. Components remain independently installable.
 
 Requires official DSH **0.2.2-rc.3 or newer**; this round checked 0.2.2-rc.3 at the adaptation level (loading, contracts and offline tests, not the previous full Web walkthrough), recorded [here](docs/validation-2026-11-14-rc3.md). See the [workbench guide](docs/WORKBENCH_UI.md) and the earlier [validation record](docs/validation-2026-10-28-boundaries.md) for actual-operation boundaries. Review and Computer Use remain separate plugins outside this bundle's 18 components.
 
 ### Compatibility and mixed installs
 
 - Requires official DSH 0.2.2-rc.3 or newer. On an older host the components still load, but the update control at the bottom of the page is absent: upgrade DSH first, then reopen the plugin details.
-- Suite installs pinned component versions. The new update footer provides a one-time conversion to independent bundles.
+- Suite pins component versions and updates them as one bundle; the footer on any component page acts on the whole Suite.
 - Components can also be installed and updated independently. Do not install the same component both ways: the profile ends up with a duplicate loader entry (`duplicate loader entry id`); see the [migration steps](docs/USAGE.en.md#migrate-an-older-suite-installation).
 - When a new release does not match this environment (a newer DSH or Node.js is required, for example), the footer states the reason and the current version keeps working; check again after upgrading.
 
@@ -70,7 +70,7 @@ Detailed configuration, tool arguments and troubleshooting are in the [usage gui
 
 ## Plugin updates
 
-Requires DSH 0.2.2-rc.3 or newer. Components with the new update control can check and install an exact release from their own workbench or native plugin details. **Automatic installation is off by default.** Enable it per plugin for compatible patches while idle. Suite users can choose **Use independent installations** to keep their current versions and configuration, then update each component separately. If the conversion asks for a restart, Harness verifies the components' loading state at startup.
+Requires DSH 0.2.2-rc.3 or newer. Update controls sit at the bottom of the existing workbench, or native plugin details for plugins without a workbench. Checks, release notes and preferences expand in place, with no separate update page or settings menu. Automatic checks are on by default (at most once daily); **automatic installation is off by default**. Only explicit opt-in permits compatible stable patches while idle with no unsaved changes. Supported updates hot-reload in place with automatic rollback on load failure; no forced DSH restart or upgrade occurs, and local-source installations stay unchanged. Suite components explain and operate on the whole Suite in the same footer.
 
 Older Suite releases need one manual update in native plugin management to acquire these controls.
 

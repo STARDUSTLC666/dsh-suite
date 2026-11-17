@@ -1,8 +1,8 @@
 import { randomUUID } from 'node:crypto'
 import semver from 'semver'
-import { PACKAGES, SUITE, SUITE_COMPONENTS, CHECK_INTERVAL, PLAN_MAX_AGE, preferences, packagePreferences, targets, releaseOf, selectReleases, eligibleAuto } from './policy.js'
+import { PACKAGES, CHECK_INTERVAL, PLAN_MAX_AGE, preferences, packagePreferences, targets, releaseOf, eligibleAuto } from './policy.js'
 
-const ERROR_CODES = new Set(['preferences-unreadable', 'preferences-conflict', 'invalid-preferences', 'busy', 'activity-unknown', 'page-not-ready', 'page-dirty', 'page-busy', 'restart-required', 'check-first', 'unknown-package', 'source-not-registry', 'managed-by-suite', 'invalid-release', 'release-changed', 'no-update', 'auto-consent-required', 'invalid-request', 'too-many-requests', 'operation-unconfirmed', 'suite-hmr-required', 'suite-inventory-changed', 'suite-stage-failed', 'suite-recovery-required', 'suite-recovery-unreadable', 'build-blocked'])
+const ERROR_CODES = new Set(['preferences-unreadable', 'preferences-conflict', 'invalid-preferences', 'busy', 'activity-unknown', 'page-not-ready', 'page-dirty', 'page-busy', 'restart-required', 'check-first', 'unknown-package', 'source-not-registry', 'managed-by-suite', 'invalid-release', 'release-changed', 'no-update', 'auto-consent-required', 'invalid-request', 'too-many-requests', 'operation-unconfirmed', 'build-blocked'])
 const containedError = error => ERROR_CODES.has(error?.message) ? error.message : 'operation-failed'
 const successful = result => result && !result.error && ['applied', 'restart-required'].includes(result.application)
 const NATIVE_PHASES = ['checking', 'removing', 'installing', 'applying', 'restoring']
@@ -20,34 +20,21 @@ function validateHeartbeat(value) {
 }
 
 export class UpdateCoordinator {
-  constructor({ manager, store, registry, installer, suiteMigration, activity, runtimeVersion, now = Date.now, autoReady = () => true }) {
-    Object.assign(this, { manager, store, registry, installer, suiteMigration, activity, runtimeVersion, now, autoReady })
+  constructor({ manager, store, registry, installer, activity, runtimeVersion, now = Date.now, autoReady = () => true }) {
+    Object.assign(this, { manager, store, registry, installer, activity, runtimeVersion, now, autoReady })
     this.rows = []; this.checkedAt = 0; this.checking = false; this.job = null; this.history = []; this.clients = new Map(); this.abort = new AbortController(); this.pendingRestart = false; this.lastManualChecks = new Map(); this.initialized = false; this.automaticAttempts = {}
   }
   async initialize() {
     const cache = await this.store.readCache()
     if (cache) { this.checkedAt = cache.checkedAt; this.rows = cache.rows.filter(row => Object.hasOwn(PACKAGES, row.name)); this.automaticAttempts = Object.fromEntries(Object.entries(cache.automaticAttempts ?? {}).filter(([name, version]) => Object.hasOwn(PACKAGES, name) && semver.valid(version))) }
-    await this.refreshSuiteRecovery()
     this.initialized = true
-  }
-  async refreshSuiteRecovery() {
-    try {
-      const plan = await this.suiteMigration?.recoveryPlan()
-      if (!plan || (plan.restartPid && await this.suiteMigration.confirmCompleted(plan))) {
-        this.suiteRecovery = null
-        return
-      }
-      this.suiteRecovery = { version: plan.suite.version }
-      if (plan.restartPid === process.pid) this.suiteRecovery.restartRequired = true
-      else if (plan.restartPid) this.suiteRecovery.awaitingVerification = true
-    } catch { this.suiteRecovery = { error: 'suite-recovery-unreadable' } }
   }
   async current() {
     const bundles = targets(await this.manager.listBundles())
     this.rows = bundles.map(row => {
       const old = this.rows.find(item => item.name === row.name)
       const release = old?.version === row.version ? old.release : undefined
-      return { ...row, ...(old?.version === row.version ? { release, blockedRelease: old.blockedRelease, error: old.error, checkedAt: old.checkedAt } : {}), available: !!release?.compatible && !!semver.valid(release.version) && !!semver.valid(row.version) && semver.gt(release.version, row.version) }
+      return { ...row, ...(old?.version === row.version ? { release, error: old.error, checkedAt: old.checkedAt } : {}), available: !!release?.compatible && !!semver.valid(release.version) && !!semver.valid(row.version) && semver.gt(release.version, row.version) }
     })
     return this.rows
   }
@@ -74,7 +61,7 @@ export class UpdateCoordinator {
     const [state, rows, activity, clients] = await Promise.all([this.store.read(), this.current(), this.activity(), this.clientStates()])
     const prefs = state.value
     const jobRow = this.jobRow && ['verifying', 'installing', 'cancelling', 'unknown', 'restore-failed'].includes(this.job?.state) && !rows.some(row => row.name === this.jobRow.name)
-    return { preferences: prefs, preferenceError: state.error, rows: jobRow ? [...rows, { ...this.jobRow, updating: true }] : rows, checkedAt: this.checkedAt, checking: this.checking, checkingNames: [...this.checkNames ?? []], job: this.job ? structuredClone(this.job) : null, history: structuredClone(this.history), automaticAttempts: { ...this.automaticAttempts }, activity, pages: { known: clients.length > 0 && clients.every(c => c.fresh), dirty: clients.some(c => c.dirty), busy: clients.some(c => c.busy), clients: clients.map(({ id, busy, dirty, fresh }) => ({ id, busy, dirty, fresh })) }, pendingRestart: this.pendingRestart, updaterRestart: !!this.updaterRestart, autoReady: this.autoReady(rows), suiteMigration: this.suiteMigration?.hasHmr() === true, suiteRecovery: this.suiteRecovery, runtimeVersion: this.runtimeVersion }
+    return { preferences: prefs, preferenceError: state.error, rows: jobRow ? [...rows, { ...this.jobRow, updating: true }] : rows, checkedAt: this.checkedAt, checking: this.checking, checkingNames: [...this.checkNames ?? []], job: this.job ? structuredClone(this.job) : null, history: structuredClone(this.history), automaticAttempts: { ...this.automaticAttempts }, activity, pages: { known: clients.length > 0 && clients.every(c => c.fresh), dirty: clients.some(c => c.dirty), busy: clients.some(c => c.busy), clients: clients.map(({ id, busy, dirty, fresh }) => ({ id, busy, dirty, fresh })) }, pendingRestart: this.pendingRestart, updaterRestart: !!this.updaterRestart, autoReady: this.autoReady(rows), runtimeVersion: this.runtimeVersion }
   }
   async changePreferences(input) {
     if (!input || !Object.hasOwn(PACKAGES, input.name) || !Number.isSafeInteger(input.revision) || !input.changes || typeof input.changes !== 'object' || Array.isArray(input.changes)) throw new Error('invalid-request')
@@ -126,12 +113,10 @@ export class UpdateCoordinator {
       const next = rows.map(row => ({ ...row }))
       for (let i = 0; i < next.length; i += 2) await Promise.all(next.slice(i, i + 2).map(async row => {
         if (!this.checkNames.has(row.name)) return
-        row.release = undefined; row.blockedRelease = undefined; row.error = undefined
+        row.release = undefined; row.error = undefined
         try {
           const source = await this.registry.metadata(row.name, signal)
-          const { release, blockedRelease } = selectReleases(row.name, source.document, row.version, this.runtimeVersion)
-          if (release) row.release = { ...release, registry: source.registry }
-          row.blockedRelease = blockedRelease
+          row.release = { ...releaseOf(row.name, source.document, this.runtimeVersion), registry: source.registry }
         } catch (error) { signal.throwIfAborted(); row.error = 'check-failed' }
         row.checkedAt = this.now()
       }))
@@ -158,49 +143,14 @@ export class UpdateCoordinator {
     this.starting = true
     try { return await this.begin(input, mode) } finally { this.starting = false }
   }
-  async migrateSuite(input) {
-    const recovering = input.action === 'recover-suite'
-    if (!this.suiteMigration?.hasHmr()) throw new Error('suite-hmr-required')
-    if (!Object.hasOwn(PACKAGES, input.name) || (!recovering && input.name !== SUITE && !SUITE_COMPONENTS.has(input.name))) throw new Error('invalid-request')
-    if (this.starting || this.jobPromise) throw new Error('busy')
-    if (this.pendingRestart || this.suiteRecovery?.restartRequired) throw new Error('restart-required')
-    if (this.suiteRecovery?.error) throw new Error(this.suiteRecovery.error)
-    if (this.suiteRecovery && !recovering) throw new Error('suite-recovery-required')
-    if (['unknown', 'restore-failed'].includes(this.job?.state) && !(recovering && this.job.mode === 'migration')) throw new Error('operation-unconfirmed')
-    this.starting = true
-    try {
-      const row = (await this.current()).find(row => row.name === SUITE && row.enabled && row.sourceKind === 'registry' && !row.loadError)
-      const from = recovering ? this.suiteRecovery?.version : row?.version
-      if (!from) throw new Error('suite-inventory-changed')
-      await this.ensureIdle()
-      const controller = new AbortController()
-      const job = { id: randomUUID(), name: SUITE, requestedName: input.name, from, mode: 'migration', state: 'installing', phase: recovering ? 'restoring' : 'checking', startedAt: this.now(), outcome: null }
-      this.job = job; this.jobAbort = controller; this.jobRow = row
-      const operation = recovering ? 'recover' : 'run'
-      this.jobPromise = this.suiteMigration[operation]({
-        requestId: job.id,
-        signal: AbortSignal.any([controller.signal, this.abort.signal]),
-        beforeSwitch: () => this.ensureIdle(),
-        progress: (phase, completed, total) => { Object.assign(job, { phase, completed, total }) },
-      }).then(result => { job.state = result.state; job.reason = result.reason && containedError(new Error(result.reason)) })
-        .catch(error => { job.state = 'failed'; job.reason = containedError(error) })
-        .finally(async () => {
-          try { await this.refreshSuiteRecovery(); await this.recordResult(job) }
-          finally { this.jobPromise = null }
-        })
-      return structuredClone(job)
-    } finally { this.starting = false }
-  }
   async begin(input, mode) {
     if (!input || !Object.hasOwn(PACKAGES, input.name) || !semver.valid(input.version)) throw new Error('invalid-request')
     if (['unknown', 'restore-failed'].includes(this.job?.state)) throw new Error('operation-unconfirmed')
-    if (this.suiteRecovery?.restartRequired) throw new Error('restart-required')
-    if (this.suiteRecovery) throw new Error(this.suiteRecovery.error ?? 'suite-recovery-required')
     if (this.jobPromise) throw new Error('busy')
     await this.current()
     const row = this.rows.find(row => row.name === input.name)
     if (!row || row.sourceKind !== 'registry') throw new Error('source-not-registry')
-    if (row.bundledBy || row.name === SUITE && row.enabled) throw new Error('managed-by-suite')
+    if (row.bundledBy) throw new Error('managed-by-suite')
     if (!row.release || row.release.version !== input.version || this.now() - (row.checkedAt ?? 0) > PLAN_MAX_AGE) throw new Error('check-first')
     if (!row.release.compatible || !semver.gt(input.version, row.version)) throw new Error('no-update')
     const idle = await this.ensureIdle({ automatic: mode === 'automatic' })
@@ -222,9 +172,7 @@ export class UpdateCoordinator {
     const signal = AbortSignal.any([controller.signal, this.abort.signal])
     try {
       const source = await this.registry.metadata(row.name, signal, row.release.registry)
-      const latest = source.document['dist-tags']?.latest
-      if (semver.valid(latest) && !semver.prerelease(latest) && semver.gt(job.to, latest)) throw new Error('release-changed')
-      const release = { ...releaseOf(row.name, source.document, this.runtimeVersion, undefined, job.to), registry: source.registry }
+      const release = { ...releaseOf(row.name, source.document, this.runtimeVersion), registry: source.registry }
       if (!release.compatible || release.version !== job.to || release.integrity !== row.release.integrity) throw new Error('release-changed')
       await this.ensureIdle({ automatic: job.mode === 'automatic' })
       if (job.mode === 'automatic') {
@@ -274,12 +222,11 @@ export class UpdateCoordinator {
     await this.current().catch(() => {})
   }
   progress(requestId, phase) {
-    if (this.job?.id !== requestId || this.job.mode === 'migration' || this.job.state !== 'installing' || !NATIVE_PHASES.includes(phase)) return
+    if (this.job?.id !== requestId || this.job.state !== 'installing' || !NATIVE_PHASES.includes(phase)) return
     if (NATIVE_PHASES.indexOf(phase) >= NATIVE_PHASES.indexOf(this.job.phase)) this.job.phase = phase
   }
   async cancel(id) {
     if (!this.job || this.job.id !== id || !['verifying', 'installing', 'cancelling'].includes(this.job.state)) return { status: 'not-running' }
-    if (this.job.mode === 'migration' && ['applying', 'restoring'].includes(this.job.phase)) return { status: 'too-late' }
     const wasInstalling = this.job.state !== 'verifying'
     this.jobAbort?.abort(new Error('cancelled'))
     if (wasInstalling) {
@@ -291,15 +238,10 @@ export class UpdateCoordinator {
   }
   async tick() {
     if (!this.initialized || this.abort.signal.aborted || this.starting || this.jobPromise || ['unknown', 'restore-failed'].includes(this.job?.state)) return
-    if (this.suiteRecovery?.awaitingVerification) {
-      this.starting = true
-      try { await this.refreshSuiteRecovery() } finally { this.starting = false }
-    }
-    if (this.suiteRecovery) return
     const state = await this.store.read()
     if (state.error) return
     const rows = await this.current()
-    const due = rows.filter(row => row.name !== SUITE && row.sourceKind === 'registry' && !row.bundledBy && packagePreferences(state.value, row.name).checkEnabled && this.now() - (row.checkedAt ?? 0) >= CHECK_INTERVAL).sort((a, b) => (a.checkedAt ?? 0) - (b.checkedAt ?? 0))[0]
+    const due = rows.filter(row => row.sourceKind === 'registry' && !row.bundledBy && packagePreferences(state.value, row.name).checkEnabled && this.now() - (row.checkedAt ?? 0) >= CHECK_INTERVAL).sort((a, b) => (a.checkedAt ?? 0) - (b.checkedAt ?? 0))[0]
     if (due) await this.check(false, due.name)
     if (!this.rows.some(row => packagePreferences(state.value, row.name).autoInstall)) return
     const [activity, clients] = await Promise.all([this.activity(), this.clientStates()])
