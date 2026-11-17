@@ -4,7 +4,7 @@
 
 ![dsh-suite whale girl plugin cover](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/master/assets/cover-whale-girl.png)
 
-Install 18 independent DSH plugins for email, calendars, memory, media and developer workflows with their combined defaults. Components remain independently installable; Review and Computer Use are distributed separately.
+Plugin bundle for DeepSeek Harness (`>=0.2.2-rc.3`): install 18 standalone plugins for email, calendar, memory, media creation, code security, and developer workflows—including 9 native workbenches with 5 switchable light/warm themes (Native Glass, Cream Paper, Claude Warm Paper, 8-Bit Pixel, Sky Mint)—with combined defaults and Cordis hot-reload cleanup. Review and Computer Use are distributed separately.
 
 [![npm](https://img.shields.io/npm/v/@stardustlc/dsh-suite)](https://www.npmjs.com/package/@stardustlc/dsh-suite) [![downloads](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/npm-downloads/assets/dsh-suite-downloads.svg)](https://www.npmjs.com/package/@stardustlc/dsh-suite) [![total downloads](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/npm-downloads/assets/dsh-suite-total-downloads.svg)](https://www.npmjs.com/package/@stardustlc/dsh-suite)
 

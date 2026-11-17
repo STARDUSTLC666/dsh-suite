@@ -4,7 +4,7 @@
 
 ![dsh-suite 鲸鱼娘插件封面](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/master/assets/cover-whale-girl.png)
 
-一次安装 18 个独立 DSH 插件，覆盖邮件、日历、记忆、媒体创作与开发运维，并组合它们的默认配置。各组件仍可单独安装；Review 与 Computer Use 另行提供。
+DeepSeek Harness 生态插件组合包：一次安装 18 个独立插件，覆盖邮件、日历、记忆、媒体创作、代码安全与开发运维（9 个原生工作台支持「原生清透 / 米白纸感 / Claude 暖书卷 / 8-Bit 像素 / 晴空薄荷」5 套主题切换），并统一管理默认配置与 Cordis 热重载清理；Review 与 Computer Use 作为配套插件另行提供。
 
 [![npm](https://img.shields.io/npm/v/@stardustlc/dsh-suite)](https://www.npmjs.com/package/@stardustlc/dsh-suite) [![downloads](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/npm-downloads/assets/dsh-suite-downloads.svg)](https://www.npmjs.com/package/@stardustlc/dsh-suite) [![total downloads](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/npm-downloads/assets/dsh-suite-total-downloads.svg)](https://www.npmjs.com/package/@stardustlc/dsh-suite)
 
@@ -57,7 +57,7 @@ profile 只启用 Suite 这一层，由它加载组件。组件的账号、外�
 
 本版同步全部 18 个组件的更新入口。九个原生工作台保留中英文、深浅色、窄屏和未保存保护；其余组件在原生插件详情页底部提供更新操作。独立插件仍可分别安装。
 
-同时包含 PPT 0.20.6，在演示文稿工作台按需要下载「分享成品包」或「完整工程包」。分享包附当前讲稿，工程包保留 JSON；下载无需 AI 预审。功能版本升级由用户确认，自动安装默认关闭。
+演示文稿工作台支持按需要下载「分享成品包」或「完整工程包」（分享包附当前讲稿，工程包保留 JSON，下载无需 AI 预审）。功能版本升级由用户确认，自动安装默认关闭。
 
 需要官方 DSH **0.2.2-rc.3 或更新版本**；本轮在 **0.2.2-rc.3** 做适配级复查（加载、契约与离线测试，不是完整的 Web 逐项操作验收），见[本轮记录](docs/validation-2026-11-14-rc3.md)。设计与维护见[工作台说明](docs/WORKBENCH_UI.md)，此前的完整操作边界见[2026-10-28 验收](docs/validation-2026-10-28-boundaries.md)。Review 与 Computer Use 继续作为独立插件提供，不计入本包的 18 个组件。
 
