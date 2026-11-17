@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.11.12 (2026-11-18)
+
+- 同步全部 18 个组件的更新区轻量反馈入口（支持直达 GitHub Star 与对应组件 Issues），补全中英文检索关键词，并新增仓库社交分享预览卡片（`assets/social-preview.jpg`）。
+- Sync subtle GitHub Star and component issue links across all 18 components’ update footers, expand bilingual search keywords, and add the 1280×640 repository social preview card (`assets/social-preview.jpg`).
+
 ## 0.11.11 (2026-11-18)
 
 - 同步全部 18 个组件至集成 `@stardustlc/dsh-updates` 0.2.1 的补丁版本：恢复 Suite 整包统一更新（移除「切换为独立安装」拆包迁移），保留整包与独立插件的原地热更新与失败自动回滚，检查间隔恢复为每天最多一次。
