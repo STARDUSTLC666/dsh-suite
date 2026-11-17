@@ -10,7 +10,7 @@
 
 [下载统计说明](https://github.com/STARDUSTLC666/dsh-suite/blob/npm-downloads/README.md)
 
-欢迎使用，遇到问题或有改进建议，请提交 [issues](https://github.com/STARDUSTLC666/dsh-suite/issues)。
+欢迎使用，遇到问题或有改进建议，请提交 [issues](https://github.com/STARDUSTLC666/dsh-suite/issues) 和 [PR](https://github.com/STARDUSTLC666/dsh-suite/pulls)。
 
 0.9.1 为组合包和 18 个插件加入专门生成的鲸鱼娘图标，带独立功能符号与透明留白，显示在 DSH 原生列表与详情中。日历已包含空闲时段建议，见[使用说明](docs/calendar-availability-2026-10-30.md)。
 
