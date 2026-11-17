@@ -1,6 +1,6 @@
 {
   "name": "@stardustlc/dsh-suite",
-  "version": "0.11.8",
+  "version": "0.11.9",
   "description": "DSH 组合包：一次安装 18 个独立插件，覆盖邮件、日历、记忆、媒体与开发工具；更新由用户选择。欢迎提交 issues 和 PR。",
   "type": "module",
   "dsh": {
@@ -54,9 +54,9 @@
   "dependencies": {
     "@stardustlc/dsh-docker": "0.5.11",
     "@stardustlc/dsh-dream": "0.15.2",
-    "dsh-calendar": "0.16.1",
+    "dsh-calendar": "0.17.0",
     "dsh-cite": "0.8.1",
-    "dsh-code-security": "0.7.13",
+    "dsh-code-security": "0.7.14",
     "dsh-codex-port": "0.4.11",
     "dsh-dingtalk": "0.3.11",
     "dsh-email": "0.27.3",

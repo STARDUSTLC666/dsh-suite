@@ -15,14 +15,14 @@ importers:
         specifier: 0.15.2
         version: 0.15.2
       dsh-calendar:
-        specifier: 0.16.1
-        version: 0.16.1
+        specifier: 0.17.0
+        version: 0.17.0
       dsh-cite:
         specifier: 0.8.1
         version: 0.8.1
       dsh-code-security:
-        specifier: 0.7.13
-        version: 0.7.13
+        specifier: 0.7.14
+        version: 0.7.14
       dsh-codex-port:
         specifier: 0.4.11
         version: 0.4.11
@@ -286,16 +286,16 @@ packages:
     resolution: {integrity: sha512-qI4JLRKnSzqFqr7hAlS5xQDusBCjKSEG4t4+7aNrIQMHBcsC2TGEhuyABJdYkgSewL57PNLYEiibY2iPKhKpaA==}
     engines: {node: '>=20.19.0'}
 
-  dsh-calendar@0.16.1:
-    resolution: {integrity: sha512-uey+GUFOpVt3qYYDpENQoXxRm5toYxiwb0zWSs0uLLV07y9EWx7gYZoN8DmVIQYHWK5qsjxTjXV6Px6AYmP4dQ==}
+  dsh-calendar@0.17.0:
+    resolution: {integrity: sha512-yLCEdD+m9XGyUM7EbD/zzN9MEdVcKSStrfPKb4Q8EfXFHkMnZDuP0IF4E0sLP7k6+YCxQqVrUjcX0Qo726oWMg==}
     engines: {dsh: '>=0.2.1-rc.3', node: ^22.19.0 || >=24.0.0}
 
   dsh-cite@0.8.1:
     resolution: {integrity: sha512-Fl5X+JdL2vVAIzQSVFemtwdFkt4yMoMWLscDbFDSK7x/9Vz10+33wX8ha3EhPsgoRZvzjadwyB658IF1dn1raw==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  dsh-code-security@0.7.13:
-    resolution: {integrity: sha512-pJx8QZLtzIKbJC+jf5JHKNPTXhMhiItoY/GDj9WiFNMMr5uDJOncwxwVOTa0C/yXvmU1U6e8VEo+1ZRKv9/Qqg==}
+  dsh-code-security@0.7.14:
+    resolution: {integrity: sha512-uKUQPPNlVSVh2YYRFtrjY4TO+K1U53cybtVF9OZFsIOmH2DFUWvSmt++fXUSdyMdawsc9LR/tRx/pInmwZ8NTg==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
   dsh-codex-port@0.4.11:
@@ -957,7 +957,7 @@ snapshots:
       domelementtype: 3.0.0
       domhandler: 6.0.1
 
-  dsh-calendar@0.16.1:
+  dsh-calendar@0.17.0:
     dependencies:
       '@deepseek-ai/schemastery': 3.18.3
       '@stardustlc/dsh-updates': 0.2.0
@@ -977,7 +977,7 @@ snapshots:
       '@stardustlc/dsh-updates': 0.2.0
       proper-lockfile: 4.1.2
 
-  dsh-code-security@0.7.13:
+  dsh-code-security@0.7.14:
     dependencies:
       '@babel/parser': 7.29.9
       '@babel/traverse': 7.29.10

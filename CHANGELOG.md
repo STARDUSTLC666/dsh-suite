@@ -1,5 +1,12 @@
 # 更新记录
 
+## 0.11.9 (2026-11-17)
+
+- 同步日历 0.17.0，支持发现 iCloud 日历和从文字或截图填写日程草稿，并修复顶栏选中状态的对齐。
+- 同步代码安全 0.7.14，更新选项展开后随工作台内容滚动。
+- Include Calendar 0.17.0 with iCloud calendar discovery, editable event drafts from text or screenshots, and a corrected toolbar.
+- Include Code Security 0.7.14 with update options that scroll with the active workbench tab.
+
 ## 0.11.8 (2026-11-17)
 
 - 更新全部 18 个组件。打开任一组件的更新区，可将 Suite 切换为独立安装，保留版本和配置。切换后可单独检查、热更新或开启该组件的空闲补丁自动安装。
