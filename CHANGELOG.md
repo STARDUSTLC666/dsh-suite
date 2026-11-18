@@ -1,5 +1,14 @@
 # 更新记录
 
+## 0.12.5 (2026-11-18)
+
+- **同步全部 9 大侧边栏工作台交互式聚光灯 + 自动转向箭头分步引导（Coachmark Tour）**：覆盖日历 `0.18.5`、文献库 `0.10.2`、代码安全 `0.8.5`、Dream `0.16.5`、邮件 `0.28.6`、HyperFrames `0.12.4`、演示文稿 `0.24.0`、Remotion `0.11.4` 与 RSS `0.10.5`；顶栏新增 `? 引导` 按钮，首次进入工作台温和引导一次（跳过或完成后写入 `localStorage` 永久不再打扰），支持真实按钮聚光灯高亮、视口边缘自动翻转小箭头、键盘 `←`/`→`/`Esc` 导航与气泡内一键复制对话指令，并移除占高度的静态折叠流程框。
+- **同步 `dsh-ppt` 0.24.0 原生公式引擎、四大巅峰商业图示与 `ppt_import` 双向导回**：新增零依赖 LaTeX → 原生可编辑 Office Math（`<m:oMath>`）+ MathML 引擎、麦肯锡 `marimekko` / 多层级 `sankey` / 真·波特 `value-chain` / `swot` 四大图示、第 10 个工具 `ppt_import`（外部 `.pptx` 一键翻新与 Office 修改稿导回并保留 `.history/` 撤销历史）、`P` 键双屏演讲者提词台（含 `L` 键虚拟激光笔）与 `.handout.md` 演讲讲义导出。
+- **同步 `dsh-email` 0.28.6 与 `dsh-voice` 0.8.0**：保留 `dsh-email` 互动鲸鱼娘信使与 `dsh-voice` 300+ 在线音色、10 组人设、情绪演技、零样本克隆与 `-16 LUFS` 响度均衡。
+- **Sync Interactive Spotlight + Directional Arrow Coachmark Tour across all 9 sidebar workbenches**: update Calendar `0.18.5`, Citations `0.10.2`, Code Security `0.8.5`, Dream `0.16.5`, Email `0.28.6`, HyperFrames `0.12.4`, PPT `0.24.0`, Remotion `0.11.4`, and RSS `0.10.5` with a header **? Tour** button, one-time first-visit onboarding (`localStorage` persisted), live target spotlighting, viewport-aware auto-flipping arrows, `←`/`→`/`Esc` keyboard navigation, and inline 1-click prompt copy, replacing static collapsible workflow boxes.
+- **Sync `dsh-ppt` 0.24.0 native Office Math, 4 flagship consulting diagrams & `ppt_import` round-trip sync**: ship the zero-dependency LaTeX → `<m:oMath>` + MathML formula engine (`deck-math.mjs`), `marimekko` / `sankey` / `value-chain` / `swot` layouts, the 10th tool `ppt_import` (external `.pptx` modernization and Office-edited `.pptx` round-trip sync with `.history/` undo), Dual-Screen Presenter View (`P` / `L` laser pointer), and `.handout.md` speaker handout export.
+- **Sync `dsh-email` 0.28.6 & `dsh-voice` 0.8.0**: retain interactive Whale-Girl Courier in Email and 300+ live voices, 10 personas, emotion instructions, zero-shot cloning, and `-16 LUFS` loudness mastering in Voice.
+
 ## 0.12.4 (2026-11-18)
 
 - **同步 `dsh-voice` 0.8.0 全量音色发现、10 组人设、情绪演技、零样本克隆与响度均衡**：`voice_list` 支持 `online: true` 联网拉取并缓存微软 Edge 300+ 实时音色目录（断网自动回退至 45 个全年龄段与方言内置音色）；新增 10 组 `VOICE_PERSONAS` 角色人设配方（支持 `voice_tts`、`segments[]` 与 `voice_preview`）；支持 `instructions` 情绪语气指令（自动适配 SiliconFlow `CosyVoice2-0.5B` `<|endofprompt|>` 与 `[laughter]`/`[breath]` 副语言标记，及 OpenAI `gpt-4o-mini-tts`）；新增工作区边界受控的 `referenceAudio` + `referenceText` 零样本克隆与可热更新的 `customVoices` 自定义别名设置；新增 `normalizeLoudness: true` 调用本机 FFmpeg 执行 `-16 LUFS` 播客响度均衡。
