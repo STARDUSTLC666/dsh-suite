@@ -121,7 +121,7 @@ test('legacy-first loading hands over one controller after its current install a
   context.__stardustUpdatesJoin({ root, effect(fn) { effects.push(fn()) } }, {}, () => {}, { name: 'dsh-cite', version: VERSION })
   await Promise.resolve(); assert.equal(oldDisposed, 0); old.hold = false
   await old.migration
-  assert.equal(oldDisposed, 1); assert.equal(newStarted, 1); assert.equal(pools.get(root), old); assert.equal(old.uiRevision, 5)
+  assert.equal(oldDisposed, 1); assert.equal(newStarted, 1); assert.equal(pools.get(root), old); assert.equal(old.uiRevision, 6)
   assert.equal(old.refs.has(oldRef), true); assert.equal(old.refs.size, 2)
   effects.forEach(fn => fn()); assert.equal(old.refs.size, 1)
 })
@@ -309,3 +309,86 @@ test('hosts without the optional icon slot keep working without a new settings p
   delete ctx.inject;
   defs[0].factory(()=>({})).apply(ctx);assert.equal(ctx.count,1);
 });
+
+test('inline workbench footer stays completely hidden when calm and surfaces a compact strip only for actionable updates or active jobs', async t => {
+  const kit = await readFile(new URL('../lib/ui-kit.js', import.meta.url), 'utf8')
+  const uiClient = await readFile(new URL('../lib/ui-client.js', import.meta.url), 'utf8')
+  let snapshot = {
+    rows: [{ name: 'dsh-cite', version: '0.10.0', enabled: true, sourceKind: 'registry', available: false, checkedAt: 1_700_000_000_000, label: '引文库', labelEn: 'Citations', release: { version: '0.10.0', compatible: true } }],
+    preferences: { revision: 1, packages: {} },
+    activity: { known: true, busy: false },
+    pages: { known: true, dirty: false, clients: [] },
+    checkingNames: [],
+    job: { id: 'past-job', name: 'dsh-cite', state: 'complete', from: '0.9.9', to: '0.10.0' },
+  }
+  const context = vm.createContext({
+    Symbol, Map, Set, WeakMap, URL, AbortController, Promise, Date,
+    crypto: { randomUUID: () => '00000000-0000-4000-8000-000000000099' },
+    setTimeout, clearTimeout, setInterval: () => 1, clearInterval() {},
+    document: { baseURI: 'http://localhost/', addEventListener() {}, removeEventListener() {}, querySelectorAll: () => [] },
+    window: { addEventListener() {}, removeEventListener() {} },
+    fetch: async () => ({ ok: true, status: 200, async json() { return { ok: true, value: snapshot } } }),
+  })
+  vm.runInContext(kit + '\n' + uiClient, context)
+  function expand(node) {
+    if (node == null || typeof node !== 'object') return node
+    if (typeof node.type === 'function') return expand(node.type({ ...(node.props || {}), children: node.children }))
+    return { ...node, children: (node.children || []).flat().map(expand).filter(item => item != null && item !== false) }
+  }
+  const React = {
+    Fragment: 'fragment',
+    useState: initial => [typeof initial === 'function' ? initial() : initial, () => {}],
+    useEffect() {},
+    useRef: initial => ({ current: initial }),
+    useId: () => 'u1',
+    createElement: (type, props, ...children) => ({ type, props: props || {}, children }),
+  }
+  const shared = { refs: new Map([['r1', { name: 'dsh-cite' }]]), hold: false }
+  const client = context.__stardustUpdatesClient({
+    locale: { getSnapshot: () => ({ active: 'zh-CN' }), subscribe: () => () => {} },
+    slots: { inject(_slot, fn) { fn() }, register() {} },
+  }, React, () => ({}), shared)
+  t.after(() => client.dispose())
+  await new Promise(resolve => setTimeout(resolve, 150))
+
+  // 1. Calm up-to-date state (even with historical completed job): workbench inline footer renders nothing (null),
+  //    while native plugin details still render the full management section.
+  assert.equal(expand(React.createElement(client.Footer, { name: 'dsh-cite' })), null)
+  const nativeCalm = expand(React.createElement(client.NativeFooter, { subject: { kind: 'bundle', pkg: { name: 'dsh-cite' } } }))
+  assert.equal(nativeCalm.type, 'section')
+  assert.equal(nativeCalm.props['data-plugin-update-footer'], 'dsh-cite')
+  assert.doesNotMatch(nativeCalm.props.className, /is-inline/)
+
+  // 2. Compatible update available: workbench inline footer renders a single-line compact strip (.is-inline).
+  snapshot = {
+    ...snapshot,
+    rows: [{ ...snapshot.rows[0], available: true, release: { version: '0.10.1', compatible: true } }],
+    job: null,
+  }
+  await new Promise(resolve => setTimeout(resolve, 10))
+  // Trigger refresh via client poll cycle by re-creating or invoking state update
+  const clientWithUpdate = context.__stardustUpdatesClient({
+    locale: { getSnapshot: () => ({ active: 'zh-CN' }), subscribe: () => () => {} },
+    slots: { inject(_slot, fn) { fn() }, register() {} },
+  }, React, () => ({}), shared)
+  t.after(() => clientWithUpdate.dispose())
+  await new Promise(resolve => setTimeout(resolve, 150))
+  const inlineAvailable = expand(React.createElement(clientWithUpdate.Footer, { name: 'dsh-cite' }))
+  assert.equal(inlineAvailable.type, 'section')
+  assert.match(inlineAvailable.props.className, /\bis-inline\b/)
+  assert.equal(inlineAvailable.props['data-plugin-update-footer'], 'dsh-cite')
+
+  // 3. Ignored version hides the inline workbench strip again while keeping NativeFooter available.
+  snapshot = {
+    ...snapshot,
+    preferences: { revision: 2, packages: { 'dsh-cite': { checkEnabled: true, autoInstall: false, deferredUntil: 0, ignoredVersion: '0.10.1' } } },
+  }
+  const clientIgnored = context.__stardustUpdatesClient({
+    locale: { getSnapshot: () => ({ active: 'zh-CN' }), subscribe: () => () => {} },
+    slots: { inject(_slot, fn) { fn() }, register() {} },
+  }, React, () => ({}), shared)
+  t.after(() => clientIgnored.dispose())
+  await new Promise(resolve => setTimeout(resolve, 150))
+  assert.equal(expand(React.createElement(clientIgnored.Footer, { name: 'dsh-cite' })), null)
+  assert.notEqual(expand(React.createElement(clientIgnored.NativeFooter, { subject: { kind: 'bundle', pkg: { name: 'dsh-cite' } } })), null)
+})
