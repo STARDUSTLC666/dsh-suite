@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.12.7 (2026-11-18)
+
+- **同步 `dsh-voice` 0.9.0（第 10 个 5 主题侧边栏工作台 Voice Studio 与专业音频全量升级）**：新增原生 5 主题（原生清透 / 米白纸感 / Claude 暖书卷 / 8-Bit 像素 / 晴空薄荷）Voice Studio 侧边栏工作台与 Coachmark 新手引导（支持 300+ 音色与 10 套人设在线试听、0.8x–1.5x 倍速、浏览器麦克风速记转写、自定义角色与发音词典管理）；新增精确 MP3 帧/Xing/VBRI 时长反馈（`durationMs`/`durationSec`）、`pronunciations` 发音词典（Edge SSML `<sub alias>` 与非递归文本替读）、`subtitleInput` 反向 `.srt`/`.vtt` 时间轴卡点配音、`bgmFile` 播客 BGM 自动闪避、`voice_stt` `diarize` 说话人区分以及 SiliconFlow SHA-256 参考音频 URI 缓存上传。
+- **Sync `dsh-voice` 0.9.0 (10th 5-theme sidebar workbench Voice Studio & pro audio upgrades)**: add the native 5-theme (Native Airy / Warm Cream / Claude Warmth / Bright 8-Bit / Airy Mint) Voice Studio sidebar workbench with interactive Coachmark onboarding, in-panel audition of 300+ voices & 10 personas at 0.8x–1.5x speed, browser `MediaRecorder` mic memo transcription, custom voice aliases, and pronunciation lexicon management; add exact MP3 frame/Xing/VBRI duration feedback (`durationMs`/`durationSec`), `pronunciations` lexicon (Edge SSML `<sub alias>` & non-recursive plain replacement), `subtitleInput` reverse `.srt`/`.vtt` timeline-synced dubbing, `bgmFile` podcast BGM auto-ducking, `voice_stt` `diarize` speaker diarization, and SiliconFlow SHA-256 reference voice URI upload caching.
+
 ## 0.12.6 (2026-11-18)
 
 - 同步全部 18 个组件升级至 `@stardustlc/dsh-updates@0.2.4`：对话页新增一键原地热更新提醒卡片（无需跳转设置页），后台更新检查周期缩短至 6 小时，主动开启空闲自动更新时覆盖兼容功能小版本与补丁（跨主版本仍需手动确认），并在手动热更新完成后提供一键开启引导。
