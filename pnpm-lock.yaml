@@ -60,8 +60,8 @@ importers:
         specifier: 0.6.2
         version: 0.6.2(@types/node@26.5.1)
       dsh-voice:
-        specifier: 0.9.0
-        version: 0.9.0
+        specifier: 0.9.1
+        version: 0.9.1
     devDependencies:
       js-yaml:
         specifier: ^4.1.0
@@ -351,8 +351,8 @@ packages:
     resolution: {integrity: sha512-yeGsOM3TTRzmeGdlbexNygEMGH0CKI3BVatDrKp0xx5NVpEkbCxc+xmXpZ7O47MV75uhD4uMzwEMJAluzxjEsA==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  dsh-voice@0.9.0:
-    resolution: {integrity: sha512-G6QebTv6gWU0+dSeUOcS4VNVFB/pbcio92q6Qr+l8VRFZz8g/3vZRzOufYFPvu62P1xRjguifQ1k2RyQXEjdig==}
+  dsh-voice@0.9.1:
+    resolution: {integrity: sha512-7OFFPkDG1/gQzNLKnP9CIPgFH4NR0LhV8VcyiI9Aodh36fwmXYD0y+a+pwjMN94HOPCbUpu1exL0LfGWiRPcxw==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
   encoding-japanese@2.4.0:
@@ -1072,7 +1072,7 @@ snapshots:
       - '@types/node'
       - pg-native
 
-  dsh-voice@0.9.0:
+  dsh-voice@0.9.1:
     dependencies:
       '@stardustlc/dsh-updates': 0.2.4
       https-proxy-agent: 9.1.0

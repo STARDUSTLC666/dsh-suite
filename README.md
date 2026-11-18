@@ -4,7 +4,7 @@
 
 ![dsh-suite 鲸鱼娘插件封面](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/master/assets/cover-whale-girl.png)
 
-DeepSeek Harness 生态插件组合包：一次安装 18 个独立插件，覆盖邮件、日历、记忆、媒体创作、代码安全与开发运维（9 个原生工作台支持「原生清透 / 米白纸感 / Claude 暖书卷 / 8-Bit 像素 / 晴空薄荷」5 套主题切换），并统一管理默认配置与 Cordis 热重载清理；Review 与 Computer Use 作为配套插件另行提供。
+DeepSeek Harness 生态插件组合包：一次安装 18 个独立插件，覆盖邮件、日历、记忆、媒体创作、代码安全与开发运维（10 个原生工作台支持「原生清透 / 米白纸感 / Claude 暖书卷 / 8-Bit 像素 / 晴空薄荷」5 套主题切换），并统一管理默认配置与 Cordis 热重载清理；Review 与 Computer Use 作为配套插件另行提供。
 
 [![npm](https://img.shields.io/npm/v/@stardustlc/dsh-suite)](https://www.npmjs.com/package/@stardustlc/dsh-suite) [![downloads](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/npm-downloads/assets/dsh-suite-downloads.svg)](https://www.npmjs.com/package/@stardustlc/dsh-suite) [![total downloads](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/npm-downloads/assets/dsh-suite-total-downloads.svg)](https://www.npmjs.com/package/@stardustlc/dsh-suite)
 
@@ -29,7 +29,7 @@ DeepSeek Harness 生态插件组合包：一次安装 18 个独立插件，覆�
 | 🔧 DevOps | [Docker](https://github.com/STARDUSTLC666/dsh-docker) · [SQL](https://github.com/STARDUSTLC666/dsh-sql) · [Flakefinder](https://github.com/STARDUSTLC666/dsh-flakefinder) · [代码安全](https://github.com/STARDUSTLC666/dsh-code-security) · [Codex 移植](https://github.com/STARDUSTLC666/dsh-codex-port) |
 | 💬 通知与预设 | [钉钉](https://github.com/STARDUSTLC666/dsh-dingtalk) · [Slack](https://github.com/STARDUSTLC666/dsh-slack) · [极简 PTC](https://github.com/STARDUSTLC666/dsh-minimal-ptc) |
 
-九个组件有原生主区工作台（日历、文献库、代码安全、Dream、邮件、HyperFrames、演示文稿、Remotion、RSS），其余在各自设置项或对话工具里使用。每个组件的能力、工具参数与自检见[使用说明 · 组件清单](docs/USAGE.md#组件清单)。
+十个组件有原生主区工作台（日历、文献库、代码安全、Dream、邮件、HyperFrames、演示文稿、Remotion、RSS、语音），其余在各自设置项或对话工具里使用。每个组件的能力、工具参数与自检见[使用说明 · 组件清单](docs/USAGE.md#组件清单)。
 
 [@stardustlc/dsh-review](https://github.com/STARDUSTLC666/dsh-review)（Git 改动审阅）与 [deepseek-computer-use](https://github.com/STARDUSTLC666/deepseek-computer-use)（Windows 桌面操作）是配套插件，**不在**这 18 个组件里，需要单独安装。
 
@@ -55,7 +55,7 @@ dsh plugin --profile desktop add @stardustlc/dsh-suite
 
 profile 只启用 Suite 这一层，由它加载组件。组件的账号、外部程序与网络要求仍各自适用。
 
-本版同步全部 18 个组件至 DeepSeek Harness `>=0.2.2-rc.3` 深度适配版本，补充双语元数据与 Cordis `ctx.effect` 热重载资源清理。九个原生工作台支持 5 套工作台主题（原生清透 / 米白纸感 / Claude 暖书卷 / 8-Bit 像素 / 晴空薄荷）及中英文、窄屏和未保存保护；其余组件在原生插件详情页底部提供更新操作，独立插件仍可分别安装。
+本版同步全部 18 个组件至 DeepSeek Harness `>=0.2.2-rc.3` 深度适配版本，补充双语元数据与 Cordis `ctx.effect` 热重载资源清理。十个原生工作台支持 5 套工作台主题（原生清透 / 米白纸感 / Claude 暖书卷 / 8-Bit 像素 / 晴空薄荷）及中英文、窄屏和未保存保护；其余组件在原生插件详情页底部提供更新操作，独立插件仍可分别安装。
 
 演示文稿工作台支持按需要下载「分享成品包」或「完整工程包」（分享包附当前讲稿，工程包保留 JSON，下载无需 AI 预审）。功能版本升级由用户确认，自动安装默认关闭。
 

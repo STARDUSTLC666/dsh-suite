@@ -48,7 +48,7 @@ dsh plugin --profile web remove @stardustlc/dsh-suite
 | | dsh-cite | 中英文文献库：DOI / BibTeX 批量导入、去重、显式 Crossref 补全、四种基本引文格式及原始来源备份 |
 | | dsh-dream | 会话回放 → 来源核验 → 经验审阅 → 项目规则预览、写入与回滚（含隐私脱敏） |
 | 🎬 媒体工坊 | dsh-ffmpeg | 探测/剪辑/拼接/转码/字幕/抽帧/GIF/调整（变速·音量·静音·旋转）十工具 |
-| | dsh-voice | edge-tts 合成 + ASR 转写 + 音色试听 |
+| | dsh-voice | 语音工作台（300+ 在线音色与 10 套人设试听、麦克风速记、发音词典）+ 零密钥 Edge TTS / OpenAI / SiliconFlow 克隆 + `.srt` 反向卡点配音、播客 BGM 自动闪避与说话人区分转写 |
 | | dsh-ppt | HTML 放映 + 可编辑 PPTX：图文、图表、轻量编辑与撤销、质量检查；可选 AI 预审 / 模拟答辩，主动开启后复用宿主模型，采纳另存副本；可选官方 LibreOffice Kit 渲染 |
 | | dsh-hyperframes | HyperFrames by HeyGen 的 21 个视频技能；中英文模板工作台、素材、Studio 预览、MP4 与源码下载 |
 | | dsh-remotion | Remotion React 视频技能；中英文模板工作台、素材、Studio 预览、MP4 与源码下载 |

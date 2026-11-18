@@ -46,7 +46,7 @@ Keep your profile's `cordis.patch.yml` configuration overrides, then restart Web
 | | dsh-cite | Bilingual library: DOI / BibTeX batch import, duplicate review, explicit Crossref enrichment, four basic citation formats and original-source backups |
 | | dsh-dream | Session replay → source verification → lesson review → project-rule preview, apply and rollback (privacy masking) |
 | Media | dsh-ffmpeg | probe/cut/concat/encode/subtitle/frames/GIF/adjust (speed/volume/mute/rotate), ten tools |
-| | dsh-voice | edge-tts synthesis + ASR transcription + voice preview |
+| | dsh-voice | Voice Studio workbench (300+ live voices & 10 personas, mic memo, pronunciation lexicon) + zero-key Edge / OpenAI / SiliconFlow voice cloning + `.srt` timeline dubbing, BGM auto-ducking & speaker-diarized ASR |
 | | dsh-ppt | HTML slideshow and editable PPTX: 11 layouts including images/charts, per-slide editing/undo, quality reports, four scenario outlines, branding and speaker notes; optional PNG/PDF export via the official LibreOffice Kit |
 | | dsh-hyperframes | HyperFrames by HeyGen's 21 skills; bilingual templates, assets, Studio previews, MP4 and source downloads |
 | | dsh-remotion | Remotion React video skills; bilingual templates, assets, Studio previews, MP4 and source downloads |

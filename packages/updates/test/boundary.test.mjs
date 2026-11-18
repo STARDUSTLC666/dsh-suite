@@ -121,7 +121,7 @@ test('legacy-first loading hands over one controller after its current install a
   context.__stardustUpdatesJoin({ root, effect(fn) { effects.push(fn()) } }, {}, () => {}, { name: 'dsh-cite', version: VERSION })
   await Promise.resolve(); assert.equal(oldDisposed, 0); old.hold = false
   await old.migration
-  assert.equal(oldDisposed, 1); assert.equal(newStarted, 1); assert.equal(pools.get(root), old); assert.equal(old.uiRevision, 7)
+  assert.equal(oldDisposed, 1); assert.equal(newStarted, 1); assert.equal(pools.get(root), old); assert.equal(old.uiRevision, 8)
   assert.equal(old.refs.has(oldRef), true); assert.equal(old.refs.size, 2)
   effects.forEach(fn => fn()); assert.equal(old.refs.size, 1)
 })
@@ -452,4 +452,68 @@ test('shell overlay reminder offers direct in-chat hot-update actions and yields
 
   footerNodes = [{ getClientRects: () => [{}] }]
   assert.equal(expand(React.createElement(OverlayComponent, {})), null)
+})
+
+test('native bundle detail footer avoids duplicating host version/install buttons while keeping Suite row delegation and clear bundle-in-use guidance', async t => {
+  const kit = await readFile(new URL('../lib/ui-kit.js', import.meta.url), 'utf8')
+  const uiClient = await readFile(new URL('../lib/ui-client.js', import.meta.url), 'utf8')
+  let snapshot = {
+    rows: [
+      { name: 'dsh-calendar', version: '0.18.3', enabled: false, sourceKind: 'registry', available: true, checkedAt: 1_700_000_000_000, label: '日历', labelEn: 'Calendar', release: { version: '0.18.6', compatible: true } },
+      { name: '@stardustlc/dsh-suite', version: '0.12.5', enabled: true, sourceKind: 'registry', available: true, checkedAt: 1_700_000_000_000, label: '组合包', labelEn: 'Suite', release: { version: '0.12.6', compatible: true } },
+      { name: 'dsh-cite', version: '0.10.2', enabled: true, sourceKind: 'suite', bundledBy: '@stardustlc/dsh-suite', label: '引文库', labelEn: 'Citations' },
+    ],
+    preferences: { revision: 1, packages: {} },
+    activity: { known: true, busy: false },
+    pages: { known: true, dirty: false, clients: [] },
+    checkingNames: [],
+    job: { id: 'failed-bundle-in-use', name: 'dsh-calendar', state: 'failed', from: '0.18.3', to: '0.18.6', outcome: { result: { error: { code: 'bundle-in-use' } } } },
+  }
+  const context = vm.createContext({
+    Symbol, Map, Set, WeakMap, URL, AbortController, Promise, Date,
+    crypto: { randomUUID: () => '00000000-0000-4000-8000-000000000097' },
+    setTimeout, clearTimeout, setInterval: () => 1, clearInterval() {},
+    document: { baseURI: 'http://localhost/', addEventListener() {}, removeEventListener() {}, querySelectorAll: () => [] },
+    window: { addEventListener() {}, removeEventListener() {} },
+    fetch: async () => ({ ok: true, status: 200, async json() { return { ok: true, value: snapshot } } }),
+  })
+  vm.runInContext(kit + '\n' + uiClient, context)
+  function expand(node) {
+    if (node == null || typeof node !== 'object') return node
+    if (typeof node.type === 'function') return expand(node.type({ ...(node.props || {}), children: node.children }))
+    return { ...node, children: (node.children || []).flat().map(expand).filter(item => item != null && item !== false) }
+  }
+  function textOf(node) {
+    if (node == null || typeof node === 'boolean') return ''
+    if (typeof node === 'string' || typeof node === 'number') return String(node)
+    return (node.children || []).map(textOf).join(' ')
+  }
+  const React = {
+    Fragment: 'fragment',
+    useState: initial => [typeof initial === 'function' ? initial() : initial, () => {}],
+    useEffect() {},
+    useRef: initial => ({ current: initial }),
+    useId: () => 'u3',
+    createElement: (type, props, ...children) => ({ type, props: props || {}, children }),
+  }
+  const shared = { refs: new Map([['r1', { name: 'dsh-calendar' }], ['r2', { name: '@stardustlc/dsh-suite' }]]), hold: false }
+  const client = context.__stardustUpdatesClient({
+    locale: { getSnapshot: () => ({ active: 'zh-CN' }), subscribe: () => () => {} },
+    slots: { inject(_slot, fn) { fn() }, register() {} },
+  }, React, () => ({}), shared)
+  t.after(() => client.dispose())
+  await new Promise(resolve => setTimeout(resolve, 150))
+
+  const standaloneDetail = expand(React.createElement(client.NativeFooter, { subject: { kind: 'bundle', pkg: { name: 'dsh-calendar' } } }))
+  const standaloneText = textOf(standaloneDetail)
+  assert.doesNotMatch(standaloneText, /更新至 v0\.18\.6|检查更新|有兼容的新版本|上次检查/)
+  assert.match(standaloneText, /自动更新与提醒/)
+  assert.match(standaloneText, /更新记录/)
+  assert.match(standaloneText, /手动重启一次 DSH 即可继续更新，无需逐个停用插件/)
+  assert.doesNotMatch(standaloneText, /操作未完成，请刷新后重试/)
+
+  const suiteRowDetail = expand(React.createElement(client.NativeFooter, { subject: { kind: 'row', pkg: { name: '@stardustlc/dsh-suite' }, row: { moduleName: 'dsh-cite/client' } } }))
+  const suiteRowText = textOf(suiteRowDetail)
+  assert.match(suiteRowText, /随 Suite 整包管理/)
+  assert.match(suiteRowText, /更新 Suite 至 v0\.12\.6/)
 })

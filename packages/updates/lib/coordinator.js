@@ -215,7 +215,10 @@ export class UpdateCoordinator {
           if (outcome.restore.application === 'restart-required') this.pendingRestart = true
         }
       } else if (outcome.restore) job.state = 'restore-failed'
-      else job.state = result?.application === 'cancelled' ? 'cancelled' : 'failed'
+      else {
+        job.state = result?.application === 'cancelled' ? 'cancelled' : 'failed'
+        if (result?.error?.code === 'bundle-in-use') this.pendingRestart = true
+      }
     } catch (error) {
       job.state = job.state === 'installing' ? 'unknown' : signal.aborted ? 'cancelled' : 'failed'
       job.reason = containedError(error)

@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.12.8 (2026-11-18)
+
+- **同步 `dsh-voice` 0.9.1 与双语文档工作台计数**：`dsh-voice` 启动时通过 `ctx.inject(['skills'])` 自动将内置 `voice-workflow` 技能注册进宿主运行时技能表，并将 Voice Studio 设置回退目标 ID 对齐 `cordis.patch.yml` 的 `'voice'` 且严格遵循宿主只读状态；同步更新 Suite 中英双语 README 与使用说明至 10 个原生侧边栏工作台。
+- **Sync `dsh-voice` 0.9.1 & bilingual workbench docs**: `dsh-voice` now auto-registers the bundled `voice-workflow` skill into the host runtime `skills` service via `ctx.inject(['skills'])` and aligns the Voice Studio fallback settings entry ID with `'voice'` while honoring host read-only state; update Suite bilingual READMEs and usage guides to cover all 10 native sidebar workbenches.
+
 ## 0.12.7 (2026-11-18)
 
 - **同步 `dsh-voice` 0.9.0（第 10 个 5 主题侧边栏工作台 Voice Studio 与专业音频全量升级）**：新增原生 5 主题（原生清透 / 米白纸感 / Claude 暖书卷 / 8-Bit 像素 / 晴空薄荷）Voice Studio 侧边栏工作台与 Coachmark 新手引导（支持 300+ 音色与 10 套人设在线试听、0.8x–1.5x 倍速、浏览器麦克风速记转写、自定义角色与发音词典管理）；新增精确 MP3 帧/Xing/VBRI 时长反馈（`durationMs`/`durationSec`）、`pronunciations` 发音词典（Edge SSML `<sub alias>` 与非递归文本替读）、`subtitleInput` 反向 `.srt`/`.vtt` 时间轴卡点配音、`bgmFile` 播客 BGM 自动闪避、`voice_stt` `diarize` 说话人区分以及 SiliconFlow SHA-256 参考音频 URI 缓存上传。
