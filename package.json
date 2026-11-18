@@ -1,6 +1,6 @@
 {
   "name": "@stardustlc/dsh-suite",
-  "version": "0.12.8",
+  "version": "0.12.9",
   "description": "DeepSeek Harness 插件组合包：一次安装 18 个独立插件（含 10 个支持 5 套工作台主题的原生面板），支持整包同步与热重载。欢迎提交 issues 和 PR。",
   "type": "module",
   "dsh": {
@@ -99,7 +99,7 @@
     "dsh-rss": "0.10.6",
     "dsh-slack": "0.5.2",
     "dsh-sql": "0.6.2",
-    "dsh-voice": "0.9.1"
+    "dsh-voice": "0.10.0"
   },
   "devDependencies": {
     "js-yaml": "^4.1.0"

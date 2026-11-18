@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.12.9 (2026-11-18)
+
+- **同步 `dsh-voice` 0.10.0（短视频卡拉 OK 字幕、有声书原生章节、视频直传转写与 Voice Studio 真·创作闭环）**：新增 `subtitleGranularity`（`sentence`/`clause`/`word`）与 `1080×1920` `.ass` 逐词卡拉 OK（`\kf`）导出；新增内联 `[pause:500ms]` 气口标记与 `pronunciations` 英文词边界保护；新增 Markdown 标题自动分章、原生 MP3 ID3v2.3 `CHAP`/`CTOC` 书签嵌入与 `chaptersOutput` 导出；支持 `voice_stt` 直接传入 `.mp4`/`.mkv`/`.mov`/`.avi` 视频文件自动抽轨转写、`subtitleInput` FFmpeg `atempo` 零漂移卡点配音、多段 VBR MP3 拼接 `Xing`/`Info` 剥离及 Edge TTS 保活连接池；Voice Studio 工作台新增 8 秒录音一键生成克隆角色（`saveCloneVoice`）、可视化多角色对话合成器（`synthesizeDialogue`）、工作区成品库（`workspaceLibrary`）与点击跳播同步字幕播放器。
+- **Sync `dsh-voice` 0.10.0 (short-video karaoke `.ass` subtitles, native MP3 chapters, direct video STT & Voice Studio creative loop)**: add `subtitleGranularity` (`sentence`/`clause`/`word`) and `1080×1920` `.ass` word-level `\kf` karaoke export; add inline `[pause:500ms]` tags and ASCII word-boundary-safe `pronunciations`; add Markdown auto-chaptering, pure-TS MP3 ID3v2.3 `CHAP`/`CTOC` chapter bookmarks, and `chaptersOutput`; support direct `.mp4`/`.mkv`/`.mov`/`.avi` video container audio extraction in `voice_stt`, zero-drift FFmpeg `atempo` fitting on `subtitleInput`, VBR `Xing`/`Info` multi-segment concatenation stripping, and an Edge TTS keep-alive WebSocket pool; upgrade Voice Studio with 8-second 1-click mic voice cloning (`saveCloneVoice`), visual multi-speaker dialogue synthesis (`synthesizeDialogue`), Workspace Library (`workspaceLibrary`), and a click-to-seek synchronized subtitle follow-along player.
+
 ## 0.12.8 (2026-11-18)
 
 - **同步 `dsh-voice` 0.9.1 与双语文档工作台计数**：`dsh-voice` 启动时通过 `ctx.inject(['skills'])` 自动将内置 `voice-workflow` 技能注册进宿主运行时技能表，并将 Voice Studio 设置回退目标 ID 对齐 `cordis.patch.yml` 的 `'voice'` 且严格遵循宿主只读状态；同步更新 Suite 中英双语 README 与使用说明至 10 个原生侧边栏工作台。
