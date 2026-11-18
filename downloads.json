@@ -1,691 +1,691 @@
 {
   "schemaVersion": 4,
-  "source": "https://api.npmjs.org/downloads/point/2026-10-18:2026-11-16/",
+  "source": "https://api.npmjs.org/downloads/point/2026-10-19:2026-11-17/",
   "sources": [
-    "https://api.npmjs.org/downloads/point/2026-10-18:2026-11-16/",
-    "https://registry.npmmirror.com/downloads/point/2026-10-18:2026-11-16/"
+    "https://api.npmjs.org/downloads/point/2026-10-19:2026-11-17/",
+    "https://registry.npmmirror.com/downloads/point/2026-10-19:2026-11-17/"
   ],
   "window": {
-    "start": "2026-10-18",
-    "end": "2026-11-16"
+    "start": "2026-10-19",
+    "end": "2026-11-17"
   },
   "entries": {
     "dsh-calendar": {
       "package": "dsh-calendar",
-      "downloads": 8611,
-      "start": "2026-10-18",
-      "end": "2026-11-16",
+      "downloads": 9302,
+      "start": "2026-10-19",
+      "end": "2026-11-17",
       "sources": {
-        "npm": 7697,
-        "npmmirror": 914
+        "npm": 8340,
+        "npmmirror": 962
       }
     },
     "dsh-cite": {
       "package": "dsh-cite",
-      "downloads": 11709,
-      "start": "2026-10-18",
-      "end": "2026-11-16",
+      "downloads": 12601,
+      "start": "2026-10-19",
+      "end": "2026-11-17",
       "sources": {
-        "npm": 9567,
-        "npmmirror": 2142
+        "npm": 10466,
+        "npmmirror": 2135
       }
     },
     "dsh-code-security": {
       "package": "dsh-code-security",
-      "downloads": 6719,
-      "start": "2026-10-18",
-      "end": "2026-11-16",
+      "downloads": 7537,
+      "start": "2026-10-19",
+      "end": "2026-11-17",
       "sources": {
-        "npm": 5948,
-        "npmmirror": 771
+        "npm": 6748,
+        "npmmirror": 789
       }
     },
     "dsh-codex-port": {
       "package": "dsh-codex-port",
-      "downloads": 5803,
-      "start": "2026-10-18",
-      "end": "2026-11-16",
+      "downloads": 6453,
+      "start": "2026-10-19",
+      "end": "2026-11-17",
       "sources": {
-        "npm": 5227,
-        "npmmirror": 576
+        "npm": 5843,
+        "npmmirror": 610
       }
     },
     "dsh-computer-use": {
       "package": "deepseek-computer-use",
-      "downloads": 5176,
-      "start": "2026-10-18",
-      "end": "2026-11-16",
+      "downloads": 5307,
+      "start": "2026-10-19",
+      "end": "2026-11-17",
       "sources": {
-        "npm": 4655,
-        "npmmirror": 521
+        "npm": 4788,
+        "npmmirror": 519
       }
     },
     "dsh-dingtalk": {
       "package": "dsh-dingtalk",
-      "downloads": 5284,
-      "start": "2026-10-18",
-      "end": "2026-11-16",
+      "downloads": 5923,
+      "start": "2026-10-19",
+      "end": "2026-11-17",
       "sources": {
-        "npm": 4782,
-        "npmmirror": 502
+        "npm": 5407,
+        "npmmirror": 516
       }
     },
     "dsh-docker": {
       "package": "@stardustlc/dsh-docker",
-      "downloads": 5472,
-      "start": "2026-10-18",
-      "end": "2026-11-16",
+      "downloads": 6127,
+      "start": "2026-10-19",
+      "end": "2026-11-17",
       "sources": {
-        "npm": 4957,
-        "npmmirror": 515
+        "npm": 5601,
+        "npmmirror": 526
       }
     },
     "dsh-dream": {
       "package": "@stardustlc/dsh-dream",
-      "downloads": 9070,
-      "start": "2026-10-18",
-      "end": "2026-11-16",
+      "downloads": 9847,
+      "start": "2026-10-19",
+      "end": "2026-11-17",
       "sources": {
-        "npm": 7536,
-        "npmmirror": 1534
+        "npm": 8276,
+        "npmmirror": 1571
       }
     },
     "dsh-email": {
       "package": "dsh-email",
-      "downloads": 15940,
-      "start": "2026-10-18",
-      "end": "2026-11-16",
+      "downloads": 17016,
+      "start": "2026-10-19",
+      "end": "2026-11-17",
       "sources": {
-        "npm": 13498,
-        "npmmirror": 2442
+        "npm": 14555,
+        "npmmirror": 2461
       }
     },
     "dsh-ffmpeg": {
       "package": "dsh-ffmpeg",
-      "downloads": 20026,
-      "start": "2026-10-18",
-      "end": "2026-11-16",
+      "downloads": 20975,
+      "start": "2026-10-19",
+      "end": "2026-11-17",
       "sources": {
-        "npm": 15273,
-        "npmmirror": 4753
+        "npm": 16161,
+        "npmmirror": 4814
       }
     },
     "dsh-flakefinder": {
       "package": "dsh-flakefinder",
-      "downloads": 5916,
-      "start": "2026-10-18",
-      "end": "2026-11-16",
+      "downloads": 6570,
+      "start": "2026-10-19",
+      "end": "2026-11-17",
       "sources": {
-        "npm": 5416,
-        "npmmirror": 500
+        "npm": 6048,
+        "npmmirror": 522
       }
     },
     "dsh-hyperframes": {
       "package": "dsh-hyperframes",
-      "downloads": 18149,
-      "start": "2026-10-18",
-      "end": "2026-11-16",
+      "downloads": 18876,
+      "start": "2026-10-19",
+      "end": "2026-11-17",
       "sources": {
-        "npm": 14181,
-        "npmmirror": 3968
+        "npm": 14916,
+        "npmmirror": 3960
       }
     },
     "dsh-minimal-ptc": {
       "package": "dsh-minimal-ptc",
-      "downloads": 5624,
-      "start": "2026-10-18",
-      "end": "2026-11-16",
+      "downloads": 6266,
+      "start": "2026-10-19",
+      "end": "2026-11-17",
       "sources": {
-        "npm": 5103,
-        "npmmirror": 521
+        "npm": 5733,
+        "npmmirror": 533
       }
     },
     "dsh-ppt": {
       "package": "dsh-ppt",
-      "downloads": 47363,
-      "start": "2026-10-18",
-      "end": "2026-11-16",
+      "downloads": 48836,
+      "start": "2026-10-19",
+      "end": "2026-11-17",
       "sources": {
-        "npm": 34144,
-        "npmmirror": 13219
+        "npm": 35331,
+        "npmmirror": 13505
       }
     },
     "dsh-remotion": {
       "package": "dsh-remotion",
-      "downloads": 20586,
-      "start": "2026-10-18",
-      "end": "2026-11-16",
+      "downloads": 21114,
+      "start": "2026-10-19",
+      "end": "2026-11-17",
       "sources": {
-        "npm": 15688,
-        "npmmirror": 4898
+        "npm": 16287,
+        "npmmirror": 4827
       }
     },
     "dsh-rss": {
       "package": "dsh-rss",
-      "downloads": 6948,
-      "start": "2026-10-18",
-      "end": "2026-11-16",
+      "downloads": 7552,
+      "start": "2026-10-19",
+      "end": "2026-11-17",
       "sources": {
-        "npm": 6202,
-        "npmmirror": 746
+        "npm": 6804,
+        "npmmirror": 748
       }
     },
     "dsh-review": {
       "package": "@stardustlc/dsh-review",
-      "downloads": 4665,
-      "start": "2026-10-18",
-      "end": "2026-11-16",
+      "downloads": 5301,
+      "start": "2026-10-19",
+      "end": "2026-11-17",
       "sources": {
-        "npm": 4370,
-        "npmmirror": 295
+        "npm": 4990,
+        "npmmirror": 311
       }
     },
     "dsh-slack": {
       "package": "dsh-slack",
-      "downloads": 5271,
-      "start": "2026-10-18",
-      "end": "2026-11-16",
+      "downloads": 5910,
+      "start": "2026-10-19",
+      "end": "2026-11-17",
       "sources": {
-        "npm": 4857,
-        "npmmirror": 414
+        "npm": 5467,
+        "npmmirror": 443
       }
     },
     "dsh-sql": {
       "package": "dsh-sql",
-      "downloads": 7260,
-      "start": "2026-10-18",
-      "end": "2026-11-16",
+      "downloads": 7960,
+      "start": "2026-10-19",
+      "end": "2026-11-17",
       "sources": {
-        "npm": 6131,
-        "npmmirror": 1129
+        "npm": 6811,
+        "npmmirror": 1149
       }
     },
     "dsh-suite": {
       "package": "@stardustlc/dsh-suite",
-      "downloads": 9156,
-      "start": "2026-10-18",
-      "end": "2026-11-16",
+      "downloads": 9955,
+      "start": "2026-10-19",
+      "end": "2026-11-17",
       "sources": {
-        "npm": 8093,
-        "npmmirror": 1063
+        "npm": 8806,
+        "npmmirror": 1149
       }
     },
     "dsh-voice": {
       "package": "dsh-voice",
-      "downloads": 14275,
-      "start": "2026-10-18",
-      "end": "2026-11-16",
+      "downloads": 15034,
+      "start": "2026-10-19",
+      "end": "2026-11-17",
       "sources": {
-        "npm": 11177,
-        "npmmirror": 3098
+        "npm": 11880,
+        "npmmirror": 3154
       }
     }
   },
   "retained": [],
   "totals": {
-    "dsh-code-security": {
-      "package": "dsh-code-security",
-      "downloads": 11829,
-      "start": "2026-08-16",
-      "end": "2026-11-16",
-      "createdAt": "2026-08-16T09:57:40.692Z",
+    "dsh-calendar": {
+      "package": "dsh-calendar",
+      "downloads": 23046,
+      "start": "2026-08-13",
+      "end": "2026-11-17",
+      "createdAt": "2026-08-13T22:51:45.184Z",
       "sources": {
-        "npm": 10555,
-        "npmmirror": 1274
+        "npm": 21358,
+        "npmmirror": 1688
       },
       "segments": [
         {
-          "start": "2026-08-16",
-          "end": "2026-11-16",
-          "downloads": 11829,
+          "start": "2026-08-13",
+          "end": "2026-11-17",
+          "downloads": 23046,
           "sources": {
-            "npm": 10555,
-            "npmmirror": 1274
+            "npm": 21358,
+            "npmmirror": 1688
           }
         }
       ]
     },
     "dsh-codex-port": {
       "package": "dsh-codex-port",
-      "downloads": 10451,
+      "downloads": 11191,
       "start": "2026-08-14",
-      "end": "2026-11-16",
+      "end": "2026-11-17",
       "createdAt": "2026-08-14T19:57:35.210Z",
       "sources": {
-        "npm": 9380,
-        "npmmirror": 1071
+        "npm": 10070,
+        "npmmirror": 1121
       },
       "segments": [
         {
           "start": "2026-08-14",
-          "end": "2026-11-16",
-          "downloads": 10451,
+          "end": "2026-11-17",
+          "downloads": 11191,
           "sources": {
-            "npm": 9380,
-            "npmmirror": 1071
-          }
-        }
-      ]
-    },
-    "dsh-calendar": {
-      "package": "dsh-calendar",
-      "downloads": 22142,
-      "start": "2026-08-13",
-      "end": "2026-11-16",
-      "createdAt": "2026-08-13T22:51:45.184Z",
-      "sources": {
-        "npm": 20519,
-        "npmmirror": 1623
-      },
-      "segments": [
-        {
-          "start": "2026-08-13",
-          "end": "2026-11-16",
-          "downloads": 22142,
-          "sources": {
-            "npm": 20519,
-            "npmmirror": 1623
-          }
-        }
-      ]
-    },
-    "dsh-computer-use": {
-      "package": "deepseek-computer-use",
-      "downloads": 5176,
-      "start": "2026-10-18",
-      "end": "2026-11-16",
-      "createdAt": "2026-10-18T01:54:03.171Z",
-      "sources": {
-        "npm": 4655,
-        "npmmirror": 521
-      },
-      "segments": [
-        {
-          "start": "2026-10-18",
-          "end": "2026-11-16",
-          "downloads": 5176,
-          "sources": {
-            "npm": 4655,
-            "npmmirror": 521
-          }
-        }
-      ]
-    },
-    "dsh-dingtalk": {
-      "package": "dsh-dingtalk",
-      "downloads": 8822,
-      "start": "2026-08-13",
-      "end": "2026-11-16",
-      "createdAt": "2026-08-13T22:50:11.179Z",
-      "sources": {
-        "npm": 8025,
-        "npmmirror": 797
-      },
-      "segments": [
-        {
-          "start": "2026-08-13",
-          "end": "2026-11-16",
-          "downloads": 8822,
-          "sources": {
-            "npm": 8025,
-            "npmmirror": 797
-          }
-        }
-      ]
-    },
-    "dsh-email": {
-      "package": "dsh-email",
-      "downloads": 31077,
-      "start": "2026-08-13",
-      "end": "2026-11-16",
-      "createdAt": "2026-08-13T20:25:23.798Z",
-      "sources": {
-        "npm": 26728,
-        "npmmirror": 4349
-      },
-      "segments": [
-        {
-          "start": "2026-08-13",
-          "end": "2026-11-16",
-          "downloads": 31077,
-          "sources": {
-            "npm": 26728,
-            "npmmirror": 4349
-          }
-        }
-      ]
-    },
-    "dsh-dream": {
-      "package": "@stardustlc/dsh-dream",
-      "downloads": 14129,
-      "start": "2026-08-31",
-      "end": "2026-11-16",
-      "createdAt": "2026-08-31T11:59:21.654Z",
-      "sources": {
-        "npm": 12271,
-        "npmmirror": 1858
-      },
-      "segments": [
-        {
-          "start": "2026-08-31",
-          "end": "2026-11-16",
-          "downloads": 14129,
-          "sources": {
-            "npm": 12271,
-            "npmmirror": 1858
+            "npm": 10070,
+            "npmmirror": 1121
           }
         }
       ]
     },
     "dsh-cite": {
       "package": "dsh-cite",
-      "downloads": 19909,
+      "downloads": 21149,
       "start": "2026-08-16",
-      "end": "2026-11-16",
+      "end": "2026-11-17",
       "createdAt": "2026-08-16T05:17:57.012Z",
       "sources": {
-        "npm": 16525,
-        "npmmirror": 3384
+        "npm": 17684,
+        "npmmirror": 3465
       },
       "segments": [
         {
           "start": "2026-08-16",
-          "end": "2026-11-16",
-          "downloads": 19909,
+          "end": "2026-11-17",
+          "downloads": 21149,
           "sources": {
-            "npm": 16525,
-            "npmmirror": 3384
+            "npm": 17684,
+            "npmmirror": 3465
+          }
+        }
+      ]
+    },
+    "dsh-code-security": {
+      "package": "dsh-code-security",
+      "downloads": 12779,
+      "start": "2026-08-16",
+      "end": "2026-11-17",
+      "createdAt": "2026-08-16T09:57:40.692Z",
+      "sources": {
+        "npm": 11471,
+        "npmmirror": 1308
+      },
+      "segments": [
+        {
+          "start": "2026-08-16",
+          "end": "2026-11-17",
+          "downloads": 12779,
+          "sources": {
+            "npm": 11471,
+            "npmmirror": 1308
+          }
+        }
+      ]
+    },
+    "dsh-dingtalk": {
+      "package": "dsh-dingtalk",
+      "downloads": 9533,
+      "start": "2026-08-13",
+      "end": "2026-11-17",
+      "createdAt": "2026-08-13T22:50:11.179Z",
+      "sources": {
+        "npm": 8713,
+        "npmmirror": 820
+      },
+      "segments": [
+        {
+          "start": "2026-08-13",
+          "end": "2026-11-17",
+          "downloads": 9533,
+          "sources": {
+            "npm": 8713,
+            "npmmirror": 820
+          }
+        }
+      ]
+    },
+    "dsh-computer-use": {
+      "package": "deepseek-computer-use",
+      "downloads": 5969,
+      "start": "2026-10-18",
+      "end": "2026-11-17",
+      "createdAt": "2026-10-18T01:54:03.171Z",
+      "sources": {
+        "npm": 5421,
+        "npmmirror": 548
+      },
+      "segments": [
+        {
+          "start": "2026-10-18",
+          "end": "2026-11-17",
+          "downloads": 5969,
+          "sources": {
+            "npm": 5421,
+            "npmmirror": 548
           }
         }
       ]
     },
     "dsh-docker": {
       "package": "@stardustlc/dsh-docker",
-      "downloads": 9882,
+      "downloads": 10651,
       "start": "2026-08-16",
-      "end": "2026-11-16",
+      "end": "2026-11-17",
       "createdAt": "2026-08-16T05:41:57.133Z",
       "sources": {
-        "npm": 8987,
-        "npmmirror": 895
+        "npm": 9735,
+        "npmmirror": 916
       },
       "segments": [
         {
           "start": "2026-08-16",
-          "end": "2026-11-16",
-          "downloads": 9882,
+          "end": "2026-11-17",
+          "downloads": 10651,
           "sources": {
-            "npm": 8987,
-            "npmmirror": 895
-          }
-        }
-      ]
-    },
-    "dsh-flakefinder": {
-      "package": "dsh-flakefinder",
-      "downloads": 10139,
-      "start": "2026-08-16",
-      "end": "2026-11-16",
-      "createdAt": "2026-08-16T05:17:31.554Z",
-      "sources": {
-        "npm": 9305,
-        "npmmirror": 834
-      },
-      "segments": [
-        {
-          "start": "2026-08-16",
-          "end": "2026-11-16",
-          "downloads": 10139,
-          "sources": {
-            "npm": 9305,
-            "npmmirror": 834
+            "npm": 9735,
+            "npmmirror": 916
           }
         }
       ]
     },
     "dsh-ffmpeg": {
       "package": "dsh-ffmpeg",
-      "downloads": 30167,
+      "downloads": 31571,
       "start": "2026-08-14",
-      "end": "2026-11-16",
+      "end": "2026-11-17",
       "createdAt": "2026-08-14T19:36:36.660Z",
       "sources": {
-        "npm": 23105,
-        "npmmirror": 7062
+        "npm": 24321,
+        "npmmirror": 7250
       },
       "segments": [
         {
           "start": "2026-08-14",
-          "end": "2026-11-16",
-          "downloads": 30167,
+          "end": "2026-11-17",
+          "downloads": 31571,
           "sources": {
-            "npm": 23105,
-            "npmmirror": 7062
+            "npm": 24321,
+            "npmmirror": 7250
+          }
+        }
+      ]
+    },
+    "dsh-email": {
+      "package": "dsh-email",
+      "downloads": 32701,
+      "start": "2026-08-13",
+      "end": "2026-11-17",
+      "createdAt": "2026-08-13T20:25:23.798Z",
+      "sources": {
+        "npm": 28248,
+        "npmmirror": 4453
+      },
+      "segments": [
+        {
+          "start": "2026-08-13",
+          "end": "2026-11-17",
+          "downloads": 32701,
+          "sources": {
+            "npm": 28248,
+            "npmmirror": 4453
+          }
+        }
+      ]
+    },
+    "dsh-dream": {
+      "package": "@stardustlc/dsh-dream",
+      "downloads": 15052,
+      "start": "2026-08-31",
+      "end": "2026-11-17",
+      "createdAt": "2026-08-31T11:59:21.654Z",
+      "sources": {
+        "npm": 13135,
+        "npmmirror": 1917
+      },
+      "segments": [
+        {
+          "start": "2026-08-31",
+          "end": "2026-11-17",
+          "downloads": 15052,
+          "sources": {
+            "npm": 13135,
+            "npmmirror": 1917
+          }
+        }
+      ]
+    },
+    "dsh-flakefinder": {
+      "package": "dsh-flakefinder",
+      "downloads": 10869,
+      "start": "2026-08-16",
+      "end": "2026-11-17",
+      "createdAt": "2026-08-16T05:17:31.554Z",
+      "sources": {
+        "npm": 10004,
+        "npmmirror": 865
+      },
+      "segments": [
+        {
+          "start": "2026-08-16",
+          "end": "2026-11-17",
+          "downloads": 10869,
+          "sources": {
+            "npm": 10004,
+            "npmmirror": 865
           }
         }
       ]
     },
     "dsh-hyperframes": {
       "package": "dsh-hyperframes",
-      "downloads": 27551,
+      "downloads": 28801,
       "start": "2026-08-14",
-      "end": "2026-11-16",
+      "end": "2026-11-17",
       "createdAt": "2026-08-14T20:42:53.748Z",
       "sources": {
-        "npm": 21841,
-        "npmmirror": 5710
+        "npm": 22958,
+        "npmmirror": 5843
       },
       "segments": [
         {
           "start": "2026-08-14",
-          "end": "2026-11-16",
-          "downloads": 27551,
+          "end": "2026-11-17",
+          "downloads": 28801,
           "sources": {
-            "npm": 21841,
-            "npmmirror": 5710
+            "npm": 22958,
+            "npmmirror": 5843
           }
         }
       ]
     },
     "dsh-minimal-ptc": {
       "package": "dsh-minimal-ptc",
-      "downloads": 10520,
+      "downloads": 11289,
       "start": "2026-08-16",
-      "end": "2026-11-16",
+      "end": "2026-11-17",
       "createdAt": "2026-08-16T13:30:27.672Z",
       "sources": {
-        "npm": 9705,
-        "npmmirror": 815
+        "npm": 10451,
+        "npmmirror": 838
       },
       "segments": [
         {
           "start": "2026-08-16",
-          "end": "2026-11-16",
-          "downloads": 10520,
+          "end": "2026-11-17",
+          "downloads": 11289,
           "sources": {
-            "npm": 9705,
-            "npmmirror": 815
-          }
-        }
-      ]
-    },
-    "dsh-remotion": {
-      "package": "dsh-remotion",
-      "downloads": 30409,
-      "start": "2026-08-14",
-      "end": "2026-11-16",
-      "createdAt": "2026-08-14T20:42:23.205Z",
-      "sources": {
-        "npm": 23400,
-        "npmmirror": 7009
-      },
-      "segments": [
-        {
-          "start": "2026-08-14",
-          "end": "2026-11-16",
-          "downloads": 30409,
-          "sources": {
-            "npm": 23400,
-            "npmmirror": 7009
-          }
-        }
-      ]
-    },
-    "dsh-rss": {
-      "package": "dsh-rss",
-      "downloads": 12768,
-      "start": "2026-08-14",
-      "end": "2026-11-16",
-      "createdAt": "2026-08-14T11:41:08.716Z",
-      "sources": {
-        "npm": 11598,
-        "npmmirror": 1170
-      },
-      "segments": [
-        {
-          "start": "2026-08-14",
-          "end": "2026-11-16",
-          "downloads": 12768,
-          "sources": {
-            "npm": 11598,
-            "npmmirror": 1170
-          }
-        }
-      ]
-    },
-    "dsh-slack": {
-      "package": "dsh-slack",
-      "downloads": 9549,
-      "start": "2026-08-13",
-      "end": "2026-11-16",
-      "createdAt": "2026-08-13T22:50:23.644Z",
-      "sources": {
-        "npm": 8859,
-        "npmmirror": 690
-      },
-      "segments": [
-        {
-          "start": "2026-08-13",
-          "end": "2026-11-16",
-          "downloads": 9549,
-          "sources": {
-            "npm": 8859,
-            "npmmirror": 690
-          }
-        }
-      ]
-    },
-    "dsh-sql": {
-      "package": "dsh-sql",
-      "downloads": 13151,
-      "start": "2026-08-16",
-      "end": "2026-11-16",
-      "createdAt": "2026-08-16T05:16:46.160Z",
-      "sources": {
-        "npm": 10893,
-        "npmmirror": 2258
-      },
-      "segments": [
-        {
-          "start": "2026-08-16",
-          "end": "2026-11-16",
-          "downloads": 13151,
-          "sources": {
-            "npm": 10893,
-            "npmmirror": 2258
-          }
-        }
-      ]
-    },
-    "dsh-review": {
-      "package": "@stardustlc/dsh-review",
-      "downloads": 4839,
-      "start": "2026-10-17",
-      "end": "2026-11-16",
-      "createdAt": "2026-10-17T13:54:38.664Z",
-      "sources": {
-        "npm": 4544,
-        "npmmirror": 295
-      },
-      "segments": [
-        {
-          "start": "2026-10-17",
-          "end": "2026-11-16",
-          "downloads": 4839,
-          "sources": {
-            "npm": 4544,
-            "npmmirror": 295
+            "npm": 10451,
+            "npmmirror": 838
           }
         }
       ]
     },
     "dsh-ppt": {
       "package": "dsh-ppt",
-      "downloads": 72745,
+      "downloads": 75505,
       "start": "2026-08-16",
-      "end": "2026-11-16",
+      "end": "2026-11-17",
       "createdAt": "2026-08-16T05:16:59.034Z",
       "sources": {
-        "npm": 53320,
-        "npmmirror": 19425
+        "npm": 55490,
+        "npmmirror": 20015
       },
       "segments": [
         {
           "start": "2026-08-16",
-          "end": "2026-11-16",
-          "downloads": 72745,
+          "end": "2026-11-17",
+          "downloads": 75505,
           "sources": {
-            "npm": 53320,
-            "npmmirror": 19425
+            "npm": 55490,
+            "npmmirror": 20015
           }
         }
       ]
     },
-    "dsh-suite": {
-      "package": "@stardustlc/dsh-suite",
-      "downloads": 17316,
-      "start": "2026-08-31",
-      "end": "2026-11-16",
-      "createdAt": "2026-08-31T12:33:10.796Z",
+    "dsh-remotion": {
+      "package": "dsh-remotion",
+      "downloads": 31663,
+      "start": "2026-08-14",
+      "end": "2026-11-17",
+      "createdAt": "2026-08-14T20:42:23.205Z",
       "sources": {
-        "npm": 15767,
-        "npmmirror": 1549
+        "npm": 24494,
+        "npmmirror": 7169
       },
       "segments": [
         {
-          "start": "2026-08-31",
-          "end": "2026-11-16",
-          "downloads": 17316,
+          "start": "2026-08-14",
+          "end": "2026-11-17",
+          "downloads": 31663,
           "sources": {
-            "npm": 15767,
-            "npmmirror": 1549
+            "npm": 24494,
+            "npmmirror": 7169
+          }
+        }
+      ]
+    },
+    "dsh-rss": {
+      "package": "dsh-rss",
+      "downloads": 13512,
+      "start": "2026-08-14",
+      "end": "2026-11-17",
+      "createdAt": "2026-08-14T11:41:08.716Z",
+      "sources": {
+        "npm": 12324,
+        "npmmirror": 1188
+      },
+      "segments": [
+        {
+          "start": "2026-08-14",
+          "end": "2026-11-17",
+          "downloads": 13512,
+          "sources": {
+            "npm": 12324,
+            "npmmirror": 1188
+          }
+        }
+      ]
+    },
+    "dsh-review": {
+      "package": "@stardustlc/dsh-review",
+      "downloads": 5492,
+      "start": "2026-10-17",
+      "end": "2026-11-17",
+      "createdAt": "2026-10-17T13:54:38.664Z",
+      "sources": {
+        "npm": 5181,
+        "npmmirror": 311
+      },
+      "segments": [
+        {
+          "start": "2026-10-17",
+          "end": "2026-11-17",
+          "downloads": 5492,
+          "sources": {
+            "npm": 5181,
+            "npmmirror": 311
+          }
+        }
+      ]
+    },
+    "dsh-sql": {
+      "package": "dsh-sql",
+      "downloads": 13959,
+      "start": "2026-08-16",
+      "end": "2026-11-17",
+      "createdAt": "2026-08-16T05:16:46.160Z",
+      "sources": {
+        "npm": 11655,
+        "npmmirror": 2304
+      },
+      "segments": [
+        {
+          "start": "2026-08-16",
+          "end": "2026-11-17",
+          "downloads": 13959,
+          "sources": {
+            "npm": 11655,
+            "npmmirror": 2304
+          }
+        }
+      ]
+    },
+    "dsh-slack": {
+      "package": "dsh-slack",
+      "downloads": 10268,
+      "start": "2026-08-13",
+      "end": "2026-11-17",
+      "createdAt": "2026-08-13T22:50:23.644Z",
+      "sources": {
+        "npm": 9541,
+        "npmmirror": 727
+      },
+      "segments": [
+        {
+          "start": "2026-08-13",
+          "end": "2026-11-17",
+          "downloads": 10268,
+          "sources": {
+            "npm": 9541,
+            "npmmirror": 727
           }
         }
       ]
     },
     "dsh-voice": {
       "package": "dsh-voice",
-      "downloads": 21932,
+      "downloads": 22846,
       "start": "2026-08-14",
-      "end": "2026-11-16",
+      "end": "2026-11-17",
       "createdAt": "2026-08-14T20:17:13.460Z",
       "sources": {
-        "npm": 17591,
-        "npmmirror": 4341
+        "npm": 18420,
+        "npmmirror": 4426
       },
       "segments": [
         {
           "start": "2026-08-14",
-          "end": "2026-11-16",
-          "downloads": 21932,
+          "end": "2026-11-17",
+          "downloads": 22846,
           "sources": {
-            "npm": 17591,
-            "npmmirror": 4341
+            "npm": 18420,
+            "npmmirror": 4426
+          }
+        }
+      ]
+    },
+    "dsh-suite": {
+      "package": "@stardustlc/dsh-suite",
+      "downloads": 18245,
+      "start": "2026-08-31",
+      "end": "2026-11-17",
+      "createdAt": "2026-08-31T12:33:10.796Z",
+      "sources": {
+        "npm": 16598,
+        "npmmirror": 1647
+      },
+      "segments": [
+        {
+          "start": "2026-08-31",
+          "end": "2026-11-17",
+          "downloads": 18245,
+          "sources": {
+            "npm": 16598,
+            "npmmirror": 1647
           }
         }
       ]
     }
   },
   "totalsRetained": [],
-  "refreshedAt": "2026-11-18T06:01:08.848Z"
+  "refreshedAt": "2026-11-18T13:14:22.007Z"
 }
