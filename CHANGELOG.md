@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.12.4 (2026-11-18)
+
+- **同步 `dsh-voice` 0.8.0 全量音色发现、10 组人设、情绪演技、零样本克隆与响度均衡**：`voice_list` 支持 `online: true` 联网拉取并缓存微软 Edge 300+ 实时音色目录（断网自动回退至 45 个全年龄段与方言内置音色）；新增 10 组 `VOICE_PERSONAS` 角色人设配方（支持 `voice_tts`、`segments[]` 与 `voice_preview`）；支持 `instructions` 情绪语气指令（自动适配 SiliconFlow `CosyVoice2-0.5B` `<|endofprompt|>` 与 `[laughter]`/`[breath]` 副语言标记，及 OpenAI `gpt-4o-mini-tts`）；新增工作区边界受控的 `referenceAudio` + `referenceText` 零样本克隆与可热更新的 `customVoices` 自定义别名设置；新增 `normalizeLoudness: true` 调用本机 FFmpeg 执行 `-16 LUFS` 播客响度均衡。
+- **Sync `dsh-voice` 0.8.0 live voice discovery, 10 personas, emotion acting, zero-shot cloning & loudness mastering**: add `voice_list({ online: true })` for cached 300+ live Microsoft Edge neural voices with offline fallback to 45 curated all-age and Chinese dialect voices; add 10 ready-made `VOICE_PERSONAS` across `voice_tts`, `segments[]`, and `voice_preview`; support natural-language `instructions` (mapped to `<|endofprompt|>` with `[laughter]`/`[breath]` on SiliconFlow `CosyVoice2-0.5B`, or `instructions` on `gpt-4o-mini-tts`); add workspace-bounded `referenceAudio` + `referenceText` zero-shot voice cloning, live-reloaded `customVoices` aliases in Settings, and optional `-16 LUFS` podcast loudness mastering via `normalizeLoudness: true`.
+
 ## 0.12.3 (2026-11-18)
 
 - **同步 `dsh-voice` 0.7.0 全方位协议加固、长文本/播客合成、双语字幕与代理升级**：Edge TTS 严格校验 `Path:audio` 帧与 `turn.end` 截断保护、HTTP 403 自动校准时钟偏差、XML 1.0 控制字符清洗及方言/多语种/HD 音色支持；新增 `inputFile` 文档直读与 10 万字符分段合成、多角色 `segments` 播客合成、`voice_tts` / `voice_stt` `.srt`/`.vtt` 字幕导出、`autoCompress` 大文件自动转码分段、OpenAI/SiliconFlow `ttsEngine` 预设、零依赖 `socks5://`/`socks5h://` 代理隧道、`voice_preview` `index.html` 试听卡片及内置 `voice-workflow` 技能。
