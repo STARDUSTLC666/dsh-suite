@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.13.0 (2026-11-18)
+
+- **同步 9 大侧边栏工作台 UI v3 全面焕新（13 套明亮风格主题 + 8 套中英双语字体搭配，默认「幼圆等宽」`arcade`）**：同步 `dsh-email@0.29.0`、`dsh-calendar@0.19.0`、`dsh-cite@0.11.0`、`@stardustlc/dsh-dream@0.17.0`、`dsh-code-security@0.9.0`、`dsh-rss@0.11.0`、`dsh-hyperframes@0.13.0`、`dsh-remotion@0.12.0` 与 `dsh-ppt@0.25.0`；全工作台统一 48px 单行顶栏、滑动选项卡指示条、可拖拽分栏、主题微光骨架屏、行悬停快捷操作与精简更新底栏；新增第 13 套「铅字晨报（Gazette）」主题、Win98 白金高对比工具栏与独立「字 / Aa」字体切换器（支持 Windows 中宋+楷书、工程仿宋、画报黑、千禧新宋、思源书宋、现代思源黑及默认 `arcade` 幼圆等宽）。
+- **Sync UI v3 across all 9 sidebar workbenches (13 bright style presets + 8 dual-layer Chinese/Latin font pairings, defaulting to `arcade` YouYuan Mono)**: update `dsh-email@0.29.0`, `dsh-calendar@0.19.0`, `dsh-cite@0.11.0`, `@stardustlc/dsh-dream@0.17.0`, `dsh-code-security@0.9.0`, `dsh-rss@0.11.0`, `dsh-hyperframes@0.13.0`, `dsh-remotion@0.12.0`, and `dsh-ppt@0.25.0` with unified 48px single-row headers, sliding tab indicators, resizable split panes, theme-tinted shimmer skeletons, row hover quick actions, calm update strips, the 13th `gazette` newsprint preset, high-contrast Win98 Platinum toolbar styling, and an independent `FontSwitcher` (`字` / `Aa`) defaulting to `arcade` YouYuan Mono.
+
 ## 0.12.10 (2026-11-18)
 
 - 同步全部 18 个组件升级至 `@stardustlc/dsh-updates@0.2.5`：独立安装插件详情页底栏去重（保留组合包组件委派、工作台精简提示条与对话页热更新卡片），补齐 `bundle-in-use` 组合包占用提示说明，并在更新检查结果过期或远端版本变更时自动刷新元数据，彻底消除 `check-first` 卡顿。
