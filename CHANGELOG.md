@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.12.1 (2026-11-18)
+
+- **同步 `@stardustlc/dsh-updates` 0.2.3 侧边栏工作台静默底栏重构**：全部 9 个侧边栏原生工作台在「已是最新」状态下彻底隐藏底部更新栏（零高度占用），仅在检测到兼容新版本或正在执行更新时浮现单行精简提示条；日常手动检查与更新偏好统一归入 DSH 原生「插件」详情页底部，并收紧详情页排版密度。
+- **Sync `@stardustlc/dsh-updates` 0.2.3 across all 18 bundled components**: hide the bottom update footer across all 9 sidebar workbenches when up-to-date (zero vertical footprint), surfacing a compact single-line strip only when a compatible update is available or actively installing while retaining full update controls in native Plugin Details.
+
 ## 0.12.0 (2026-11-18)
 
 - **同步 dsh-ppt 0.23.0 深度吸收与工作台起稿升级**：扩展至 24 套大师主题、8 套名家范本预设、20 套行业蓝图与咨询价值链五边形箭头（`chevron`）原生图示；外部 `.pptx` 吸收支持拆解嵌套组合形状 `<p:grpSp>`、双强调色、标题/正文字体配对与深色封面反白，并新增面板自助「新建演示文稿」向导与「我的品牌库」。
