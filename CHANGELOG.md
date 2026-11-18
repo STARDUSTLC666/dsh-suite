@@ -1,5 +1,14 @@
 # 更新记录
 
+## 0.12.0 (2026-11-18)
+
+- **同步 dsh-ppt 0.23.0 深度吸收与工作台起稿升级**：扩展至 24 套大师主题、8 套名家范本预设、20 套行业蓝图与咨询价值链五边形箭头（`chevron`）原生图示；外部 `.pptx` 吸收支持拆解嵌套组合形状 `<p:grpSp>`、双强调色、标题/正文字体配对与深色封面反白，并新增面板自助「新建演示文稿」向导与「我的品牌库」。
+- **同步 6 大工作台交互闭环升级**：引文 `0.10.0` 新增条目安全删除与 DOI 核查一键转导入预览；日历 `0.18.3` 新增一键复制空闲时段候选文案；梦境 `0.16.3`、代码安全 `0.8.3`、RSS `0.10.3` 与邮件 `0.28.3` 补齐空状态直达操作、上下文感知的一键复制对话指令与可折叠人类使用流程指引。
+- **同步核心插件原生可视化设置表单与日常工作流**：钉钉 `0.4.0`、Slack `0.5.0`、SQL `0.6.0` 与语音 `0.6.0` 补齐宿主原生 `Config` 设置面板（支持密钥脱敏与保存即热生效免重启）；FFmpeg `0.7.13`、Docker `0.5.15` 与 FlakeFinder `0.4.16` 全面重写符合人类直觉的上手流程与可复制提示词。
+- **Sync dsh-ppt 0.23.0**: expand to 24 curated themes, 8 World-Class Reference Presets, 20 scenario blueprints, and interlocking `chevron` diagrams; upgrade `.pptx` absorption for nested `<p:grpSp>` unwrapping, dual accents, font pairings, and inverted cover polarity, plus a self-serve **New presentation** wizard and **My Brand Library**.
+- **Sync 6 Workbench UX upgrades**: Cite `0.10.0` (safe entry deletion & verified-DOI handoff), Calendar `0.18.3` (1-click free-slots copy summary), Dream `0.16.3`, Code Security `0.8.3`, RSS `0.10.3`, and Email `0.28.3` (inline empty-state CTAs, context-aware 1-click prompt chips, and collapsible workflow guides).
+- **Sync native Settings schemas & human-first workflows**: DingTalk `0.4.0`, Slack `0.5.0`, SQL `0.6.0`, and Voice `0.6.0` add secret-masked live-reloading DSH `Config` schemas; FFmpeg `0.7.13`, Docker `0.5.15`, and FlakeFinder `0.4.16` ship rewritten goal-oriented workflows and copy-ready prompts.
+
 ## 0.11.12 (2026-11-18)
 
 - 同步全部 18 个组件的更新区轻量反馈入口（支持直达 GitHub Star 与对应组件 Issues），补全中英文检索关键词，并新增仓库社交分享预览卡片（`assets/social-preview.jpg`）。
