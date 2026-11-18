@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.12.3 (2026-11-18)
+
+- **同步 `dsh-voice` 0.7.0 全方位协议加固、长文本/播客合成、双语字幕与代理升级**：Edge TTS 严格校验 `Path:audio` 帧与 `turn.end` 截断保护、HTTP 403 自动校准时钟偏差、XML 1.0 控制字符清洗及方言/多语种/HD 音色支持；新增 `inputFile` 文档直读与 10 万字符分段合成、多角色 `segments` 播客合成、`voice_tts` / `voice_stt` `.srt`/`.vtt` 字幕导出、`autoCompress` 大文件自动转码分段、OpenAI/SiliconFlow `ttsEngine` 预设、零依赖 `socks5://`/`socks5h://` 代理隧道、`voice_preview` `index.html` 试听卡片及内置 `voice-workflow` 技能。
+- **Sync `dsh-voice` 0.7.0 hardening, long-form/podcast synthesis, subtitles, and proxy upgrades**: enforce Edge TTS `Path:audio` frame validation and `turn.end` truncation guards, HTTP 403 `Date` clock-skew auto-calibration, XML 1.0 sanitization, and dialect/multilingual/HD voices; add `inputFile` 100k-char chunked synthesis, multi-speaker `segments` podcast synthesis, `.srt`/`.vtt` `subtitleOutput` for both `voice_tts` and `voice_stt`, >25MB `autoCompress`, OpenAI/SiliconFlow `ttsEngine` presets, zero-dependency `socks5://`/`socks5h://` tunneling, `voice_preview` `index.html` audition card, and bundled `voice-workflow` skill.
+
 ## 0.12.2 (2026-11-18)
 
 - **同步 `dsh-email` 0.28.5 原创互动鲸鱼娘信使**：替换内置默认信使插画为原创三态表情组（递信 / 摸摸头开心 / 查收新信），邮件工作台右上角新增「信使」召唤开关，支持点击摸摸头粒子互动、实时查收新信与一键跳转收发邮件。
