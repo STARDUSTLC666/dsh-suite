@@ -121,7 +121,7 @@ test('legacy-first loading hands over one controller after its current install a
   context.__stardustUpdatesJoin({ root, effect(fn) { effects.push(fn()) } }, {}, () => {}, { name: 'dsh-cite', version: VERSION })
   await Promise.resolve(); assert.equal(oldDisposed, 0); old.hold = false
   await old.migration
-  assert.equal(oldDisposed, 1); assert.equal(newStarted, 1); assert.equal(pools.get(root), old); assert.equal(old.uiRevision, 6)
+  assert.equal(oldDisposed, 1); assert.equal(newStarted, 1); assert.equal(pools.get(root), old); assert.equal(old.uiRevision, 7)
   assert.equal(old.refs.has(oldRef), true); assert.equal(old.refs.size, 2)
   effects.forEach(fn => fn()); assert.equal(old.refs.size, 1)
 })
@@ -391,4 +391,65 @@ test('inline workbench footer stays completely hidden when calm and surfaces a c
   await new Promise(resolve => setTimeout(resolve, 150))
   assert.equal(expand(React.createElement(clientIgnored.Footer, { name: 'dsh-cite' })), null)
   assert.notEqual(expand(React.createElement(clientIgnored.NativeFooter, { subject: { kind: 'bundle', pkg: { name: 'dsh-cite' } } })), null)
+})
+
+test('shell overlay reminder offers direct in-chat hot-update actions and yields when a page update footer is visible', async t => {
+  const kit = await readFile(new URL('../lib/ui-kit.js', import.meta.url), 'utf8')
+  const uiClient = await readFile(new URL('../lib/ui-client.js', import.meta.url), 'utf8')
+  let footerNodes = []
+  const snapshot = {
+    rows: [{ name: '@stardustlc/dsh-suite', version: '0.12.5', enabled: true, sourceKind: 'registry', available: true, checkedAt: 1_700_000_000_000, label: '组合包', labelEn: 'Suite', release: { version: '0.12.6', compatible: true } }],
+    preferences: { revision: 1, packages: {} },
+    activity: { known: true, busy: false },
+    pages: { known: true, dirty: false, clients: [] },
+    checkingNames: [],
+    job: null,
+  }
+  const context = vm.createContext({
+    Symbol, Map, Set, WeakMap, URL, AbortController, Promise, Date,
+    crypto: { randomUUID: () => '00000000-0000-4000-8000-000000000098' },
+    setTimeout, clearTimeout, setInterval: () => 1, clearInterval() {},
+    document: { baseURI: 'http://localhost/', addEventListener() {}, removeEventListener() {}, querySelectorAll: sel => sel === '[data-plugin-update-footer]' ? footerNodes : [] },
+    window: { addEventListener() {}, removeEventListener() {} },
+    fetch: async () => ({ ok: true, status: 200, async json() { return { ok: true, value: snapshot } } }),
+  })
+  vm.runInContext(kit + '\n' + uiClient, context)
+  function expand(node) {
+    if (node == null || typeof node !== 'object') return node
+    if (typeof node.type === 'function') return expand(node.type({ ...(node.props || {}), children: node.children }))
+    return { ...node, children: (node.children || []).flat().map(expand).filter(item => item != null && item !== false) }
+  }
+  function textOf(node) {
+    if (node == null || typeof node === 'boolean') return ''
+    if (typeof node === 'string' || typeof node === 'number') return String(node)
+    return (node.children || []).map(textOf).join(' ')
+  }
+  const React = {
+    Fragment: 'fragment',
+    useState: initial => [typeof initial === 'function' ? initial() : initial, () => {}],
+    useEffect() {},
+    useRef: initial => ({ current: initial }),
+    useId: () => 'u2',
+    createElement: (type, props, ...children) => ({ type, props: props || {}, children }),
+  }
+  let OverlayComponent = null
+  const shared = { refs: new Map([['r1', { name: '@stardustlc/dsh-suite' }]]), hold: false }
+  const client = context.__stardustUpdatesClient({
+    locale: { getSnapshot: () => ({ active: 'zh-CN' }), subscribe: () => () => {} },
+    slots: {
+      inject(_slot, fn) { fn() },
+      register(meta, comp) { if (meta.name === 'shell.overlay') OverlayComponent = comp },
+    },
+  }, React, () => ({}), shared)
+  t.after(() => client.dispose())
+  await new Promise(resolve => setTimeout(resolve, 150))
+  assert.equal(typeof OverlayComponent, 'function')
+
+  const chatCard = expand(React.createElement(OverlayComponent, {}))
+  assert.equal(chatCard.type, 'aside')
+  assert.equal(chatCard.props['data-plugin-update-reminder'], '@stardustlc/dsh-suite')
+  assert.match(textOf(chatCard), /热更新 Suite 至 v0\.12\.6/)
+
+  footerNodes = [{ getClientRects: () => [{}] }]
+  assert.equal(expand(React.createElement(OverlayComponent, {})), null)
 })

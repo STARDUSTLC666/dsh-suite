@@ -26,9 +26,10 @@ export const PACKAGES = Object.freeze({
 })
 export const SUITE = '@stardustlc/dsh-suite'
 export const SUITE_COMPONENTS = new Set(Object.keys(PACKAGES).filter(name => ![SUITE, '@stardustlc/dsh-review', 'deepseek-computer-use'].includes(name)))
-export const DEFAULT_PACKAGE_PREFERENCES = Object.freeze({ checkEnabled: true, autoInstall: false, deferredUntil: 0, ignoredVersion: null })
+export const AUTO_SCOPES = new Set(['patch', 'compatible'])
+export const DEFAULT_PACKAGE_PREFERENCES = Object.freeze({ checkEnabled: true, autoInstall: false, autoScope: 'compatible', deferredUntil: 0, ignoredVersion: null })
 export const DEFAULT_PREFERENCES = Object.freeze({ schema: 1, revision: 0, packages: Object.freeze({}) })
-export const CHECK_INTERVAL = 24 * 60 * 60 * 1000
+export const CHECK_INTERVAL = 6 * 60 * 60 * 1000
 export const PLAN_MAX_AGE = 30 * 60 * 1000
 export const AUTO_QUIET_MS = 2 * 60 * 1000
 
@@ -36,8 +37,9 @@ export function preferences(raw) {
   if (!raw || raw.schema !== 1 || !Number.isSafeInteger(raw.revision) || raw.revision < 0 || !raw.packages || typeof raw.packages !== 'object' || Array.isArray(raw.packages)) throw new Error('invalid-preferences')
   const packages = {}
   for (const [name, item] of Object.entries(raw.packages)) {
-    if (!Object.hasOwn(PACKAGES, name) || !item || typeof item.checkEnabled !== 'boolean' || typeof item.autoInstall !== 'boolean' || !Number.isSafeInteger(item.deferredUntil) || item.deferredUntil < 0 || item.ignoredVersion !== null && !semver.valid(item.ignoredVersion)) throw new Error('invalid-preferences')
-    packages[name] = { checkEnabled: item.checkEnabled, autoInstall: item.checkEnabled && item.autoInstall, deferredUntil: item.deferredUntil, ignoredVersion: item.ignoredVersion }
+    const scope = item?.autoScope ?? 'patch'
+    if (!Object.hasOwn(PACKAGES, name) || !item || typeof item.checkEnabled !== 'boolean' || typeof item.autoInstall !== 'boolean' || !AUTO_SCOPES.has(scope) || !Number.isSafeInteger(item.deferredUntil) || item.deferredUntil < 0 || item.ignoredVersion !== null && !semver.valid(item.ignoredVersion)) throw new Error('invalid-preferences')
+    packages[name] = { checkEnabled: item.checkEnabled, autoInstall: item.checkEnabled && item.autoInstall, autoScope: scope, deferredUntil: item.deferredUntil, ignoredVersion: item.ignoredVersion }
   }
   return { schema: 1, revision: raw.revision, packages }
 }
@@ -86,7 +88,9 @@ export function eligibleAuto(row, prefs, now, activity, clients, pendingRestart)
   if (!prefs.checkEnabled || !prefs.autoInstall || prefs.deferredUntil > now || pendingRestart) return false
   if (!row.enabled || row.loadError || row.sourceKind !== 'registry' || row.bundledBy || !row.release?.compatible || !semver.valid(row.release.version) || !semver.valid(row.version)) return false
   if (prefs.ignoredVersion === row.release.version || !semver.gt(row.release.version, row.version)) return false
-  if (semver.prerelease(row.version) || semver.diff(row.version, row.release.version) !== 'patch') return false
+  const diff = semver.diff(row.version, row.release.version)
+  const allowedDiff = prefs.autoScope === 'compatible' ? (diff === 'patch' || diff === 'minor') : diff === 'patch'
+  if (semver.prerelease(row.version) || semver.prerelease(row.release.version) || !allowedDiff) return false
   if (!activity.known || activity.busy) return false
   if (!clients.length || clients.some(client => !client.fresh || client.dirty || client.busy || now - client.lastInteraction < AUTO_QUIET_MS)) return false
   return true

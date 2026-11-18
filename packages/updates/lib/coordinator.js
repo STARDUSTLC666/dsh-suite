@@ -67,11 +67,19 @@ export class UpdateCoordinator {
     if (!input || !Object.hasOwn(PACKAGES, input.name) || !Number.isSafeInteger(input.revision) || !input.changes || typeof input.changes !== 'object' || Array.isArray(input.changes)) throw new Error('invalid-request')
     await this.current()
     if (!this.rows.some(row => row.name === input.name)) throw new Error('source-not-registry')
-    const allowed = ['checkEnabled', 'autoInstall']
-    if (Object.keys(input.changes).some(key => !allowed.includes(key) || typeof input.changes[key] !== 'boolean')) throw new Error('invalid-request')
-    if (input.changes.autoInstall === true && input.consent !== 'enable-idle-patch-updates') throw new Error('auto-consent-required')
+    const allowed = ['checkEnabled', 'autoInstall', 'autoScope']
+    if (Object.keys(input.changes).some(key => !allowed.includes(key) || (key === 'autoScope' ? !['patch', 'compatible'].includes(input.changes[key]) : typeof input.changes[key] !== 'boolean'))) throw new Error('invalid-request')
+    const currentState = await this.store.read()
+    if (currentState.error) throw new Error(currentState.error)
+    const prev = packagePreferences(currentState.value, input.name)
+    const targetScope = input.changes.autoScope ?? (input.consent === 'enable-idle-compatible-updates' ? 'compatible' : input.consent === 'enable-idle-patch-updates' ? 'patch' : prev.autoScope)
+    const enablingAuto = input.changes.autoInstall === true || (prev.autoInstall && input.changes.autoScope === 'compatible' && prev.autoScope !== 'compatible')
+    if (enablingAuto) {
+      const validConsent = targetScope === 'compatible' ? input.consent === 'enable-idle-compatible-updates' : ['enable-idle-patch-updates', 'enable-idle-compatible-updates'].includes(input.consent)
+      if (!validConsent) throw new Error('auto-consent-required')
+    }
     const next = await this.store.change(input.revision, current => {
-      const updated = { ...packagePreferences(current, input.name), ...input.changes }
+      const updated = { ...packagePreferences(current, input.name), ...input.changes, autoScope: targetScope }
       if (!updated.checkEnabled) updated.autoInstall = false
       return preferences({ ...current, packages: { ...current.packages, [input.name]: updated } })
     })

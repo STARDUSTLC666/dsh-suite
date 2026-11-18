@@ -6,9 +6,9 @@ Shared update controls for STARDUSTLC's DSH plugins. Supported hosts provide the
 
 ## 使用者 / Users
 
-- 日常更新管理与更新选项统一位于原生「插件」详情页底部；侧边栏工作台平时保持零打扰隐藏，仅在检测到兼容新版本或正在执行/处理更新时于底部浮现单行精简提示条。更新记录和选项原地展开，不增加更新设置菜单或单独页面。检查、安装授权、推迟提醒和忽略版本按包独立保存。
-- 自动检查默认开启，每个安装包每天最多一次；可分别关闭，手动检查始终可用。
-- **自动安装默认关闭。** 手动安装先确认版本。只有用户明确启用后，兼容的稳定补丁更新才会在空闲时安装；次版本、主版本与预发布版本不会自动安装。
+- 日常更新管理与更新选项统一位于原生「插件」详情页底部；侧边栏工作台平时保持零打扰隐藏，仅在检测到兼容新版本或正在执行/处理更新时于底部浮现单行精简提示条；在普通对话页检测到新版本时，右下角浮现带「一键热更新 / 更新记录 / 明天提醒」的轻量卡片（若当前已打开含更新栏的页面则自动避让）。更新记录和选项原地展开，不增加更新设置菜单或单独页面。检查、安装授权、推迟提醒和忽略版本按包独立保存。
+- 自动检查默认开启，每个安装包每 6 小时最多检查一次；可分别关闭，手动检查始终可用。
+- **自动安装默认关闭。** 手动安装先确认版本，完成后若尚未开启自动更新会提供一键开启入口。只有用户明确启用后，通过当前 DSH 与 Node 兼容性校验的稳定版本（含功能小版本与补丁）才会在空闲时安装；跨主版本（如 `0.x → 1.0.0`）与预发布版本不会自动安装。
 - 有运行任务、未保存修改、页面状态未知、旧版插件尚未提供状态保护或等待重启时，自动安装暂停。宿主支持 `updateBundle` 热更新时原地重新加载，不会自动重启 DSH，也不会更新 DSH 本体。
 - 可推迟提醒和自动安装 24 小时，或忽略某个版本的提醒；仍可手动安装。关闭自动安装会请求取消尚在执行的自动操作，已落盘的结果以官方包管理器回执为准。
 - Suite 组件统一通过 Suite 整包更新。停用状态保留；本地路径、Git、压缩包与别名安装保持原来的更新方式。
@@ -16,7 +16,7 @@ Shared update controls for STARDUSTLC's DSH plugins. Supported hosts provide the
 - 单个组件也可以独立安装并单独热更新，但不要同一个组件既交给 Suite 又直接安装，否则 profile 会出现重复的 loader 条目。
 - 发布新版不会直接替换旧用户的安装。旧版用户先通过官方插件管理更新一次，才会获得这个更新入口。
 
-An incompatible release names the environment that must change (DSH version, Node.js version, deprecated release or a non-bundle package) instead of only reporting that it is incompatible, and the current version keeps working. Installing one component both through Suite and directly creates a duplicate loader entry, so keep exactly one ownership. Each plugin exposes its controls at the bottom of its existing workbench or native plugin detail page. Release notes and options expand in place without extra navigation or settings entries. Consent, checks, deferral and ignored releases are independent; there is no global update page. Automatic checks are on by default (at most once daily); **automatic installation is off by default**. Manual updates require confirmation and hot-reload in place when the host supports `updateBundle`. Explicitly enabled automatic updates only install compatible stable patches while the profile is idle and protected browser state is known. Suite components update through the whole Suite bundle. No forced restart, DSH upgrade, local-source replacement, disabled-plugin enablement or Suite component duplication occurs. Older plugin releases need one manual update to acquire these controls.
+An incompatible release names the environment that must change (DSH version, Node.js version, deprecated release or a non-bundle package) instead of only reporting that it is incompatible, and the current version keeps working. Installing one component both through Suite and directly creates a duplicate loader entry, so keep exactly one ownership. Each plugin exposes its controls at the bottom of its existing workbench or native plugin detail page, and an actionable shell reminder card surfaces in chat views when no update footer is visible on screen. Release notes and options expand in place without extra navigation or settings entries. Consent, checks, deferral and ignored releases are independent; there is no global update page. Automatic checks are on by default (at most every 6 hours); **automatic installation is off by default**. Manual updates require confirmation, hot-reload in place when the host supports `updateBundle`, and offer an optional one-click prompt to enable idle automatic updates afterwards. Explicitly enabled automatic updates install compatible stable releases (minor and patch, excluding major jumps) while the profile is idle and protected browser state is known. Suite components update through the whole Suite bundle. No forced restart, DSH upgrade, local-source replacement, disabled-plugin enablement or Suite component duplication occurs. Older plugin releases need one manual update to acquire these controls.
 
 ## Integration
 

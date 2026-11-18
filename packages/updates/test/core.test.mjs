@@ -155,15 +155,25 @@ test('Suite suppresses duplicate component updates and local links are never rep
   assert.equal(f.coordinator.rows.find(row => row.name === 'dsh-ppt').release, undefined)
 })
 
-test('automatic updates only accept stable compatible patches; manual confirmation can choose a minor update', async t => {
+test('legacy patch opt-in only accepts patches, while compatible opt-in accepts minor updates and still blocks major jumps', async t => {
   const f = await fixture(t); f.registry.metadata = async name => ({ document: version(name, '0.7.0'), registry: 'https://registry.npmjs.org' })
   await optIn(f); await f.coordinator.tick(); assert.equal(f.calls.length, 0)
-  await f.coordinator.start({ name: 'dsh-cite', version: '0.7.0' }); await f.coordinator.jobPromise
+  await assert.rejects(f.coordinator.changePreferences({ name: 'dsh-cite', revision: 1, changes: { autoScope: 'compatible' } }), /auto-consent-required/)
+  await f.coordinator.changePreferences({ name: 'dsh-cite', revision: 1, changes: { autoInstall: true, autoScope: 'compatible' }, consent: 'enable-idle-compatible-updates' })
+  await f.coordinator.tick(); await f.coordinator.jobPromise
   assert.equal(f.calls.length, 1)
+  assert.equal(f.calls[0].release.version, '0.7.0')
+
+  f.registry.metadata = async name => ({ document: version(name, '1.0.0'), registry: 'https://registry.npmjs.org' })
+  await f.coordinator.check(true, 'dsh-cite')
+  await f.coordinator.tick(); await f.coordinator.jobPromise
+  assert.equal(f.calls.length, 1, 'Major version jumps must still require manual confirmation')
+  await f.coordinator.start({ name: 'dsh-cite', version: '1.0.0' }); await f.coordinator.jobPromise
+  assert.equal(f.calls.length, 2)
 })
 
-test('Suite updates as one whole bundle via native updateBundle hot-reload while background checks stay once daily', async t => {
-  assert.equal(CHECK_INTERVAL, 24 * 60 * 60 * 1000)
+test('Suite updates as one whole bundle via native updateBundle hot-reload while background checks run at most every 6 hours', async t => {
+  assert.equal(CHECK_INTERVAL, 6 * 60 * 60 * 1000)
   const f = await fixture(t, { bundles: [bundle(SUITE, { version: '0.11.9', source: SUITE + '@0.11.9' }), bundle()] })
   const registries = []
   f.registry.metadata = async (name, _signal, requestedRegistry) => {
@@ -175,9 +185,9 @@ test('Suite updates as one whole bundle via native updateBundle hot-reload while
   f.state.now += 15 * 60 * 1000
   await f.coordinator.tick()
   assert.equal(registries.length, 1, 'Background check must not repeat after 15 minutes')
-  f.state.now += 24 * 60 * 60 * 1000
+  f.state.now += 6 * 60 * 60 * 1000
   await f.coordinator.tick()
-  assert.equal(registries.length, 2, 'Background check runs again once 24 hours have elapsed')
+  assert.equal(registries.length, 2, 'Background check runs again once 6 hours have elapsed')
 
   f.coordinator.clients.set(fresh(f.state.now).id, fresh(f.state.now))
   await assert.rejects(f.coordinator.start({ name: 'dsh-cite', version: '0.6.2' }), /managed-by-suite/)
