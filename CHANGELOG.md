@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.12.2 (2026-11-18)
+
+- **同步 `dsh-email` 0.28.5 原创互动鲸鱼娘信使**：替换内置默认信使插画为原创三态表情组（递信 / 摸摸头开心 / 查收新信），邮件工作台右上角新增「信使」召唤开关，支持点击摸摸头粒子互动、实时查收新信与一键跳转收发邮件。
+- **Sync `dsh-email` 0.28.5 interactive Whale-Girl Courier**: replace the built-in default courier artwork with an original 3-expression sprite set (deliver / happy headpat / check mail), add a **Courier** summon toggle in the Email workbench header, headpat particle reactions, live mail-check polling, and quick jump-to-inbox actions.
+
 ## 0.12.1 (2026-11-18)
 
 - **同步 `@stardustlc/dsh-updates` 0.2.3 侧边栏工作台静默底栏重构**：全部 9 个侧边栏原生工作台在「已是最新」状态下彻底隐藏底部更新栏（零高度占用），仅在检测到兼容新版本或正在执行更新时浮现单行精简提示条；日常手动检查与更新偏好统一归入 DSH 原生「插件」详情页底部，并收紧详情页排版密度。
