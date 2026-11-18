@@ -170,6 +170,20 @@ function __stardustUpdatesClient(ctx, React, require, shared) {
   const close = () => { void fetch(route, { method: 'POST', credentials: 'same-origin', keepalive: true, headers: { 'content-type': 'application/json', 'x-stardustlc-updates': '1' }, body: JSON.stringify({ action: 'client-close', id }) }).catch(() => {}); };
   window.addEventListener('pagehide', close);
   async function refresh() { const next = await api(); if (alive) { state = __stardustUpdatesDisplayRows(__stardustUpdatesSuiteRows(next, shared.refs.values()), knownRows); notify(); } return next; }
+  const STALE_CHECK_MS = 30 * 60 * 1000, STALE_RETRY_MS = 5 * 60 * 1000, staleChecks = new Map(), staleInFlight = new Set();
+  function refreshIfStale(row) {
+    if (!alive || !row || row.sourceKind !== 'registry' || row.bundledBy || !row.available || row.updating) return;
+    const now = Date.now();
+    if (row.checkedAt && now - row.checkedAt <= STALE_CHECK_MS) return;
+    if (staleInFlight.has(row.name) || now - (staleChecks.get(row.name) ?? -Infinity) < STALE_RETRY_MS) return;
+    staleChecks.set(row.name, now);
+    staleInFlight.add(row.name);
+    void (async () => {
+      try { await api({ action: 'check', name: row.name }); await refresh(); }
+      catch { /* Offline or transient errors stay silent and throttled by staleChecks. */ }
+      finally { staleInFlight.delete(row.name); }
+    })();
+  }
   function useSnapshot() {
     const [, render] = useState(0);
     useEffect(() => { const fn = () => render(value => value + 1); listeners.add(fn); const stop = ctx.locale?.subscribe?.(fn); return () => { listeners.delete(fn); stop?.(); }; }, []);
@@ -185,7 +199,7 @@ function __stardustUpdatesClient(ctx, React, require, shared) {
       'restart-required': t('更新服务需要重启后继续。请在方便时手动重启 DSH。', 'The updater needs a restart. Restart DSH manually when convenient.'),
       'operation-unconfirmed': t('上次安装未确认或恢复失败。请在官方插件管理中检查并修复，之后手动重启 DSH。', 'The last installation is unconfirmed or recovery failed. Check and repair it in native plugin management, then restart DSH manually.'),
       'check-first': t('检查结果已过期，请重新检查。', 'This check expired. Check again.'),
-      'release-changed': t('发布信息已变化，本次未安装。请重新检查。', 'Release metadata changed. Nothing was installed; check again.'),
+      'release-changed': t('发现更新的发布版本（或发布信息已更新），已刷新至最新状态，请再次确认安装。', 'A newer release or updated metadata was found and refreshed; confirm again to install.'),
       'preferences-conflict': t('另一个窗口修改了偏好，已刷新，请重试。', 'Preferences changed in another window. They have been refreshed; retry.'),
       'preferences-unreadable': t('更新偏好文件无法读取，自动安装已关闭。请检查当前 profile 的 stardustlc-plugin-updates.json。', 'Preferences could not be read. Automatic installation is off. Check stardustlc-plugin-updates.json in this profile.'),
       'no-update': t('版本已变化或暂不兼容，请重新检查。', 'The version changed or is incompatible. Check again.'),
@@ -291,12 +305,15 @@ function __stardustUpdatesClient(ctx, React, require, shared) {
     const seenActiveJob = useRef ? useRef(null) : { current: null };
     const row = rowFor(name), original = originalRow(name), target = row?.name || name, prefs = preferences(target), job = snapshot?.job?.name === target ? snapshot.job : null;
     if (job && ['verifying', 'installing', 'cancelling'].includes(job.state)) seenActiveJob.current = job.id;
+    const panelStaleTarget = !!snapshot && !!row && !!original && (!inline || (row.sourceKind === 'registry' && row.available && prefs.deferredUntil <= Date.now() && prefs.ignoredVersion !== row.release?.version));
+    useEffect(() => { if (panelStaleTarget && !activeJob()) refreshIfStale(row); }, [panelStaleTarget, row?.name, row?.available, row?.checkedAt]);
     async function perform(callback) { setError(''); setWorking(true); try { await callback(); await refresh(); } catch (error) { setError(error.message); await refresh().catch(() => {}); } finally { setWorking(false); } }
     async function save(changes, consent) { await api({ action: 'preferences', name: target, revision: state.preferences.revision, changes, consent }); }
-    async function check() { setError(''); setChecking(true); try { await api({ action: 'check', name: target }); await refresh(); } catch (error) { setError(error.message); } finally { setChecking(false); } }
+    async function check() { setError(''); setChecking(true); try { staleChecks.set(target, Date.now()); await api({ action: 'check', name: target }); await refresh(); } catch (error) { setError(error.message); } finally { setChecking(false); } }
     async function runOperation(request) {
       setDialog(null); manualOperation = true; notify();
-      await perform(async () => {
+      setError(''); setWorking(true);
+      try {
         try {
           await heartbeat();
           const started = await api(request);
@@ -306,8 +323,16 @@ function __stardustUpdatesClient(ctx, React, require, shared) {
             if (state.job?.id !== started.id) throw new Error('operation-unconfirmed');
             if (!activeJob()) break;
           }
+          await refresh();
         } finally { manualOperation = false; notify(); }
-      });
+      } catch (err) {
+        setError(err.message);
+        if (request.action === 'install' && ['check-first', 'release-changed'].includes(err?.message)) {
+          staleChecks.set(target, Date.now());
+          await api({ action: 'check', name: target }).catch(() => {});
+        }
+        await refresh().catch(() => {});
+      } finally { setWorking(false); }
     }
     async function showNotes() {
       if (notesOpen) { setNotesOpen(false); return; }
@@ -353,12 +378,15 @@ function __stardustUpdatesClient(ctx, React, require, shared) {
       h('div', { className: 'w-stack' },
         isSuite && h('p', null, t('此处操作的是 Suite 整包，包含 18 个组件。独立安装的其他插件不受影响。', 'This action applies to the whole Suite, including its 18 components. Other independently installed plugins are unaffected.')),
         h('p', { className: 'updates-version' }, target + ' · ' + row.version + ' → ' + selectedVersion),
-        h('p', null, selectedVersion === row.release?.version ? t('Harness 会热更新并重新加载；需要手动重启时，更新区会显示宿主结果，停用状态会保留。', 'Harness hot-updates and reloads in place. If a manual restart is needed, it appears in the update result; disabled status is preserved.') : message('check-first')),
+        h('p', null, selectedVersion === row.release?.version ? t('Harness 会热更新并重新加载；需要手动重启时，更新区会显示宿主结果，停用状态会保留。', 'Harness hot-updates and reloads in place. If a manual restart is needed, it appears in the update result; disabled status is preserved.') : (showUpdate && row.release?.version ? message('release-changed') : message('check-first'))),
         h('div', { className: 'w-toolbar' }, h(W.Button, { onClick: () => setDialog(null) }, t('取消', 'Cancel')),
-          h(W.Button, { variant: 'primary', disabled: !canConfirm, onClick: () => runOperation({ action: 'install', name: target, version: selectedVersion, confirmation: 'update-installed-plugin' }) }, t('安装此版本', 'Install this version')))));
+          showUpdate && row.release?.version && row.release.version !== selectedVersion
+            ? h(W.Button, { variant: 'primary', disabled: installLocked || row.loadError, onClick: () => { setError(''); setSelectedVersion(row.release.version); } }, t('更新为 v', 'Use v') + row.release.version)
+            : h(W.Button, { variant: 'primary', disabled: !canConfirm, onClick: () => runOperation({ action: 'install', name: target, version: selectedVersion, confirmation: 'update-installed-plugin' }) }, t('安装此版本', 'Install this version')))));
     const checkButton = variant => h(W.Button, { variant, className: 'is-sm', icon: 'refresh', disabled: checkingThis || !managed, onClick: check }, checkingThis ? t('正在检查…', 'Checking…') : isSuite ? t('检查整包更新', 'Check Suite updates') : t('检查更新', 'Check for updates'));
+    const recheckButton = variant => h(W.Button, { variant, className: 'is-sm', icon: 'refresh', disabled: checkingThis || !managed, onClick: check }, checkingThis ? t('正在检查…', 'Checking…') : t('重新检查', 'Check again'));
     const primary = showUpdate
-      ? h(W.Button, { variant: 'primary', className: 'is-sm', icon: 'download', disabled: installLocked || row.loadError, onClick: () => { setSelectedVersion(row.release.version); setDialog('install'); } }, (isSuite ? t('更新 Suite 至 v', 'Update Suite to v') : t('更新至 v', 'Update to v')) + row.release.version)
+      ? h(W.Button, { variant: 'primary', className: 'is-sm', icon: 'download', disabled: installLocked || row.loadError, onClick: () => { setError(''); if (job && !jobActiveThis && !unconfirmed) setDismissedJobId(job.id); setSelectedVersion(row.release.version); setDialog('install'); } }, (isSuite ? t('更新 Suite 至 v', 'Update Suite to v') : t('更新至 v', 'Update to v')) + row.release.version)
       : managed ? checkButton() : null;
     if (inline) {
       const lockHint = unconfirmed ? message('operation-unconfirmed')
@@ -383,11 +411,12 @@ function __stardustUpdatesClient(ctx, React, require, shared) {
         h('div', { className: 'updates-bar-actions' },
           staleWindows && actionableUpdate && h(W.Button, { variant: 'ghost', className: 'is-sm', onClick: () => setDialog('windows') }, t('确认已关闭窗口', 'Confirm closed windows')),
           canCancel && h(W.Button, { className: 'is-sm', disabled: job?.state === 'cancelling', onClick: () => perform(() => api({ action: 'cancel', id: job.id })) }, t('取消更新', 'Cancel update')),
+          !jobActiveThis && error === 'check-first' && managed && recheckButton(actionableUpdate ? 'ghost' : 'primary'),
           !jobActiveThis && actionableUpdate && row.release && h(W.Button, { variant: 'ghost', className: 'is-sm', onClick: showNotes, 'aria-expanded': notesOpen }, t('更新记录', 'Release notes')),
           !jobActiveThis && actionableUpdate && h(W.Button, { variant: 'ghost', className: 'is-sm', disabled: working, onClick: () => perform(() => api({ action: 'later', name: target, revision: state.preferences.revision })) }, t('明天再提醒', 'Remind me tomorrow')),
           !jobActiveThis && actionableUpdate && h(W.Button, { variant: 'ghost', className: 'is-sm', disabled: working, onClick: () => perform(() => api({ action: 'ignore', name: target, revision: state.preferences.revision, version: row.release.version })) }, t('忽略此版', 'Ignore')),
           !jobActiveThis && actionableUpdate && primary,
-          !jobActiveThis && !actionableUpdate && canSuggestAuto && h(W.Button, { variant: 'primary', className: 'is-sm', disabled: working, onClick: () => setDialog('automatic') }, t('开启空闲自动热更新', 'Enable idle auto-updates')),
+          !jobActiveThis && !actionableUpdate && canSuggestAuto && h(W.Button, { variant: 'primary', className: 'is-sm', disabled: working, onClick: () => { setError(''); setDialog('automatic'); } }, t('开启空闲自动热更新', 'Enable idle auto-updates')),
           !jobActiveThis && !actionableUpdate && !unconfirmed && h(W.Button, { variant: 'ghost', className: 'is-sm', onClick: () => { setError(''); setNotesOpen(false); if (job) setDismissedJobId(job.id); } }, t('关闭', 'Dismiss')))) },
         notesSection, windowsDialog, confirmDialog);
     }
@@ -398,7 +427,7 @@ function __stardustUpdatesClient(ctx, React, require, shared) {
           h('p', { className: 'w-muted updates-note' }, '✓ ' + jobLabel(job) + ' · ' + job.from + ' → ' + job.to + (job.mode === 'automatic' ? t(' · 自动更新', ' · Automatic update') : '')),
           canSuggestAuto && h('div', { className: 'updates-auto-nudge' },
             h('span', null, t('以后有兼容新版本时，需要空闲自动热更新吗？', 'Auto-install future compatible updates while idle?')),
-            h(W.Button, { variant: 'ghost', className: 'is-sm', disabled: working, onClick: () => setDialog('automatic') }, t('开启空闲自动热更新', 'Enable idle auto-updates')),
+            h(W.Button, { variant: 'ghost', className: 'is-sm', disabled: working, onClick: () => { setError(''); setDialog('automatic'); } }, t('开启空闲自动热更新', 'Enable idle auto-updates')),
             h(W.Button, { variant: 'ghost', className: 'is-sm', onClick: () => setDismissedJobId(job.id) }, t('关闭', 'Dismiss')))) : null;
       }
       return h('section', { className: 'w-section', role: 'status', 'aria-label': t('更新进度', 'Update progress') },
@@ -419,7 +448,8 @@ function __stardustUpdatesClient(ctx, React, require, shared) {
       h('summary', null, !original.bundledBy ? t('自动更新与提醒', 'Auto-update & reminders') : t('更新选项', 'Update options'), ' · ', prefs.checkEnabled ? t('自动检查：开', 'Checks: on') : t('自动检查：关', 'Checks: off'), ' · ', prefs.autoInstall ? (prefs.autoScope === 'compatible' ? t('空闲自动热更新：兼容版', 'Idle auto-update: compatible') : t('空闲自动热更新：仅补丁', 'Idle auto-update: patches')) : t('空闲自动热更新：关', 'Idle auto-update: off')),
       h('section', { className: 'updates-settings', 'aria-label': t('这个插件的更新偏好', 'Update preferences for this plugin') },
         h('div', null, h(W.Switch, { label: isSuite ? t('自动检查 Suite 整包更新', 'Automatically check Suite updates') : t('自动检查这个插件的更新', 'Automatically check this plugin'), checked: prefs.checkEnabled, disabled: working || !!snapshot.preferenceError || !managed, onChange: event => perform(() => save({ checkEnabled: event.target.checked })) }), h('p', { className: 'w-muted updates-note' }, t('默认开启，每 6 小时最多一次。只影响这个安装包，关闭后仍可手动检查。', 'On by default, at most every 6 hours. This affects only this bundle; manual checks remain available.'))),
-        h('div', null, h(W.Switch, { label: isSuite ? t('空闲时自动热更新 Suite 兼容版本', 'Auto-install compatible Suite updates while idle') : t('空闲时自动热更新兼容版本', 'Auto-install compatible updates while idle'), checked: prefs.autoInstall, disabled: working || !!snapshot.preferenceError || !managed, onChange: event => event.target.checked ? setDialog('automatic') : perform(() => save({ autoInstall: false })) }), h('p', { className: 'w-muted updates-note' }, t('默认关闭。明确开启后，仅在空闲且无未保存修改时热更新兼容稳定版（含功能小版本与补丁，不含跨主版本）。其他插件的开关不变。', 'Off by default. Explicitly enable compatible stable updates (minor and patch, excluding major) while idle with no unsaved changes. Other plugins’ settings stay unchanged.')), prefs.autoInstall && prefs.autoScope !== 'compatible' && h(W.Button, { variant: 'ghost', className: 'is-sm', disabled: working, onClick: () => setDialog('automatic') }, t('升级为包含兼容功能小版本', 'Include compatible minor updates')))));
+        h('div', null, h(W.Switch, { label: isSuite ? t('空闲时自动热更新 Suite 兼容版本', 'Auto-install compatible Suite updates while idle') : t('空闲时自动热更新兼容版本', 'Auto-install compatible updates while idle'), checked: prefs.autoInstall, disabled: working || !!snapshot.preferenceError || !managed, onChange: event => event.target.checked ? (setError(''), setDialog('automatic')) : perform(() => save({ autoInstall: false })) }), h('p', { className: 'w-muted updates-note' }, t('默认关闭。明确开启后，仅在空闲且无未保存修改时热更新兼容稳定版（含功能小版本与补丁，不含跨主版本）。其他插件的开关不变。', 'Off by default. Explicitly enable compatible stable updates (minor and patch, excluding major) while idle with no unsaved changes. Other plugins’ settings stay unchanged.')), prefs.autoInstall && prefs.autoScope !== 'compatible' && h(W.Button, { variant: 'ghost', className: 'is-sm', disabled: working, onClick: () => { setError(''); setDialog('automatic'); } }, t('升级为包含兼容功能小版本', 'Include compatible minor updates')))));
+    const errorStatus = error && h(W.Status, { tone: 'error' }, error === 'check-first' && managed ? h('div', { className: 'updates-bar-actions' }, h('span', null, message(error)), recheckButton('ghost')) : message(error));
     const linksNav = (() => {
       const ownRepo = repoUrl(original.name), suiteRepo = repoUrl('@stardustlc/dsh-suite'), starRepo = isSuite ? suiteRepo : ownRepo;
       if (!ownRepo && !starRepo) return null;
@@ -441,7 +471,7 @@ function __stardustUpdatesClient(ctx, React, require, shared) {
           showUpdate && !ignored && h(W.Button, { variant: 'ghost', className: 'is-sm', disabled: working, onClick: () => perform(() => api({ action: 'ignore', name: target, revision: state.preferences.revision, version: row.release.version })) }, t('忽略此版提醒', 'Mute reminder')))) },
         notesSection,
         incompatibleText && h(W.Status, null, incompatibleText),
-        error && h(W.Status, { tone: 'error' }, message(error)), snapshot.preferenceError && h(W.Status, { tone: 'error' }, message('preferences-unreadable')),
+        errorStatus, snapshot.preferenceError && h(W.Status, { tone: 'error' }, message('preferences-unreadable')),
         snapshot.pendingRestart && h(W.Status, null, snapshot.updaterRestart ? message('restart-required') : t('已有插件更新等待手动重启后生效；空闲自动热更新已暂停，建议先重启一次 DSH 再继续更新其他共用依赖的插件。', 'An update awaits a manual restart; idle auto-updates are paused. Restart DSH once before updating other plugins that share dependencies.')),
         prefs.autoInstall && snapshot.autoReady === false && h(W.Status, null, message('page-not-ready')),
         (prefs.autoInstall || jobActiveThis) && windowControls(),
@@ -468,7 +498,7 @@ function __stardustUpdatesClient(ctx, React, require, shared) {
         primary)) },
       notesSection,
       optionsSection,
-      error && h(W.Status, { tone: 'error' }, message(error)), snapshot.preferenceError && h(W.Status, { tone: 'error' }, message('preferences-unreadable')),
+      errorStatus, snapshot.preferenceError && h(W.Status, { tone: 'error' }, message('preferences-unreadable')),
       snapshot.pendingRestart && h(W.Status, null, snapshot.updaterRestart ? message('restart-required') : t('已有插件更新等待手动重启后生效；空闲自动热更新已暂停。', 'An update awaits a manual restart; idle auto-updates are paused.')),
       prefs.autoInstall && snapshot.autoReady === false && h(W.Status, null, message('page-not-ready')),
       windowControls(),
@@ -487,20 +517,21 @@ function __stardustUpdatesClient(ctx, React, require, shared) {
     return name ? h(Panel, { name, inline: false }) : null;
   }
   function Reminder() {
-    const snapshot = useSnapshot(), [working, setWorking] = useState(false), [error, setError] = useState(''), [dialog, setDialog] = useState(null), [selectedTarget, setSelectedTarget] = useState(null), [selectedVersion, setSelectedVersion] = useState(null), [notes, setNotes] = useState(null), [notesOpen, setNotesOpen] = useState(false), [loadingNotes, setLoadingNotes] = useState(false), [dismissedJobId, setDismissedJobId] = useState(null);
+    const snapshot = useSnapshot(), [working, setWorking] = useState(false), [checking, setChecking] = useState(false), [error, setError] = useState(''), [dialog, setDialog] = useState(null), [selectedTarget, setSelectedTarget] = useState(null), [selectedVersion, setSelectedVersion] = useState(null), [notes, setNotes] = useState(null), [notesOpen, setNotesOpen] = useState(false), [loadingNotes, setLoadingNotes] = useState(false), [dismissedJobId, setDismissedJobId] = useState(null);
     const seenJob = useRef ? useRef(null) : { current: null };
     const footerVisible = [...(document.querySelectorAll?.('[data-plugin-update-footer]') || [])].some(node => node.getClientRects?.().length);
-    const activeReminderJob = snapshot?.job && seenJob.current === snapshot.job.id ? snapshot.job : null;
-    if (footerVisible && !activeReminderJob && !dialog && !working && !legacyHint) return null;
-    const candidate = snapshot?.rows?.find(item => {
+    const job = snapshot?.job && seenJob.current === snapshot.job.id && dismissedJobId !== snapshot.job.id ? snapshot.job : null;
+    const yielded = footerVisible && !job && !dialog && !working && !checking && !error && !legacyHint;
+    const candidate = yielded ? null : snapshot?.rows?.find(item => {
       const prefs = preferences(item.name);
       return item.sourceKind === 'registry' && item.available && !item.updating && !item.bundledBy && prefs.checkEnabled && prefs.deferredUntil <= Date.now() && prefs.ignoredVersion !== item.release?.version && !notified.has(item.name + '@' + item.release?.version);
     });
-    const targetName = activeReminderJob?.name || selectedTarget || candidate?.name;
+    const targetName = job?.name || selectedTarget || candidate?.name;
     const row = targetName ? originalRow(targetName) : null;
-    const job = activeReminderJob && dismissedJobId !== activeReminderJob.id ? activeReminderJob : null;
-    if (!legacyHint && !candidate && !job && !dialog) return null;
-    if (legacyHint && !candidate && !job && !dialog) {
+    useEffect(() => { if (!yielded && row && (candidate || selectedTarget) && !activeJob()) refreshIfStale(row); }, [yielded, row?.name, row?.available, row?.checkedAt, !!candidate, selectedTarget]);
+    if (yielded) return null;
+    if (!legacyHint && !candidate && !job && !dialog && !(error && row)) return null;
+    if (legacyHint && !candidate && !job && !dialog && !(error && row)) {
       const hint = legacyHint;
       return h('aside', { className: 'dshw plugin-updates-reminder', role: 'status', 'aria-live': 'polite' },
         h('style', null, W.styles), h('style', null, FOOTER_CSS),
@@ -512,6 +543,7 @@ function __stardustUpdatesClient(ctx, React, require, shared) {
     const prefs = preferences(row.name), isSuite = row.name === '@stardustlc/dsh-suite', label = language() === 'en' ? row.labelEn : row.label;
     const ownPage = pageState(true), unconfirmed = ['unknown', 'restore-failed'].includes(snapshot.job?.state);
     const pageBusy = ownPage.busy || (snapshot.pages.clients || []).some(c => c.id !== id && c.busy);
+    const checkingThis = checking || snapshot.checkingNames?.includes(row.name);
     const installLocked = working || activeJob() || unconfirmed || snapshot.updaterRestart || snapshot.preferenceError || !snapshot.activity.known || snapshot.activity.busy || snapshot.pages.dirty || ownPage.dirty || pageBusy || !snapshot.pages.known || row.loadError;
     const jobResult = job?.outcome?.result;
     const jobReason = job ? job.reason || (jobResult?.pendingBuilds || jobResult?.failureKind === 'build-blocked' ? 'build-blocked' : jobResult?.error?.code) : null;
@@ -519,21 +551,31 @@ function __stardustUpdatesClient(ctx, React, require, shared) {
     const canSuggestAuto = !!job && job.state === 'complete' && !jobReason && (!prefs.autoInstall || prefs.autoScope !== 'compatible') && !snapshot.preferenceError;
     const key = row.release?.version ? row.name + '@' + row.release.version : null;
     async function perform(callback) { setError(''); setWorking(true); try { await callback(); await refresh(); } catch (err) { setError(err.message); await refresh().catch(() => {}); } finally { setWorking(false); } }
+    async function checkReminder() { setError(''); setChecking(true); try { staleChecks.set(row.name, Date.now()); await api({ action: 'check', name: row.name }); await refresh(); } catch (err) { setError(err.message); } finally { setChecking(false); } }
     async function runInstall() {
       setDialog(null); manualOperation = true; notify();
-      await perform(async () => {
+      setError(''); setWorking(true);
+      try {
         try {
           await heartbeat();
           const started = await api({ action: 'install', name: row.name, version: selectedVersion, confirmation: 'update-installed-plugin' });
           seenJob.current = started.id;
-          if (key) notified.add(key);
           while (alive) {
             await new Promise(resolve => setTimeout(resolve, 800)); await heartbeat(); await refresh();
             if (state.job?.id !== started.id) throw new Error('operation-unconfirmed');
             if (!activeJob()) break;
           }
+          if (key && ['complete', 'restart-required'].includes(state?.job?.state)) notified.add(key);
+          await refresh();
         } finally { manualOperation = false; notify(); }
-      });
+      } catch (err) {
+        setError(err.message);
+        if (['check-first', 'release-changed'].includes(err?.message)) {
+          staleChecks.set(row.name, Date.now());
+          await api({ action: 'check', name: row.name }).catch(() => {});
+        }
+        await refresh().catch(() => {});
+      } finally { setWorking(false); }
     }
     async function toggleNotes() {
       if (notesOpen) { setNotesOpen(false); return; }
@@ -563,17 +605,19 @@ function __stardustUpdatesClient(ctx, React, require, shared) {
       : h('div', { className: 'w-stack' },
         isSuite && h('p', null, t('此处操作的是 Suite 整包，包含 18 个组件。独立安装的其他插件不受影响。', 'This action applies to the whole Suite, including its 18 components. Other independently installed plugins are unaffected.')),
         h('p', { className: 'updates-mono' }, row.name + ' · v' + row.version + ' → v' + selectedVersion),
-        h('p', null, t('Harness 会原地热更新并重新加载，无需离开当前聊天；若需要手动重启会在此处说明。', 'Harness hot-updates and reloads in place without leaving your chat; if a manual restart is needed, it appears here.')),
+        h('p', null, row.release?.version === selectedVersion ? t('Harness 会原地热更新并重新加载，无需离开当前聊天；若需要手动重启会在此处说明。', 'Harness hot-updates and reloads in place without leaving your chat; if a manual restart is needed, it appears here.') : (row.available && row.release?.version ? message('release-changed') : message('check-first'))),
         h('div', { className: 'w-toolbar' },
           h(W.Button, { onClick: () => setDialog(null) }, t('取消', 'Cancel')),
-          h(W.Button, { variant: 'primary', disabled: installLocked || row.release?.version !== selectedVersion, onClick: runInstall }, t('安装此版本', 'Install this version')))));
+          row.available && row.release?.version && row.release.version !== selectedVersion
+            ? h(W.Button, { variant: 'primary', disabled: installLocked, onClick: () => { setError(''); setSelectedVersion(row.release.version); } }, t('更新为 v', 'Use v') + row.release.version)
+            : h(W.Button, { variant: 'primary', disabled: installLocked || row.release?.version !== selectedVersion, onClick: runInstall }, t('安装此版本', 'Install this version')))));
     return h('aside', { className: 'dshw plugin-updates-reminder', 'data-plugin-update-reminder': row.name, role: 'status', 'aria-live': 'polite' },
       h('style', null, W.styles), h('style', null, FOOTER_CSS),
       h('div', { className: 'reminder-head' },
         h('div', { className: 'reminder-title' },
           h('span', { className: 'updates-pill' + (job && ['failed', 'restore-failed', 'unknown', 'restored'].includes(job.state) ? ' is-error' : '') },
             job ? jobLabel(job) : isSuite ? t('Suite 新版本', 'Suite update') : label + t(' 有新版本', ' update')),
-          h('span', { className: 'updates-mono' }, job ? ('v' + job.from + ' → v' + job.to) : ('v' + row.version + ' → v' + row.release.version))),
+          h('span', { className: 'updates-mono' }, job ? ('v' + job.from + ' → v' + job.to) : ('v' + row.version + (row.release?.version ? ' → v' + row.release.version : '')))),
         !jobRunning && h('button', { type: 'button', className: 'reminder-close', 'aria-label': t('关闭提醒', 'Dismiss reminder'), onClick: dismiss }, '×')),
       jobReason && h('p', { className: 'updates-inline-msg is-error', style: { margin: '4px 0 0' } }, message(jobReason)),
       error && h('p', { className: 'updates-inline-msg is-error', role: 'alert', style: { margin: '4px 0 0' } }, message(error)),
@@ -583,11 +627,12 @@ function __stardustUpdatesClient(ctx, React, require, shared) {
           : ''),
       canSuggestAuto && h('div', { className: 'updates-auto-nudge' },
         h('span', null, t('下次有兼容新版本时，空闲自动热更新？', 'Auto-install future compatible updates while idle?')),
-        h(W.Button, { variant: 'primary', className: 'is-sm', disabled: working, onClick: () => { setSelectedTarget(row.name); setDialog('automatic'); } }, t('开启空闲自动热更新', 'Enable idle auto-updates'))),
-      !job && h('div', { className: 'reminder-actions' },
-        h(W.Button, { variant: 'primary', className: 'is-sm', icon: 'download', disabled: installLocked, onClick: () => { setSelectedTarget(row.name); setSelectedVersion(row.release.version); setDialog('install'); } }, (isSuite ? t('热更新 Suite 至 v', 'Update Suite to v') : t('热更新至 v', 'Update to v')) + row.release.version),
-        h(W.Button, { variant: 'ghost', className: 'is-sm', onClick: toggleNotes, 'aria-expanded': notesOpen }, t('更新记录', 'Release notes')),
-        h(W.Button, { variant: 'ghost', className: 'is-sm', disabled: working, onClick: () => perform(async () => { await api({ action: 'later', name: row.name, revision: state.preferences.revision }); dismiss(); }) }, t('明天再提醒', 'Remind tomorrow'))),
+        h(W.Button, { variant: 'primary', className: 'is-sm', disabled: working, onClick: () => { setError(''); setSelectedTarget(row.name); setDialog('automatic'); } }, t('开启空闲自动热更新', 'Enable idle auto-updates'))),
+      !jobRunning && !unconfirmed && !['complete', 'restart-required'].includes(job?.state) && h('div', { className: 'reminder-actions' },
+        row.available && row.release?.version && h(W.Button, { variant: 'primary', className: 'is-sm', icon: 'download', disabled: installLocked || checkingThis, onClick: () => { setError(''); if (job) setDismissedJobId(job.id); setSelectedTarget(row.name); setSelectedVersion(row.release.version); setDialog('install'); } }, (isSuite ? t('热更新 Suite 至 v', 'Update Suite to v') : t('热更新至 v', 'Update to v')) + row.release.version),
+        error === 'check-first' && h(W.Button, { variant: row.available ? 'ghost' : 'primary', className: 'is-sm', icon: 'refresh', disabled: working || checkingThis, onClick: checkReminder }, checkingThis ? t('正在检查…', 'Checking…') : t('重新检查', 'Check again')),
+        row.release?.version && h(W.Button, { variant: 'ghost', className: 'is-sm', onClick: toggleNotes, 'aria-expanded': notesOpen }, t('更新记录', 'Release notes')),
+        row.available && h(W.Button, { variant: 'ghost', className: 'is-sm', disabled: working, onClick: () => perform(async () => { await api({ action: 'later', name: row.name, revision: state.preferences.revision }); dismiss(); }) }, t('明天再提醒', 'Remind tomorrow'))),
       jobRunning && !['applying', 'restoring'].includes(job.phase) && h('div', { className: 'reminder-actions' },
         h(W.Button, { className: 'is-sm', disabled: job.state === 'cancelling', onClick: () => perform(() => api({ action: 'cancel', id: job.id })) }, t('取消更新', 'Cancel update'))),
       notesOpen && h('section', { className: 'updates-notes', 'aria-label': t('更新记录', 'Release notes') },

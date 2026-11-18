@@ -6,7 +6,7 @@ import { join } from 'node:path'
 import { UpdateCoordinator } from '../lib/coordinator.js'
 import { UpdateStore } from '../lib/store.js'
 import { NativeInstaller } from '../lib/installer.js'
-import { DEFAULT_PREFERENCES, CHECK_INTERVAL, packagePreferences, targets, releaseOf, eligibleAuto, SUITE } from '../lib/policy.js'
+import { DEFAULT_PREFERENCES, CHECK_INTERVAL, PLAN_MAX_AGE, packagePreferences, targets, releaseOf, eligibleAuto, SUITE } from '../lib/policy.js'
 
 const integrity = 'sha512-' + Buffer.alloc(64, 7).toString('base64')
 const version = (name, value = '0.6.2') => ({ 'dist-tags': { latest: value }, versions: { [value]: { name, version: value, dsh: { bundle: { patch: './cordis.patch.yml' } }, dist: { integrity }, engines: { node: '>=22', dsh: '>=0.2.1-rc.3' } } } })
@@ -313,4 +313,92 @@ test('RC.3 startup-owned packages install through the native service and report 
   const calls = [], manager = { async removeBundle() { return { application: 'failed', error: { code: 'stop-profile' } } }, async installBundle(spec, options) { calls.push([spec, options]); return { application: 'restart-required' } } }
   const installer = new NativeInstaller(manager), result = await installer.install({ name: 'dsh-cite', version: '0.6.1', enabled: true }, { version: '0.6.2' }, 'request')
   assert.equal(result.result.application, 'restart-required'); assert.equal(calls.length, 1); assert.equal(calls[0][0], 'dsh-cite@0.6.2')
+})
+
+test('manual start with checkedAt older than PLAN_MAX_AGE auto-refreshes and succeeds when requested version is still latest', async t => {
+  const f = await fixture(t, { bundles: [bundle('dsh-cite', { version: '0.7.10', source: 'dsh-cite@0.7.10' })] })
+  await assert.rejects(f.coordinator.start({ name: 'dsh-cite', version: '0.7.12' }), /check-first/, 'Never-checked package must still require an initial check')
+
+  f.registry.metadata = async name => ({ document: version(name, '0.7.12'), registry: 'https://registry.npmjs.org' })
+  await f.coordinator.check(true, 'dsh-cite')
+  f.state.now += PLAN_MAX_AGE + 60 * 60 * 1000
+  f.coordinator.clients.set(fresh(f.state.now).id, fresh(f.state.now))
+
+  const refreshedIntegrity = 'sha512-' + Buffer.alloc(64, 9).toString('base64')
+  f.registry.metadata = async name => {
+    const doc = version(name, '0.7.12')
+    doc.versions['0.7.12'].dist.integrity = refreshedIntegrity
+    return { document: doc, registry: 'https://registry.npmjs.org' }
+  }
+
+  const job = await f.coordinator.start({ name: 'dsh-cite', version: '0.7.12' })
+  await f.coordinator.jobPromise
+  assert.equal(job.to, '0.7.12')
+  assert.equal(f.coordinator.job.state, 'complete')
+  assert.equal(f.calls.length, 1)
+  assert.equal(f.calls[0].release.version, '0.7.12')
+  assert.equal(f.calls[0].release.integrity, refreshedIntegrity)
+  assert.equal(f.coordinator.rows.find(r => r.name === 'dsh-cite').checkedAt, f.state.now)
+})
+
+test('manual start with checkedAt older than PLAN_MAX_AGE updates rows and cache to newer release and rejects with release-changed', async t => {
+  const f = await fixture(t, { bundles: [bundle('dsh-cite', { version: '0.7.10', source: 'dsh-cite@0.7.10' })] })
+  f.registry.metadata = async name => ({ document: version(name, '0.7.12'), registry: 'https://registry.npmjs.org' })
+  await f.coordinator.check(true, 'dsh-cite')
+
+  f.state.now += PLAN_MAX_AGE + 45 * 60 * 1000
+  f.coordinator.clients.set(fresh(f.state.now).id, fresh(f.state.now))
+  f.registry.metadata = async name => ({ document: version(name, '0.7.15'), registry: 'https://registry.npmjs.org' })
+
+  await assert.rejects(f.coordinator.start({ name: 'dsh-cite', version: '0.7.12' }), /release-changed/)
+  assert.equal(f.calls.length, 0)
+  const updatedRow = f.coordinator.rows.find(r => r.name === 'dsh-cite')
+  assert.equal(updatedRow.release.version, '0.7.15')
+  assert.equal(updatedRow.available, true)
+  assert.equal(updatedRow.checkedAt, f.state.now)
+  const cached = await f.store.readCache()
+  assert.equal(cached.rows.find(r => r.name === 'dsh-cite').release.version, '0.7.15')
+
+  await f.coordinator.start({ name: 'dsh-cite', version: '0.7.15' })
+  await f.coordinator.jobPromise
+  assert.equal(f.coordinator.job.state, 'complete')
+  assert.equal(f.calls.length, 1)
+  assert.equal(f.calls[0].release.version, '0.7.15')
+})
+
+test('tick refreshes stale PLAN_MAX_AGE metadata for idle autoInstall packages without stalling or looping on offline errors', async t => {
+  const f = await fixture(t)
+  await optIn(f)
+  // First check runs while busy so automatic installation does not start yet.
+  f.state.busy = true
+  await f.coordinator.tick()
+  assert.equal(f.calls.length, 0)
+  assert.equal(f.coordinator.rows[0].release.version, '0.6.2')
+
+  // 45 minutes later (> PLAN_MAX_AGE, < CHECK_INTERVAL), host becomes idle.
+  f.state.now += PLAN_MAX_AGE + 15 * 60 * 1000
+  f.state.busy = false
+  f.coordinator.clients.set(fresh(f.state.now).id, fresh(f.state.now))
+
+  // Simulate transient offline failure: tick must throttle retries instead of looping or wiping release.
+  let metadataCalls = 0
+  f.registry.metadata = async () => { metadataCalls++; throw new Error('registry-unavailable') }
+  await f.coordinator.tick()
+  assert.equal(metadataCalls, 1)
+  assert.equal(f.calls.length, 0)
+  assert.equal(f.coordinator.rows[0].release.version, '0.6.2')
+  f.state.now += 30 * 1000
+  f.coordinator.clients.set(fresh(f.state.now).id, fresh(f.state.now))
+  await f.coordinator.tick()
+  assert.equal(metadataCalls, 1, 'Offline auto-refresh must stay throttled during the 5-minute cooldown')
+
+  // Once 5 minutes pass and registry is back online (even with a newer compatible patch 0.6.3), tick refreshes and installs cleanly.
+  f.state.now += 5 * 60 * 1000
+  f.coordinator.clients.set(fresh(f.state.now).id, fresh(f.state.now))
+  f.registry.metadata = async name => { metadataCalls++; return { document: version(name, '0.6.3'), registry: 'https://registry.npmjs.org' } }
+  await f.coordinator.tick()
+  await f.coordinator.jobPromise
+  assert.equal(f.calls.length, 1)
+  assert.equal(f.calls[0].release.version, '0.6.3')
+  assert.equal(f.coordinator.job.state, 'complete')
 })

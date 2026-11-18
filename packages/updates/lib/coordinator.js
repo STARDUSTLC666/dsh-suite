@@ -22,7 +22,7 @@ function validateHeartbeat(value) {
 export class UpdateCoordinator {
   constructor({ manager, store, registry, installer, activity, runtimeVersion, now = Date.now, autoReady = () => true }) {
     Object.assign(this, { manager, store, registry, installer, activity, runtimeVersion, now, autoReady })
-    this.rows = []; this.checkedAt = 0; this.checking = false; this.job = null; this.history = []; this.clients = new Map(); this.abort = new AbortController(); this.pendingRestart = false; this.lastManualChecks = new Map(); this.initialized = false; this.automaticAttempts = {}
+    this.rows = []; this.checkedAt = 0; this.checking = false; this.job = null; this.history = []; this.clients = new Map(); this.abort = new AbortController(); this.pendingRestart = false; this.lastManualChecks = new Map(); this.lastCheckAttempts = new Map(); this.lastAutoRefresh = new Map(); this.initialized = false; this.automaticAttempts = {}
   }
   async initialize() {
     const cache = await this.store.readCache()
@@ -33,8 +33,9 @@ export class UpdateCoordinator {
     const bundles = targets(await this.manager.listBundles())
     this.rows = bundles.map(row => {
       const old = this.rows.find(item => item.name === row.name)
-      const release = old?.version === row.version ? old.release : undefined
-      return { ...row, ...(old?.version === row.version ? { release, error: old.error, checkedAt: old.checkedAt } : {}), available: !!release?.compatible && !!semver.valid(release.version) && !!semver.valid(row.version) && semver.gt(release.version, row.version) }
+      const keep = old && (old.version === row.version || old.release?.version === row.version)
+      const release = keep ? old.release : undefined
+      return { ...row, ...(keep ? { release, error: old.error, checkedAt: old.checkedAt } : {}), available: !!release?.compatible && !!semver.valid(release.version) && !!semver.valid(row.version) && semver.gt(release.version, row.version) }
     })
     return this.rows
   }
@@ -110,7 +111,7 @@ export class UpdateCoordinator {
     if (this.checkPromise) await this.checkPromise
     const state = await this.store.read()
     if (state.error) return this.snapshot()
-    const rows = await this.current(), names = rows.filter(row => row.sourceKind === 'registry' && !row.bundledBy && (name === undefined || row.name === name) && (manual ? !this.lastManualChecks.has(row.name) || this.now() - this.lastManualChecks.get(row.name) >= 5000 : packagePreferences(state.value, row.name).checkEnabled && this.now() - (row.checkedAt ?? 0) >= CHECK_INTERVAL)).map(row => row.name)
+    const rows = await this.current(), names = rows.filter(row => row.sourceKind === 'registry' && !row.bundledBy && (name === undefined || row.name === name) && (manual ? !row.release || !!row.error || !this.lastManualChecks.has(row.name) || this.now() - this.lastManualChecks.get(row.name) >= 5000 : packagePreferences(state.value, row.name).checkEnabled && this.now() - Math.max(row.checkedAt ?? 0, this.lastCheckAttempts.get(row.name) ?? -Infinity) >= CHECK_INTERVAL)).map(row => row.name)
     if (!names.length) return this.snapshot()
     if (manual) for (const name of names) this.lastManualChecks.set(name, this.now())
     this.checkNames = new Set(names)
@@ -121,18 +122,94 @@ export class UpdateCoordinator {
       const next = rows.map(row => ({ ...row }))
       for (let i = 0; i < next.length; i += 2) await Promise.all(next.slice(i, i + 2).map(async row => {
         if (!this.checkNames.has(row.name)) return
-        row.release = undefined; row.error = undefined
+        const prevRelease = row.release, prevCheckedAt = row.checkedAt
+        let source
         try {
-          const source = await this.registry.metadata(row.name, signal)
+          source = await this.registry.metadata(row.name, signal)
+        } catch {
+          signal.throwIfAborted()
+          row.error = 'check-failed'
+          if (prevRelease) {
+            row.release = prevRelease
+            row.checkedAt = prevCheckedAt
+            this.lastCheckAttempts.set(row.name, this.now())
+          } else {
+            row.release = undefined
+            row.checkedAt = this.now()
+          }
+          row.available = !!row.release?.compatible && !!semver.valid(row.release.version) && !!semver.valid(row.version) && semver.gt(row.release.version, row.version)
+          return
+        }
+        try {
           row.release = { ...releaseOf(row.name, source.document, this.runtimeVersion), registry: source.registry }
-        } catch (error) { signal.throwIfAborted(); row.error = 'check-failed' }
+          row.error = undefined
+        } catch {
+          row.release = undefined
+          row.error = 'check-failed'
+        }
+        this.lastCheckAttempts.delete(row.name)
         row.checkedAt = this.now()
+        row.available = !!row.release?.compatible && !!semver.valid(row.release.version) && !!semver.valid(row.version) && semver.gt(row.release.version, row.version)
       }))
       signal.throwIfAborted()
       this.rows = next; this.checkedAt = this.now(); await this.store.saveCache(next, this.checkedAt, this.automaticAttempts)
     })().catch(error => { if (!signal.aborted) throw error }).finally(() => { this.checking = false; this.checkPromise = null; this.checkAbort = null; this.checkNames = null })
     await this.checkPromise
     return this.snapshot()
+  }
+  async refreshOne(name) {
+    if (!Object.hasOwn(PACKAGES, name)) throw new Error('unknown-package')
+    if (this.checkGate) { await this.checkGate; return this.refreshOne(name) }
+    let finish
+    this.checkGate = new Promise(resolve => { finish = resolve })
+    try {
+      if (this.checkPromise) await this.checkPromise
+      const rows = await this.current()
+      const index = rows.findIndex(row => row.name === name && row.sourceKind === 'registry' && !row.bundledBy)
+      if (index < 0) return null
+      const signal = this.abort.signal
+      const next = rows.map(row => ({ ...row }))
+      const target = { ...next[index] }
+      let source
+      try {
+        source = await this.registry.metadata(name, signal)
+      } catch (error) {
+        signal.throwIfAborted()
+        target.error = 'check-failed'
+        this.lastCheckAttempts.set(name, this.now())
+        next[index] = target
+        this.rows = next
+        throw error
+      }
+      try {
+        const release = { ...releaseOf(name, source.document, this.runtimeVersion), registry: source.registry }
+        target.release = release
+        target.error = undefined
+        target.checkedAt = this.now()
+        target.available = !!release.compatible && !!semver.valid(release.version) && !!semver.valid(target.version) && semver.gt(release.version, target.version)
+      } catch (error) {
+        target.release = undefined
+        target.error = 'check-failed'
+        target.checkedAt = this.now()
+        target.available = false
+        this.lastCheckAttempts.delete(name)
+        next[index] = target
+        this.rows = next
+        this.checkedAt = this.now()
+        await this.store.saveCache(next, this.checkedAt, this.automaticAttempts)
+        throw error
+      }
+      signal.throwIfAborted()
+      this.lastCheckAttempts.delete(name)
+      next[index] = target
+      this.rows = next
+      this.checkedAt = this.now()
+      await this.store.saveCache(next, this.checkedAt, this.automaticAttempts)
+      return target
+    } finally {
+      this.checkGate = null
+      finish()
+    }
   }
   async ensureIdle({ automatic = false, allowUnknownPages = false } = {}) {
     if (this.updaterRestart || automatic && this.pendingRestart) throw new Error('restart-required')
@@ -156,11 +233,18 @@ export class UpdateCoordinator {
     if (['unknown', 'restore-failed'].includes(this.job?.state)) throw new Error('operation-unconfirmed')
     if (this.jobPromise) throw new Error('busy')
     await this.current()
-    const row = this.rows.find(row => row.name === input.name)
+    let row = this.rows.find(row => row.name === input.name)
     if (!row || row.sourceKind !== 'registry') throw new Error('source-not-registry')
     if (row.bundledBy) throw new Error('managed-by-suite')
-    if (!row.release || row.release.version !== input.version || this.now() - (row.checkedAt ?? 0) > PLAN_MAX_AGE) throw new Error('check-first')
-    if (!row.release.compatible || !semver.gt(input.version, row.version)) throw new Error('no-update')
+    if (!row.release) throw new Error('check-first')
+    if (this.now() - (row.checkedAt ?? 0) > PLAN_MAX_AGE || row.release.version !== input.version) {
+      await this.refreshOne(row.name)
+      row = this.rows.find(item => item.name === input.name)
+      if (!row || row.sourceKind !== 'registry') throw new Error('source-not-registry')
+      if (row.bundledBy) throw new Error('managed-by-suite')
+    }
+    if (!row?.release?.compatible || !semver.gt(row.release.version, row.version)) throw new Error('no-update')
+    if (row.release.version !== input.version) throw new Error('release-changed')
     const idle = await this.ensureIdle({ automatic: mode === 'automatic' })
     if (mode === 'automatic') {
       const state = await this.store.read()
@@ -181,7 +265,16 @@ export class UpdateCoordinator {
     try {
       const source = await this.registry.metadata(row.name, signal, row.release.registry)
       const release = { ...releaseOf(row.name, source.document, this.runtimeVersion), registry: source.registry }
-      if (!release.compatible || release.version !== job.to || release.integrity !== row.release.integrity) throw new Error('release-changed')
+      if (!release.compatible || release.version !== job.to || release.integrity !== row.release.integrity) {
+        const current = this.rows.find(item => item.name === row.name)
+        if (current && current.version === row.version) {
+          current.release = release; current.error = undefined; current.checkedAt = this.now()
+          current.available = !!release.compatible && !!semver.valid(release.version) && !!semver.valid(current.version) && semver.gt(release.version, current.version)
+          this.checkedAt = Math.max(this.checkedAt, current.checkedAt)
+          await this.store.saveCache(this.rows, this.checkedAt, this.automaticAttempts).catch(() => {})
+        }
+        throw new Error('release-changed')
+      }
       await this.ensureIdle({ automatic: job.mode === 'automatic' })
       if (job.mode === 'automatic') {
         const prefs = await this.store.read(), activity = await this.activity(), clients = await this.clientStates()
@@ -228,6 +321,7 @@ export class UpdateCoordinator {
   }
   async recordResult(job) {
     job.finishedAt = this.now()
+    this.lastManualChecks.delete(job.name)
     this.history.unshift(structuredClone(job))
     this.history = this.history.slice(0, 10)
     await this.current().catch(() => {})
@@ -252,14 +346,22 @@ export class UpdateCoordinator {
     const state = await this.store.read()
     if (state.error) return
     const rows = await this.current()
-    const due = rows.filter(row => row.sourceKind === 'registry' && !row.bundledBy && packagePreferences(state.value, row.name).checkEnabled && this.now() - (row.checkedAt ?? 0) >= CHECK_INTERVAL).sort((a, b) => (a.checkedAt ?? 0) - (b.checkedAt ?? 0))[0]
+    const due = rows.filter(row => row.sourceKind === 'registry' && !row.bundledBy && packagePreferences(state.value, row.name).checkEnabled && this.now() - Math.max(row.checkedAt ?? 0, this.lastCheckAttempts.get(row.name) ?? -Infinity) >= CHECK_INTERVAL).sort((a, b) => (a.checkedAt ?? 0) - (b.checkedAt ?? 0))[0]
     if (due) await this.check(false, due.name)
     if (!this.rows.some(row => packagePreferences(state.value, row.name).autoInstall)) return
-    const [activity, clients] = await Promise.all([this.activity(), this.clientStates()])
-    const prefs = await this.store.read()
+    let [activity, clients] = await Promise.all([this.activity(), this.clientStates()])
+    let prefs = await this.store.read()
     if (prefs.error) return
     if (!this.autoReady(this.rows) || this.rows.some(row => row.enabled && row.loadError)) return
-    const row = this.rows.find(row => this.automaticAttempts[row.name] !== row.release?.version && eligibleAuto(row, packagePreferences(prefs.value, row.name), this.now(), activity, clients, this.pendingRestart))
+    let row = this.rows.find(item => this.automaticAttempts[item.name] !== item.release?.version && (this.now() - (item.checkedAt ?? 0) <= PLAN_MAX_AGE || this.now() - (this.lastAutoRefresh.get(item.name) ?? -Infinity) >= 5 * 60 * 1000) && eligibleAuto(item, packagePreferences(prefs.value, item.name), this.now(), activity, clients, this.pendingRestart))
+    if (row && this.now() - (row.checkedAt ?? 0) > PLAN_MAX_AGE) {
+      this.lastAutoRefresh.set(row.name, this.now())
+      try { await this.refreshOne(row.name) } catch { return }
+      ;[activity, clients] = await Promise.all([this.activity(), this.clientStates()])
+      prefs = await this.store.read()
+      if (prefs.error || !this.autoReady(this.rows) || this.rows.some(item => item.enabled && item.loadError)) return
+      row = this.rows.find(item => this.automaticAttempts[item.name] !== item.release?.version && this.now() - (item.checkedAt ?? 0) <= PLAN_MAX_AGE && eligibleAuto(item, packagePreferences(prefs.value, item.name), this.now(), activity, clients, this.pendingRestart))
+    }
     if (row) await this.start({ name: row.name, version: row.release.version }, 'automatic')
   }
   async dispose() { this.abort.abort(); if (this.job && ['verifying', 'installing', 'cancelling'].includes(this.job.state)) await this.cancel(this.job.id).catch(() => {}); await Promise.allSettled([this.jobPromise, this.checkPromise].filter(Boolean)) }
