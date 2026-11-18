@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.12.6 (2026-11-18)
+
+- 同步全部 18 个组件升级至 `@stardustlc/dsh-updates@0.2.4`：对话页新增一键原地热更新提醒卡片（无需跳转设置页），后台更新检查周期缩短至 6 小时，主动开启空闲自动更新时覆盖兼容功能小版本与补丁（跨主版本仍需手动确认），并在手动热更新完成后提供一键开启引导。
+- Sync `@stardustlc/dsh-updates@0.2.4` across all 18 components: add an actionable in-chat hot-update reminder card, 6-hour background checks, compatible minor+patch idle auto-updates, and a post-manual-update opt-in prompt.
+
 ## 0.12.5 (2026-11-18)
 
 - **同步全部 9 大侧边栏工作台交互式聚光灯 + 自动转向箭头分步引导（Coachmark Tour）**：覆盖日历 `0.18.5`、文献库 `0.10.2`、代码安全 `0.8.5`、Dream `0.16.5`、邮件 `0.28.6`、HyperFrames `0.12.4`、演示文稿 `0.24.0`、Remotion `0.11.4` 与 RSS `0.10.5`；顶栏新增 `? 引导` 按钮，首次进入工作台温和引导一次（跳过或完成后写入 `localStorage` 永久不再打扰），支持真实按钮聚光灯高亮、视口边缘自动翻转小箭头、键盘 `←`/`→`/`Esc` 导航与气泡内一键复制对话指令，并移除占高度的静态折叠流程框。
