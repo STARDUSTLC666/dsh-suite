@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.12.10 (2026-11-18)
+
+- 同步全部 18 个组件升级至 `@stardustlc/dsh-updates@0.2.5`：独立安装插件详情页底栏去重（保留组合包组件委派、工作台精简提示条与对话页热更新卡片），补齐 `bundle-in-use` 组合包占用提示说明，并在更新检查结果过期或远端版本变更时自动刷新元数据，彻底消除 `check-first` 卡顿。
+- Sync `@stardustlc/dsh-updates@0.2.5` across all 18 components: deduplicate standalone native plugin detail footers while keeping Suite delegation, workbench strips, and in-chat reminder cards, surface clear `bundle-in-use` guidance, and automatically refresh expired update checks without `check-first` stalls.
+
 ## 0.12.9 (2026-11-18)
 
 - **同步 `dsh-voice` 0.10.0（短视频卡拉 OK 字幕、有声书原生章节、视频直传转写与 Voice Studio 真·创作闭环）**：新增 `subtitleGranularity`（`sentence`/`clause`/`word`）与 `1080×1920` `.ass` 逐词卡拉 OK（`\kf`）导出；新增内联 `[pause:500ms]` 气口标记与 `pronunciations` 英文词边界保护；新增 Markdown 标题自动分章、原生 MP3 ID3v2.3 `CHAP`/`CTOC` 书签嵌入与 `chaptersOutput` 导出；支持 `voice_stt` 直接传入 `.mp4`/`.mkv`/`.mov`/`.avi` 视频文件自动抽轨转写、`subtitleInput` FFmpeg `atempo` 零漂移卡点配音、多段 VBR MP3 拼接 `Xing`/`Info` 剥离及 Edge TTS 保活连接池；Voice Studio 工作台新增 8 秒录音一键生成克隆角色（`saveCloneVoice`）、可视化多角色对话合成器（`synthesizeDialogue`）、工作区成品库（`workspaceLibrary`）与点击跳播同步字幕播放器。
