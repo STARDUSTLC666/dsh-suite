@@ -96,10 +96,10 @@ function __stardustUpdatesJoin(host, React, require, participant) {
   if (typeof root.plugin !== 'function') return;
   let record = pools.get(root);
   if (!record) {
-    record = { refs: new Map(), timer: null, version: participant.version, alive: true, hold: false, uiRevision: 8, migration: Promise.resolve() };
+    record = { refs: new Map(), timer: null, version: participant.version, alive: true, hold: false, uiRevision: 9, migration: Promise.resolve() };
     pools.set(root, record);
     __stardustUpdatesActivate(record, pools, root, React, require);
-  } else if ((record.uiRevision || 0) < 8 && !record.upgrading) {
+  } else if ((record.uiRevision || 0) < 9 && !record.upgrading) {
     // An earlier loaded participant may still own an older client revision. Keep
     // its references and draft guards, wait for any admitted install, then
     // replace that one client fiber instead of running two window heartbeats.
@@ -110,7 +110,7 @@ function __stardustUpdatesJoin(host, React, require, participant) {
       if (!shared.alive || !shared.refs.size) return;
       await shared.fiber?.dispose?.();
       if (!shared.refs.size) return;
-      shared.alive = true; shared.uiRevision = 8; pools.set(root, shared);
+      shared.alive = true; shared.uiRevision = 9; pools.set(root, shared);
       __stardustUpdatesActivate(shared, pools, root, React, require);
     }).catch(() => { /* The original page remains usable if host disposal fails. */ });
   }
@@ -215,7 +215,24 @@ function __stardustUpdatesClient(ctx, React, require, shared) {
       'incompatible-version': t('目标版本与当前运行的 DSH 版本不兼容。', 'The target version is incompatible with the running DSH version.'),
       'stop-profile': t('当前配置未启用热重载，需关闭 DSH 后再通过命令行更新。', 'This profile runs without hot reload; stop DSH and update via CLI.'),
       'not-removable': t('此内置或受保护插件不支持在此处移除替换。', 'This built-in or protected bundle cannot be replaced here.'),
+      'pkg-network': t('连接 npm 源时网络中断，请稍后重试。', 'Network error reaching the package registry. Retry shortly.'),
+      'pkg-timeout': t('包管理器请求超时，请检查网络后重试。', 'Package manager request timed out. Check your connection and retry.'),
+      'pkg-not-found': t('未找到目标版本或已被源撤回，请重新检查更新。', 'Target release was not found on the registry. Check again.'),
+      'pkg-no-matching-version': t('没有匹配当前兼容性要求的已发布版本。', 'No published version matches the compatibility constraints.'),
+      'pkg-integrity': t('下载包的完整性校验未通过，已放弃安装，请重试。', 'Package integrity verification failed. Installation aborted; retry.'),
+      'pkg-disk-full': t('磁盘空间不足，请清理后重试。', 'Disk space is full. Free disk space and retry.'),
+      'pkg-permission': t('无权写入当前 profile 目录，请检查文件权限。', 'Permission denied writing to this profile directory.'),
+      'pkg-pnpm-missing': t('未检测到可用的 pnpm，请在环境或宿主插件设置中检查。', 'pnpm is unavailable to the host package manager.'),
+      'operation-error': t('宿主包管理器未能完成操作，可在原生「插件」详情页点击更新查看完整日志。', 'Host package manager did not complete the operation. Retry from native plugin details to inspect logs.'),
     })[code] || t('操作未完成，请刷新后重试。DSH 不会因此自动重启。', 'The operation could not be completed. Refresh and retry. DSH will not restart automatically.');
+  }
+  function reasonOf(job) {
+    if (!job) return null;
+    if (job.reason) return job.reason;
+    const res = job.outcome?.result;
+    if (res?.pendingBuilds || res?.failureKind === 'build-blocked') return 'build-blocked';
+    if (res?.failureKind && ['network', 'timeout', 'not-found', 'no-matching-version', 'integrity', 'pnpm-missing', 'disk-full', 'permission'].includes(res.failureKind)) return 'pkg-' + res.failureKind;
+    return res?.error?.code || null;
   }
   // releaseOf() keeps the failing engine/peer range check as a stable code; say which
   // environment has to change instead of only reporting that the release is incompatible.
@@ -278,7 +295,7 @@ function __stardustUpdatesClient(ctx, React, require, shared) {
     + '.plugin-updates-footer .updates-links a:hover{color:var(--dsw-alias-label-primary,#202124);text-decoration:underline}'
     + '.plugin-updates-footer .updates-links a:focus-visible{outline:2px solid var(--dsw-focus-ring-color,#6b79df);outline-offset:3px;border-radius:4px}'
     + '.plugin-updates-footer .w-overlay,.plugin-updates-reminder .w-overlay{z-index:1002}'
-    + '.plugin-updates-reminder{position:fixed;inset-inline-end:16px;inset-block-end:16px;z-index:998;box-sizing:border-box;width:min(410px,calc(100vw - 32px));padding:11px 13px;border-radius:10px;border:var(--dsh-control-border-width,1px) solid var(--dsw-alias-border-l2,#d8dee9);background:var(--dsw-alias-bg-base,#fff);color:var(--dsw-alias-label-primary,#202124);box-shadow:0 8px 24px rgba(15,23,42,.12);font-size:12px;line-height:1.5}'
+    + '.plugin-updates-reminder{position:fixed;inset-inline-end:64px;inset-block-end:16px;z-index:998;box-sizing:border-box;width:min(400px,calc(100vw - 80px));padding:11px 13px;border-radius:10px;border:var(--dsh-control-border-width,1px) solid var(--dsw-alias-border-l2,#d8dee9);background:var(--dsw-alias-bg-base,#fff);color:var(--dsw-alias-label-primary,#202124);box-shadow:0 8px 24px rgba(15,23,42,.12);font-size:12px;line-height:1.5}'
     + '.plugin-updates-reminder .reminder-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}'
     + '.plugin-updates-reminder .reminder-title{display:flex;align-items:center;flex-wrap:wrap;gap:6px;min-width:0;font-weight:600;font-size:12.5px}'
     + '.plugin-updates-reminder .reminder-close{appearance:none;border:0;background:transparent;color:var(--dsw-alias-label-secondary,#657080);cursor:pointer;padding:2px 5px;border-radius:5px;font-size:14px;line-height:1}'
@@ -293,8 +310,14 @@ function __stardustUpdatesClient(ctx, React, require, shared) {
     + '.plugin-updates-footer .updates-auto-nudge,.plugin-updates-reminder .updates-auto-nudge{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;margin-top:6px;font-size:12px;color:var(--dsw-alias-label-secondary,#657080)}'
     + '@media(pointer:coarse){.plugin-updates-footer .w-button.is-sm{min-block-size:32px;min-height:32px;padding:5px 11px}}'
     + '@media(prefers-reduced-motion:no-preference){.plugin-updates-footer .updates-options>summary::before{transition:rotate .18s ease}.plugin-updates-footer details::details-content{transition:block-size .22s ease,content-visibility .22s ease allow-discrete}}'
-    + '@media(max-width:600px){.plugin-updates-footer .updates-head{gap:8px}.plugin-updates-footer .w-toolbar{gap:6px;flex-wrap:wrap}.plugin-updates-footer .w-button{max-width:100%}}';
+    + '@media(max-width:600px){.plugin-updates-footer .updates-head{gap:8px}.plugin-updates-footer .w-toolbar{gap:6px;flex-wrap:wrap}.plugin-updates-footer .w-button{max-width:100%}}'
+    + '@media(max-width:560px){.plugin-updates-reminder{inset-inline-end:16px;width:min(400px,calc(100vw - 32px))}}';
   function FooterFrame({ name, label, inline = false, supplement = false, head, children }) {
+    useEffect?.(() => {
+      const sync = () => { if (alive) for (const fn of listeners) fn(); };
+      void Promise.resolve().then(sync);
+      return () => { void Promise.resolve().then(sync); };
+    }, []);
     return h('section', { className: 'dshw plugin-updates-footer' + (inline ? ' is-inline' : ''), 'data-plugin-update-footer': name, 'aria-label': label + (supplement ? t(' · 自动更新与反馈', ' · Auto-update and feedback') : t(' · 版本与更新', ' · Version and updates')) },
       h('style', null, W.styles),
       h('style', null, FOOTER_CSS),
@@ -357,7 +380,7 @@ function __stardustUpdatesClient(ctx, React, require, shared) {
     const canConfirm = showUpdate && row.release?.version === selectedVersion && !installLocked && !row.loadError;
     const isSuite = target === '@stardustlc/dsh-suite';
     const jobResult = job?.outcome?.result;
-    const jobReason = job ? job.reason || (jobResult?.pendingBuilds || jobResult?.failureKind === 'build-blocked' ? 'build-blocked' : jobResult?.error?.code) : null;
+    const jobReason = reasonOf(job);
     const jobActiveThis = !!job && ['verifying', 'installing', 'cancelling'].includes(job.state);
     const canCancel = jobActiveThis && !['applying', 'restoring'].includes(job.phase);
     const jobAttentionThis = !!job && ['restart-required', 'restored', 'restore-failed', 'unknown', 'failed'].includes(job.state) && (unconfirmed || dismissedJobId !== job.id);
@@ -546,7 +569,7 @@ function __stardustUpdatesClient(ctx, React, require, shared) {
     const checkingThis = checking || snapshot.checkingNames?.includes(row.name);
     const installLocked = working || activeJob() || unconfirmed || snapshot.updaterRestart || snapshot.preferenceError || !snapshot.activity.known || snapshot.activity.busy || snapshot.pages.dirty || ownPage.dirty || pageBusy || !snapshot.pages.known || row.loadError;
     const jobResult = job?.outcome?.result;
-    const jobReason = job ? job.reason || (jobResult?.pendingBuilds || jobResult?.failureKind === 'build-blocked' ? 'build-blocked' : jobResult?.error?.code) : null;
+    const jobReason = reasonOf(job);
     const jobRunning = !!job && ['verifying', 'installing', 'cancelling'].includes(job.state);
     const canSuggestAuto = !!job && job.state === 'complete' && !jobReason && (!prefs.autoInstall || prefs.autoScope !== 'compatible') && !snapshot.preferenceError;
     const key = row.release?.version ? row.name + '@' + row.release.version : null;
@@ -619,6 +642,7 @@ function __stardustUpdatesClient(ctx, React, require, shared) {
             job ? jobLabel(job) : isSuite ? t('Suite 新版本', 'Suite update') : label + t(' 有新版本', ' update')),
           h('span', { className: 'updates-mono' }, job ? ('v' + job.from + ' → v' + job.to) : ('v' + row.version + (row.release?.version ? ' → v' + row.release.version : '')))),
         !jobRunning && h('button', { type: 'button', className: 'reminder-close', 'aria-label': t('关闭提醒', 'Dismiss reminder'), onClick: dismiss }, '×')),
+      job?.state === 'restart-required' && jobResult?.restartReason === 'package-moved' && h('p', { className: 'w-muted', style: { margin: '4px 0 0' } }, t('新版已就绪；因多个独立插件共用底层依赖，请先手动重启一次 DSH 生效后再继续更新其他插件。', 'Installed; because standalone plugins share dependencies, restart DSH once before updating additional plugins.')),
       jobReason && h('p', { className: 'updates-inline-msg is-error', style: { margin: '4px 0 0' } }, message(jobReason)),
       error && h('p', { className: 'updates-inline-msg is-error', role: 'alert', style: { margin: '4px 0 0' } }, message(error)),
       !job && installLocked && h('p', { className: 'w-muted', style: { margin: '4px 0 0' } },

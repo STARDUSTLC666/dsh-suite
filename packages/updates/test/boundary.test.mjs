@@ -121,7 +121,7 @@ test('legacy-first loading hands over one controller after its current install a
   context.__stardustUpdatesJoin({ root, effect(fn) { effects.push(fn()) } }, {}, () => {}, { name: 'dsh-cite', version: VERSION })
   await Promise.resolve(); assert.equal(oldDisposed, 0); old.hold = false
   await old.migration
-  assert.equal(oldDisposed, 1); assert.equal(newStarted, 1); assert.equal(pools.get(root), old); assert.equal(old.uiRevision, 8)
+  assert.equal(oldDisposed, 1); assert.equal(newStarted, 1); assert.equal(pools.get(root), old); assert.equal(old.uiRevision, 9)
   assert.equal(old.refs.has(oldRef), true); assert.equal(old.refs.size, 2)
   effects.forEach(fn => fn()); assert.equal(old.refs.size, 1)
 })
@@ -467,7 +467,7 @@ test('native bundle detail footer avoids duplicating host version/install button
     activity: { known: true, busy: false },
     pages: { known: true, dirty: false, clients: [] },
     checkingNames: [],
-    job: { id: 'failed-bundle-in-use', name: 'dsh-calendar', state: 'failed', from: '0.18.3', to: '0.18.6', outcome: { result: { error: { code: 'bundle-in-use' } } } },
+    job: { id: 'failed-network', name: 'dsh-calendar', state: 'failed', from: '0.18.3', to: '0.18.6', outcome: { result: { failureKind: 'network', error: { code: 'operation-error' } } } },
   }
   const context = vm.createContext({
     Symbol, Map, Set, WeakMap, URL, AbortController, Promise, Date,
@@ -509,8 +509,9 @@ test('native bundle detail footer avoids duplicating host version/install button
   assert.doesNotMatch(standaloneText, /更新至 v0\.18\.6|检查更新|有兼容的新版本|上次检查/)
   assert.match(standaloneText, /自动更新与提醒/)
   assert.match(standaloneText, /更新记录/)
-  assert.match(standaloneText, /手动重启一次 DSH 即可继续更新，无需逐个停用插件/)
+  assert.match(standaloneText, /连接 npm 源时网络中断，请稍后重试/)
   assert.doesNotMatch(standaloneText, /操作未完成，请刷新后重试/)
+  assert.match(uiClient, /'bundle-in-use':[\s\S]{0,120}手动重启一次 DSH 即可继续更新，无需逐个停用插件/)
 
   const suiteRowDetail = expand(React.createElement(client.NativeFooter, { subject: { kind: 'row', pkg: { name: '@stardustlc/dsh-suite' }, row: { moduleName: 'dsh-cite/client' } } }))
   const suiteRowText = textOf(suiteRowDetail)
@@ -864,4 +865,99 @@ test('reminder keeps update action on mid-flight release-changed job failure and
 
   footerNodes = [{ getClientRects: () => [{}] }]
   assert.equal(render(OverlayComponent), null)
+})
+
+test('FooterFrame mount immediately notifies Reminder to yield and Reminder explains package-moved restarts cleanly', async t => {
+  const kit = await readFile(new URL('../lib/ui-kit.js', import.meta.url), 'utf8')
+  const uiClient = await readFile(new URL('../lib/ui-client.js', import.meta.url), 'utf8')
+  assert.match(uiClient, /\.plugin-updates-reminder\{position:fixed;inset-inline-end:64px;/)
+  let footerVisibleNodes = []
+  let overlayRenders = 0
+  let snapshot = {
+    rows: [{ name: 'dsh-ffmpeg', version: '0.7.14', enabled: true, sourceKind: 'registry', available: true, checkedAt: Date.now(), label: 'FFmpeg', labelEn: 'FFmpeg', release: { version: '0.7.16', compatible: true } }],
+    preferences: { revision: 1, packages: {} },
+    activity: { known: true, busy: false },
+    pages: { known: true, dirty: false, clients: [] },
+    checkingNames: [],
+    job: null,
+  }
+  const context = vm.createContext({
+    Symbol, Map, Set, WeakMap, URL, AbortController, Promise, Date,
+    crypto: { randomUUID: () => '00000000-0000-4000-8000-000000000093' },
+    setTimeout, clearTimeout, setInterval: () => 1, clearInterval() {},
+    document: { baseURI: 'http://localhost/', addEventListener() {}, removeEventListener() {}, querySelectorAll: sel => sel === '[data-plugin-update-footer]' ? footerVisibleNodes : [] },
+    window: { addEventListener() {}, removeEventListener() {} },
+    fetch: async (_url, init) => {
+      const body = JSON.parse(init.body)
+      if (body.action === 'install') {
+        snapshot = { ...snapshot, rows: [{ ...snapshot.rows[0], version: '0.7.16', available: false }], job: { id: 'job-pm', name: 'dsh-ffmpeg', state: 'restart-required', from: '0.7.14', to: '0.7.16', outcome: { native: true, step: 'install', result: { changed: true, application: 'restart-required', version: '0.7.16', restartReason: 'package-moved' } } } }
+        return { ok: true, status: 200, async json() { return { ok: true, value: snapshot.job } } }
+      }
+      return { ok: true, status: 200, async json() { return { ok: true, value: snapshot } } }
+    },
+  })
+  vm.runInContext(kit + '\n' + uiClient, context)
+  function createReactHost() {
+    const roots = []
+    let activeRoot = null
+    const React = {
+      Fragment: 'fragment',
+      useState(initial) { const r = activeRoot, i = r.c++; if (!(i in r.states)) r.states[i] = typeof initial === 'function' ? initial() : initial; return [r.states[i], v => { r.states[i] = typeof v === 'function' ? v(r.states[i]) : v; r.onUpdate?.() }] },
+      useRef(initial) { const r = activeRoot, i = r.rc++; if (!(i in r.refs)) r.refs[i] = { current: initial }; return r.refs[i] },
+      useEffect(fn, deps) { const r = activeRoot, i = r.ec++; const prev = r.effects[i]; if (!prev || !deps || deps.length !== prev.deps?.length || deps.some((d, j) => !Object.is(d, prev.deps[j]))) r.pending.push({ i, fn, deps }) },
+      useId: () => 'u9',
+      createElement: (type, props, ...children) => ({ type, props: props || {}, children }),
+    }
+    const expand = n => n == null || typeof n !== 'object' ? n : typeof n.type === 'function' ? expand(n.type({ ...(n.props || {}), children: n.children })) : { ...n, children: (n.children || []).flat().map(expand).filter(x => x != null && x !== false) }
+    function mountRoot(onUpdate) {
+      const root = { states: [], refs: [], effects: [], pending: [], c: 0, rc: 0, ec: 0, onUpdate }
+      roots.push(root)
+      return {
+        render(Comp, props = {}) {
+          activeRoot = root; root.c = 0; root.rc = 0; root.ec = 0; root.pending.length = 0
+          const tree = expand(React.createElement(Comp, props))
+          for (const item of root.pending.splice(0)) { root.effects[item.i]?.cleanup?.(); root.effects[item.i] = { deps: item.deps, cleanup: item.fn() } }
+          activeRoot = null
+          return tree
+        },
+        unmount() { for (const item of root.effects) item?.cleanup?.() },
+      }
+    }
+    return { React, mountRoot }
+  }
+  const host = createReactHost()
+  const overlayTree = host.mountRoot(() => overlayRenders++), footerTree = host.mountRoot()
+  let OverlayComponent = null
+  const shared = { refs: new Map([['r1', { name: 'dsh-ffmpeg' }]]), hold: false }
+  const client = context.__stardustUpdatesClient({
+    locale: { getSnapshot: () => ({ active: 'zh-CN' }), subscribe: () => () => {} },
+    slots: { inject(_slot, fn) { fn() }, register(meta, comp) { if (meta.name === 'shell.overlay') OverlayComponent = comp } },
+  }, host.React, () => ({}), shared)
+  t.after(() => { overlayTree.unmount(); footerTree.unmount(); client.dispose() })
+  await new Promise(resolve => setTimeout(resolve, 150))
+
+  // Mount Overlay (active in chat) -> then mount NativeFooter in another subtree -> listener fires immediately via microtask!
+  const textOf = n => n == null || typeof n === 'boolean' ? '' : typeof n === 'string' || typeof n === 'number' ? String(n) : (n.children || []).map(textOf).join(' ')
+  const findButtons = (n, out = []) => { if (!n || typeof n !== 'object') return out; if (n.type === 'button') out.push(n); for (const c of n.children || []) findButtons(c, out); return out }
+  let overlayView = overlayTree.render(OverlayComponent)
+  assert.equal(overlayView.props['data-plugin-update-reminder'], 'dsh-ffmpeg')
+  const updatesBeforeFooterMount = overlayRenders
+  footerVisibleNodes = [{ getClientRects: () => [{}] }]
+  footerTree.render(client.NativeFooter, { subject: { kind: 'bundle', pkg: { name: 'dsh-ffmpeg' } } })
+  await new Promise(resolve => setTimeout(resolve, 10))
+  assert.ok(overlayRenders > updatesBeforeFooterMount, 'Footer mount must wake Reminder via listeners without polling')
+  assert.equal(overlayTree.render(OverlayComponent), null)
+
+  // Unmount footer -> wakes Reminder again cleanly and verifies package-moved restart explanation in Reminder
+  const updatesBeforeUnmount = overlayRenders
+  footerVisibleNodes = []
+  footerTree.unmount()
+  await new Promise(resolve => setTimeout(resolve, 10))
+  assert.ok(overlayRenders > updatesBeforeUnmount, 'Footer unmount must wake Reminder via listeners')
+  overlayView = overlayTree.render(OverlayComponent)
+  findButtons(overlayView).find(b => /热更新至 v0\.7\.16/.test(textOf(b))).props.onClick()
+  overlayView = overlayTree.render(OverlayComponent)
+  await findButtons(overlayView).find(b => /安装此版本/.test(textOf(b))).props.onClick()
+  overlayView = overlayTree.render(OverlayComponent)
+  assert.match(textOf(overlayView), /因多个独立插件共用底层依赖，请先手动重启一次 DSH 生效后再继续更新其他插件/)
 })
