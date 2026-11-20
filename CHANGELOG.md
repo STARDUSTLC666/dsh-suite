@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.13.1 (2026-11-20)
+
+- 同步全部 18 个组件升级至 `@stardustlc/dsh-updates@0.2.6`：包含真实 DSH + Chrome 端到端验收修复的浮卡避让、详情页/工作台挂载瞬时让位及 `package-moved` / 包管理器诊断文案。
+- Sync `@stardustlc/dsh-updates@0.2.6` across all 18 components with E2E-verified floating Calendar FAB clearance, instant reminder yield on native detail/workbench mount, and localized `package-moved` / package-manager diagnostics.
+
 ## 0.13.0 (2026-11-18)
 
 - **同步 9 大侧边栏工作台 UI v3 全面焕新（13 套明亮风格主题 + 8 套中英双语字体搭配，默认「幼圆等宽」`arcade`）**：同步 `dsh-email@0.29.0`、`dsh-calendar@0.19.0`、`dsh-cite@0.11.0`、`@stardustlc/dsh-dream@0.17.0`、`dsh-code-security@0.9.0`、`dsh-rss@0.11.0`、`dsh-hyperframes@0.13.0`、`dsh-remotion@0.12.0` 与 `dsh-ppt@0.25.0`；全工作台统一 48px 单行顶栏、滑动选项卡指示条、可拖拽分栏、主题微光骨架屏、行悬停快捷操作与精简更新底栏；新增第 13 套「铅字晨报（Gazette）」主题、Win98 白金高对比工具栏与独立「字 / Aa」字体切换器（支持 Windows 中宋+楷书、工程仿宋、画报黑、千禧新宋、思源书宋、现代思源黑及默认 `arcade` 幼圆等宽）。
