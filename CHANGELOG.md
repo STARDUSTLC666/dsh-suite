@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.13.2 (2026-11-20)
+
+- 同步全部 18 个组件升级至 `@stardustlc/dsh-updates@0.2.7`：对话页热更新提醒浮卡新增无交互 15 秒自动收起、静默完成 6 秒自动收起，悬停/聚焦/展开记录或弹窗时暂停，关键报错与重启提示保持常驻。
+- Sync `@stardustlc/dsh-updates@0.2.7` across all 18 components: auto-dismiss idle update reminders after 15s and silent complete cards after 6s while pausing on interaction and keeping critical errors or restart prompts pinned.
+
 ## 0.13.1 (2026-11-20)
 
 - 同步全部 18 个组件升级至 `@stardustlc/dsh-updates@0.2.6`：包含真实 DSH + Chrome 端到端验收修复的浮卡避让、详情页/工作台挂载瞬时让位及 `package-moved` / 包管理器诊断文案。
