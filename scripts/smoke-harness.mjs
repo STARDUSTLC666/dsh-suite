@@ -92,7 +92,7 @@ export const inject = ['tools', 'skills', 'appReady', 'agents', 'agentPresets', 
 export function apply(ctx, config) {
   ctx.effect(() => ctx.appReady.onReady(() => {
     void (async () => {
-      const tools = ctx.tools.schemas().map(tool => tool.name).sort()
+      const tools = ctx.tools.definitions().map(tool => tool.name).sort()
       const skills = (await ctx.skills.list()).map(skill => skill.name).sort()
       const preset = (await ctx.agentPresets.list()).some(preset => preset.id === 'ptc-minimal' && !preset.broken)
       const handle = await ctx.agents.create({
@@ -115,8 +115,12 @@ export function apply(ctx, config) {
       }
       const skillHealth = {}
       for (const name of ['hyperframes_health', 'remotion_health']) {
-        const result = await ctx.tools.execute({ callId: 'smoke-' + name, name,
-          arguments: {}, signal: AbortSignal.timeout(10_000) })
+        const id = 'smoke-' + name
+        const batch = await ctx.tools.execute({ calls: [{ type: 'tool-call', id, name,
+          arguments: '{}' }], signal: AbortSignal.timeout(10_000) })
+        if (batch.results?.length !== 1 || batch.results[0].callId !== id || !batch.results[0].result)
+          throw new Error('Incomplete or mismatched smoke health result: ' + name)
+        const result = batch.results[0].result
         skillHealth[name] = { isError: result.isError, value: result.value }
       }
       writeFileSync(config.report, JSON.stringify({ tools, skills, preset, presetRuntime, skillHealth }, null, 2))
