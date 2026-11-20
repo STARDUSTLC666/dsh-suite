@@ -1,6 +1,6 @@
 {
   "name": "@stardustlc/dsh-updates",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "Shared opt-in update checks and native DSH plugin update controls for STARDUSTLC plugins.",
   "type": "module",
   "main": "lib/index.js",
@@ -15,6 +15,7 @@
   },
   "files": [
     "lib",
+    "CHANGELOG.md",
     "README.md",
     "LICENSE"
   ],

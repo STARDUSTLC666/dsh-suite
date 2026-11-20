@@ -1,10 +1,14 @@
 export function abortable(promise, signal) {
   if (!signal) return promise
-  signal.throwIfAborted()
   return new Promise((resolve, reject) => {
     const cancel = () => { signal.removeEventListener('abort', cancel); reject(signal.reason ?? new Error('cancelled')) }
-    signal.addEventListener('abort', cancel, { once: true })
-    Promise.resolve(promise).then(resolve, reject).finally(() => signal.removeEventListener('abort', cancel))
+    // Observe work that has already started even when cancellation predates us.
+    Promise.resolve(promise).then(
+      value => { signal.removeEventListener('abort', cancel); resolve(value) },
+      error => { signal.removeEventListener('abort', cancel); reject(error) },
+    )
+    if (signal.aborted) cancel()
+    else signal.addEventListener('abort', cancel, { once: true })
   })
 }
 export async function boundedBody(body, maxBytes, signal) {

@@ -4,6 +4,7 @@ export class NativeInstaller {
   async install(row, release, requestId, signal) {
     signal?.throwIfAborted()
     await this.canProceed?.()
+    signal?.throwIfAborted()
     if (typeof this.manager.updateBundle === 'function') {
       const result = await this.manager.updateBundle(row.name, release.version, { registry: release.registry, requestId })
       return { native: true, result: result.result, restore: result.restore ?? null, step: result.step }
@@ -14,7 +15,7 @@ export class NativeInstaller {
     let removed = false
     const removal = await this.manager.removeBundle(row.name)
     if (removal.error?.code === 'stop-profile') {
-      signal?.throwIfAborted(); await this.canProceed?.()
+      signal?.throwIfAborted(); await this.canProceed?.(); signal?.throwIfAborted()
       const result = await this.manager.installBundle(row.name + '@' + release.version, { enabled: previous.enabled, saveExact: true, registry: release.registry, requestId })
       return { native: false, result, restore: null, step: 'install' }
     }
@@ -22,7 +23,7 @@ export class NativeInstaller {
     removed = true
     let result
     try {
-      signal?.throwIfAborted(); await this.canProceed?.()
+      signal?.throwIfAborted(); await this.canProceed?.(); signal?.throwIfAborted()
       result = await this.manager.installBundle(row.name + '@' + release.version, { enabled: previous.enabled, saveExact: true, registry: release.registry, requestId })
       if (!result.error && ['applied', 'restart-required'].includes(result.application)) return { native: false, result, restore: null, step: 'install' }
     } catch (error) {
