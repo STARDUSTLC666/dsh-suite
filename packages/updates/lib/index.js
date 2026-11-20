@@ -11,7 +11,7 @@ import { PACKAGES, SUITE } from './policy.js'
 export const VERSION = '0.1.0'
 export const ROUTE = '/api/stardustlc/plugin-updates'
 const POOL = Symbol.for('stardustlc.plugin-updates.host.v1')
-const HOST_REVISION = 5
+const HOST_REVISION = 6
 function roots() { return globalThis[POOL] ??= new WeakMap() }
 const get = (ctx, name) => { try { return ctx.get?.(name) } catch { return undefined } }
 const response = (value, status = 200) => new Response(JSON.stringify(value), { status, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store', 'x-content-type-options': 'nosniff' } })

@@ -126,7 +126,7 @@ test('legacy-first loading hands over one controller after its current install a
   effects.forEach(fn => fn()); assert.equal(old.refs.size, 1)
 })
 
-test('an upgraded Host coordinator waits for a legacy installation and inherits participants', async t => {
+for (const revision of [2, 5]) test(`an upgraded Host coordinator waits for revision ${revision} and inherits participants`, async t => {
   const { registerUpdates } = await import('../lib/index.js')
   const key = Symbol.for('stardustlc.plugin-updates.host.v1')
   const previousPool = globalThis[key]
@@ -135,7 +135,7 @@ test('an upgraded Host coordinator waits for a legacy installation and inherits 
   const engine = { clients, history: [], pendingRestart: false }
   let settled, oldDisposed = 0, routesRegistered = 0
   engine.jobPromise = new Promise(resolve => { settled = resolve }).finally(() => { engine.jobPromise = null })
-  const legacy = { refs: new Map([['original', 'dsh-rss']]), version: VERSION, revision: 2, engine,
+  const legacy = { refs: new Map([['original', 'dsh-rss']]), version: VERSION, revision, engine,
     fiber: { async dispose() { oldDisposed++; globalThis[key].delete(profile) } } }
   globalThis[key] = new WeakMap([[profile, legacy]])
   const services = {
