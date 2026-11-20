@@ -39,17 +39,17 @@ importers:
         specifier: 0.4.23
         version: 0.4.23
       dsh-hyperframes:
-        specifier: 0.13.6
-        version: 0.13.6
+        specifier: 0.13.8
+        version: 0.13.8
       dsh-minimal-ptc:
         specifier: 0.6.22
         version: 0.6.22
       dsh-ppt:
-        specifier: 0.32.1
-        version: 0.32.1
+        specifier: 0.33.0
+        version: 0.33.0
       dsh-remotion:
-        specifier: 0.12.6
-        version: 0.12.6
+        specifier: 0.12.8
+        version: 0.12.8
       dsh-rss:
         specifier: 0.11.6
         version: 0.11.6
@@ -318,16 +318,16 @@ packages:
     resolution: {integrity: sha512-E/FHuaI9hmmg+mI2g08gDRbU3GjHTaTwKkKmAW2iJFqS9TGwN8LMMqTyyS+KSj8va/JauLRx6Oadfdc/EL73QQ==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  dsh-hyperframes@0.13.6:
-    resolution: {integrity: sha512-zBBfq3Wn2/7rCMvMuUtwlQWzLzT06ae71MdNSepZLnDML7SxEB6uYtE1DTqT9yiscSYmNT9IPM9Cq2yyzx3mJA==}
+  dsh-hyperframes@0.13.8:
+    resolution: {integrity: sha512-zFFn5yRe9aU8uX/kR3ysFWJi5MVCase4aaXLZUnVYB8LBzYUMLVl3o22Jb3SWYG+iPnR7STcVGdAEQpyA9pRug==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
   dsh-minimal-ptc@0.6.22:
     resolution: {integrity: sha512-UngLFr+TUyfWNwiYNmFbth3IA+LrTIYtOHeWe+KTmfWTln8EaOGAQPGdA1FLWvDDvSzu88n9gEy/uAnhvVd1cw==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  dsh-ppt@0.32.1:
-    resolution: {integrity: sha512-XBCzIqsS/DukFSWwlJ11yfEfBXQOeJrHd5OdlKi7d3gxiUWP0Z4PPRhjJBJMaQNSzXmMHXkW/CJnsFcavgNlaQ==}
+  dsh-ppt@0.33.0:
+    resolution: {integrity: sha512-Egp8c+6SOoRmziGVObHvlfrRTfouP0JIrMoDlu4ICbUKLVXK6o0if1Hw1tl5XcdzUn15CQWxzNTBe9mirnAHTg==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
     peerDependencies:
       '@deepseek-ai/libreoffice-kit': 0.1.5 || 0.2.3
@@ -335,8 +335,8 @@ packages:
       '@deepseek-ai/libreoffice-kit':
         optional: true
 
-  dsh-remotion@0.12.6:
-    resolution: {integrity: sha512-uRKKQUuGkTBNMOg8zPZSaBymIYeJJ8Wi4P3D6o84obd3i4XSevZNsINl7VSAEhe02sXtK8XQMZxSM6tj76iNmw==}
+  dsh-remotion@0.12.8:
+    resolution: {integrity: sha512-seOL6vBFz5zP+eJxiLUSB85jKL+F+YDtdDvnxQrfLLKW0v/IjZtuW4ssZWKf2CzQyfmLt5y1NCTEZ1lHHHOz8w==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
   dsh-rss@0.11.6:
@@ -1021,7 +1021,7 @@ snapshots:
       '@stardustlc/dsh-updates': 0.2.10
       proper-lockfile: 4.1.2
 
-  dsh-hyperframes@0.13.6:
+  dsh-hyperframes@0.13.8:
     dependencies:
       '@stardustlc/dsh-updates': 0.2.10
       fflate: 0.8.3
@@ -1032,7 +1032,7 @@ snapshots:
     dependencies:
       '@stardustlc/dsh-updates': 0.2.10
 
-  dsh-ppt@0.32.1:
+  dsh-ppt@0.33.0:
     dependencies:
       '@office-kit/pptx': 0.21.0
       '@stardustlc/dsh-updates': 0.2.10
@@ -1040,7 +1040,7 @@ snapshots:
       fflate: 0.8.3
       jsep: 1.4.0
 
-  dsh-remotion@0.12.6:
+  dsh-remotion@0.12.8:
     dependencies:
       '@stardustlc/dsh-updates': 0.2.10
       fflate: 0.8.3
