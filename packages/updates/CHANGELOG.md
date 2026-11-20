@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.10 (2026-11-20)
+
+- Remove the shared `shell.overlay` update reminder, success/error cards and legacy floating fallback, including their state and styles. Keep update controls and outcomes in plugin detail pages and workbenches.
+- Advance browser UI revision to 11 so a loaded older controller releases its single client after an active installation settles, preserving participants and draft guards. Opening an unmounted footer now quietly returns `false`.
+- Preserve manual checks, installation consent, automatic-update preferences, heartbeat protection, stale-check recovery, release notes and package diagnostics. Replace floating-card tests with negative registration coverage and page-control regressions.
+
 ## 0.2.9 (2026-11-20)
 
 - Advance the host coordinator revision so a running 0.2.7/0.2.8 coordinator safely hands over to the cancellation fixes after active installation/check work settles. Preserve participants, client guards, recent outcome and pending restart state.
