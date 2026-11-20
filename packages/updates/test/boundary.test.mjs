@@ -121,7 +121,7 @@ test('legacy-first loading hands over one controller after its current install a
   context.__stardustUpdatesJoin({ root, effect(fn) { effects.push(fn()) } }, {}, () => {}, { name: 'dsh-cite', version: VERSION })
   await Promise.resolve(); assert.equal(oldDisposed, 0); old.hold = false
   await old.migration
-  assert.equal(oldDisposed, 1); assert.equal(newStarted, 1); assert.equal(pools.get(root), old); assert.equal(old.uiRevision, 9)
+  assert.equal(oldDisposed, 1); assert.equal(newStarted, 1); assert.equal(pools.get(root), old); assert.equal(old.uiRevision, 10)
   assert.equal(old.refs.has(oldRef), true); assert.equal(old.refs.size, 2)
   effects.forEach(fn => fn()); assert.equal(old.refs.size, 1)
 })
@@ -960,4 +960,211 @@ test('FooterFrame mount immediately notifies Reminder to yield and Reminder expl
   await findButtons(overlayView).find(b => /安装此版本/.test(textOf(b))).props.onClick()
   overlayView = overlayTree.render(OverlayComponent)
   assert.match(textOf(overlayView), /因多个独立插件共用底层依赖，请先手动重启一次 DSH 生效后再继续更新其他插件/)
+})
+
+test('Reminder auto-dismisses idle update alerts after 15s and silent complete jobs after 6s while pausing on interaction or critical outcomes', async t => {
+  const kit = await readFile(new URL('../lib/ui-kit.js', import.meta.url), 'utf8')
+  const uiClient = await readFile(new URL('../lib/ui-client.js', import.meta.url), 'utf8')
+  const capturedTimers = []
+  let nextFakeId = 10_000
+  const fakeSetTimeout = (fn, ms, ...args) => {
+    if (ms >= 5000 && ms < 40000) {
+      const entry = { id: ++nextFakeId, ms, fn: () => fn(...args), cleared: false }
+      capturedTimers.push(entry)
+      return entry.id
+    }
+    return setTimeout(fn, ms, ...args)
+  }
+  const fakeClearTimeout = id => {
+    const entry = capturedTimers.find(item => item.id === id)
+    if (entry) { entry.cleared = true; return }
+    clearTimeout(id)
+  }
+  const activeTimers = () => capturedTimers.filter(item => !item.cleared)
+
+  let snapshot = {
+    rows: [
+      { name: 'dsh-ffmpeg', version: '0.7.14', enabled: true, sourceKind: 'registry', available: true, checkedAt: Date.now(), label: 'FFmpeg', labelEn: 'FFmpeg', release: { version: '0.7.16', compatible: true } },
+      { name: 'dsh-rss', version: '0.11.2', enabled: true, sourceKind: 'registry', available: true, checkedAt: Date.now(), label: 'RSS', labelEn: 'RSS', release: { version: '0.11.3', compatible: true } },
+    ],
+    preferences: { revision: 1, packages: {} },
+    activity: { known: true, busy: false },
+    pages: { known: true, dirty: false, clients: [] },
+    checkingNames: [],
+    job: null,
+  }
+  let jobCounter = 0, installOutcome = 'complete', pollFn = null
+  const context = vm.createContext({
+    Symbol, Map, Set, WeakMap, URL, AbortController, Promise, Date,
+    crypto: { randomUUID: () => '00000000-0000-4000-8000-000000000094' },
+    setTimeout: fakeSetTimeout, clearTimeout: fakeClearTimeout, setInterval: fn => { pollFn = fn; return 1 }, clearInterval() {},
+    document: { baseURI: 'http://localhost/', addEventListener() {}, removeEventListener() {}, querySelectorAll: () => [] },
+    window: { addEventListener() {}, removeEventListener() {} },
+    fetch: async (_url, init) => {
+      const body = JSON.parse(init.body)
+      if (body.action === 'notes') return { ok: true, status: 200, async json() { return { ok: true, value: { text: 'v0.7.16 notes' } } } }
+      if (body.action === 'install') {
+        const id = 'job-auto-' + (++jobCounter)
+        if (installOutcome === 'complete') {
+          snapshot = { ...snapshot, rows: [{ ...snapshot.rows[0], version: '0.7.16', available: false }, snapshot.rows[1]], job: { id, name: 'dsh-ffmpeg', state: 'complete', from: '0.7.14', to: '0.7.16', outcome: { native: true, step: 'install', result: { changed: true, application: 'reloaded', version: '0.7.16' } } } }
+        } else if (installOutcome === 'package-moved') {
+          snapshot = { ...snapshot, rows: [{ ...snapshot.rows[0], version: '0.7.16', available: false }, snapshot.rows[1]], job: { id, name: 'dsh-ffmpeg', state: 'restart-required', from: '0.7.14', to: '0.7.16', outcome: { native: true, step: 'install', result: { changed: true, application: 'restart-required', version: '0.7.16', restartReason: 'package-moved' } } } }
+        } else {
+          snapshot = { ...snapshot, job: { id, name: 'dsh-ffmpeg', state: 'failed', reason: 'bundle-in-use', from: '0.7.14', to: '0.7.16' } }
+        }
+        return { ok: true, status: 200, async json() { return { ok: true, value: snapshot.job } } }
+      }
+      return { ok: true, status: 200, async json() { return { ok: true, value: snapshot } } }
+    },
+  })
+  vm.runInContext(kit + '\n' + uiClient, context)
+  function createReactHost() {
+    let activeRoot = null
+    const React = {
+      Fragment: 'fragment',
+      useState(initial) { const r = activeRoot, i = r.c++; if (!(i in r.states)) r.states[i] = typeof initial === 'function' ? initial() : initial; return [r.states[i], v => { r.states[i] = typeof v === 'function' ? v(r.states[i]) : v }] },
+      useRef(initial) { const r = activeRoot, i = r.rc++; if (!(i in r.refs)) r.refs[i] = { current: initial }; return r.refs[i] },
+      useEffect(fn, deps) { const r = activeRoot, i = r.ec++; const prev = r.effects[i]; if (!prev || !deps || deps.length !== prev.deps?.length || deps.some((d, j) => !Object.is(d, prev.deps[j]))) r.pending.push({ i, fn, deps }) },
+      useId: () => 'u10',
+      createElement: (type, props, ...children) => ({ type, props: props || {}, children }),
+    }
+    const expand = n => n == null || typeof n !== 'object' ? n : typeof n.type === 'function' ? expand(n.type({ ...(n.props || {}), children: n.children })) : { ...n, children: (n.children || []).flat().map(expand).filter(x => x != null && x !== false) }
+    return {
+      React,
+      mountRoot() {
+        const root = { states: [], refs: [], effects: [], pending: [], c: 0, rc: 0, ec: 0 }
+        return {
+          render(Comp, props = {}) {
+            activeRoot = root; root.c = 0; root.rc = 0; root.ec = 0; root.pending.length = 0
+            const tree = expand(React.createElement(Comp, props))
+            for (const item of root.pending.splice(0)) { root.effects[item.i]?.cleanup?.(); root.effects[item.i] = { deps: item.deps, cleanup: item.fn() } }
+            activeRoot = null
+            return tree
+          },
+          unmount() { for (const item of root.effects) item?.cleanup?.() },
+        }
+      },
+    }
+  }
+  const host = createReactHost(), overlayTree = host.mountRoot()
+  let OverlayComponent = null
+  const shared = { refs: new Map([['r1', { name: 'dsh-ffmpeg' }]]), hold: false }
+  const client = context.__stardustUpdatesClient({
+    locale: { getSnapshot: () => ({ active: 'zh-CN' }), subscribe: () => () => {} },
+    slots: { inject(_slot, fn) { fn() }, register(meta, comp) { if (meta.name === 'shell.overlay') OverlayComponent = comp } },
+  }, host.React, () => ({}), shared)
+  t.after(() => { overlayTree.unmount(); client.dispose() })
+  await new Promise(resolve => setTimeout(resolve, 150))
+
+  const textOf = n => n == null || typeof n === 'boolean' ? '' : typeof n === 'string' || typeof n === 'number' ? String(n) : (n.children || []).map(textOf).join(' ')
+  const findButtons = (n, out = []) => { if (!n || typeof n !== 'object') return out; if (n.type === 'button') out.push(n); for (const c of n.children || []) findButtons(c, out); return out }
+
+  // 1. Initial update reminder schedules 15s timer; hover/focus/notes pause & clear it; firing auto-dismiss hides ALL queued candidates without rotating.
+  let view = overlayTree.render(OverlayComponent)
+  assert.equal(view.props['data-plugin-update-reminder'], 'dsh-ffmpeg')
+  assert.deepEqual(activeTimers().map(t => t.ms), [15000])
+
+  view.props.onMouseEnter()
+  view = overlayTree.render(OverlayComponent)
+  assert.equal(activeTimers().length, 0)
+  view.props.onMouseLeave()
+  view = overlayTree.render(OverlayComponent)
+  assert.deepEqual(activeTimers().map(t => t.ms), [15000])
+
+  const innerChild = {}
+  const insideContainer = { contains: node => node === innerChild }
+  view.props.onFocus()
+  view = overlayTree.render(OverlayComponent)
+  assert.equal(activeTimers().length, 0)
+  view.props.onBlur({ currentTarget: insideContainer, relatedTarget: innerChild })
+  view = overlayTree.render(OverlayComponent)
+  assert.equal(activeTimers().length, 0)
+  view.props.onBlur({ currentTarget: insideContainer, relatedTarget: {} })
+  view = overlayTree.render(OverlayComponent)
+  assert.deepEqual(activeTimers().map(t => t.ms), [15000])
+
+  await findButtons(view).find(b => /更新记录/.test(textOf(b))).props.onClick()
+  view = overlayTree.render(OverlayComponent)
+  assert.equal(activeTimers().length, 0)
+  await findButtons(view).find(b => /更新记录/.test(textOf(b))).props.onClick()
+  view = overlayTree.render(OverlayComponent)
+  assert.deepEqual(activeTimers().map(t => t.ms), [15000])
+
+  activeTimers()[0].fn()
+  assert.equal(overlayTree.render(OverlayComponent), null)
+  assert.equal(activeTimers().length, 0)
+
+  // Workbench InlineFooter for dsh-rss stays visible even after Reminder auto-dismissed!
+  const rssFooterTree = host.mountRoot()
+  t.after(() => rssFooterTree.unmount())
+  const rssFooter = rssFooterTree.render(client.Footer, { name: 'dsh-rss' })
+  assert.match(textOf(rssFooter), /更新至 v0\.11\.3/)
+
+  // 2. Newer version revives Reminder; opening confirm dialog clears timer; complete job with autoInstall=true uses 6s.
+  snapshot = {
+    ...snapshot,
+    rows: [
+      { ...snapshot.rows[0], release: { version: '0.7.17', compatible: true } },
+      { ...snapshot.rows[1], release: { version: '0.11.4', compatible: true } },
+    ],
+    preferences: { revision: 2, packages: { 'dsh-ffmpeg': { checkEnabled: true, autoInstall: true, autoScope: 'compatible', deferredUntil: 0, ignoredVersion: null } } },
+  }
+  const refreshNow = async () => { pollFn(); await new Promise(resolve => setTimeout(resolve, 10)) }
+  await refreshNow()
+  view = overlayTree.render(OverlayComponent)
+  assert.equal(view.props['data-plugin-update-reminder'], 'dsh-ffmpeg')
+  assert.deepEqual(activeTimers().map(t => t.ms), [15000])
+
+  findButtons(view).find(b => /热更新至 v0\.7\.17/.test(textOf(b))).props.onClick()
+  view = overlayTree.render(OverlayComponent)
+  assert.equal(activeTimers().length, 0)
+  await findButtons(view).find(b => /安装此版本/.test(textOf(b))).props.onClick()
+  view = overlayTree.render(OverlayComponent)
+  assert.deepEqual(activeTimers().map(t => t.ms), [6000])
+
+  activeTimers()[0].fn()
+  // Dismissing the completed dsh-ffmpeg job reveals dsh-rss@0.11.4 with a fresh 15s reminder timer
+  view = overlayTree.render(OverlayComponent)
+  assert.equal(view.props['data-plugin-update-reminder'], 'dsh-rss')
+  assert.deepEqual(activeTimers().map(t => t.ms), [15000])
+  activeTimers()[0].fn()
+  assert.equal(overlayTree.render(OverlayComponent), null)
+
+  // 3. restart-required (package-moved) and failed (bundle-in-use) jobs NEVER auto-dismiss.
+  installOutcome = 'package-moved'
+  snapshot = {
+    ...snapshot,
+    rows: [
+      { ...snapshot.rows[0], version: '0.7.17', available: true, release: { version: '0.7.18', compatible: true } },
+      snapshot.rows[1],
+    ],
+    job: null,
+  }
+  await refreshNow()
+  view = overlayTree.render(OverlayComponent)
+  findButtons(view).find(b => /热更新至 v0\.7\.18/.test(textOf(b))).props.onClick()
+  view = overlayTree.render(OverlayComponent)
+  await findButtons(view).find(b => /安装此版本/.test(textOf(b))).props.onClick()
+  view = overlayTree.render(OverlayComponent)
+  assert.match(textOf(view), /因多个独立插件共用底层依赖/)
+  assert.equal(activeTimers().length, 0)
+
+  findButtons(view).find(b => /关闭提醒/.test(b.props['aria-label'] || '')).props.onClick()
+  installOutcome = 'bundle-in-use'
+  snapshot = {
+    ...snapshot,
+    rows: [
+      { ...snapshot.rows[0], available: true, release: { version: '0.7.19', compatible: true } },
+      snapshot.rows[1],
+    ],
+    job: null,
+  }
+  await refreshNow()
+  view = overlayTree.render(OverlayComponent)
+  findButtons(view).find(b => /热更新至 v0\.7\.19/.test(textOf(b))).props.onClick()
+  view = overlayTree.render(OverlayComponent)
+  await findButtons(view).find(b => /安装此版本/.test(textOf(b))).props.onClick()
+  view = overlayTree.render(OverlayComponent)
+  assert.match(textOf(view), /宿主暂时无法热卸载旧版/)
+  assert.equal(activeTimers().length, 0)
 })
