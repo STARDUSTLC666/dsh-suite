@@ -21,8 +21,8 @@ importers:
         specifier: 0.11.6
         version: 0.11.6
       dsh-code-security:
-        specifier: 0.9.6
-        version: 0.9.6
+        specifier: 0.9.7
+        version: 0.9.7
       dsh-codex-port:
         specifier: 0.4.21
         version: 0.4.21
@@ -294,8 +294,8 @@ packages:
     resolution: {integrity: sha512-K+2p+GDXmoSG/D24F+hVG+zCUdQZz6xcRdWuSMpYM/ULkdftYaB4tZwpkGnShjJQB9mDcLvlw2hDfc81f9DXXg==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  dsh-code-security@0.9.6:
-    resolution: {integrity: sha512-cDyAE2eOLHC04LUUye1c/lpbw7hf2yCWFt8sAM8O8zRhdUfPw2y981qWwV6OnARVfmFqC6YkTv+ww/fnG9CXTg==}
+  dsh-code-security@0.9.7:
+    resolution: {integrity: sha512-/MyzX6aYOScSWSnq+ctJ0ybv/Mw6cGJ3yCLzIXIVTBz2bplBKnMpMAop+znOBsUZDOYoVJUMDCjQSns0WaX6Wg==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
   dsh-codex-port@0.4.21:
@@ -977,7 +977,7 @@ snapshots:
       '@stardustlc/dsh-updates': 0.2.10
       proper-lockfile: 4.1.2
 
-  dsh-code-security@0.9.6:
+  dsh-code-security@0.9.7:
     dependencies:
       '@babel/parser': 7.29.9
       '@babel/traverse': 7.29.10
