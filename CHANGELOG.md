@@ -1,5 +1,11 @@
 # 更新记录
 
+## 0.13.8 (2026-11-22)
+
+- **同步 `dsh-voice` 至 0.11.0（许愿式语音工作流、全链路真机 E2E 验证 Edge TTS 修复与工作台视觉打磨）**：包含 0.10.8 以来修复微软 Edge ReadAloud `WS 1007`（`<sub alias>` / `<break>`）、对齐 51 个实测可用内置音色与 10 套人设、以及修复 React 19 `useId()` 含冒号 ID 引发 Voice Studio Coachmark 引导崩溃的稳定性升级；新增 `voice_tts` 6 大 `scene` 场景预设（`podcast`/`short-video`/`audiobook`/`briefing`/`story`/`dubbing` 及中文别名）、自然语言风格与方言模糊选声（`"深夜"`、`"纪录片"`、`"粤语男声"` 等）、`targetDurationSec` 目标时长自动校准、默认开启词边界安全的 `autoPronunciations` 技术发音词典、零依赖 XSS 严格转义的 `.player.html` HTML5 交互播放器（`createPlayer` / `playerOutput`）、缺 `ffmpeg` 时 `normalizeLoudness` 优雅降级、按场景精选试听 `voice_preview({ scene })`、第 6 个注册工具 `voice_prefs`（聊天框动口持久化记住非凭据创作偏好，校验工作区边界并遵守只读保护）以及 Voice Studio 搜索框与按钮图标视觉打磨。
+- **Sync `dsh-voice` to 0.11.0 (Wish-Driven voice workflows, E2E-verified Edge TTS fixes & Voice Studio polish)**: bundles the live-verified Edge ReadAloud `WS 1007` fixes (`<sub alias>` / `<break>`), 51 live-verified built-in voices + 10 personas, and React 19 Coachmark selector crash fix from 0.10.8 alongside `voice_tts` high-level `scene` presets (`podcast`/`short-video`/`audiobook`/`briefing`/`story`/`dubbing` + Chinese aliases), fuzzy natural-language style & dialect resolution (`"深夜"`, `"纪录片"`, `"粤语男声"`, etc.), automatic `targetDurationSec` duration fitting, default word-boundary-safe `autoPronunciations` tech lexicon, zero-dependency XSS-escaped `.player.html` interactive HTML5 player (`createPlayer` / `playerOutput`), graceful `normalizeLoudness` degradation without `ffmpeg`, curated `voice_preview({ scene })` auditions, the 6th registered tool `voice_prefs` (conversational non-credential preference persistence with workspace-bounded `referenceAudio` and read-only enforcement), and Voice Studio UI polish.
+- 其余 17 个组件保持已验证版本；组合包的精确依赖锁定已更新并重新验收。
+
 ## 0.13.7 (2026-11-21)
 
 - 升级 dsh-code-security 至 0.9.7，修复窄侧栏中项目选择器挤压扫描操作、刷新和外观控件被裁切的问题，并使项目切换确认弹窗适配小视口。
