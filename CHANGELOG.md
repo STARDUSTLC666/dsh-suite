@@ -1,5 +1,20 @@
 # 更新记录
 
+## 0.14.0 (2026-11-22)
+
+- **同步 9 大原生侧边栏工作台「专属非换皮交互」v4 全面升级、交互式 `? 引导` 重构与中英文档/截图焕新**：精确升级 `@stardustlc/dsh-dream@0.19.0`、`dsh-email@0.32.0`、`dsh-cite@0.12.0`、`dsh-rss@0.12.0`、`dsh-code-security@0.10.0`、`dsh-hyperframes@0.14.0`、`dsh-remotion@0.13.0`、`dsh-ppt@0.36.0` 与 `dsh-calendar@0.21.0`；全部保留上游最新稳定性与功能提交及共享更新组件 `@stardustlc/dsh-updates@0.2.10`，并为每款工作台带来量身定制的交互范式（均保留一键切回经典视图）：
+  - **Dream 记忆 (`@stardustlc/dsh-dream@0.19.0`)**：默认「叠卡」触感审阅台（3 层倾斜卡片堆叠、左右拖拽丢弃/采纳、`Space` 3D 翻面核验依据、Inbox Zero 进度条与浮动操作坞），同时保留 0.18.0 上游记忆特性。
+  - **邮件 (`dsh-email@0.32.0`)**：默认「信桌」实体航空信件工作台（3 层叠加信笺卡片、火漆印与邮戳、翻面信封头、展开信纸全文与互动鲸鱼娘信使），同时保留 0.31.0 SQLite 联系人与文件夹未读数等上游能力。
+  - **文献库 (`dsh-cite@0.12.0`)**：默认「星图」空间引文星座画布（可拖拽论文星体节点、实时 SVG 连线、悬浮卡片盒 HUD、IEEE 引文格式与原子元数据编辑）。
+  - **RSS (`dsh-rss@0.12.0`)**：默认「画报」非对称杂志排版阅读器（View Transitions 平滑展开/收起阅读抽屉、悬浮分类搜索条与一键 AI 日报提示词）。
+  - **代码安全 (`dsh-code-security@0.10.0`)**：默认「仪器台」Braun/TE 陶瓷工业风安全仪（内嵌暗色 OLED 态势屏、可点击 24-LED 雷达矩阵、机械按键、代码显微镜与 `1280×800` 窄屏零重叠顶栏）。
+  - **HyperFrames (`dsh-hyperframes@0.14.0`) 与 Remotion (`dsh-remotion@0.13.0`)**：默认「导演台」硬件风视频工作台（实时舞台监视器、24-LED 渲染矩阵、朱红色 `▶ 播放` 键、可拖拽多轨时间轴与完整技能包同步）。
+  - **演示文稿 (`dsh-ppt@0.36.0`)**：在完整保留 `0.35.0` 上游全量能力基础上新增默认「灯箱总览」16:9 透光幻灯片排片桌（支持排序、复制、插入与点选单页精修）。
+  - **日历 (`dsh-calendar@0.21.0`)**：新增「今日焦点条」（下一场日程倒计时、冲突提醒与快速新建）及 Bento / 悬浮 / 聚光 / 原生四态视图切换。
+  - 9 大工作台同步更新 `? 引导` 聚光灯分步引导、`1440×900 @2x` 中英双语 README 实景截图与工作流图示。
+- **Sync bespoke non-reskinning v4 UI overhauls, refreshed `? Tour` onboarding & bilingual docs across all 9 workbenches**: pin `@stardustlc/dsh-dream@0.19.0` (Tactile Triage Deck), `dsh-email@0.32.0` (airmail Letter Desk preserving `0.31.0` SQLite contacts/unread counts), `dsh-cite@0.12.0` (Spatial Citation Constellation + IEEE format & atomic metadata editing), `dsh-rss@0.12.0` (Editorial Zine Spread with View Transitions reader), `dsh-code-security@0.10.0` (Braun/TE OP-SEC Instrument Deck with 24-LED Radar Matrix & `1280×800` zero-overlap header), `dsh-hyperframes@0.14.0` & `dsh-remotion@0.13.0` (Director's Deck with Live Stage Monitor & scrubbable hardware timeline), `dsh-ppt@0.36.0` (illuminated 16:9 Slide Lightbox layered cleanly atop `0.35.0`), and `dsh-calendar@0.21.0` (Today Focus Ribbon & multi-layout switcher), all with updated Coachmark tours, refreshed `zh`/`en` screenshots, and `@stardustlc/dsh-updates@0.2.10`.
+- 其余 9 个组件（含 `dsh-voice@0.11.0` 等）保持 `0.13.8` 已验证版本；组合包精确依赖与锁文件已更新并重新验收。
+
 ## 0.13.8 (2026-11-22)
 
 - **同步 `dsh-voice` 至 0.11.0（许愿式语音工作流、全链路真机 E2E 验证 Edge TTS 修复与工作台视觉打磨）**：包含 0.10.8 以来修复微软 Edge ReadAloud `WS 1007`（`<sub alias>` / `<break>`）、对齐 51 个实测可用内置音色与 10 套人设、以及修复 React 19 `useId()` 含冒号 ID 引发 Voice Studio Coachmark 引导崩溃的稳定性升级；新增 `voice_tts` 6 大 `scene` 场景预设（`podcast`/`short-video`/`audiobook`/`briefing`/`story`/`dubbing` 及中文别名）、自然语言风格与方言模糊选声（`"深夜"`、`"纪录片"`、`"粤语男声"` 等）、`targetDurationSec` 目标时长自动校准、默认开启词边界安全的 `autoPronunciations` 技术发音词典、零依赖 XSS 严格转义的 `.player.html` HTML5 交互播放器（`createPlayer` / `playerOutput`）、缺 `ffmpeg` 时 `normalizeLoudness` 优雅降级、按场景精选试听 `voice_preview({ scene })`、第 6 个注册工具 `voice_prefs`（聊天框动口持久化记住非凭据创作偏好，校验工作区边界并遵守只读保护）以及 Voice Studio 搜索框与按钮图标视觉打磨。

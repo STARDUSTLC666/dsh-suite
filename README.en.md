@@ -4,7 +4,7 @@
 
 ![dsh-suite whale girl plugin cover](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/master/assets/cover-whale-girl.png)
 
-Plugin bundle for DeepSeek Harness (`>=0.2.2-rc.3`): install 18 standalone plugins for email, calendar, memory, media creation, code security, and developer workflows—including 10 native workbenches with 5 switchable light/warm themes (Native Glass, Cream Paper, Claude Warm Paper, 8-Bit Pixel, Sky Mint)—with combined defaults and Cordis hot-reload cleanup. Review and Computer Use are distributed separately.
+Plugin bundle for DeepSeek Harness (`>=0.2.2-rc.3`): install 18 standalone plugins for email, calendar, memory, media creation, code security, and developer workflows—including 10 native workbenches featuring bespoke non-reskinning UIs (Tactile Triage Deck, airmail Letter Desk, Citation Constellation, Editorial Zine Spread, OP-SEC Instrument Deck, Director's Decks, 16:9 Slide Lightbox, Today Focus Ribbon, plus Voice Studio), 13 bright style themes, 8 bilingual font pairings, and interactive `? Tour` onboarding—with combined defaults and Cordis hot-reload cleanup. Review and Computer Use are distributed separately.
 
 [![npm](https://img.shields.io/npm/v/@stardustlc/dsh-suite)](https://www.npmjs.com/package/@stardustlc/dsh-suite) [![downloads](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/npm-downloads/assets/dsh-suite-downloads.svg)](https://www.npmjs.com/package/@stardustlc/dsh-suite) [![total downloads](https://raw.githubusercontent.com/STARDUSTLC666/dsh-suite/npm-downloads/assets/dsh-suite-total-downloads.svg)](https://www.npmjs.com/package/@stardustlc/dsh-suite)
 
@@ -55,7 +55,7 @@ For the web version, replace `desktop` with `web`. Restart DSH after installatio
 
 Enable only the suite bundle in the profile; it loads the components. Each component still has its own account, executable and network requirements.
 
-This release aligns all 18 components with DeepSeek Harness `>=0.2.2-rc.3`, adding bilingual locale metadata and Cordis `ctx.effect` hot-reload cleanup. Ten native workbenches support 5 switchable themes (Native Glass, Cream Paper, Claude Warm Paper, 8-Bit Pixel, Sky Mint) alongside host language, narrow-window layout, and edit protection; the remaining components provide update controls in native plugin details and remain independently installable.
+This release aligns all 18 components with DeepSeek Harness `>=0.2.2-rc.3`, adding bilingual locale metadata and Cordis `ctx.effect` hot-reload cleanup. Ten native workbenches (9 bespoke interaction workbenches + Voice Studio) support 13 bright style presets, 8 bilingual font pairings, interactive `? Tour` coachmarks, host language, narrow-window layout, edit protection, and one-click fallback to classic list/form views; the remaining components provide update controls in native plugin details and remain independently installable.
 
 Requires official DSH **0.2.2-rc.3 or newer**; this round checked 0.2.2-rc.3 at the adaptation level (loading, contracts and offline tests, not the previous full Web walkthrough), recorded [here](docs/validation-2026-11-14-rc3.md). See the [workbench guide](docs/WORKBENCH_UI.md) and the earlier [validation record](docs/validation-2026-10-28-boundaries.md) for actual-operation boundaries. Review and Computer Use remain separate plugins outside this bundle's 18 components.
 

@@ -12,17 +12,17 @@ importers:
         specifier: 0.5.22
         version: 0.5.22
       '@stardustlc/dsh-dream':
-        specifier: 0.17.6
-        version: 0.17.6
+        specifier: 0.19.0
+        version: 0.19.0
       dsh-calendar:
-        specifier: 0.20.5
-        version: 0.20.5
+        specifier: 0.21.0
+        version: 0.21.0
       dsh-cite:
-        specifier: 0.11.6
-        version: 0.11.6
+        specifier: 0.12.0
+        version: 0.12.0
       dsh-code-security:
-        specifier: 0.9.7
-        version: 0.9.7
+        specifier: 0.10.0
+        version: 0.10.0
       dsh-codex-port:
         specifier: 0.4.21
         version: 0.4.21
@@ -30,8 +30,8 @@ importers:
         specifier: 0.4.7
         version: 0.4.7
       dsh-email:
-        specifier: 0.30.6
-        version: 0.30.6
+        specifier: 0.32.0
+        version: 0.32.0
       dsh-ffmpeg:
         specifier: 0.7.20
         version: 0.7.20
@@ -39,20 +39,20 @@ importers:
         specifier: 0.4.23
         version: 0.4.23
       dsh-hyperframes:
-        specifier: 0.13.8
-        version: 0.13.8
+        specifier: 0.14.0
+        version: 0.14.0
       dsh-minimal-ptc:
         specifier: 0.6.22
         version: 0.6.22
       dsh-ppt:
-        specifier: 0.33.0
-        version: 0.33.0
+        specifier: 0.36.0
+        version: 0.36.0
       dsh-remotion:
-        specifier: 0.12.8
-        version: 0.12.8
+        specifier: 0.13.0
+        version: 0.13.0
       dsh-rss:
-        specifier: 0.11.6
-        version: 0.11.6
+        specifier: 0.12.0
+        version: 0.12.0
       dsh-slack:
         specifier: 0.5.7
         version: 0.5.7
@@ -195,8 +195,8 @@ packages:
     resolution: {integrity: sha512-KqIFAm7R4YRdTuGCCbndw4QG6VSI6WZvPsVc3I9JCZQdBJBWr+fABkAYDcrATrdCHPjzwN4q0/X9hd/vL9UjNw==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  '@stardustlc/dsh-dream@0.17.6':
-    resolution: {integrity: sha512-zB+HUMv8LD+/xZ7SWVDGZg4f8fHBGDjvp/eLWkbtFo2nlu8YKkt5JXkvKYytHQH4/k1oAdIU5Q3TpWFnyNfGRg==}
+  '@stardustlc/dsh-dream@0.19.0':
+    resolution: {integrity: sha512-+jY7qKAHC6mCwFyI4JXeFXwZ8I1ad0MtPy/RB99KPFdX9pg8eH7qcOpWzlkTkpbRtuVTEdYJsPmYQJrRXqsrgQ==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
   '@stardustlc/dsh-updates@0.2.10':
@@ -286,16 +286,16 @@ packages:
     resolution: {integrity: sha512-qI4JLRKnSzqFqr7hAlS5xQDusBCjKSEG4t4+7aNrIQMHBcsC2TGEhuyABJdYkgSewL57PNLYEiibY2iPKhKpaA==}
     engines: {node: '>=20.19.0'}
 
-  dsh-calendar@0.20.5:
-    resolution: {integrity: sha512-E60wWL8tAYUQYWmnSoAJ+TdHnfD1iWSVi/57o84fpxrFQF644jA4uk3T2EbPjVwyt3tHlrQ2GgpYlU+PSWxuxQ==}
+  dsh-calendar@0.21.0:
+    resolution: {integrity: sha512-r7yqPHu+8zIT4OH9B+CyFOkYlRNXM3nrirgJr3Q37toh3HgsYa670ojrYlUVx7eVAiovUJ2Tq9qLO3i7qExa7Q==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  dsh-cite@0.11.6:
-    resolution: {integrity: sha512-K+2p+GDXmoSG/D24F+hVG+zCUdQZz6xcRdWuSMpYM/ULkdftYaB4tZwpkGnShjJQB9mDcLvlw2hDfc81f9DXXg==}
+  dsh-cite@0.12.0:
+    resolution: {integrity: sha512-vAjdI5GpT6WUERFWJTMwXRKB8wHjFNrxybpoXIPVG5zqsA0n6oWzshs0ydfmToCKgJZI3dYdSYyhr0UFnGVzVA==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  dsh-code-security@0.9.7:
-    resolution: {integrity: sha512-/MyzX6aYOScSWSnq+ctJ0ybv/Mw6cGJ3yCLzIXIVTBz2bplBKnMpMAop+znOBsUZDOYoVJUMDCjQSns0WaX6Wg==}
+  dsh-code-security@0.10.0:
+    resolution: {integrity: sha512-eAfiv0sFeOzyaz2c9OBod20GsQeQpVn1x2Blz8l00WDKjLFcUJaypZSYi26LXt8oQqs0P6e3rH+dWjn2XjKvrw==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
   dsh-codex-port@0.4.21:
@@ -306,8 +306,8 @@ packages:
     resolution: {integrity: sha512-22i/tkAdU95D2/PBTG8bVckfZHRDqZuY6TfQCzzqdKuseXAL75efTEQSTp72uHo/nxav+VhCqYMasaEMHp52PQ==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  dsh-email@0.30.6:
-    resolution: {integrity: sha512-ZitRKXXMWNC2c5DSyCtRsKsBDv8Z5cmrwbzNss+PnqkesABo0TJh5dvQnETsqND6xIvZkUJpqBOVPgjHpqCuRg==}
+  dsh-email@0.32.0:
+    resolution: {integrity: sha512-JcVNXRn/NBELHw0RC8+Kk9IGI3oUxcDFKBG9R1GiS/i4zWmYxd+1ociJb1ub/kffytOq0vKTk/46YNtDbWrKIw==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
   dsh-ffmpeg@0.7.20:
@@ -318,16 +318,16 @@ packages:
     resolution: {integrity: sha512-E/FHuaI9hmmg+mI2g08gDRbU3GjHTaTwKkKmAW2iJFqS9TGwN8LMMqTyyS+KSj8va/JauLRx6Oadfdc/EL73QQ==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  dsh-hyperframes@0.13.8:
-    resolution: {integrity: sha512-zFFn5yRe9aU8uX/kR3ysFWJi5MVCase4aaXLZUnVYB8LBzYUMLVl3o22Jb3SWYG+iPnR7STcVGdAEQpyA9pRug==}
+  dsh-hyperframes@0.14.0:
+    resolution: {integrity: sha512-2rgdazFYB1Dadj6HOZihCLCtc4fTyD6XammT+0n8dXw/k82eTOFoenzvbhzvBORQxXvYfVajpPJ4g+p2ePMN+A==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
   dsh-minimal-ptc@0.6.22:
     resolution: {integrity: sha512-UngLFr+TUyfWNwiYNmFbth3IA+LrTIYtOHeWe+KTmfWTln8EaOGAQPGdA1FLWvDDvSzu88n9gEy/uAnhvVd1cw==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  dsh-ppt@0.33.0:
-    resolution: {integrity: sha512-Egp8c+6SOoRmziGVObHvlfrRTfouP0JIrMoDlu4ICbUKLVXK6o0if1Hw1tl5XcdzUn15CQWxzNTBe9mirnAHTg==}
+  dsh-ppt@0.36.0:
+    resolution: {integrity: sha512-bJ3LYhbtSadd+QAHNpqzY2QaTxOUo0mYKgpwBoxgq5DUYR81fcHVt//oba3Ap9pQyPwwaZHcOmc7s35gN8VVpQ==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
     peerDependencies:
       '@deepseek-ai/libreoffice-kit': 0.1.5 || 0.2.3
@@ -335,12 +335,12 @@ packages:
       '@deepseek-ai/libreoffice-kit':
         optional: true
 
-  dsh-remotion@0.12.8:
-    resolution: {integrity: sha512-seOL6vBFz5zP+eJxiLUSB85jKL+F+YDtdDvnxQrfLLKW0v/IjZtuW4ssZWKf2CzQyfmLt5y1NCTEZ1lHHHOz8w==}
+  dsh-remotion@0.13.0:
+    resolution: {integrity: sha512-SQLa1AvPZx1MlTapnb2Nn22HpREPJt7idpxnP2lDZeIbNh+jvZnpe9wsKx6SlZuoA3415THTjG/sGFvLCXJvQQ==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  dsh-rss@0.11.6:
-    resolution: {integrity: sha512-LvZBv7CbLUc4YUNH/skzW8uRNlCurZQE4E7YFS2Bk1srGDbnhvQhhGnJjwXgLDu+u0ZexkFIeOdjE1B1eBfjiQ==}
+  dsh-rss@0.12.0:
+    resolution: {integrity: sha512-DIejWLBJIKYEReLndY2jwA31+DIbFI6y7EdCdi1xX2pmCrf4wz6Lt5mjVx9ZKtgq0KGgR4p0pG1yzx5klFcQNA==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
   dsh-slack@0.5.7:
@@ -576,6 +576,9 @@ packages:
   pino@10.3.1:
     resolution: {integrity: sha512-r34yH/GlQpKZbU1BvFFqOjhISRo1MNx1tWYsYvmj6KIRHSPMT2+yHOEb1SG6NMvRoHRF0a07kCOox/9yakl1vg==}
     hasBin: true
+
+  pinyin-pro@3.29.5:
+    resolution: {integrity: sha512-Fk5YoRmtdHqJWqAuzYVG/NzvzeCbaG+ZEwbY6Nbps3QAIrvQQEtcm49frcyCM8i2b5najnzPDtYqrHRYTTiuwQ==}
 
   postgres-array@2.0.0:
     resolution: {integrity: sha512-VpZrUqU5A69eQyW2c5CA1jtLecCsN2U/bD6VilrFDWq5+5UIEVO7nazS3TEcHf1zuPYO/sqGvUvW62g86RXZuA==}
@@ -875,7 +878,7 @@ snapshots:
     dependencies:
       '@stardustlc/dsh-updates': 0.2.10
 
-  '@stardustlc/dsh-dream@0.17.6':
+  '@stardustlc/dsh-dream@0.19.0':
     dependencies:
       '@stardustlc/dsh-updates': 0.2.10
 
@@ -957,7 +960,7 @@ snapshots:
       domelementtype: 3.0.0
       domhandler: 6.0.1
 
-  dsh-calendar@0.20.5:
+  dsh-calendar@0.21.0:
     dependencies:
       '@deepseek-ai/schemastery': 3.18.3
       '@stardustlc/dsh-updates': 0.2.10
@@ -970,14 +973,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  dsh-cite@0.11.6:
+  dsh-cite@0.12.0:
     dependencies:
       '@citation-js/core': 0.9.0
       '@citation-js/plugin-bibtex': 0.9.0(@citation-js/core@0.9.0)
       '@stardustlc/dsh-updates': 0.2.10
       proper-lockfile: 4.1.2
 
-  dsh-code-security@0.9.7:
+  dsh-code-security@0.10.0:
     dependencies:
       '@babel/parser': 7.29.9
       '@babel/traverse': 7.29.10
@@ -997,7 +1000,7 @@ snapshots:
     dependencies:
       '@stardustlc/dsh-updates': 0.2.10
 
-  dsh-email@0.30.6:
+  dsh-email@0.32.0:
     dependencies:
       '@deepseek-ai/schemastery': 3.18.3
       '@stardustlc/dsh-updates': 0.2.10
@@ -1007,6 +1010,7 @@ snapshots:
       mailparser: 3.9.33
       node-pop3: 0.15.3
       nodemailer: 10.0.13
+      pinyin-pro: 3.29.5
       proper-lockfile: 4.1.2
       schemastery: 3.18.0
       socks: 2.8.10
@@ -1021,7 +1025,7 @@ snapshots:
       '@stardustlc/dsh-updates': 0.2.10
       proper-lockfile: 4.1.2
 
-  dsh-hyperframes@0.13.8:
+  dsh-hyperframes@0.14.0:
     dependencies:
       '@stardustlc/dsh-updates': 0.2.10
       fflate: 0.8.3
@@ -1032,7 +1036,7 @@ snapshots:
     dependencies:
       '@stardustlc/dsh-updates': 0.2.10
 
-  dsh-ppt@0.33.0:
+  dsh-ppt@0.36.0:
     dependencies:
       '@office-kit/pptx': 0.21.0
       '@stardustlc/dsh-updates': 0.2.10
@@ -1040,14 +1044,14 @@ snapshots:
       fflate: 0.8.3
       jsep: 1.4.0
 
-  dsh-remotion@0.12.8:
+  dsh-remotion@0.13.0:
     dependencies:
       '@stardustlc/dsh-updates': 0.2.10
       fflate: 0.8.3
       proper-lockfile: 4.1.2
       yaml: 2.9.1
 
-  dsh-rss@0.11.6:
+  dsh-rss@0.12.0:
     dependencies:
       '@deepseek-ai/schemastery': 3.18.3
       '@stardustlc/dsh-updates': 0.2.10
@@ -1324,6 +1328,8 @@ snapshots:
       safe-stable-stringify: 2.5.0
       sonic-boom: 4.2.1
       thread-stream: 4.2.0
+
+  pinyin-pro@3.29.5: {}
 
   postgres-array@2.0.0: {}
 
