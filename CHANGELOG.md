@@ -1,5 +1,11 @@
 # 更新记录
 
+## 0.14.1 (2026-11-22)
+
+- **同步 `dsh-flakefinder` 至 0.5.0（偶发测试根因诊断引擎、弹性执行控制与工作区隔离闭环）**：修复混合 `stable-fail` + `flaky`（`passRuns=0`）判定掩盖与合成 `(crash)`/`(timeout)` 失败率、单轮超时容错并保留宿主取消信号、`lossy` 输出截断检测、层级 TAP 13 + YAML 诊断解析器（叶节点去重与跨并行稳定 ID）、JUnit XML 严格校验、Monorepo 向上查找 `node_modules` 及 `.venv`/`venv` 自动探测；新增报错指纹聚类与脱敏精简堆栈、每用例时间线（`✓/✗/⏱/S/-`）、通过/失败耗时对比、6 类根因模式画像、95% 置信度提示、`flaky_detect` 执行控制参数（`testName`、`mode` 早停、`concurrency`、`shuffle`/`seed`、`noCoverage`）与 `FrameworkAdapter` 注册表；按工作区独立存储历史（兼容 `scope=all`）、修复 `.flakefinder.json` 隔离匹配并保留首次 `since`、支持检测结果与隔离清单双向联动标注、`flaky_report` 高频不稳定 Top N 榜单与超期未复查提醒、富信息审批弹窗及工作区感知 `flaky_health` 自检。
+- **Sync `dsh-flakefinder` to 0.5.0 (flaky root-cause diagnostics, resilient execution controls & workspace isolation)**: fixes mixed `stable-fail` + `flaky` (`passRuns=0`) verdict masking and synthetic `(crash)`/`(timeout)` rates, keeps per-run timeouts non-fatal while preserving host abort cancellation, detects `lossy` output truncation, upgrades to a hierarchical TAP 13 + YAML diagnostics parser with deterministic leaf IDs and strict JUnit XML validation, and adds upward monorepo `node_modules` + workspace `.venv`/`venv` auto-detection; adds secret-redacted error fingerprinting with compact stacks, per-test timelines, pass-vs-fail duration stats, 6 root-cause pattern heuristics, 95% confidence bounds, `flaky_detect` controls (`testName`, early-stop `mode`, `concurrency`, `shuffle`/`seed`, `noCoverage`), and the `FrameworkAdapter` registry; isolates history per workspace (`scope=all` compatible), fixes quarantine add/update matching while preserving original `since` and relative POSIX paths, cross-annotates `flaky_detect` with new/quarantined/clear-candidate items, adds Top-N hotspots and stale-quarantine warnings in `flaky_report`, enriches approval prompts, and makes `flaky_health` workspace-aware.
+- 其余 17 个组件保持 `0.14.0` 已验证版本；组合包精确依赖与锁文件已更新并重新验收。
+
 ## 0.14.0 (2026-11-22)
 
 - **同步 9 大原生侧边栏工作台「专属非换皮交互」v4 全面升级、交互式 `? 引导` 重构与中英文档/截图焕新**：精确升级 `@stardustlc/dsh-dream@0.19.0`、`dsh-email@0.32.0`、`dsh-cite@0.12.0`、`dsh-rss@0.12.0`、`dsh-code-security@0.10.0`、`dsh-hyperframes@0.14.0`、`dsh-remotion@0.13.0`、`dsh-ppt@0.36.0` 与 `dsh-calendar@0.21.0`；全部保留上游最新稳定性与功能提交及共享更新组件 `@stardustlc/dsh-updates@0.2.10`，并为每款工作台带来量身定制的交互范式（均保留一键切回经典视图）：

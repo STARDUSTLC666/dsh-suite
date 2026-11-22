@@ -36,8 +36,8 @@ importers:
         specifier: 0.7.20
         version: 0.7.20
       dsh-flakefinder:
-        specifier: 0.4.23
-        version: 0.4.23
+        specifier: 0.5.0
+        version: 0.5.0
       dsh-hyperframes:
         specifier: 0.14.0
         version: 0.14.0
@@ -314,8 +314,8 @@ packages:
     resolution: {integrity: sha512-boVz+Xk3osZMsBAjdtfhZ2LjmrteuAoiNSiEl+XW6pv7L4ypspWKi5PrqeuvVQuT3+wIOvIqNsD4TCBzjheQRQ==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  dsh-flakefinder@0.4.23:
-    resolution: {integrity: sha512-E/FHuaI9hmmg+mI2g08gDRbU3GjHTaTwKkKmAW2iJFqS9TGwN8LMMqTyyS+KSj8va/JauLRx6Oadfdc/EL73QQ==}
+  dsh-flakefinder@0.5.0:
+    resolution: {integrity: sha512-eiVF+rB8qqYShnv6V6XsTKSWd4WW5ayy4I0Ow/9S5Fl52N0YY4krJQAHYddWuBfFRRlY3/y0PW7H4ggIa2sVdA==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
   dsh-hyperframes@0.14.0:
@@ -1020,7 +1020,7 @@ snapshots:
     dependencies:
       '@stardustlc/dsh-updates': 0.2.10
 
-  dsh-flakefinder@0.4.23:
+  dsh-flakefinder@0.5.0:
     dependencies:
       '@stardustlc/dsh-updates': 0.2.10
       proper-lockfile: 4.1.2
