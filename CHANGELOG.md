@@ -1,5 +1,12 @@
 # 更新记录
 
+## 0.14.2 (2026-11-23)
+
+- 同步全部 18 个内置插件。Dream 在新宿主中恢复已鉴权的经验、日记和规则记录，Voice 首次引导稳定高亮对应标签，日历首次打开会先检查连接状态。
+- 同步 SQL 的可视化连接设置、只读与脱敏选项；组合包保持独立插件的配置和显式更新设置。
+- Synchronize all 18 bundled plugins, including authenticated Dream reads, stable Voice onboarding highlights and connection-first Calendar loading.
+- Pick up the SQL connection settings UI, read-only safeguards and redaction controls while retaining opt-in updates.
+
 ## 0.14.1 (2026-11-22)
 
 - **同步 `dsh-flakefinder` 至 0.5.0（偶发测试根因诊断引擎、弹性执行控制与工作区隔离闭环）**：修复混合 `stable-fail` + `flaky`（`passRuns=0`）判定掩盖与合成 `(crash)`/`(timeout)` 失败率、单轮超时容错并保留宿主取消信号、`lossy` 输出截断检测、层级 TAP 13 + YAML 诊断解析器（叶节点去重与跨并行稳定 ID）、JUnit XML 严格校验、Monorepo 向上查找 `node_modules` 及 `.venv`/`venv` 自动探测；新增报错指纹聚类与脱敏精简堆栈、每用例时间线（`✓/✗/⏱/S/-`）、通过/失败耗时对比、6 类根因模式画像、95% 置信度提示、`flaky_detect` 执行控制参数（`testName`、`mode` 早停、`concurrency`、`shuffle`/`seed`、`noCoverage`）与 `FrameworkAdapter` 注册表；按工作区独立存储历史（兼容 `scope=all`）、修复 `.flakefinder.json` 隔离匹配并保留首次 `since`、支持检测结果与隔离清单双向联动标注、`flaky_report` 高频不稳定 Top N 榜单与超期未复查提醒、富信息审批弹窗及工作区感知 `flaky_health` 自检。

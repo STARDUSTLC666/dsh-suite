@@ -1,6 +1,6 @@
 {
   "name": "@stardustlc/dsh-suite",
-  "version": "0.14.1",
+  "version": "0.14.2",
   "description": "DeepSeek Harness 插件组合包：一次安装 18 个独立插件（含 10 个原生工作台，9 大工作台全面焕新专属非换皮交互、13 套明亮风格与 8 套字体搭配），支持整包同步与热重载。欢迎提交 issues 和 PR。",
   "type": "module",
   "dsh": {
@@ -82,24 +82,24 @@
     "dsh": ">=0.2.2-rc.3"
   },
   "dependencies": {
-    "@stardustlc/dsh-docker": "0.5.22",
-    "@stardustlc/dsh-dream": "0.19.0",
-    "dsh-calendar": "0.21.0",
-    "dsh-cite": "0.12.0",
-    "dsh-code-security": "0.10.0",
-    "dsh-codex-port": "0.4.21",
-    "dsh-dingtalk": "0.4.7",
-    "dsh-email": "0.32.0",
-    "dsh-ffmpeg": "0.7.20",
-    "dsh-flakefinder": "0.5.0",
-    "dsh-hyperframes": "0.14.0",
-    "dsh-minimal-ptc": "0.6.22",
-    "dsh-ppt": "0.36.0",
-    "dsh-remotion": "0.13.0",
-    "dsh-rss": "0.12.0",
-    "dsh-slack": "0.5.7",
-    "dsh-sql": "0.6.7",
-    "dsh-voice": "0.11.0"
+    "@stardustlc/dsh-docker": "0.5.23",
+    "@stardustlc/dsh-dream": "0.19.2",
+    "dsh-calendar": "0.21.2",
+    "dsh-cite": "0.12.1",
+    "dsh-code-security": "0.10.1",
+    "dsh-codex-port": "0.4.22",
+    "dsh-dingtalk": "0.4.8",
+    "dsh-email": "0.32.1",
+    "dsh-ffmpeg": "0.7.21",
+    "dsh-flakefinder": "0.5.1",
+    "dsh-hyperframes": "0.14.1",
+    "dsh-minimal-ptc": "0.6.23",
+    "dsh-ppt": "0.36.1",
+    "dsh-remotion": "0.13.1",
+    "dsh-rss": "0.12.1",
+    "dsh-slack": "0.5.8",
+    "dsh-sql": "0.9.1",
+    "dsh-voice": "0.11.2"
   },
   "devDependencies": {
     "js-yaml": "^4.1.0"
