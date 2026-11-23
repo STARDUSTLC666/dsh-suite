@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.14.3 (2026-11-23)
+
+- 同步 Calendar 0.21.3，恢复 Harness 0.2.3 Alpha 的日历连接、ICS 导入和智能草稿请求。
+- Sync Calendar 0.21.3 to restore connection, ICS import and Smart Draft requests on Harness 0.2.3 Alpha.
+
 ## 0.14.2 (2026-11-23)
 
 - 同步全部 18 个内置插件。Dream 在新宿主中恢复已鉴权的经验、日记和规则记录，Voice 首次引导稳定高亮对应标签，日历首次打开会先检查连接状态。

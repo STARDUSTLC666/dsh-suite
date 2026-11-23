@@ -15,8 +15,8 @@ importers:
         specifier: 0.19.2
         version: 0.19.2
       dsh-calendar:
-        specifier: 0.21.2
-        version: 0.21.2
+        specifier: 0.21.3
+        version: 0.21.3
       dsh-cite:
         specifier: 0.12.1
         version: 0.12.1
@@ -286,8 +286,8 @@ packages:
     resolution: {integrity: sha512-qI4JLRKnSzqFqr7hAlS5xQDusBCjKSEG4t4+7aNrIQMHBcsC2TGEhuyABJdYkgSewL57PNLYEiibY2iPKhKpaA==}
     engines: {node: '>=20.19.0'}
 
-  dsh-calendar@0.21.2:
-    resolution: {integrity: sha512-3xSlbsWX+NC3vvABrQtFLZ5hXtaiuUxnR9gGjtgtNVxjiBHCcsLs0WWmgB2VZ8tzWxJvh5peLI3sZNi+RdXuIw==}
+  dsh-calendar@0.21.3:
+    resolution: {integrity: sha512-Bs4EWawhSGkaiHe/CtC/d045qRFU+a5+P2qRogCPQZcWFPv17PqlkV+G1dxmQKOixcj2J1PwxKBql4MQ1+G5OA==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
   dsh-cite@0.12.1:
@@ -960,7 +960,7 @@ snapshots:
       domelementtype: 3.0.0
       domhandler: 6.0.1
 
-  dsh-calendar@0.21.2:
+  dsh-calendar@0.21.3:
     dependencies:
       '@deepseek-ai/schemastery': 3.18.3
       '@stardustlc/dsh-updates': 0.2.10
