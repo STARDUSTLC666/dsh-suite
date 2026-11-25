@@ -1,5 +1,13 @@
 # 更新记录
 
+## 0.14.4 (2026-11-25)
+
+- 精确升级 9 个组件补丁：Code Security 0.10.3、Codex Port 0.4.23、Dream 0.19.3、Docker 0.5.24、Flakefinder 0.5.2、Cite 0.12.3、HyperFrames 0.14.4、Remotion 0.13.4 与 SQL 0.9.3。
+- 同步扫描文件身份和目录遍历边界、技能元数据与日记的有界读取、测试报告大小限制、Docker 输出完整性，以及健康检查和预览响应体释放修复。
+- SQLite 查询改为独立进程执行，超时和取消可终止长查询并保持宿主响应；宿主异常退出时回收数据库进程，防止遗留查询。
+- Sync nine component patches for bounded scans and reads, reporter size limits, complete Docker output, and health/preview response cleanup.
+- Run SQLite outside the host event loop so timeouts and cancellation stop long queries; reclaim the database process when its host exits unexpectedly.
+
 ## 0.14.3 (2026-11-23)
 
 - 同步 Calendar 0.21.3，恢复 Harness 0.2.3 Alpha 的日历连接、ICS 导入和智能草稿请求。

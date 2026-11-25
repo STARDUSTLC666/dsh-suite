@@ -1,6 +1,6 @@
 {
   "name": "@stardustlc/dsh-suite",
-  "version": "0.14.3",
+  "version": "0.14.4",
   "description": "DeepSeek Harness 插件组合包：一次安装 18 个独立插件（含 10 个原生工作台，9 大工作台全面焕新专属非换皮交互、13 套明亮风格与 8 套字体搭配），支持整包同步与热重载。欢迎提交 issues 和 PR。",
   "type": "module",
   "dsh": {
@@ -82,23 +82,23 @@
     "dsh": ">=0.2.2-rc.3"
   },
   "dependencies": {
-    "@stardustlc/dsh-docker": "0.5.23",
-    "@stardustlc/dsh-dream": "0.19.2",
+    "@stardustlc/dsh-docker": "0.5.24",
+    "@stardustlc/dsh-dream": "0.19.3",
     "dsh-calendar": "0.21.3",
-    "dsh-cite": "0.12.1",
-    "dsh-code-security": "0.10.1",
-    "dsh-codex-port": "0.4.22",
+    "dsh-cite": "0.12.3",
+    "dsh-code-security": "0.10.3",
+    "dsh-codex-port": "0.4.23",
     "dsh-dingtalk": "0.4.8",
     "dsh-email": "0.32.1",
     "dsh-ffmpeg": "0.7.21",
-    "dsh-flakefinder": "0.5.1",
-    "dsh-hyperframes": "0.14.1",
+    "dsh-flakefinder": "0.5.2",
+    "dsh-hyperframes": "0.14.4",
     "dsh-minimal-ptc": "0.6.23",
     "dsh-ppt": "0.36.1",
-    "dsh-remotion": "0.13.1",
+    "dsh-remotion": "0.13.4",
     "dsh-rss": "0.12.1",
     "dsh-slack": "0.5.8",
-    "dsh-sql": "0.9.1",
+    "dsh-sql": "0.9.3",
     "dsh-voice": "0.11.2"
   },
   "devDependencies": {

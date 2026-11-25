@@ -148,12 +148,17 @@ if (!artifactReport) {
   }
   const suite = packages.find(pkg => pkg.name === '@stardustlc/dsh-suite')
   const components = packages.filter(pkg => pkg !== suite)
-  // Only this disposable profile redirects exact unpublished versions to audited tarballs.
-  // The suite manifest itself retains the registry dependencies users will install.
-  if (!values['registry-components']) {
-    const overrides = Object.fromEntries(components.map(pkg => [`${pkg.name}@${pkg.version}`, `file:${resolve(pkg.tarball).replaceAll('\\', '/')}`]))
-    writeFileSync(join(profile, 'pnpm-workspace.yaml'), dump({ overrides }))
+  // Exempt only the audited versions from pnpm's release-age gate in this
+  // disposable profile. Preserve the default policy for other dependencies.
+  const workspaceSettings = {
+    packages: ['.'], nodeLinker: 'hoisted', autoInstallPeers: false,
+    minimumReleaseAgeExclude: packages.map(pkg => `${pkg.name}@${pkg.version}`),
   }
+  // The suite manifest retains its exact registry dependencies.
+  if (!values['registry-components']) {
+    workspaceSettings.overrides = Object.fromEntries(components.map(pkg => [`${pkg.name}@${pkg.version}`, `file:${resolve(pkg.tarball).replaceAll('\\', '/')}`]))
+  }
+  writeFileSync(join(profile, 'pnpm-workspace.yaml'), dump(workspaceSettings))
   writeFileSync(join(home, '.npmrc'), 'registry=https://registry.npmjs.org/\n')
   // The plugin manager resolves pnpm configuration from the profile directory.
   writeFileSync(join(profile, '.npmrc'), 'registry=https://registry.npmjs.org/\n')
