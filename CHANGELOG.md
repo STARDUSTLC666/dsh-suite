@@ -1,5 +1,12 @@
 # 更新记录
 
+## 0.14.6 (2026-11-25)
+
+- 精确升级 Calendar 0.21.6、Cite 0.12.5、Code Security 0.10.4、Codex Port 0.4.24、DingTalk 0.4.9、Email 0.33.3、Minimal PTC 0.6.24 与 Voice 0.11.4。
+- 同步个人设置、文献库、扫描策略与记录、旧联系人迁移的有界读取与文件身份校验，修复策略 glob 字面字符匹配，并限制 Git diff 解析、技能复制、PTC 输出与 TTS 响应大小；发送前校验钉钉 webhook。
+- Pin Calendar 0.21.6, Cite 0.12.5, Code Security 0.10.4, Codex Port 0.4.24, DingTalk 0.4.9, Email 0.33.3, Minimal PTC 0.6.24 and Voice 0.11.4.
+- Sync bounded reads and file identity checks for personal settings, citation libraries, scan policies/state and legacy contacts; fix literal policy globs, cap Git diff parsing, skill copies, PTC output and TTS responses, and validate DingTalk webhooks before sending.
+
 ## 0.14.5 (2026-11-25)
 
 - 精确升级 Email 0.33.2、SQL 0.9.4 与 Cite 0.12.4，同步邮件设置凭据会话引用与 URI 诊断脱敏、SQL 旧设置路由宿主认证，以及文献解析和 Crossref 补全任务的并发预留与卸载保护。
