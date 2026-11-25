@@ -72,7 +72,7 @@ dsh plugin --profile desktop add @stardustlc/dsh-suite
 ## 文档与反馈
 
 - [使用说明与排错](docs/USAGE.md) · [工作台设计](docs/WORKBENCH_UI.md) · [更新记录](CHANGELOG.md) · [验证范围与历史](docs/VALIDATION.md)
-- 欢迎通过 [Issues](https://github.com/STARDUSTLC666/dsh-suite/issues) 反馈问题或建议，也欢迎提交 [PR](https://github.com/STARDUSTLC666/dsh-suite/pulls)。
+- 欢迎通过 [Issues](https://github.com/STARDUSTLC666/dsh-suite/issues) 反馈问题或建议。
 
 ## License
 

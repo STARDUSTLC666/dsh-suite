@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.14.5 (2026-11-25)
+
+- 精确升级 Email 0.33.2、SQL 0.9.4 与 Cite 0.12.4，同步邮件设置凭据会话引用与 URI 诊断脱敏、SQL 旧设置路由宿主认证，以及文献解析和 Crossref 补全任务的并发预留与卸载保护。
+- Pin Email 0.33.2, SQL 0.9.4 and Cite 0.12.4 for opaque email settings references and URI credential redaction, host authentication on legacy SQL settings routes, and parser/Crossref job reservations with disposal guards.
+
 ## 0.14.4 (2026-11-25)
 
 - 精确升级 9 个组件补丁：Code Security 0.10.3、Codex Port 0.4.23、Dream 0.19.3、Docker 0.5.24、Flakefinder 0.5.2、Cite 0.12.3、HyperFrames 0.14.4、Remotion 0.13.4 与 SQL 0.9.3。

@@ -18,8 +18,8 @@ importers:
         specifier: 0.21.3
         version: 0.21.3
       dsh-cite:
-        specifier: 0.12.3
-        version: 0.12.3
+        specifier: 0.12.4
+        version: 0.12.4
       dsh-code-security:
         specifier: 0.10.3
         version: 0.10.3
@@ -30,8 +30,8 @@ importers:
         specifier: 0.4.8
         version: 0.4.8
       dsh-email:
-        specifier: 0.32.1
-        version: 0.32.1
+        specifier: 0.33.2
+        version: 0.33.2
       dsh-ffmpeg:
         specifier: 0.7.21
         version: 0.7.21
@@ -57,8 +57,8 @@ importers:
         specifier: 0.5.8
         version: 0.5.8
       dsh-sql:
-        specifier: 0.9.3
-        version: 0.9.3(@types/node@26.5.1)
+        specifier: 0.9.4
+        version: 0.9.4(@types/node@26.5.1)
       dsh-voice:
         specifier: 0.11.2
         version: 0.11.2
@@ -290,8 +290,8 @@ packages:
     resolution: {integrity: sha512-Bs4EWawhSGkaiHe/CtC/d045qRFU+a5+P2qRogCPQZcWFPv17PqlkV+G1dxmQKOixcj2J1PwxKBql4MQ1+G5OA==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  dsh-cite@0.12.3:
-    resolution: {integrity: sha512-JQN+a+0LbKloF3Md6sphjdz76XFabTJRPoghtn0mDvwo5VA9cX56FcuQn6nhXs1M3plSk6gFs7lRmYIxkbl3Kw==}
+  dsh-cite@0.12.4:
+    resolution: {integrity: sha512-a73UuXwilxBg8EpDVqlcdmsUTc8wa1bLzgQQzy0EcPZdu55q/Qdml+xSSZvGa3tkFozOFNDxNLbC9jUJ3cb3aQ==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
   dsh-code-security@0.10.3:
@@ -306,8 +306,8 @@ packages:
     resolution: {integrity: sha512-akKXAffJh0+GqgcW1d9M2POJXdP8s+NKmFntS4k1aOU6ZSm59APCoXBlRoHYz1L1lT1icjZZkDldu80wUIrvQQ==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  dsh-email@0.32.1:
-    resolution: {integrity: sha512-N4OGL7SoEjzOuNV92YQkcI4MBjTfi36uZBGsYx6OFc0irJ2kxYMMkc5kAEgoYuoWtMspojKDAENeWlVn7CwRMA==}
+  dsh-email@0.33.2:
+    resolution: {integrity: sha512-tIs4LutCl4qqcn3CynHeWG1WCGZA3gMl/5AGPh96dc4/+t0ZHliSFMGlGPtAzZKzwG98TJL0IBu/3mtMvX4ZTg==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
   dsh-ffmpeg@0.7.21:
@@ -347,8 +347,8 @@ packages:
     resolution: {integrity: sha512-+Kd2XeHvYwsd9TTF83VPWGLLlfZHCybBbrQePKr8vOf9FnjAQowCbxkEVYwrTLldibAOvt3GrbSVt/nRRMisgw==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  dsh-sql@0.9.3:
-    resolution: {integrity: sha512-ZEFjxrAcff1rj2lV3fXC1mkyBDe/bnFivihwhyC3gnJgxUBqQULoaCvIVa0vxFHUDk8xTYZZvy2efJzciAy/JA==}
+  dsh-sql@0.9.4:
+    resolution: {integrity: sha512-IfxIC3U+nnGziSXZL0e2cbBYsLnrHiYUgU9BCmwmRYRhMc6kq+DI4bolDM7NcOXfiePtRmWNF0C61RD3YptwKg==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
   dsh-voice@0.11.2:
@@ -973,7 +973,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  dsh-cite@0.12.3:
+  dsh-cite@0.12.4:
     dependencies:
       '@citation-js/core': 0.9.0
       '@citation-js/plugin-bibtex': 0.9.0(@citation-js/core@0.9.0)
@@ -1000,7 +1000,7 @@ snapshots:
     dependencies:
       '@stardustlc/dsh-updates': 0.2.10
 
-  dsh-email@0.32.1:
+  dsh-email@0.33.2:
     dependencies:
       '@deepseek-ai/schemastery': 3.18.3
       '@stardustlc/dsh-updates': 0.2.10
@@ -1067,7 +1067,7 @@ snapshots:
       '@stardustlc/dsh-updates': 0.2.10
       undici: 8.12.1
 
-  dsh-sql@0.9.3(@types/node@26.5.1):
+  dsh-sql@0.9.4(@types/node@26.5.1):
     dependencies:
       '@stardustlc/dsh-updates': 0.2.10
       mysql2: 3.24.4(@types/node@26.5.1)

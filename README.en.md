@@ -71,7 +71,7 @@ For the web profile, replace `desktop` with `web`. Restart DSH after installatio
 ## Documentation & Feedback
 
 - [Usage & troubleshooting](docs/USAGE.en.md) · [Workbench UI](docs/WORKBENCH_UI.md) · [Changelog](CHANGELOG.md) · [Validation history](docs/VALIDATION.md)
-- Report bugs in [Issues](https://github.com/STARDUSTLC666/dsh-suite/issues) or submit [Pull Requests](https://github.com/STARDUSTLC666/dsh-suite/pulls).
+- Report bugs in [Issues](https://github.com/STARDUSTLC666/dsh-suite/issues).
 
 ## License
 
