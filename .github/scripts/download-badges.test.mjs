@@ -62,16 +62,17 @@ test('a malformed upstream record from either npm or npmmirror retains a verifie
     })
   }
   const report = await refresh(directory, withPublishedDay(fetcher), { now, includeTotals: false })
-  // 1 bulk unscoped npm + 4 scoped npm + 21 per-package npmmirror = 26 calls
-  assert.equal(calls.length, 26)
-  assert.equal(Object.keys(report.entries).length, 21)
+  // 1 bulk unscoped npm + 4 scoped npm + 22 per-package npmmirror = 27 calls
+  assert.equal(calls.length, 27)
+  assert.equal(Object.keys(report.entries).length, 22)
   assert.deepEqual(report.retained, ['dsh-email', 'dsh-ppt'])
   assert.equal(report.entries['dsh-voice'].downloads, 5800)
   assert.deepEqual(report.entries['dsh-voice'].sources, { npm: 5000, npmmirror: 800 })
   assert.equal(report.entries['dsh-ppt'].downloads, 12000)
   assert.match(readFileSync(join(directory, 'assets/dsh-email-downloads.svg'), 'utf8'), /5,800\/month/)
   assert.match(readFileSync(join(directory, 'assets/dsh-ppt-downloads.svg'), 'utf8'), /12,000\/month/)
-  assert.equal(packages.length, 21)
+  assert.equal(packages.length, 22)
+  assert.ok(packages.some(([repo, name]) => repo === 'dsh-blender-studio' && name === 'dsh-blender-studio'))
   assert.ok(packages.some(([, name]) => name === 'deepseek-computer-use'))
   assert.ok(packages.some(([, name]) => name === '@stardustlc/dsh-review'))
   assert.ok(!packages.some(([, name]) => name === '@stardustlc/dsh-updates'))
@@ -122,7 +123,7 @@ test('refresh generates both badge types and never accepts a total smaller than 
   const dir = mkdtempSync(join(tmpdir(), 'dsh-total-badges-')); t.after(() => rmSync(dir, { recursive: true, force: true }))
   const report = await refresh(dir, withPublishedDay(totalReply), { now })
   assert.equal(report.schemaVersion, 4)
-  assert.equal(Object.keys(report.totals).length, 21)
+  assert.equal(Object.keys(report.totals).length, 22)
   assert.match(readFileSync(join(dir, 'assets/dsh-email-total-downloads.svg'), 'utf8'), /12,000/)
   const before = readFileSync(join(dir, 'downloads.json'), 'utf8')
   const after = await refresh(dir, withPublishedDay(url => totalReply(url, (row, { isMirror }) => (
@@ -221,6 +222,15 @@ test('an unpublished day preserves a current schema snapshot, but immediately up
   assert.deepEqual(pending, { pending: true, expectedEnd: window.end, availableThrough: previousDay })
   assert.equal(readFileSync(reportPath, 'utf8'), previousReport)
   assert.equal(readFileSync(badgePath, 'utf8'), previousBadge)
+
+  // Adding a new package not yet present in downloads.json must NOT short-circuit to pending:
+  const partialSnapshot = JSON.parse(previousReport)
+  delete partialSnapshot.entries['dsh-blender-studio']
+  delete partialSnapshot.totals['dsh-blender-studio']
+  writeFileSync(reportPath, JSON.stringify(partialSnapshot))
+  const backfilled = await refresh(directory, withPublishedDay(totalReply, previousDay), { now })
+  assert.equal(backfilled.entries['dsh-blender-studio'].downloads, 5800)
+  assert.equal(backfilled.totals['dsh-blender-studio'].downloads, 12000)
 
   const refreshed = await refresh(directory, withPublishedDay(totalReply), { now })
   assert.deepEqual(refreshed.window, window)

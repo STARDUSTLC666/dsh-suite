@@ -7,6 +7,7 @@ import { isDeepStrictEqual } from 'node:util'
 const require = createRequire(new URL('../download-badges/package.json', import.meta.url))
 const { makeBadge } = require('badge-maker')
 export const packages = [
+  ['dsh-blender-studio', 'dsh-blender-studio'],
   ['dsh-calendar', 'dsh-calendar'], ['dsh-cite', 'dsh-cite'],
   ['dsh-code-security', 'dsh-code-security'], ['dsh-codex-port', 'dsh-codex-port'],
   ['dsh-computer-use', 'deepseek-computer-use'],
@@ -174,7 +175,8 @@ export async function refresh(directory, fetcher = fetch, { now = new Date(), in
   }
   const previousEnd = previous.window?.end
   const hasRetained = (previous.retained?.length ?? 0) > 0 || (includeTotals && (previous.totalsRetained?.length ?? 0) > 0)
-  if (previous.schemaVersion === schemaVersion && Array.isArray(previous.sources) && !hasRetained
+  const hasMissingPackage = packages.some(([repo]) => !previous.entries?.[repo] || (includeTotals && !previous.totals?.[repo]))
+  if (previous.schemaVersion === schemaVersion && Array.isArray(previous.sources) && !hasRetained && !hasMissingPackage
       && availableThrough < expectedEnd && isUtcDay(previousEnd) && previousEnd >= availableThrough) {
     return { pending: true, expectedEnd, availableThrough }
   }
