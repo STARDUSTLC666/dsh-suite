@@ -54,8 +54,8 @@ importers:
         specifier: 0.12.1
         version: 0.12.1
       dsh-slack:
-        specifier: 0.5.8
-        version: 0.5.8
+        specifier: 0.6.1
+        version: 0.6.1
       dsh-sql:
         specifier: 0.9.4
         version: 0.9.4(@types/node@26.5.1)
@@ -343,8 +343,8 @@ packages:
     resolution: {integrity: sha512-j0lR+YrztXaGiPo0eIOBS7U+e6Va4oW1LV5mPLsKKRG8HxCGQFLtcDtVQ1wHtzFJ9JzSrh1cFHoS4w9oc8cn0A==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
-  dsh-slack@0.5.8:
-    resolution: {integrity: sha512-+Kd2XeHvYwsd9TTF83VPWGLLlfZHCybBbrQePKr8vOf9FnjAQowCbxkEVYwrTLldibAOvt3GrbSVt/nRRMisgw==}
+  dsh-slack@0.6.1:
+    resolution: {integrity: sha512-p16aKlSKfliYok8m/fDUxCosscFyZxXjzbwkSfOM3kuqrPn1HIHxxj3DyyeZp42iRUYVn8js9R+qOylBRddWhg==}
     engines: {dsh: '>=0.2.2-rc.3', node: ^22.19.0 || >=24.0.0}
 
   dsh-sql@0.9.4:
@@ -1060,7 +1060,7 @@ snapshots:
       undici: 8.12.1
       yaml: 2.9.1
 
-  dsh-slack@0.5.8:
+  dsh-slack@0.6.1:
     dependencies:
       '@slack/socket-mode': 3.1.0(undici@8.12.1)
       '@slack/web-api': 8.2.0

@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.14.7 (2026-11-26)
+
+- 精确升级 `dsh-slack` 从 `0.5.8` 至 `0.6.1`：新增 4 个交互工具（`slack_history`、`slack_thread`、`slack_upload`、`slack_react`）与 `slack_health({ verify: true })` 在线鉴权，原生 `MarkdownBlock` 渲染（超长/`invalid_blocks` 自动降级纯文本），一键 `slack-app-manifest.yaml`，强化代理与二进制 `FormData` 传输、Socket Mode 卸载中止/防误连/自身消息自动过滤与收件箱规范去重，并通过真实 Slack 工作区全链路验收；其余 17 个组件保持 `0.14.6` 已验证版本。
+- Pin `dsh-slack` from `0.5.8` to `0.6.1`: add four new tools (`slack_history`, `slack_thread`, `slack_upload`, `slack_react`) plus online `slack_health({ verify: true })`, native `MarkdownBlock` rendering with automatic plain-text fallback, one-click `slack-app-manifest.yaml`, hardened proxy/binary `FormData` transport, Socket Mode abort/fail-closed/self-filter & canonical inbox deduplication, and live Slack workspace end-to-end verification; remaining 17 components stay at their `0.14.6` pins.
+
 ## 0.14.6 (2026-11-25)
 
 - 精确升级 Calendar 0.21.6、Cite 0.12.5、Code Security 0.10.4、Codex Port 0.4.24、DingTalk 0.4.9、Email 0.33.3、Minimal PTC 0.6.24 与 Voice 0.11.4。

@@ -56,7 +56,7 @@ Keep your profile's `cordis.patch.yml` configuration overrides, then restart Web
 | | dsh-code-security | 40+ rule deterministic security review + SARIF |
 | | dsh-codex-port | Batch-port official Codex plugins into DSH skills |
 | Messaging | dsh-dingtalk | DingTalk group robot (HMAC signing) |
-| | dsh-slack | Two-way Slack over Socket Mode |
+| | dsh-slack | 9 Slack tools (native Markdown alerts, channel history, threads, file uploads, reactions), one-click App Manifest, proxy support & two-way Socket Mode inbox |
 | Presets | dsh-minimal-ptc | Minimal-PTC agent preset |
 
 16 components provide `*_health`; use the read-only `ppt_themes` for PPT and check the preset picker for minimal-ptc. Some health tools contact external services or invoke local CLIs.

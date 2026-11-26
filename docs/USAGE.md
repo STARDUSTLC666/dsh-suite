@@ -58,7 +58,7 @@ dsh plugin --profile web remove @stardustlc/dsh-suite
 | | dsh-code-security | 40+ 规则代码安全审查 + SARIF |
 | | dsh-codex-port | Codex 官方插件一键移植为 DSH 技能 |
 | 💬 通知 | dsh-dingtalk | 钉钉群机器人（加签） |
-| | dsh-slack | Slack 双向消息（Socket Mode） |
+| | dsh-slack | 原生 Markdown 通知、频道历史/线程/文件上传/表情 9 工具、一键 App Manifest、代理适配与 Socket Mode 双向收件箱 |
 | 🧠 预设 | dsh-minimal-ptc | 极简 PTC 模式 Agent 预设 |
 
 16 个组件提供 `*_health` 自检工具；PPT 可先运行只读的 `ppt_themes`，minimal-ptc 则检查预设是否出现在选择器中。部分 health 会访问外部服务或调用本地 CLI。
