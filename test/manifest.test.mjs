@@ -1,6 +1,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync, existsSync } from 'node:fs'
+import { spawnSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
 import { createRequire } from 'node:module'
@@ -107,4 +108,31 @@ test('双语安装命令只启用套件，避免 duplicate loader entry id', () 
     const expected = file.startsWith('docs/') ? ['@stardustlc/dsh-suite', 'github:STARDUSTLC666/dsh-suite'] : ['@stardustlc/dsh-suite']
     assert.deepEqual(commands, expected, file)
   }
+})
+
+test('dsh-dream 补丁配置包含全部默认键', () => {
+  const doc = yamlLoad(readFileSync(join(root, 'cordis.patch.yml'), 'utf8'))
+  const dream = doc[0].insert.find((entry) => entry.id === 'dream')
+  assert.deepEqual(dream.config, {
+    maxSessions: 10,
+    maxCharsPerSession: 6000,
+    autoCollect: true,
+    autoRetrieve: true,
+    autoMaxCallsPerDay: 4,
+    autoCooldownMs: 600000,
+  })
+})
+
+test('sync-workbench-ui.mjs 默认只读校验 updates ui-kit 并拒绝覆盖 v3/v4 工作台模板', () => {
+  const script = join(root, 'scripts/sync-workbench-ui.mjs')
+  const defaultRun = spawnSync(process.execPath, [script], { encoding: 'utf8' })
+  assert.equal(defaultRun.status, 0, defaultRun.stderr)
+  assert.match(defaultRun.stdout, /Verified update-footer UI kit/)
+
+  const checkRun = spawnSync(process.execPath, [script, '--check'], { encoding: 'utf8' })
+  assert.equal(checkRun.status, 0, checkRun.stderr)
+
+  const refuseRun = spawnSync(process.execPath, [script, '--plugins'], { encoding: 'utf8' })
+  assert.notEqual(refuseRun.status, 0)
+  assert.match(refuseRun.stderr, /Refusing --plugins/)
 })

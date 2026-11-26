@@ -1,6 +1,6 @@
 # 插件工作台界面
 
-本轮把九个实际带前端的插件整理为 DSH 原生主区域工作台，原设置页继续保留。其余工具插件沿用宿主配置界面。侧栏排序、固定、工作区和账号仍由 DSH 管理。
+本套件包含 **10 个 DSH 原生主区工作台**（9 个基于 `_dsh-design-system` 演进至 v3/v4 的专属非换皮工作台：`dsh-calendar`、`dsh-cite`、`dsh-code-security`、`@stardustlc/dsh-dream`、`dsh-email`、`dsh-hyperframes`、`dsh-ppt`、`dsh-remotion`、`dsh-rss`，以及 `dsh-voice` 的 Voice Studio），原设置页继续保留。另外 `dsh-sql`（v0.9+）提供原生可视化 SQL 设置面板（注册在 `settings.*` / `plugins.bundle.config` 槽位，不占主区工作台位）；其余工具插件沿用宿主配置界面。侧栏排序、固定、工作区和账号仍由 DSH 管理。
 
 ## 成熟产品参考
 
@@ -15,20 +15,22 @@
 
 ## 一致性
 
-标题 30px（窄屏 24px），正文与控件 14px，元信息 12px；8px 控件圆角，细分割线、冷灰辅助色、克制的蓝色选中和焦点。颜色、字体与中英文跟随宿主，用户内容不翻译。
+9 大工作台已升级至基于 `_dsh-design-system` 的 v3/v4 专属交互界面（提供 13 套明亮风格主题、8 套中英字体搭配与一键切回经典视图），颜色、字体与中英文跟随宿主，用户内容不翻译。
 
 列表与导出勾选分开，窄屏选择条目后进入详情并提供返回。编辑器按可用宽度重排；本地草稿、PPT 数据推演和预览连接在切页时保留。危险操作有确认，旧修订成品明确标记，不暗示未保存修改已导出。
 
-## 维护
+## 维护边界（更新底栏 vs 独立工作台）
 
-规范源为 `ui/workbench-ui.js`。`node scripts/sync-workbench-ui.mjs` 显式同步到九个仓库的 `templates/workbench-ui.js`，并向 `packages/updates/lib/ui-kit.js` 复制同一份（共享更新页脚在每个插件页面里渲染同样的组件），`--check` 检查这十份副本的一致性。每个仓库拥有自己的 `templates/client.js`、领域面板和 `scripts/build-client.mjs`；`pnpm run build` 生成发布的 `lib/client.js`，不依赖安装 Suite。
+- **共享更新底栏套件**：`ui/workbench-ui.js` 现在**仅**作为共享更新底栏 `packages/updates/lib/ui-kit.js` 的规范源（用于在各插件页面与原生详情页底部渲染更新检查、发布说明与偏好控件）。
+- **同步脚本安全默认**：`node scripts/sync-workbench-ui.mjs` 默认以只读 `--check` 模式校验 `ui/workbench-ui.js` 与 `packages/updates/lib/ui-kit.js` 的一致性；显式传入 `--write` 时也仅同步 `packages/updates/lib/ui-kit.js`，并拒绝覆盖各插件仓库已演进至 v3/v4 的 `templates/workbench-ui.js`。
+- **各插件独立工作台**：上述 10 个原生工作台插件各自维护独立的 `templates/workbench-ui.js`、`templates/client.js`、领域面板与构建脚本（基于 `_dsh-design-system`），运行各自仓库的 `pnpm run build` 生成发布的 `lib/client.js`，不依赖安装 Suite。
 
-使用 RC.3 的 `main` / `key` 与 `sidebar.panellist` / `id`，通过各自槽位就绪回调注册；保留 `settings.section`。主区遵守宿主窗口留白变量。文件预览通过公开 `uiWorkspace.openSession` 和 `sidebarRight.openResource` 联动。
+主区工作台使用 RC.3 的 `main` / `key` 与 `sidebar.panellist` / `id`，通过各自槽位就绪回调注册；保留 `settings.section`。主区遵守宿主窗口留白变量。文件预览通过公开 `uiWorkspace.openSession` 和 `sidebarRight.openResource` 联动。
 
 验收边界和真实路径见 [2026-10-25 验收记录](validation-2026-10-25-workbenches.md)。
 
-## v1.1（未发布）
+## 共享更新底栏套件（`ui/workbench-ui.js`）演进说明
 
-- `Empty` / `Dialog` / `Status` 自带 `<style>` 与 `.dshw` 主题作用域，放在 `Page` 外也不会变成裸控件。
-- `Status` 新增 `warn` 色调（`tone="warn"`），用于“需注意但非错误”的提示。
-- 新增 `Styles` 导出，供自定义浮层显式注入同一份样式。
+- `Empty` / `Dialog` / `Status` 自带 `<style>` 与 `.dshw` 主题作用域，放在 `Page` 外（如原生插件详情页底部更新栏）也不会变成裸控件。
+- `Status` 支持 `warn` 色调（`tone="warn"`），用于“需注意但非错误”的提示。
+- 导出 `Styles`，供自定义浮层显式注入同一份样式。

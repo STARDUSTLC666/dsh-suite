@@ -2,7 +2,7 @@
 
 # dsh-suite
 
-> **DeepSeek Harness 生态插件组合包：一次安装 18 个官方插件，统一管理默认配置、工作台体验与版本升级。**
+> **DeepSeek Harness 生态插件组合包（STARDUSTLC）：一次安装 18 个独立插件，统一管理默认配置、工作台体验与版本升级。**
 
 覆盖办公流、媒体工坊、研发运维与消息通知四大产品线，适配 DeepSeek Harness `>=0.2.2-rc.3`；所有组件均可在组合包内一键启用，也可按需单独安装。
 
@@ -21,7 +21,7 @@
 | 🔧 DevOps | [Docker](https://github.com/STARDUSTLC666/dsh-docker) · [SQL](https://github.com/STARDUSTLC666/dsh-sql) · [Flakefinder](https://github.com/STARDUSTLC666/dsh-flakefinder) · [代码安全](https://github.com/STARDUSTLC666/dsh-code-security) · [Codex 移植](https://github.com/STARDUSTLC666/dsh-codex-port) |
 | 💬 通知与预设 | [钉钉](https://github.com/STARDUSTLC666/dsh-dingtalk) · [Slack](https://github.com/STARDUSTLC666/dsh-slack) · [极简 PTC](https://github.com/STARDUSTLC666/dsh-minimal-ptc) |
 
-- **10 个原生主区工作台**：日历、文献库、代码安全、Dream、邮件、HyperFrames、演示文稿、Remotion、RSS、语音；其余 8 个通过插件设置页与对话工具使用。
+- **10 个原生主区工作台**：日历、文献库、代码安全、Dream、邮件、HyperFrames、演示文稿、Remotion、RSS、语音；其余 8 个通过插件设置页与对话工具使用（其中 `dsh-sql` v0.9+ 提供原生可视化 SQL 设置面板）。
 - **独立配套插件**：[@stardustlc/dsh-review](https://github.com/STARDUSTLC666/dsh-review)（Git 改动审阅）与 [deepseek-computer-use](https://github.com/STARDUSTLC666/deepseek-computer-use)（Windows 桌面操作）**不在**以上 18 个组件内，按需单独安装。
 - 完整能力与参数速查见 [使用说明 · 组件清单](docs/USAGE.md#组件清单)；日历空闲时段建议见 [空闲时段指南](docs/calendar-availability-2026-10-30.md)。
 
@@ -29,7 +29,7 @@
 
 | 维度 | 组合包提供的统一体验 |
 | :--- | :--- |
-| **10 大原生工作台** | 9 大专属非换皮交互界面（叠卡审阅、航空信桌、引文星图、画报阅读、安全仪器台、导演台、灯箱排片桌等）+ Voice Studio，并支持一键切回经典列表/表单视图 |
+| **10 大原生工作台** | 9 大专属非换皮交互界面（叠卡审阅、航空信桌、引文星图、画报阅读、安全仪器台、导演台、16:9 灯箱排片桌、今日聚焦带）+ Voice Studio，并支持一键切回经典列表/表单视图 |
 | **统一视觉与引导** | 13 套明亮风格主题、8 套中英字体搭配、交互式 `? 引导`、中英文切换、窄屏适配与未保存保护 |
 | **定制鲸鱼娘图标** | 0.9.1 起为组合包及 18 个组件配备独立功能符号与透明留白图标，清晰展示在 DSH 列表与详情页 |
 | **版本锁定与热重载** | 固定 18 个组件兼容版本，补充双语元数据与 Cordis `ctx.effect` 热重载资源清理，便于复现安装与共同加载 |
@@ -66,7 +66,7 @@ dsh plugin --profile desktop add @stardustlc/dsh-suite
 
 - **统一入口**：工作台底部（无工作台插件在原生插件详情页底部）原地展开版本检查、更新日志与偏好；任意组件底部操作均作用于整个 Suite。
 - **安全默认策略**：自动检查默认开启（每 6 小时最多一次），**自动安装默认关闭**；仅在显式开启且空闲、无未保存修改时热更新兼容稳定版（含小版本与补丁，不跨主版本）。
-- **原地热重载**：对话页右下角提供一键热更新卡片，加载失败自动回滚，不强制重启宿主；本地源码安装不受影响。
+- **原地热重载**：通过工作台或原生插件详情页底部的更新控件原地执行更新，加载失败自动回滚，不强制重启宿主；本地源码安装不受影响。
 - **旧版迁移**：旧版 Suite 用户需先在官方插件管理中手动更新一次 Suite，之后即可获得内置更新入口。
 
 ## 文档与反馈

@@ -40,18 +40,18 @@ Keep your profile's `cordis.patch.yml` configuration overrides, then restart Web
 
 | Line | Component | Capability |
 | :-- | :-- | :-- |
-| Office | dsh-email | Eleven IMAP/SMTP and local-draft tools; editable drafts and attachment previews, per-account trusted recipients, Outlook OAuth2 login, bilingual multi-account settings and send approval |
+| Office | dsh-email | 16 IMAP/SMTP and local-draft tools; safe HTML replies/drafts, confirmed scheduled send, Google/Outlook OAuth2, enterprise presets, bilingual multi-account settings, send approval, and opt-in email tasks |
 | | dsh-calendar | CalDAV list/create/update/delete/search; month/week/agenda and drag rescheduling; ICS file/text previews, duplicate/conflict checks and connection/authorization guidance |
 | | dsh-rss | RSS/Atom subscriptions + cross-feed search + incremental fetch; bilingual subscription panel, category filters, availability checks and OPML import previews/export |
-| | dsh-cite | Bilingual library: DOI / BibTeX batch import, duplicate review, explicit Crossref enrichment, four basic citation formats and original-source backups |
-| | dsh-dream | Session replay → source verification → lesson review → project-rule preview, apply and rollback (privacy masking) |
-| Media | dsh-ffmpeg | probe/cut/concat/encode/subtitle/frames/GIF/adjust (speed/volume/mute/rotate), ten tools |
+| | dsh-cite | Bilingual library: DOI / BibTeX batch import, duplicate review, explicit Crossref enrichment, five citation formats (incl. IEEE) plus BibTeX and original-source backups |
+| | @stardustlc/dsh-dream | Session replay → source verification → lesson review → project-rule preview, apply and rollback (privacy masking) |
+| Media | dsh-ffmpeg | probe/cut/concat/encode/subtitle/frames/GIF/adjust (speed/volume/mute/rotate)/storyboard, 11 tools |
 | | dsh-voice | Voice Studio workbench (300+ live voices & 10 personas, mic memo, pronunciation lexicon) + zero-key Edge / OpenAI / SiliconFlow voice cloning + `.srt` timeline dubbing, BGM auto-ducking & speaker-diarized ASR |
-| | dsh-ppt | HTML slideshow and editable PPTX: 11 layouts including images/charts, per-slide editing/undo, quality reports, four scenario outlines, branding and speaker notes; optional PNG/PDF export via the official LibreOffice Kit |
-| | dsh-hyperframes | HyperFrames by HeyGen's 21 skills; bilingual templates, assets, Studio previews, MP4 and source downloads |
+| | dsh-ppt | HTML slideshow and editable PPTX (13 tools, 41 native editable layouts/diagrams): `ppt_import`, images/charts, per-slide editing/undo, quality reports, opt-in AI pre-review & mock defense, branding and speaker notes; optional PNG/PDF export via official LibreOffice Kit |
+| | dsh-hyperframes | HyperFrames by HeyGen's 23 skills; bilingual templates, assets, Studio previews, MP4 and source downloads |
 | | dsh-remotion | Remotion React video skills; bilingual templates, assets, Studio previews, MP4 and source downloads |
 | DevOps | @stardustlc/dsh-docker | Seven container tools (incl. health) + exec approval gate |
-| | dsh-sql | SQLite/MySQL/PostgreSQL + read-only guard + approval gate + stats/CSV |
+| | dsh-sql | SQLite/MySQL/PostgreSQL + v0.9+ native visual SQL settings panel & one-click connection test + read-only guard + approval gate + stats/CSV |
 | | dsh-flakefinder | Flaky-test detection + quarantine manifest |
 | | dsh-code-security | 40+ rule deterministic security review + SARIF |
 | | dsh-codex-port | Batch-port official Codex plugins into DSH skills |

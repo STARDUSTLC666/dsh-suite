@@ -2,7 +2,7 @@
 
 # dsh-suite
 
-> **Official plugin bundle for DeepSeek Harness: install 18 standalone plugins in one step with shared defaults, cohesive workbenches, and unified updates.**
+> **STARDUSTLC plugin bundle for DeepSeek Harness: install 18 standalone plugins in one step with shared defaults, cohesive workbenches, and unified updates.**
 
 Covers Office, Media, DevOps, and Notifications for DeepSeek Harness `>=0.2.2-rc.3`. Every plugin works inside the bundle or as an independent install.
 
@@ -21,7 +21,7 @@ Covers Office, Media, DevOps, and Notifications for DeepSeek Harness `>=0.2.2-rc
 | 🔧 DevOps | [Docker](https://github.com/STARDUSTLC666/dsh-docker) · [SQL](https://github.com/STARDUSTLC666/dsh-sql) · [Flakefinder](https://github.com/STARDUSTLC666/dsh-flakefinder) · [Code Security](https://github.com/STARDUSTLC666/dsh-code-security) · [Codex Port](https://github.com/STARDUSTLC666/dsh-codex-port) |
 | 💬 Notifications & Presets | [DingTalk](https://github.com/STARDUSTLC666/dsh-dingtalk) · [Slack](https://github.com/STARDUSTLC666/dsh-slack) · [Minimal PTC](https://github.com/STARDUSTLC666/dsh-minimal-ptc) |
 
-- **10 native main-area workbenches**: Calendar, Citations, Code Security, Dream, Email, HyperFrames, PPT, Remotion, RSS, and Voice; the remaining 8 operate via native settings and conversation tools.
+- **10 native main-area workbenches**: Calendar, Citations, Code Security, Dream, Email, HyperFrames, PPT, Remotion, RSS, and Voice; the remaining 8 operate via native settings and conversation tools (`dsh-sql` v0.9+ includes a native visual SQL settings panel).
 - **Companion plugins (separate install)**: [@stardustlc/dsh-review](https://github.com/STARDUSTLC666/dsh-review) (Git change review) and [deepseek-computer-use](https://github.com/STARDUSTLC666/deepseek-computer-use) (Windows desktop control) are **not** bundled in these 18 components.
 - Full capability and tool index: [Usage Guide · What's Inside](docs/USAGE.en.md#whats-inside-18); calendar availability suggestions: [Availability Guide](docs/calendar-availability-2026-10-30.md).
 
@@ -34,6 +34,7 @@ Covers Office, Media, DevOps, and Notifications for DeepSeek Harness `>=0.2.2-rc
 | **Themes & Onboarding** | 13 bright style presets, 8 bilingual font pairings, interactive `? Tour` coachmarks, host language switching, narrow-window support, and unsaved-edit protection |
 | **Whale-Girl Icon Set** | Since 0.9.1, the bundle and all 18 plugins ship purpose-made icons with distinct function emblems and transparent padding for native DSH list/detail views |
 | **Pinned & Hot-Reload Safe** | Pins tested component versions, adds bilingual metadata, and cleans up resources via Cordis `ctx.effect` for reproducible co-loading |
+| **On-Demand Delivery Packs** | The PPT workbench exports either a ready-to-share bundle (with speaker notes) or a full project package (with JSON) directly—no AI pre-review required to download |
 
 ## Install
 
@@ -65,7 +66,7 @@ For the web profile, replace `desktop` with `web`. Restart DSH after installatio
 
 - **Inline footer controls**: located at the bottom of each workbench (or native plugin details for non-workbench plugins) with inline checks, release notes, and preferences; acting on any component updates the entire Suite.
 - **Safe defaults**: automatic checks run at most every 6 hours, while **automatic installation is off by default**. Explicit opt-in installs compatible minor/patch releases only when idle with no unsaved edits.
-- **In-place hot reload**: an in-chat card supports one-click hot updates with automatic rollback on load failure and no forced DSH restarts; local-source installs stay untouched.
+- **In-place hot reload**: updates run directly from the inline footer controls with automatic rollback on load failure and no forced DSH restarts; local-source installs stay untouched.
 - **Upgrading older installs**: older Suite releases require one manual update in native plugin management to gain these controls.
 
 ## Documentation & Feedback

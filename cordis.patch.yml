@@ -30,6 +30,10 @@
       config:
         maxSessions: 10
         maxCharsPerSession: 6000
+        autoCollect: true
+        autoRetrieve: true
+        autoMaxCallsPerDay: 4
+        autoCooldownMs: 600000
     - id: tool-email
       name: dsh-email
       config: {}
