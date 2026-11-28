@@ -11,6 +11,13 @@ import { DEFAULT_PREFERENCES, CHECK_INTERVAL, PLAN_MAX_AGE, packagePreferences, 
 const integrity = 'sha512-' + Buffer.alloc(64, 7).toString('base64')
 const version = (name, value = '0.6.2') => ({ 'dist-tags': { latest: value }, versions: { [value]: { name, version: value, dsh: { bundle: { patch: './cordis.patch.yml' } }, dist: { integrity }, engines: { node: '>=22', dsh: '>=0.2.1-rc.3' } } } })
 const bundle = (name = 'dsh-cite', extra = {}) => ({ name, version: '0.6.1', source: name + '@0.6.1', installed: true, availability: 'profile', enabled: true, ...extra })
+
+test('Blender Studio stays independently updatable alongside Suite', () => {
+  const row = targets([bundle(SUITE), bundle('dsh-blender-studio')]).find(item => item.name === 'dsh-blender-studio')
+  assert.ok(row)
+  assert.equal(row.bundledBy, null)
+  assert.equal(releaseOf(row.name, version(row.name), '0.2.2').compatible, true)
+})
 const fresh = now => ({ id: '00000000-0000-4000-8000-000000000001', seenAt: now, dirty: false, busy: false, lastInteraction: now - 180000 })
 
 async function fixture(t, { bundles = [bundle()], busy = false } = {}) {

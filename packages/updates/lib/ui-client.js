@@ -92,27 +92,31 @@ function __stardustUpdatesWrap(definition, participant) {
   } };
 }
 function __stardustUpdatesJoin(host, React, require, participant) {
+  const uiRevision = 12;
   const key = Symbol.for('stardustlc.plugin-updates.client.v1'), pools = globalThis[key] ||= new WeakMap(), root = host.root || host;
   if (typeof root.plugin !== 'function') return;
   let record = pools.get(root);
   if (!record) {
-    record = { refs: new Map(), timer: null, version: participant.version, alive: true, hold: false, uiRevision: 11, migration: Promise.resolve() };
+    record = { refs: new Map(), timer: null, version: participant.version, alive: true, hold: false, uiRevision, migration: Promise.resolve() };
     pools.set(root, record);
     __stardustUpdatesActivate(record, pools, root, React, require);
-  } else if ((record.uiRevision || 0) < 11 && !record.upgrading) {
+  } else if ((record.uiRevision || 0) < uiRevision && (record.requestedUiRevision || 0) < uiRevision) {
     // An earlier loaded participant may still own an older client revision. Keep
     // its references and draft guards, wait for any admitted install, then
     // replace that one client fiber instead of running two window heartbeats.
     const shared = record;
     const previousMigration = record.migration;
+    shared.requestedUiRevision = uiRevision;
     record.upgrading = record.migration = Promise.resolve(previousMigration).then(async () => {
       while (shared.alive && shared.hold) await new Promise(resolve => setTimeout(resolve, 500));
       if (!shared.alive || !shared.refs.size) return;
       await shared.fiber?.dispose?.();
       if (!shared.refs.size) return;
-      shared.alive = true; shared.uiRevision = 11; pools.set(root, shared);
+      shared.alive = true; shared.uiRevision = uiRevision; pools.set(root, shared);
       __stardustUpdatesActivate(shared, pools, root, React, require);
-    }).catch(() => { /* The original page remains usable if host disposal fails. */ });
+    }).catch(() => { /* The original page remains usable if host disposal fails. */ }).finally(() => {
+      if (shared.requestedUiRevision === uiRevision) { shared.requestedUiRevision = 0; shared.upgrading = null; }
+    });
   }
   clearTimeout(record.timer);
   const ref = {}; record.refs.set(ref, participant);
@@ -139,7 +143,7 @@ function __stardustUpdatesClient(ctx, React, require, shared) {
   let alive = true, registered = false, state = null, lastInteraction = Date.now(), inPoll = false, manualOperation = false;
   const language = () => String(ctx.locale?.getSnapshot?.().active || '').startsWith('en') ? 'en' : 'zh';
   const t = (zh, en) => language() === 'en' ? en : zh;
-  const REPOS = { 'dsh-calendar': 'dsh-calendar', 'dsh-cite': 'dsh-cite', 'dsh-code-security': 'dsh-code-security', 'dsh-codex-port': 'dsh-codex-port', 'deepseek-computer-use': 'deepseek-computer-use', 'dsh-dingtalk': 'dsh-dingtalk', '@stardustlc/dsh-docker': 'dsh-docker', '@stardustlc/dsh-dream': 'dsh-dream', 'dsh-email': 'dsh-email', 'dsh-ffmpeg': 'dsh-ffmpeg', 'dsh-flakefinder': 'dsh-flakefinder', 'dsh-hyperframes': 'dsh-hyperframes', 'dsh-minimal-ptc': 'dsh-minimal-ptc', 'dsh-ppt': 'dsh-ppt', 'dsh-remotion': 'dsh-remotion', '@stardustlc/dsh-review': 'dsh-review', 'dsh-rss': 'dsh-rss', 'dsh-slack': 'dsh-slack', 'dsh-sql': 'dsh-sql', '@stardustlc/dsh-suite': 'dsh-suite', 'dsh-voice': 'dsh-voice' };
+  const REPOS = { 'dsh-blender-studio': 'dsh-blender-studio', 'dsh-calendar': 'dsh-calendar', 'dsh-cite': 'dsh-cite', 'dsh-code-security': 'dsh-code-security', 'dsh-codex-port': 'dsh-codex-port', 'deepseek-computer-use': 'deepseek-computer-use', 'dsh-dingtalk': 'dsh-dingtalk', '@stardustlc/dsh-docker': 'dsh-docker', '@stardustlc/dsh-dream': 'dsh-dream', 'dsh-email': 'dsh-email', 'dsh-ffmpeg': 'dsh-ffmpeg', 'dsh-flakefinder': 'dsh-flakefinder', 'dsh-hyperframes': 'dsh-hyperframes', 'dsh-minimal-ptc': 'dsh-minimal-ptc', 'dsh-ppt': 'dsh-ppt', 'dsh-remotion': 'dsh-remotion', '@stardustlc/dsh-review': 'dsh-review', 'dsh-rss': 'dsh-rss', 'dsh-slack': 'dsh-slack', 'dsh-sql': 'dsh-sql', '@stardustlc/dsh-suite': 'dsh-suite', 'dsh-voice': 'dsh-voice' };
   const repoUrl = pkg => Object.hasOwn(REPOS, pkg) ? 'https://github.com/STARDUSTLC666/' + REPOS[pkg] : null;
   const preferences = name => state?.preferences.packages[name] || { checkEnabled: true, autoInstall: false, autoScope: 'compatible', deferredUntil: 0, ignoredVersion: null };
   const originalRow = name => state?.rows.find(row => row.name === name);
@@ -169,7 +173,17 @@ function __stardustUpdatesClient(ctx, React, require, shared) {
   pool.listeners.add(guardChanged);
   const close = () => { void fetch(route, { method: 'POST', credentials: 'same-origin', keepalive: true, headers: { 'content-type': 'application/json', 'x-stardustlc-updates': '1' }, body: JSON.stringify({ action: 'client-close', id }) }).catch(() => {}); };
   window.addEventListener('pagehide', close);
-  async function refresh() { const next = await api(); if (alive) { state = __stardustUpdatesDisplayRows(__stardustUpdatesSuiteRows(next, shared.refs.values()), knownRows); notify(); } return next; }
+  let issuedSnapshot = 0, appliedSnapshot = 0;
+  async function refresh() {
+    const request = ++issuedSnapshot;
+    const next = await api();
+    if (alive && request > appliedSnapshot) {
+      appliedSnapshot = request;
+      state = __stardustUpdatesDisplayRows(__stardustUpdatesSuiteRows(next, shared.refs.values()), knownRows);
+      notify();
+    }
+    return next;
+  }
   const STALE_CHECK_MS = 30 * 60 * 1000, STALE_RETRY_MS = 5 * 60 * 1000, staleChecks = new Map(), staleInFlight = new Set();
   function refreshIfStale(row) {
     if (!alive || !row || row.sourceKind !== 'registry' || row.bundledBy || !row.available || row.updating) return;

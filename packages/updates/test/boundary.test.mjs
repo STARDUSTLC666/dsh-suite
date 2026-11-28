@@ -123,7 +123,7 @@ test('legacy-first loading hands over one controller after its current install a
   context.__stardustUpdatesJoin({ root, effect(fn) { effects.push(fn()) } }, {}, () => {}, { name: 'dsh-cite', version: VERSION })
   await Promise.resolve(); assert.equal(oldDisposed, 0); assert.equal(old.uiRevision, 10); old.hold = false
   await old.migration
-  assert.equal(oldDisposed, 1); assert.equal(newStarted, 1); assert.equal(pools.get(root), old); assert.equal(old.uiRevision, 11)
+  assert.equal(oldDisposed, 1); assert.equal(newStarted, 1); assert.equal(pools.get(root), old); assert.equal(old.uiRevision, 12)
   assert.equal(old.refs.has(oldRef), true); assert.equal(old.refs.size, 2)
   assert.equal(context.__stardustUpdatesGuards(), guards); assert.equal(guards.values.get(draft).dirty, true)
   effects.forEach(fn => fn()); assert.equal(old.refs.size, 1)
@@ -524,6 +524,7 @@ test('inline footer proactively refreshes stale available checks with per-packag
   const FakeDate = Object.assign(function (...args) { return new Date(...args) }, { now: () => now })
   let checkFail = true
   let nextInstallError = 'release-changed'
+  let poll, holdNextSnapshot = false, releaseSnapshot
   let snapshot = {
     rows: [{ name: 'dsh-cite', version: '0.7.10', enabled: true, sourceKind: 'registry', available: true, checkedAt: now - 2 * 60 * 60 * 1000, label: '引文库', labelEn: 'Citations', release: { version: '0.7.12', compatible: true } }],
     preferences: { revision: 1, packages: {} },
@@ -536,12 +537,18 @@ test('inline footer proactively refreshes stale available checks with per-packag
   const context = vm.createContext({
     Symbol, Map, Set, WeakMap, URL, AbortController, Promise, Date: FakeDate,
     crypto: { randomUUID: () => '00000000-0000-4000-8000-000000000096' },
-    setTimeout, clearTimeout, setInterval: () => 1, clearInterval() {},
+    setTimeout, clearTimeout, setInterval: callback => { poll = callback; return 1 }, clearInterval() {},
     document: { baseURI: 'http://localhost/', addEventListener() {}, removeEventListener() {}, querySelectorAll: () => [], activeElement: null },
     window: { addEventListener() {}, removeEventListener() {} },
     fetch: async (_url, init) => {
       const body = JSON.parse(init.body)
       apiCalls.push(body)
+      if (body.action === 'state' && holdNextSnapshot) {
+        holdNextSnapshot = false
+        const beforeCheck = snapshot
+        await new Promise(resolve => { releaseSnapshot = resolve })
+        return { ok: true, async json() { return { ok: true, value: beforeCheck } } }
+      }
       if (body.action === 'check') {
         if (checkFail) return { ok: false, status: 503, async json() { return { ok: false, code: 'registry-unavailable' } } }
         snapshot = {
@@ -662,12 +669,18 @@ test('inline footer proactively refreshes stale available checks with per-packag
   // 2. Clicking install when npm moved ahead (release-changed) auto-runs check + refresh,
   //    explains that a newer release was found, and updates the button straight to v0.7.15.
   checkFail = false
+  holdNextSnapshot = true
+  poll()
+  assert.equal(typeof releaseSnapshot, 'function')
   findButtons(view).find(btn => /更新至 v0\.7\.12/.test(textOf(btn))).props.onClick()
   view = harness.render(client.Footer, { name: 'dsh-cite' })
   await findButtons(view).find(btn => /安装此版本/.test(textOf(btn))).props.onClick()
   view = harness.render(client.Footer, { name: 'dsh-cite' })
   assert.match(textOf(view), /发现更新的发布版本（或发布信息已更新），已刷新至最新状态，请再次确认安装/)
   assert.match(textOf(view), /更新至 v0\.7\.15/)
+  releaseSnapshot()
+  await new Promise(resolve => setImmediate(resolve))
+  assert.equal(client.row('dsh-cite').release.version, '0.7.15', 'a delayed poll must not undo the newer check')
 
   // Opening the confirm dialog again clears the previous error and targets v0.7.15.
   findButtons(view).find(btn => /更新至 v0\.7\.15/.test(textOf(btn))).props.onClick()

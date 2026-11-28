@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.11 (2026-11-28)
+
+- Ignore out-of-order status responses so a delayed poll cannot roll back a newer update check or job status in plugin details.
+- Recognize Blender Studio as an independent plugin, including when Suite is active. Open its own repository and release notes from the update controls.
+
 ## 0.2.10 (2026-11-20)
 
 - Remove the shared `shell.overlay` update reminder, success/error cards and legacy floating fallback, including their state and styles. Keep update controls and outcomes in plugin detail pages and workbenches.

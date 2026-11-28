@@ -2,6 +2,7 @@ import semver from 'semver'
 
 // Deliberately fixed: request bodies cannot choose arbitrary packages or repositories.
 export const PACKAGES = Object.freeze({
+  'dsh-blender-studio': ['Blender 工作室', 'Blender Studio', 'dsh-blender-studio', 'main'],
   'dsh-calendar': ['日历', 'Calendar', 'dsh-calendar', 'main'],
   'dsh-cite': ['引文库', 'Citations', 'dsh-cite', 'master'],
   'dsh-code-security': ['代码安全', 'Code Security', 'dsh-code-security', 'master'],
@@ -25,7 +26,7 @@ export const PACKAGES = Object.freeze({
   'dsh-voice': ['语音', 'Voice', 'dsh-voice', 'master'],
 })
 export const SUITE = '@stardustlc/dsh-suite'
-export const SUITE_COMPONENTS = new Set(Object.keys(PACKAGES).filter(name => ![SUITE, '@stardustlc/dsh-review', 'deepseek-computer-use'].includes(name)))
+export const SUITE_COMPONENTS = new Set(Object.keys(PACKAGES).filter(name => ![SUITE, '@stardustlc/dsh-review', 'deepseek-computer-use', 'dsh-blender-studio'].includes(name)))
 export const AUTO_SCOPES = new Set(['patch', 'compatible'])
 export const DEFAULT_PACKAGE_PREFERENCES = Object.freeze({ checkEnabled: true, autoInstall: false, autoScope: 'compatible', deferredUntil: 0, ignoredVersion: null })
 export const DEFAULT_PREFERENCES = Object.freeze({ schema: 1, revision: 0, packages: Object.freeze({}) })
