@@ -1,5 +1,11 @@
 # 更新记录
 
+## 0.15.0 (2026-11-28)
+
+- 同步 18 个内置组件。RSS 支持逐源 SOCKS5 代理，Slack 可由新收件消息唤醒指定任务，Voice 保留长文分段边界的完整字符，FFmpeg 修正无效平均帧率的回退。
+- 更新组件保留最新检查结果。Email 从 0.33.3 升至 1.0.1，PPT 从 0.36.1 升至 1.1.1。
+- Sync all 18 bundled components, including per-feed RSS proxies, optional Slack inbox triggers, Unicode-safe speech chunks and accurate fallback frame rates. Plugin update controls retain newer status when polls finish out of order.
+
 ## 0.14.7 (2026-11-26)
 
 - 精确升级 `dsh-slack` 从 `0.5.8` 至 `0.6.1`：新增 4 个交互工具（`slack_history`、`slack_thread`、`slack_upload`、`slack_react`）与 `slack_health({ verify: true })` 在线鉴权，原生 `MarkdownBlock` 渲染（超长/`invalid_blocks` 自动降级纯文本），一键 `slack-app-manifest.yaml`，强化代理与二进制 `FormData` 传输、Socket Mode 卸载中止/防误连/自身消息自动过滤与收件箱规范去重，并通过真实 Slack 工作区全链路验收；其余 17 个组件保持 `0.14.6` 已验证版本。
